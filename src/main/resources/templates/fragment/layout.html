@@ -257,9 +257,12 @@
         <div class="input-group ">
           <input class="form-control rounded" type="search" placeholder="Search for products">
           <span class="input-group-append">
-                <button class="btn bg-white border border-start-0 ms-n10 rounded-0 rounded-end" type="button">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                <button class="btn bg-white border border-start-0 ms-n10 rounded-0 rounded-end"
+                        type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                       fill="none"
+                       stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                       stroke-linejoin="round"
                        class="feather feather-search">
                     <circle cx="11" cy="11" r="8"></circle>
                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -270,53 +273,55 @@
       </form>
     </div>
 
-    <ul class="horizontal-center ">
-      <li class="nav-item header-nav-item">
-        <a class="nav-link" href="/restaurants" role="button">식당</a>
-      </li>
 
-      <li class="nav-item header-nav-item">
-        <a class="nav-link" href="/goods" role="button">상점</a>
-      </li>
+    <div class="d-none d-lg-block">
+      <ul class="horizontal-center">
+        <li class="nav-item header-nav-item">
+          <a class="nav-link" href="/restaurants" role="button">식당</a>
+        </li>
 
-      <li class="nav-item header-nav-item">
-        <a class="nav-link" href="/community" role="button">커뮤니티</a>
-      </li>
+        <li class="nav-item header-nav-item">
+          <a class="nav-link" href="/goods" role="button">상점</a>
+        </li>
 
-      <li class="nav-item header-nav-item">
-        <a class="nav-link" href="/events" role="button">이벤트</a>
-      </li>
-    </ul>
-  </nav>
-<!-- navbar-expand-lg 하면 가로로 배치 됨 근데 이게 문제가 아닌듯 이건 네비게이션 바로 인식되나 , 뭔가 여기서 지지고 볶으면 될듯-->
-  <!--<nav class="navbar navbar-expand-lg navbar-light navbar-default py-0 py-lg-4 ">
-    <div class="container px-0 px-md-3">
-      <div class="p-4 p-lg-0" id="navbar-default">
+        <li class="nav-item header-nav-item">
+          <a class="nav-link" href="/community" role="button">커뮤니티</a>
+        </li>
 
-        <div class="d-block">
-          <ul class="horizontal-center ">
-            <li class="nav-item header-nav-item">
-              <a class="nav-link" href="/restaurants" role="button">식당</a> &lt;!&ndash;role="button"은 a 태그가 버튼처럼 동작하게 하는 것&ndash;&gt;
-            </li>
+        <li class="nav-item header-nav-item">
+          <a class="nav-link" href="/events" role="button">이벤트</a>
+        </li>
+      </ul>
 
-            <li class="nav-item header-nav-item">
-              <a class="nav-link" href="/goods" role="button">상점</a> &lt;!&ndash;goods : 우리 시스템 상점에서 파는 상품들이므로 goods 라고 함&ndash;&gt;
-            </li>
-
-            <li class="nav-item header-nav-item">
-              <a class="nav-link" href="/community" role="button">커뮤니티</a> &lt;!&ndash;커뮤니티 , 보드&ndash;&gt;
-            </li>
-
-            <li class="nav-item header-nav-item">
-              <a class="nav-link" href="/events" role="button">이벤트</a> &lt;!&ndash;커뮤니티 , 보드&ndash;&gt;
-            </li>
-          </ul>
-        </div>
-
-      </div>
     </div>
 
-  </nav>-->
+
+      <div class="d-block d-lg-none">
+
+        <ul class="horizontal-center">
+          <li class="nav-item header-nav-item">
+            <a class="nav-link" href="/restaurants" role="button">식당</a>
+          </li>
+
+          <li class="nav-item header-nav-item">
+            <a class="nav-link" href="/goods" role="button">상점</a>
+          </li>
+
+          <li class="nav-item header-nav-item">
+            <a class="nav-link" href="/community" role="button">커뮤니티</a>
+          </li>
+
+          <li class="nav-item header-nav-item">
+            <a class="nav-link" href="/events" role="button">이벤트</a>
+          </li>
+        </ul>
+
+      </div>
+
+
+    </div>
+  </nav>
+
 </div>
 
 

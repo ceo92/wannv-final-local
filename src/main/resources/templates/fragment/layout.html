@@ -43,41 +43,36 @@
             list-style: none;
             padding: 0;
             margin: 0;
+       }
+      .nav {
+            display: flex;
+            margin-left: auto;
+       }
+
+      .header-nav {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 1rem;
+       }
+
+      .header-nav-item {
+
+            padding: 0.5rem 1.8rem;
+
+            margin-left: 0.25rem;
+            color: #333;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-decoration: none;
+            border-radius: 3px;
+            transition: background-color 0.3s;
         }
 
-
-
-
-      .nav {
-    display: flex;
-    margin-left: auto;
-}
-
-.header-nav {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 1rem;
-}
-
-.header-nav-item {
-
-    padding: 0.5rem 1.8rem;
-
-    margin-left: 0.25rem;
-    background-color: #B6FFA1; /* 연두색 배경 */
-    color: #333;
-    font-weight: bold;
-    font-size: 1rem;
-    text-decoration: none;
-    border-radius: 3px;
-    transition: background-color 0.3s;
-}
-
-/* 호버 효과 */
-.header-nav-item:hover {
-    background-color: #A8E892; /* 더 진한 연두색 */
-}
+        /* 호버 효과 */
+        .header-nav-item:hover {
+            color: #7BCC65; /* 더 진한 연두색 */
+        }
 
     </style>
 </head>
@@ -171,10 +166,10 @@
         <!--로고랑 검색바 띄울려고-->
         <br>
         <br>
-
+<!--경민이밖에없넹 ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ 고마워요-->
         <!--검색 바(데스크탑 , 모바일 UI 공통 , 왜 공통이냐면 햄버거 없애고 검색바 삭제했거든)-->
         <div class="col-xxl-9 col-lg-5 d-lg-block">
-          <form action="#">
+          <form action="/search">
             <div class="input-group ">
 
               <input class="form-control rounded" type="search" placeholder="Search for products">

@@ -61,19 +61,22 @@
 }
 
 .header-nav-item {
-    padding: 0.5rem 1rem;
-    margin-left: 0.5rem;
-    background-color: #b2ff59; /* 연두색 배경 */
+
+    padding: 0.5rem 1.8rem;
+
+    margin-left: 0.25rem;
+    background-color: #B6FFA1; /* 연두색 배경 */
     color: #333;
     font-weight: bold;
+    font-size: 1rem;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 3px;
     transition: background-color 0.3s;
 }
 
 /* 호버 효과 */
 .header-nav-item:hover {
-    background-color: #a4e54e; /* 더 진한 연두색 */
+    background-color: #A8E892; /* 더 진한 연두색 */
 }
 
     </style>
@@ -248,35 +251,55 @@
     </div>
   </div>
 
+
+  <nav>
+    <ul class="horizontal-center ">
+      <li class="nav-item header-nav-item">
+        <a class="nav-link" href="/restaurants" role="button">식당</a>
+      </li>
+
+      <li class="nav-item header-nav-item">
+        <a class="nav-link" href="/goods" role="button">상점</a>
+      </li>
+
+      <li class="nav-item header-nav-item">
+        <a class="nav-link" href="/community" role="button">커뮤니티</a>
+      </li>
+
+      <li class="nav-item header-nav-item">
+        <a class="nav-link" href="/events" role="button">이벤트</a>
+      </li>
+    </ul>
+  </nav>
 <!-- navbar-expand-lg 하면 가로로 배치 됨 근데 이게 문제가 아닌듯 이건 네비게이션 바로 인식되나 , 뭔가 여기서 지지고 볶으면 될듯-->
-  <nav class="navbar navbar-expand-lg navbar-light navbar-default py-0 py-lg-4 ">
+  <!--<nav class="navbar navbar-expand-lg navbar-light navbar-default py-0 py-lg-4 ">
     <div class="container px-0 px-md-3">
       <div class="p-4 p-lg-0" id="navbar-default">
 
         <div class="d-block">
           <ul class="horizontal-center ">
             <li class="nav-item header-nav-item">
-              <a class="nav-link" href="/restaurants" role="button">식당</a> <!--role="button"은 a 태그가 버튼처럼 동작하게 하는 것-->
+              <a class="nav-link" href="/restaurants" role="button">식당</a> &lt;!&ndash;role="button"은 a 태그가 버튼처럼 동작하게 하는 것&ndash;&gt;
             </li>
 
             <li class="nav-item header-nav-item">
-              <a class="nav-link" href="/goods" role="button">상점</a> <!--goods : 우리 시스템 상점에서 파는 상품들이므로 goods 라고 함-->
+              <a class="nav-link" href="/goods" role="button">상점</a> &lt;!&ndash;goods : 우리 시스템 상점에서 파는 상품들이므로 goods 라고 함&ndash;&gt;
             </li>
 
             <li class="nav-item header-nav-item">
-              <a class="nav-link" href="/community" role="button">커뮤니티</a> <!--커뮤니티 , 보드-->
+              <a class="nav-link" href="/community" role="button">커뮤니티</a> &lt;!&ndash;커뮤니티 , 보드&ndash;&gt;
             </li>
 
             <li class="nav-item header-nav-item">
-              <a class="nav-link" href="/events" role="button">이벤트</a> <!--커뮤니티 , 보드-->
+              <a class="nav-link" href="/events" role="button">이벤트</a> &lt;!&ndash;커뮤니티 , 보드&ndash;&gt;
             </li>
           </ul>
         </div>
-        
+
       </div>
     </div>
 
-  </nav>
+  </nav>-->
 </div>
 
 

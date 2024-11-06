@@ -44,7 +44,11 @@
             padding: 0;
             margin: 0;
        }
+
+
       .nav {
+
+
             display: flex;
             margin-left: auto;
        }
@@ -56,10 +60,24 @@
             margin-top: 1rem;
        }
 
-      .header-nav-item {
+       .desktop-header-nav-item {
+            padding: 0.5rem 5rem;
+            margin-left: 0.25rem;
+            color: #333;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-decoration: none;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+        /* 호버 효과 */
+        .desktop-header-nav-item:hover {
+            color: #7BCC65; /* 더 진한 연두색 */
+        }
 
+
+      .mobile-header-nav-item {
             padding: 0.5rem 1.8rem;
-
             margin-left: 0.25rem;
             color: #333;
             font-weight: bold;
@@ -70,9 +88,13 @@
         }
 
         /* 호버 효과 */
-        .header-nav-item:hover {
+        .mobile-header-nav-item:hover {
             color: #7BCC65; /* 더 진한 연두색 */
         }
+
+
+
+
 
     </style>
 </head>
@@ -274,52 +296,54 @@
     </div>
 
 
+    <!--데스크탑 네비게이션 바-->
     <div class="d-none d-lg-block">
       <ul class="horizontal-center">
-        <li class="nav-item header-nav-item">
+        <li class="nav-item desktop-header-nav-item">
           <a class="nav-link" href="/restaurants" role="button">식당</a>
         </li>
 
-        <li class="nav-item header-nav-item">
+        <li class="nav-item desktop-header-nav-item">
           <a class="nav-link" href="/goods" role="button">상점</a>
         </li>
 
-        <li class="nav-item header-nav-item">
+        <li class="nav-item desktop-header-nav-item">
           <a class="nav-link" href="/community" role="button">커뮤니티</a>
         </li>
 
-        <li class="nav-item header-nav-item">
+        <li class="nav-item desktop-header-nav-item">
           <a class="nav-link" href="/events" role="button">이벤트</a>
         </li>
       </ul>
 
+
     </div>
 
 
+      <!--모바일 네비게이션 바-->
       <div class="d-block d-lg-none">
 
         <ul class="horizontal-center">
-          <li class="nav-item header-nav-item">
+          <li class="nav-item mobile-header-nav-item">
             <a class="nav-link" href="/restaurants" role="button">식당</a>
           </li>
 
-          <li class="nav-item header-nav-item">
+          <li class="nav-item mobile-header-nav-item">
             <a class="nav-link" href="/goods" role="button">상점</a>
           </li>
 
-          <li class="nav-item header-nav-item">
+          <li class="nav-item mobile-header-nav-item">
             <a class="nav-link" href="/community" role="button">커뮤니티</a>
           </li>
 
-          <li class="nav-item header-nav-item">
+          <li class="nav-item mobile-header-nav-item">
             <a class="nav-link" href="/events" role="button">이벤트</a>
           </li>
         </ul>
-
       </div>
 
 
-    </div>
+
   </nav>
 
 </div>

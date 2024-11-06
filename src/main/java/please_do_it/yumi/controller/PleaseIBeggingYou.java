@@ -7,11 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Slf4j
 public class PleaseIBeggingYou {
-
   @RequestMapping
-  public String fsduisdfiu(){
-    log.info("sfdjsdfju");
-    return "fragment/layout";
+  public String sdfj(){
+    return "index";
   }
 
 }

@@ -168,13 +168,8 @@
         <br>
 <!--경민이밖에없넹 ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ 고마워요-->
 
-
-
-
-
-
         <!--검색 바(데스크탑)-->
-        <div class="col-xxl-9 col-lg-5 d-lg-block d-none"> 
+        <div class="col-xxl-9 col-lg-5 d-lg-block d-none">
           <form action="/search">
             <div class="input-group ">
 
@@ -193,24 +188,7 @@
           </form>
         </div>
 
-        <!--검색바 : 모바일-->
-        <div class="d-block d-lg-none my-4">
-          <form action="#">
-            <div class="input-group ">
-              <input class="form-control rounded" type="search" placeholder="Search for products">
-              <span class="input-group-append">
-                <button class="btn bg-white border border-start-0 ms-n10 rounded-0 rounded-end" type="button">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                       class="feather feather-search">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                  </svg>
-                </button>
-              </span>
-            </div>
-          </form>
-        </div>
+
 
         <!-- 찜+ 장바구니 + 마이페이지 이동 버튼 영역 크기 조절 관련 -->
         <div class="col-md-2 col-xxl-1 text-end d-none d-lg-block">
@@ -273,6 +251,25 @@
 
 
   <nav>
+    <!--검색바 : 모바일-->
+    <div class="d-block d-lg-none">
+      <form action="/search">
+        <div class="input-group ">
+          <input class="form-control rounded" type="search" placeholder="Search for products">
+          <span class="input-group-append">
+                <button class="btn bg-white border border-start-0 ms-n10 rounded-0 rounded-end" type="button">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                       class="feather feather-search">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </button>
+              </span>
+        </div>
+      </form>
+    </div>
+
     <ul class="horizontal-center ">
       <li class="nav-item header-nav-item">
         <a class="nav-link" href="/restaurants" role="button">식당</a>

@@ -8,8 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class PleaseIBeggingYou {
   @RequestMapping
-  public String sdfj(){
+  public String sddfj(){
     return "index";
   }
+
+  @RequestMapping("/restaurants")
+  public String sdfj(){
+    return "restaurant/restaurants";
+  }
+
+
 
 }

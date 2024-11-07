@@ -7,6 +7,9 @@
   <link href="/assets/libs/slick-carousel/slick/slick.css" th:href="@{/assets/libs/slick-carousel/slick/slick.css}" rel="stylesheet" />
   <link href="/assets/libs/slick-carousel/slick/slick-theme.css" th:href="@{/assets/libs/slick-carousel/slick/slick-theme.css}" rel="stylesheet" />
   <link href="/assets/libs/tiny-slider/dist/tiny-slider.css" th:href="@{/assets/libs/tiny-slider/dist/tiny-slider.css}" rel="stylesheet">
+  <link href="../assets/libs/nouislider/dist/nouislider.min.css" th:href="@{/assets/libs/nouislider/dist/nouislider.min.css}" rel="stylesheet">
+
+
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -502,6 +505,8 @@
 </footer>
 
 <!-- Javascript-->
+<script src="../assets/libs/nouislider/dist/nouislider.min.js" th:src="@{/assets/libs/nouislider/dist/nouislider.min.js}"></script>
+<script src="../assets/libs/wnumb/wNumb.min.js" th:src="@{/assets/libs/wnumb/wNumb.min.js}"></script>
 
 <!-- Libs JS -->
 <script src="../static/assets/libs/jquery/dist/jquery.min.js" th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
@@ -519,6 +524,20 @@
 <script src="../static/assets/js/vendors/zoom.js" th:src="@{/assets/js/vendors/zoom.js}"></script>
 <script src="../static/assets/js/vendors/increment-value.js" th:src="@{/assets/js/vendors/increment-value.js}"></script>
 
+
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c78327fc1a5da84f528e0eb3c96df1ef&libraries=services,clusterer,drawing"></script>
+<script th:inline="javascript">
+  var container = document.getElementById('map');
+  var options = {
+    center: new kakao.maps.LatLng(33.450701, 126.570667),
+    level: 3
+  };
+
+  var map = new kakao.maps.Map(container, options);
+  console.log(map);
+
+</script>
 
 
 </body>

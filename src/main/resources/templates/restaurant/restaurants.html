@@ -1,5 +1,8 @@
 <html th:replace="~{fragment/layout.html :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
 
+
+
+<main>
   <main>
 
   <!-- section -->
@@ -15,7 +18,7 @@
               <h5 class="offcanvas-title" id="offcanvasCategoryLabel">필터</h5>
               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-
+        <!-- js에 오류가 있으니 당연히 안 나왔겠지 멍충아!-->
         <div class="offcanvas-body ps-lg-2 pt-lg-0">
 
           <div class="mb-8 d-none d-lg-block">
@@ -23,19 +26,15 @@
             <hr>
           </div>
 
-
           <div class="mb-8">
-            <h5 class="mb-3">Stores</h5>
-            <div class="my-4">
-              <!-- input -->
-              <input type="search" class="form-control" placeholder="Search by store">
-            </div>
+            <h5 class="mb-3">포함 음식</h5>
+
             <!-- form check -->
             <div class="form-check mb-2">
               <!-- input -->
               <input class="form-check-input" type="checkbox" value="" id="eGrocery" checked>
               <label class="form-check-label" for="eGrocery">
-                E-Grocery
+                유제품
               </label>
             </div>
             <!-- form check -->
@@ -43,7 +42,7 @@
               <!-- input -->
               <input class="form-check-input" type="checkbox" value="" id="DealShare">
               <label class="form-check-label" for="DealShare">
-                DealShare
+                계란
               </label>
             </div>
             <!-- form check -->
@@ -51,7 +50,7 @@
               <!-- input -->
               <input class="form-check-input" type="checkbox" value="" id="Dmart">
               <label class="form-check-label" for="Dmart">
-                DMart
+                동물의 알
               </label>
             </div>
             <!-- form check -->
@@ -59,7 +58,7 @@
               <!-- input -->
               <input class="form-check-input" type="checkbox" value="" id="Blinkit">
               <label class="form-check-label" for="Blinkit">
-                Blinkit
+                생선
               </label>
             </div>
             <!-- form check -->
@@ -67,52 +66,315 @@
               <!-- input -->
               <input class="form-check-input" type="checkbox" value="" id="BigBasket">
               <label class="form-check-label" for="BigBasket">
-                BigBasket
+                닭고기
               </label>
             </div>
-            <!-- form check -->
-            <div class="form-check mb-2">
-              <!-- input -->
-              <input class="form-check-input" type="checkbox" value="" id="StoreFront">
-              <label class="form-check-label" for="StoreFront">
-                StoreFront
-              </label>
-            </div>
-            <!-- form check -->
-            <div class="form-check mb-2">
-              <!-- input -->
-              <input class="form-check-input" type="checkbox" value="" id="Spencers">
-              <label class="form-check-label" for="Spencers">
-                Spencers
-              </label>
-            </div>
-            <!-- form check -->
-            <div class="form-check mb-2">
-              <!-- input -->
-              <input class="form-check-input" type="checkbox" value="" id="onlineGrocery">
-              <label class="form-check-label" for="onlineGrocery">
-                Online Grocery
-              </label>
-            </div>
+          </div>
+
+
+          <div class="mb-8">
+            <h5 class="mb-3">위치(지도)</h5>
+            <div id="map" style="width:300px;height:200px;"></div>
 
           </div>
+
+          <div class="mb-8">
+            <h5 class="mb-3">위치(검색)</h5>
+            <!-- form check -->
+
+          </div>
+
+
+
+
+
           <div class="mb-8">
             <!-- price -->
-            <h5 class="mb-3">Price</h5>
+            <h5 class="mb-3">평균 가격대</h5>
             <div>
               <!-- range -->
               <div id="priceRange" class="mb-3"></div>
-              <small class="text-muted">Price:</small> <span id="priceRange-value" class="small"></span>
+              <small class="text-muted">평균 가격대:</small> <span id="priceRange-value" class="small"></span>
 
             </div>
-
-
-
           </div>
+
+
+          <div class="mb-8">
+            <h5 class="mb-3">영업 중 여부</h5>
+            <!-- form check -->
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" checked>
+              <label class="form-check-label" for="eGrocery">
+                영업 중
+              </label>
+            </div>
+          </div>
+
+          <div class="mb-8">
+            <h5 class="mb-3">주차 가능 여부</h5>
+            <!-- form check -->
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value=""  checked>
+              <label class="form-check-label" for="eGrocery">
+                주차 가능
+              </label>
+            </div>
+          </div>
+
+
+
+          <div class="mb-8">
+            <h5 class="mb-3">음식 종류</h5>
+            <!-- form check -->
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value=""  checked>
+              <label class="form-check-label" for="eGrocery">
+                한식
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value=""  checked>
+              <label class="form-check-label" for="eGrocery">
+                일식
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" checked>
+              <label class="form-check-label" for="eGrocery">
+                중식
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value=""  checked>
+              <label class="form-check-label" for="eGrocery">
+                양식
+              </label>
+            </div>
+          </div>
+
+
+
+          <div class="mb-8">
+            <h5 class="mb-3">서비스</h5>
+
+            <!-- form check -->
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value=""  checked>
+              <label class="form-check-label" for="eGrocery">
+                콜키지 가능
+              </label>
+            </div>
+            <!-- form check -->
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="DealShare">
+                글루텐프리 메뉴
+              </label>
+            </div>
+            <!-- form check -->
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="Dmart">
+                단체 이용 가능
+              </label>
+            </div>
+            <!-- form check -->
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="Blinkit">
+                무선 인터넷
+              </label>
+            </div>
+            <!-- form check -->
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="BigBasket">
+                포장
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="BigBasket">
+                남녀 화장실 구분
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="BigBasket">
+                배달
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="BigBasket">
+                장애인 휠체어 이용 가능
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="BigBasket">
+                출입구 휠체어 이용 가능
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="BigBasket">
+                좌석 휠체어 이용 가능
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="BigBasket">
+                유아의자 존재
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="BigBasket">
+                반려동물 동반
+              </label>
+            </div>
+          </div>
+
+
+
+          <div class="mb-8">
+            <h5 class="mb-3">분위기</h5>
+
+            <!-- form check -->
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value=""  checked>
+              <label class="form-check-label" for="eGrocery">
+                데이트
+              </label>
+            </div>
+            <!-- form check -->
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="DealShare">
+                비즈니스미팅
+              </label>
+            </div>
+            <!-- form check -->
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="Dmart">
+                기념일
+              </label>
+            </div>
+            <!-- form check -->
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="Blinkit">
+                단체회식
+              </label>
+            </div>
+            <!-- form check -->
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="BigBasket">
+                가족모임
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="BigBasket">
+                뷰맛집
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="BigBasket">
+                상견례
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="BigBasket">
+                조용한
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="BigBasket">
+                모던한
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="BigBasket">
+                전통적인
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="BigBasket">
+                트렌디한
+              </label>
+            </div>
+
+            <div class="form-check mb-2">
+              <!-- input -->
+              <input class="form-check-input" type="checkbox" value="" >
+              <label class="form-check-label" for="BigBasket">
+                활기찬
+              </label>
+            </div>
+          </div>
+
+
+
+
           <!-- rating -->
           <div class="mb-8">
 
-            <h5 class="mb-3">Rating</h5>
+            <h5 class="mb-3">평점</h5>
             <div>
               <!-- form check -->
               <div class="form-check mb-2">
@@ -138,6 +400,7 @@
                   <i class="bi bi-star text-warning"></i>
                 </label>
               </div>
+
               <!-- form check -->
               <div class="form-check mb-2">
                 <!-- input -->
@@ -178,20 +441,7 @@
 
 
           </div>
-          <div class="mb-8 position-relative">
-            <!-- Banner Design -->
-            <!-- Banner Content -->
-            <div class="position-absolute p-5 py-8">
-              <h3 class="mb-0">Fresh Fruits </h3>
-              <p>Get Upto 25% Off</p>
-              <a href="#" class="btn btn-dark">Shop Now<i class="feather-icon icon-arrow-right ms-1"></i></a>
-            </div>
-            <!-- Banner Content -->
-            <!-- Banner Image -->
-            <!-- img --><img src="../../static/assets/images/banner/assortment-citrus-fruits.png" alt=""
-                             class="img-fluid rounded ">
-            <!-- Banner Image -->
-          </div>
+
           </div>
         </div>
         </aside>
@@ -266,9 +516,8 @@
                         <div class=" position-absolute top-0">
                           <!-- badge --> <span class="badge bg-danger">Sale</span>
                         </div>
-                        <a href="../pages/shop-single.html">
-                          <!-- img --><img src="../../static/assets/images/products/product-img-1.jpg"
-                            alt="Grocery Ecommerce Template" class="mb-3 img-fluid"></a>
+                        <a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}">
+                          <!-- img --><img src="" alt="Grocery Ecommerce Template" class="mb-3 img-fluid"></a>
 
                       </div>
                     </div>
@@ -276,7 +525,7 @@
                       <!-- heading -->
                       <div class="text-small mb-1"><a href="#!" class="text-decoration-none text-muted"><small>Snack &
                             Munchies</small></a></div>
-                      <h2 class="fs-6"><a href="../pages/shop-single.html" class="text-inherit text-decoration-none">Haldiram's Sev Bhujia</a>
+                      <h2 class="fs-6"><a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}" class="text-inherit text-decoration-none">Haldiram's Sev Bhujia</a>
                       </h2>
                       <div>
 
@@ -333,8 +582,8 @@
                     <div class="col-md-4 col-12">
 
                       <div class="text-center position-relative ">
-                        <a href="../pages/shop-single.html">
-                          <!-- img --><img src="../../static/assets/images/products/product-img-2.jpg"
+                        <a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}">
+                          <!-- img --><img src=""
                             alt="Grocery Ecommerce Template" class="mb-3 img-fluid"></a>
 
                       </div>
@@ -343,7 +592,7 @@
                       <!-- heading -->
                       <div class="text-small mb-1"><a href="#!" class="text-decoration-none text-muted"><small>Bakery &
                             Biscuits</small></a></div>
-                      <h2 class="fs-6"><a href="../pages/shop-single.html" class="text-inherit text-decoration-none">NutriChoice Digestive</a>
+                      <h2 class="fs-6"><a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}" class="text-inherit text-decoration-none">NutriChoice Digestive</a>
                       </h2>
                       <div>
 
@@ -399,8 +648,8 @@
                         <div class=" position-absolute top-0">
                           <!-- badge --> <span class="badge bg-success">14%</span>
                         </div>
-                        <a href="../pages/shop-single.html">
-                          <!-- img --><img src="../../static/assets/images/products/product-img-10.jpg"
+                        <a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}">
+                          <!-- img --><img src=""
                             alt="Grocery Ecommerce Template" class="mb-3 img-fluid"></a>
 
                       </div>
@@ -409,7 +658,7 @@
                       <!-- heading -->
                       <div class="text-small mb-1"><a href="#!" class="text-decoration-none text-muted"><small>Bakery &
                             Biscuits</small></a></div>
-                      <h2 class="fs-6"><a href="../pages/shop-single.html" class="text-inherit text-decoration-none">Cadbury 5 Star
+                      <h2 class="fs-6"><a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}" class="text-inherit text-decoration-none">Cadbury 5 Star
                           Chocolate</a></h2>
                       <div>
 
@@ -462,8 +711,8 @@
                     <div class="col-md-4 col-12">
 
                       <div class="text-center position-relative">
-                        <a href="../pages/shop-single.html">
-                          <!-- img --><img src="../../static/assets/images/products/product-img-4.jpg"
+                        <a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}">
+                          <!-- img --><img src=""
                             alt="Grocery Ecommerce Template" class="mb-3 img-fluid"></a>
 
                       </div>
@@ -472,7 +721,7 @@
                       <!-- heading -->
                       <div class="text-small mb-1"><a href="#!" class="text-decoration-none text-muted"><small>Snack &
                             Munchies</small></a></div>
-                      <h2 class="fs-6"><a href="../pages/shop-single.html" class="text-inherit text-decoration-none">Onion Flavour Potato</a>
+                      <h2 class="fs-6"><a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}" class="text-inherit text-decoration-none">Onion Flavour Potato</a>
                       </h2>
                       <div>
 
@@ -526,8 +775,8 @@
                     <div class="col-md-4 col-12">
 
                       <div class="text-center position-relative">
-                        <a href="../pages/shop-single.html">
-                          <!-- img --><img src="../../static/assets/images/products/product-img-5.jpg"
+                        <a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}">
+                          <!-- img --><img src=""
                             alt="Grocery Ecommerce Template" class="mb-3 img-fluid"></a>
 
                       </div>
@@ -536,7 +785,7 @@
                       <!-- heading -->
                       <div class="text-small mb-1"><a href="#!" class="text-decoration-none text-muted"><small>Instant
                             Food</small></a></div>
-                      <h2 class="fs-6"><a href="../pages/shop-single.html" class="text-inherit text-decoration-none">Salted Instant Popcorn</a>
+                      <h2 class="fs-6"><a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}" class="text-inherit text-decoration-none">Salted Instant Popcorn</a>
                       </h2>
                       <div>
 
@@ -634,12 +883,12 @@
                 class="zoom"
                 onmousemove="zoom(event)"
                 style="
-                  background-image: url(../assets/images/products/product-single-img-1.jpg);
+                  background-image: url(/assets/images/products/product-single-img-1.jpg);
                 "
               >
                 <!-- img -->
                 <img
-                  src="../../static/assets/images/products/product-single-img-1.jpg"
+                  src="/assets/images/products/product-single-img-1.jpg"
                   alt=""
             >
               </div>
@@ -653,7 +902,7 @@
                 >
                   <!-- img -->
                   <img
-                    src="../../static/assets/images/products/product-single-img-2.jpg"
+                    src="/assets/images/products/product-single-img-2.jpg"
                     alt=""
               >
                 </div>
@@ -668,7 +917,7 @@
                 >
                   <!-- img -->
                   <img
-                    src="../../static/assets/images/products/product-single-img-3.jpg"
+                    src="/assets/images/products/product-single-img-3.jpg"
                     alt=""
               >
                 </div>
@@ -683,7 +932,7 @@
                 >
                   <!-- img -->
                   <img
-                    src="../../static/assets/images/products/product-single-img-4.jpg"
+                    src="/assets/images/products/product-single-img-4.jpg"
                     alt=""
               >
                 </div>
@@ -696,7 +945,7 @@
                   <div class="thumbnails-img">
                     <!-- img -->
                     <img
-                      src="../../static/assets/images/products/product-single-img-1.jpg"
+                      src="/assets/images/products/product-single-img-1.jpg"
                       alt=""
                 >
                   </div>
@@ -705,7 +954,7 @@
                   <div class="thumbnails-img" >
                     <!-- img -->
                     <img
-                      src="../../static/assets/images/products/product-single-img-2.jpg"
+                      src="/assets/images/products/product-single-img-2.jpg"
                       alt=""
                 >
                   </div>
@@ -714,7 +963,7 @@
                   <div class="thumbnails-img">
                     <!-- img -->
                     <img
-                      src="../../static/assets/images/products/product-single-img-3.jpg"
+                      src="/assets/images/products/product-single-img-3.jpg"
                       alt=""
                 >
                   </div>
@@ -723,7 +972,7 @@
                   <div class="thumbnails-img">
                     <!-- img -->
                     <img
-                      src="../../static/assets/images/products/product-single-img-4.jpg"
+                      src="/assets/images/products/product-single-img-4.jpg"
                       alt=""
                 >
                   </div>
@@ -842,6 +1091,7 @@
 </div>
 
 
+</main>
 
 
 

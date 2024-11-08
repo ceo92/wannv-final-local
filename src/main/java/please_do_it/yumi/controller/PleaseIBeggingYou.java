@@ -18,5 +18,18 @@ public class PleaseIBeggingYou {
   }
 
 
+  @RequestMapping("/restaurant")
+  public String sdf222j(){
+    return "restaurant/restaurant";
+  }
+
+
+  @RequestMapping("/abc")
+  public String sfdf(){
+    return "restaurant/";
+  }
+
+
+
 
 }

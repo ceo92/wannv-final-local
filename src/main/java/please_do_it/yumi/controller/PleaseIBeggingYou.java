@@ -26,7 +26,12 @@ public class PleaseIBeggingYou {
 
   @RequestMapping("/abc")
   public String sfdf(){
-    return "restaurant/";
+    return "kyungmin/test-restaurants";
+  }
+
+  @RequestMapping("/aaaa")
+  public String sfdfddddd(){
+    return "fragment/admin-layout";
   }
 
 

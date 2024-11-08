@@ -9,16 +9,20 @@
       <!-- container -->
       <div class="container">
         <div class="row gx-10">
-          <!-- col -->
+
+
+          <!-- aside : 필터 관련 모든 것 -->
           <aside class="col-lg-3 col-md-4 mb-6 mb-md-0">
             <div class="offcanvas offcanvas-start offcanvas-collapse w-md-50 " tabindex="-1" id="offcanvasCategory" aria-labelledby="offcanvasCategoryLabel">
 
+
+              <!-- 필터 영역-->
               <div class="offcanvas-header d-lg-none">
                 <h5 class="offcanvas-title" id="offcanvasCategoryLabel">필터</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div>
 
-              <!-- js에 오류가 있으니 당연히 안 나왔겠지 멍충아! , 아니야 레이아웃 밑에 정의해야됨-->
+              <!-- 실제 필터링 영역-->
               <div class="offcanvas-body ps-lg-2 pt-lg-0">
                 <div class="mb-8 d-none d-lg-block">
                   <h5 class="mb-3" >필터</h5>
@@ -72,21 +76,10 @@
 
 
                 <div class="mb-8">
-                  <h5 class="mb-3">위치(지도)</h5>
-                  <a href="/jido"><img src="/assets/images/goJido.svg" style="width:17rem;height:10rem"></a>
-                  <!--            <div id="map" style="width:300px;height:200px;"></div>-->
-                </div>
-
-
-
-
-                <div class="mb-8">
-                  <h5 class="mb-3">위치(검색)</h5>
+                  <h5 class="mb-3">위치</h5>
                   <!-- form check -->
 
                 </div>
-
-
 
 
 
@@ -372,7 +365,6 @@
 
 
 
-
                 <!-- rating -->
                 <div class="mb-8">
 
@@ -440,22 +432,27 @@
                       </label>
                     </div>
                   </div>
-
-
                 </div>
-
               </div>
+              <!--실제 필터링 영역 끝-->
             </div>
+            <!-- 필터 영역-->
           </aside>
+
+          <!-- 메인 컨텐츠 영역-->
           <section class="col-lg-9 col-md-12">
-            <!-- card -->
-            <div class="card mb-4 bg-light border-0">
+
+
+            <!-- 메인 컨텐츠 헤더 -->
+            <div class="mb-2" >
               <!-- card body -->
               <div class="card-body p-9">
-                <h2 class="mb-0 fs-1">Snacks & Munchies</h2>
+                <h3 class="mb-0 fs-1">식당</h3>
               </div>
             </div>
-            <!-- text -->
+
+
+            <!-- 메인 정렬 및 페이징 -->
             <div class="d-lg-flex justify-content-between align-items-center">
               <div class="mb-3 mb-lg-0">
                 <p class="mb-0"> <span class="text-dark">24 </span> Products found </p>
@@ -464,18 +461,13 @@
               <!-- icon -->
               <div class="d-md-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center justify-content-between">
-                  <div>
 
-                    <a href="restaurants.html" class="active me-3"><i class="bi bi-list-ul"></i></a>
-                    <a href="../pages/shop-grid.html" class=" me-3 text-muted"><i class="bi bi-grid"></i></a>
-                    <a href="../pages/shop-grid-3-column.html" class="me-3 text-muted"><i class="bi bi-grid-3x3-gap"></i></a>
-                  </div>
                   <div class="ms-2 d-lg-none">
                     <a class="btn btn-outline-gray-400 text-muted" data-bs-toggle="offcanvas" href="#offcanvasCategory" role="button" aria-controls="offcanvasCategory"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
                                                                                                                                                                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                                                                                                                                                              class="feather feather-filter me-2">
                       <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                    </svg> Filters</a>
+                    </svg> 필터</a>
                   </div>
                 </div>
 
@@ -503,7 +495,12 @@
 
               </div>
             </div>
-            <!-- row -->
+
+            <div class="" id="map" style="width:100%;height:400px;"></div>
+
+
+
+            <!-- 메인 컨텐츠(식당 목록) -->
             <div class="row g-4  row-cols-1 mt-2">
               <div class="col">
                 <!-- card -->

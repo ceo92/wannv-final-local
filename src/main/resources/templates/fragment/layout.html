@@ -26,6 +26,8 @@
     gtag('config', 'G-M8S4MT3EYG');
   </script>
 
+  <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=j5wkzwk5m8"></script>
+
   <!-- Favicon icon-->
   <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon/favicon.ico" th:href="@{/assets/images/favicon/favicon.ico}">
 
@@ -529,8 +531,8 @@
 
 
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c78327fc1a5da84f528e0eb3c96df1ef&libraries=services,clusterer,drawing"></script>
-<script th:inline="javascript">
+<!--<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c78327fc1a5da84f528e0eb3c96df1ef&libraries=services,clusterer,drawing"></script>-->
+<!--<script th:inline="javascript">
   var container = document.getElementById('map');
   var options = {
     center: new kakao.maps.LatLng(33.450701, 126.570667),
@@ -540,6 +542,16 @@
   var map = new kakao.maps.Map(container, options);
   console.log(map);
 
+</script>-->
+
+
+<script th:inline="javascript">
+  var mapOptions = {
+      center: new naver.maps.LatLng(37.3595704, 127.105399),
+      zoom: 10
+  };
+
+  var map = new naver.maps.Map('map', mapOptions);
 </script>
 
 

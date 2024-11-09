@@ -529,66 +529,52 @@
                 <div class="card card-product">
                   <!-- card body -->
                   <div class="card-body">
-                    <div class=" row align-items-center">
-                      <!-- col -->
-                      <div class="col-md-4 col-12">
-
-                        <div class="text-center position-relative ">
-                          <div class=" position-absolute top-0">
-                            <!-- badge --> <span class="badge bg-danger">Sale</span>
-                          </div>
-                          <a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}">
-                            <!-- img --><img src="" alt="Grocery Ecommerce Template" class="mb-3 img-fluid"></a>
-
-                        </div>
-                      </div>
                       <div class="col-md-8 col-12 flex-grow-1">
                         <!-- heading -->
-                        <div class="text-small mb-1"><a href="#!" class="text-decoration-none text-muted"><small>Snack &
-                          Munchies</small></a></div>
-                        <h2 class="fs-6"><a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}" class="text-inherit text-decoration-none">Haldiram's Sev Bhujia</a>
-                        </h2>
-                        <div>
-
-                          <!-- rating --><small class="text-warning"> <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-fill"></i>
-                          <i class="bi bi-star-half"></i></small> <span class="text-muted small">4.5(149)</span>
+                        <div class="d-flex justify-content-start"> <!--가로로 컴포넌트들을 배치-->
+                          <h2 class="fs-4"><a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}" class="text-inherit text-decoration-none">음 이터리</a>
+                            </h2>
+                            <span class="text-muted">&nbsp;&nbsp;&nbsp;양식</span>
                         </div>
-                        <div class=" mt-6">
-                          <!-- price -->
+                        <div>
+                          <!-- 영업 중 , 브레이크타임 , 영업 종료 여부만 , 영업 시간은 상세에서 ㅇㅇ-->
+                          <span class="text-dark">영업 중</span>
+                          <span class="text-muted small">&nbsp;•&nbsp;</span>
+                          <!-- rating -->
+                          <small class="text-warning"> <i class="bi bi-star-fill"></i></small> <span class="text-muted small">4.5(149)</span>
+                          <span class="text-muted small">&nbsp;•&nbsp;</span>
+                          <span>리뷰 999+</span>
+                        </div>
+
+                        <br>
+
+                        <!--<div class=" mt-6">
+                          &lt;!&ndash; price &ndash;&gt;
                           <div><span class="text-dark">$18</span> <span
                               class="text-decoration-line-through text-muted">$24</span>
                           </div>
-                          <!-- btn -->
-                          <div class="mt-3">
-                            <a href="#!" class="btn btn-icon btn-sm btn-outline-gray-400 text-muted"
-                               data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="bi bi-eye"
-                                                                                          data-bs-toggle="tooltip" data-bs-html="true" title="Quick View"></i></a>
-                            <a href="../pages/shop-wishlist.html" class="btn btn-icon btn-sm btn-outline-gray-400 text-muted"
-                               data-bs-toggle="tooltip" data-bs-html="true" title="Wishlist"><i
-                                class="bi bi-heart"></i></a>
-                            <a href="#!" class="btn btn-icon btn-sm btn-outline-gray-400 text-muted"
-                               data-bs-toggle="tooltip" data-bs-html="true" title="Compare"><i
-                                class="bi bi-arrow-left-right"></i></a>
 
-
-                          </div>
-                          <!-- btn -->
-                          <div class="mt-2">
-                            <a href="#!" class="btn btn-primary ">
-
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                   stroke-linejoin="round" class="feather feather-shopping-bag me-2">
-                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                                <line x1="3" y1="6" x2="21" y2="6"></line>
-                                <path d="M16 10a4 4 0 0 1-8 0"></path>
-                              </svg> Add to Cart</a>
-                          </div>
-                        </div>
+                        </div>-->
                       </div>
+
+                    <!-- 가로 정렬이 필요한 부분에 row 하자 , align-items-center : 컴포넌트 중앙으로 배치-->
+                      <!-- col -->
+                      <div class="category-slider ">
+
+                        <div class="item"> <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
+                          <div class="card card-product mb-lg-4">
+                            <div class="card-body text-center py-8">
+                              <img src="/assets/images/restaurant/umm_itarly.jpeg" style="width:15rem;height:10rem" alt="Grocery Ecommerce Template" class="mb-3">
+                            </div>
+                          </div>
+                        </a></div>
+
+
+                      </div>
+
+
+                        <!--<a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}">
+                          &lt;!&ndash; img &ndash;&gt;<img src="" alt="Grocery Ecommerce Template" class="mb-3 img-fluid"></a>-->
                     </div>
 
                   </div>

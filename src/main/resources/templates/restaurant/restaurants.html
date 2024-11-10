@@ -4,7 +4,15 @@
 
 <main>
 
+  <style>
+    .abc{
+      position: fixed;
+      left: 10%; /* 왼쪽 여백 */
+      top: -25%; /* 부모 요소에 대한 상대적 위치 지정 , 50%면 부모 컨테이너의 상단에서부터 시작되어 중간지점까지 배치*/
+      transform: translateY(25%);
 
+    }
+  </style>
 
   <section>
     <!-- section -->
@@ -13,7 +21,6 @@
       <div class="container">
 
         <!-- 메인 컨텐츠 헤더 -->
-
 
         <!-- 중제목 영역-->
         <div>
@@ -29,11 +36,6 @@
           </div>
 
 
-
-
-
-
-
         <div class="row gx-10">
 
 
@@ -43,7 +45,7 @@
 
 
               <!-- 필터 영역-->
-              <div class="offcanvas-header d-lg-none">
+              <div class="offcanvas-header d-lg-none d-block d-flex justify-content-start ">
                 <h5 class="offcanvas-title" id="offcanvasCategoryLabel">필터</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div>
@@ -466,8 +468,7 @@
           </aside>
 
           <!-- 메인 컨텐츠 영역-->
-          <section class="col-lg-9 col-md-12">
-
+          <section class="col-lg-9 col-md-12 ">
 
             <!-- 메인 정렬 및 페이징 -->
             <div class="d-lg-flex justify-content-between align-items-center">
@@ -513,12 +514,14 @@
               </div>
             </div>
 
-            <div class="" id="map" style="width:100%;height:400px;"></div>
+            <div id="map" style="width:100%;height:500px; "></div>
 
 
 
             <!-- 메인 컨텐츠(식당 목록) -->
             <div class="row g-4  row-cols-1 mt-2">
+
+              <!--각 칸마다 URI 지정 시 제목 a 태그와 사진 카드 영역 URI 두 개 지정해줘야됨-->
               <div class="col">
                 <!-- card -->
                 <div class="card card-product">
@@ -527,7 +530,7 @@
                       <div class="col-md-8 col-12 flex-grow-1">
                         <!-- heading -->
                         <div class="d-flex justify-content-start"> <!--가로로 컴포넌트들을 배치-->
-                          <h2 class="fs-4"><a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}" class="text-inherit text-decoration-none">음 이터리</a>
+                          <h2 class="fs-4"><a href="/restaurants/1" th:href="@{/restaurants/1}" class="text-inherit text-decoration-none">음 이터리</a>
                             </h2>
                             <span class="text-muted">&nbsp;&nbsp;&nbsp;양식</span>
                         </div>
@@ -628,7 +631,7 @@
                       <div class="col-md-8 col-12 flex-grow-1">
                         <!-- heading -->
                         <div class="d-flex justify-content-start"> <!--가로로 컴포넌트들을 배치-->
-                          <h2 class="fs-4"><a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}" class="text-inherit text-decoration-none">음 이터리</a>
+                          <h2 class="fs-4"><a href="/restaurants/1" th:href="@{/restaurants/1}" class="text-inherit text-decoration-none">음 이터리</a>
                             </h2>
                             <span class="text-muted">&nbsp;&nbsp;&nbsp;양식</span>
                         </div>
@@ -729,7 +732,7 @@
                       <div class="col-md-8 col-12 flex-grow-1">
                         <!-- heading -->
                         <div class="d-flex justify-content-start"> <!--가로로 컴포넌트들을 배치-->
-                          <h2 class="fs-4"><a href="/pages/shop-single.html" th:href="@{/pages/shop-single.html}" class="text-inherit text-decoration-none">음 이터리</a>
+                          <h2 class="fs-4"><a href="/restaurants/1" th:href="@{/restaurants/1}" class="text-inherit text-decoration-none">음 이터리</a>
                             </h2>
                             <span class="text-muted">&nbsp;&nbsp;&nbsp;양식</span>
                         </div>
@@ -1647,9 +1650,7 @@
                     <li class="page-item"><a class="page-link mx-1 text-body" href="#">2</a></li>
                     <li class="page-item"><a class="page-link mx-1 text-body" href="#">3</a></li>
                     <li class="page-item"><a class="page-link mx-1 text-body" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link mx-1 text-body" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link mx-1 text-body" href="#">6</a></li>
-                    <li class="page-item"><a class="page-link mx-1 text-body" href="#">...</a></li>
+                    <li class="page-item"><a class="page-link mx-1 text-body" href="#">...</a></li> <!--페이징 이 정도 더 추가하면 모바일 버전 오른쪽으로 침범함 -->
                     <li class="page-item">
                       <a class="page-link mx-1 text-body" href="#" aria-label="Next">
                         <i class="feather-icon icon-chevron-right"></i>

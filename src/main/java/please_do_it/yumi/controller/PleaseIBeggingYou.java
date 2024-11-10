@@ -18,7 +18,7 @@ public class PleaseIBeggingYou {
   }
 
 
-  @RequestMapping("/restaurant")
+  @RequestMapping("/restaurants/1")
   public String sdf222j(){
     return "restaurant/restaurant";
   }

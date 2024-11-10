@@ -395,8 +395,8 @@
 
             <div>
               <a href="/restaurants/1" class="text-decoration-none text-inherit">
-                <div class="mb-lg-4">
-                  <div class="py-8">
+                <div >
+                  <div>
                     <img src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm.jpeg}"  style="width:100%;height:27rem" alt="Grocery Ecommerce Template" class="mb-3">
                   </div>
                 </div>
@@ -405,8 +405,8 @@
 
             <div>
               <a href="/restaurants/1" class="text-decoration-none text-inherit">
-                <div class="mb-lg-4">
-                  <div class="py-8">
+                <div >
+                  <div >
                     <img src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm0.jpeg}" style="width:100%;height:27rem" alt="Grocery Ecommerce Template" class="mb-3">
                   </div>
                 </div>
@@ -415,8 +415,8 @@
 
             <div>
               <a href="/restaurants/1" class="text-decoration-none text-inherit">
-                <div class="mb-lg-4">
-                  <div class="py-8">
+                <div>
+                  <div>
                     <img src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm1.jpeg}"  style="width:100%;height:27rem" alt="Grocery Ecommerce Template" class="mb-3">
                   </div>
                 </div>
@@ -425,8 +425,8 @@
 
             <div>
               <a href="/restaurants/1" class="text-decoration-none text-inherit">
-                <div class="mb-lg-4">
-                  <div class="py-8">
+                <div>
+                  <div>
                     <img src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm2.jpeg}"  style="width:100%;height:27rem" alt="Grocery Ecommerce Template" class="mb-3">
                   </div>
                 </div>
@@ -435,32 +435,35 @@
             </div>
 
 
-
           <!-- product tools -->
           <div class="product-tools">
             <div class="thumbnails row g-3" id="productThumbnails">
               <div class="col-3">
                 <div class="thumbnails-img">
                   <!-- img -->
-                  <img src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm.jpeg}"  alt="">
+                  <img class="d-lg-none d-block" src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm.jpeg}" style="width:10rem;height:5rem" alt="">
+                  <img class="d-lg-block d-none" src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm.jpeg}" style="width:10rem;height:7rem" alt="">
                 </div>
               </div>
               <div class="col-3">
                 <div class="thumbnails-img">
                   <!-- img -->
-                  <img src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm0.jpeg}"  alt="">
+                  <img class="d-lg-none d-block"  src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm0.jpeg}" style="width:10rem;height:5rem"  alt="">
+                  <img class="d-lg-block d-none" src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm0.jpeg}" style="width:10rem;height:7rem"  alt="">
                 </div>
               </div>
               <div class="col-3">
                 <div class="thumbnails-img">
                   <!-- img -->
-                  <img src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm1.jpeg}"  alt="">
+                  <img class="d-lg-none d-block"  src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm1.jpeg}" style="width:10rem;height:5rem"  alt="">
+                  <img class="d-lg-block d-none"  src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm1.jpeg}" style="width:10rem;height:7rem"  alt="">
                 </div>
               </div>
               <div class="col-3">
                 <div class="thumbnails-img">
                   <!-- img -->
-                  <img src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm2.jpeg}"  alt="">
+                  <img class="d-lg-none d-block"  src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm2.jpeg}" style="width:10rem;height:5rem"  alt="">
+                  <img class="d-lg-block d-none"  src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm2.jpeg}" style="width:10rem;height:7rem"  alt="">
                 </div>
               </div>
             </div>
@@ -468,7 +471,7 @@
         </div>
 
 
-        <div class="col-md-6">
+        <div class="col-md-6 ">
           <div class="ps-lg-10 mt-6 mt-md-0">
             <!-- content -->
             <!-- heading -->
@@ -480,84 +483,55 @@
             <span>최고의 비건 맛집 오 이터리입니다.</span>
 
             <!-- hr -->
-            <hr class="my-6">
-            <div class="mb-5"><button type="button" class="btn btn-outline-secondary">250g</button>
-              <!-- btn --> <button type="button" class="btn btn-outline-secondary">500g</button>
-              <!-- btn --> <button type="button" class="btn btn-outline-secondary">1kg</button></div>
-              <div>
+            <hr class="my-3">
+
+              <!-- heading -->
+            <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
+              <i class="bi bi-geo-alt"></i><span>&nbsp;&nbsp;강남역 1번출구에서 100m</span>
+            </div>
 
 
-                <!-- input -->
-                <div class="input-group input-spinner  ">
-                  <input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
-                  <input type="number" step="1" max="10" value="1" name="quantity" class="quantity-field form-control-sm form-input   ">
-                  <input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
-                </div>
+
+            <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
+              <i class="bi bi-currency-dollar"></i><span>&nbsp;&nbsp;평균 1만원</span>
+            </div>
+
+
+
+            <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
+              <i class="bi bi-alarm"></i><span>&nbsp;&nbsp;영업 중 <span class="text-muted small">∙</span> 22:00 영업 종료</span>
 
             </div>
+
+            <div class="mt-3">
+              <div class="badge text-bg-light ">주차 가능</div>
+              <div class="badge text-bg-light ">단체 이용 가능 </div>
+              <div class="badge text-bg-light ">포장 </div>
+              <div class="badge text-bg-light ">배달 </div>
+            </div>
+
+
             <div class="mt-3 row justify-content-start g-2 align-items-center">
 
               <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid">
                 <!-- button -->
-                <!-- btn --> <button type="button" class="btn btn-primary"><i class="feather-icon icon-shopping-bag me-2"></i>Add to
-                  cart</button>
+                <!-- btn --> <button type="button" class="btn btn-primary"><i class="feather-icon icon-shopping-bag me-2"></i>예약하기</button>
               </div>
               <div class="col-md-4 col-4">
                 <!-- btn -->
-                <a class="btn btn-light " href="#" data-bs-toggle="tooltip" data-bs-html="true" aria-label="Compare"><i class="bi bi-arrow-left-right"></i></a>
+<!--                <a class="btn btn-light " href="#" data-bs-toggle="tooltip" data-bs-html="true" aria-label="Compare"><i class="bi bi-arrow-left-right"></i></a>-->
                 <a class="btn btn-light " href="../pages/shop-wishlist.html" data-bs-toggle="tooltip" data-bs-html="true" aria-label="Wishlist"><i class="feather-icon icon-heart"></i></a>
               </div>
             </div>
             <!-- hr -->
             <hr class="my-6">
-            <div>
-              <!-- table -->
-              <table class="table table-borderless mb-0">
-
-                <tbody>
-                  <tr>
-                    <td>Product Code:</td>
-                    <td>FBB00255</td>
-
-                  </tr>
-                  <tr>
-                    <td>Availability:</td>
-                    <td>In Stock</td>
-
-                  </tr>
-                  <tr>
-                    <td>Type:</td>
-                    <td>Fruits</td>
-
-                  </tr>
-                  <tr>
-                    <td>Shipping:</td>
-                    <td><small>01 day shipping.<span class="text-muted">( Free pickup today)</span></small></td>
-
-                  </tr>
 
 
-                </tbody>
-              </table>
-
-            </div>
-            <div class="mt-8">
-              <!-- dropdown -->
-              <div class="dropdown">
-                <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  Share
-                </a>
-
-                <ul class="dropdown-menu" >
-                  <li><a class="dropdown-item" href="#"><i class="bi bi-facebook me-2"></i>Facebook</a></li>
-                  <li><a class="dropdown-item" href="#"><i class="bi bi-twitter me-2"></i>Twitter</a></li>
-                  <li><a class="dropdown-item" href="#"><i class="bi bi-instagram me-2"></i>Instagram</a></li>
-                </ul>
-              </div>
-            </div>
           </div>
         </div>
+
+
+
       </div>
     </div>
   </section>

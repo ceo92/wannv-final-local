@@ -35,6 +35,16 @@ public class PleaseIBeggingYou {
   }
 
 
+  @RequestMapping("/bbbb")
+  public String dd(){
+    return "kyungmin/dddd";
+  }
+
+
+
+
+
+
 
 
 }

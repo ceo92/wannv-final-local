@@ -4,10 +4,10 @@
 <head>
 
   <title>FreshCart - eCommerce HTML Template</title>
-  <link href="/assets/libs/slick-carousel/slick/slick.css" th:href="@{/assets/libs/slick-carousel/slick/slick.css}" rel="stylesheet" />
-  <link href="/assets/libs/slick-carousel/slick/slick-theme.css" th:href="@{/assets/libs/slick-carousel/slick/slick-theme.css}" rel="stylesheet" />
-  <link href="/assets/libs/tiny-slider/dist/tiny-slider.css" th:href="@{/assets/libs/tiny-slider/dist/tiny-slider.css}" rel="stylesheet">
-  <link href="../assets/libs/nouislider/dist/nouislider.min.css" th:href="@{/assets/libs/nouislider/dist/nouislider.min.css}" rel="stylesheet">
+  <link href="/reservation1/assets/libs/slick-carousel/slick/slick.css" th:href="@{/reservation1/assets/libs/slick-carousel/slick/slick.css}" rel="stylesheet" />
+  <link href="/reservation1/assets/libs/slick-carousel/slick/slick-theme.css" th:href="@{/reservation1/assets/libs/slick-carousel/slick/slick-theme.css}" rel="stylesheet" />
+  <link href="/reservation1/assets/libs/tiny-slider/dist/tiny-slider.css" th:href="@{/reservation1/assets/libs/tiny-slider/dist/tiny-slider.css}" rel="stylesheet">
+  <link href="/reservation1/assets/libs/nouislider/dist/nouislider.min.css" th:href="@{/reservation1/assets/libs/nouislider/dist/nouislider.min.css}" rel="stylesheet">
 
 
   <!-- Required meta tags -->
@@ -26,22 +26,30 @@
     gtag('config', 'G-M8S4MT3EYG');
   </script>
 
-  <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=j5wkzwk5m8"></script>
+
 
   <!-- Favicon icon-->
-  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon/favicon.ico" th:href="@{/assets/images/favicon/favicon.ico}">
+  <link rel="shortcut icon" type="image/x-icon" href="/reservation1/assets/images/favicon/favicon.ico" th:href="@{/reservation1/assets/images/favicon/favicon.ico}">
 
 
   <!-- Libs CSS -->
-  <link href="/assets/libs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" th:href="@{/assets/libs/bootstrap-icons/font/bootstrap-icons.css}">
-  <link href="/assets/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet" th:href="@{/assets/libs/feather-webfont/dist/feather-icons.css}">
-  <link href="/assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet" th:href="@{/assets/libs/simplebar/dist/simplebar.min.css}">
-
-
+  <link href="/reservation1/assets/libs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" th:href="@{/reservation1/assets/libs/bootstrap-icons/font/bootstrap-icons.css}">
+  <link href="/reservation1/assets/libs/feather-webfont/dist/feather-icons.css" rel="stylesheet" th:href="@{/reservation1/assets/libs/feather-webfont/dist/feather-icons.css}">
+  <link href="/reservation1/assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet" th:href="@{/reservation1/assets/libs/simplebar/dist/simplebar.min.css}">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/reservation1/calendar-17/fonts/icomoon/style.css">
+  <link rel="stylesheet" href="/reservation1/calendar-17/css/rome.css">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/reservation1/calendar-17/css/bootstrap.min.css">
+  <!-- Style -->
+  <link rel="stylesheet" href="/reservation1/calendar-17/css/style.css">
   <!-- Theme CSS -->
-  <link rel="stylesheet" href="/assets/css/theme.min.css" th:href="@{/assets/css/theme.min.css}">
+  <link rel="stylesheet" href="/reservation1/assets/css/theme.min.css" th:href="@{/reservation1/assets/css/theme.min.css}">
 
     <style>
+      @import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+
       .horizontal-center {
             display: flex;
             justify-content: center; /* 가로 방향으로 가운데 정렬 */
@@ -50,7 +58,6 @@
             margin: 0;
 
        }
-
 
       .nav {
             display: flex;
@@ -79,6 +86,7 @@
             color: #7BCC65; /* 더 진한 연두색 */
         }
 
+
       .mobile-header-nav-item {
             padding: 0.5rem 1.8rem;
             margin-left: 0.25rem;
@@ -90,19 +98,125 @@
             transition: background-color 0.3s;
         }
 
-        /* 호버 효과 */
         .mobile-header-nav-item:hover {
-            color: #7BCC65; /* 더 진한 연두색 */
+            color: #7BCC65;
         }
 
       .wrapper {
-            position: sticky;
-            top: 0;
-            width: 100%;
-	          z-index: 100;
-	          background-color: #ffffff;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 100;
+        background-color: #ffffff;
+      }
+
+      .card {
+            padding: 1rem;
+            background-color: #ffffff;
+            border-radius: 5px;
         }
 
+        .card h5{
+            font-size: 12px;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 10px;
+            font-weight:500;
+        }
+
+        h4{
+            margin-bottom: 10px;
+        }
+
+        .toss{
+            background-color: #ffffff;
+            padding: 1rem; 
+            width: 100%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            border: 1px solid #000000 !important;
+            border-radius: 5px;
+        }
+
+        .toss.select {
+            background-color: #ebedef;
+            border: 1px solid #000000; 
+            transition-duration: 0.1s;
+        }
+
+        .pay{
+            padding: 0.5rem;
+            background-color: #5AAB6F;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .pay p {
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            direction: right;
+            font-size: 15px;
+            padding-bottom: 0%
+        }
+
+        .content{
+            padding: 1rem;
+        }
+
+        .content-payment{
+            padding: 1rem; 
+            padding-top: 0%; 
+            display: flex; 
+            justify-content: center;
+        }
+
+        .button-payment{
+            border: 0 solid;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #5AAB6F; 
+        }
+
+        .button-payment:active{
+            background-color: #86ce99;
+            color: #ffffff;
+        }
+
+        .button-payment:focus {
+            color: #ffffff;
+            outline: none;
+        }
+
+        .button-payment:focus:not(:active) {
+            background-color: #ffffff;
+            color: #5AAB6F;
+        }
+
+        a:focus, a:active, a:link, a:visited, button:focus, button:active {          
+            border: none;
+        }
+
+        .button-payment:disabled {
+            background-color: #adb5bd;
+            color: #ebedef;
+            cursor: not-allowed;
+        }
+
+      @media (max-width: 767px) {
+        .horizontal-center {
+            justify-content: space-between;
+        }
+        .mobile-header-nav-item {
+            padding: 0.5rem 1rem;
+        }
+      }
     </style>
 </head>
 <body>
@@ -130,11 +244,11 @@
       <div class="row w-100 align-items-center gx-lg-2 gx-0">
         <div class="col-xxl-2 col-lg-3">
           <a class="navbar-brand d-none d-lg-block" href="/">
-            <img src="../static/assets/images/logo/freshcart-logo.svg" th:src="@{/assets/images/logo/freshcart-logo.svg}" alt="eCommerce HTML Template">
+            <img src="/reservation1/assets/images/logo/freshcart-logo.svg" th:src="@{/reservation1/assets/images/logo/freshcart-logo.svg}" alt="eCommerce HTML Template">
           </a>
           <div class="d-flex justify-content-between w-100 d-lg-none">
             <a class="navbar-brand" href="/">
-              <img src="../static/assets/images/logo/freshcart-logo.svg" th:src="@{/assets/images/logo/freshcart-logo.svg}" alt="eCommerce HTML Template">
+              <img src="/reservation1/assets/images/logo/freshcart-logo.svg" th:src="@{/reservation1/assets/images/logo/freshcart-logo.svg}" alt="eCommerce HTML Template">
             </a>
 
             <div class="d-flex align-items-center lh-1">
@@ -308,7 +422,7 @@
         </li>
 
         <li class="nav-item desktop-header-nav-item">
-          <a class="nav-link" href="/products" role="button">상점</a>
+          <a class="nav-link" href="/goods" role="button">상점</a>
         </li>
 
         <li class="nav-item desktop-header-nav-item">
@@ -352,7 +466,135 @@
 
 <div th:replace="${content}"></div>
 
+<div class="modal fade" id="exampleModalToggle" data-bs-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">        
+        <h5 class="modal-title" id="exampleModalToggleLabel2">예약</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        <div class="modal-body">
+          <div class="content">
+            <h2>예약 날짜</h2>
+            <form action="#" class="row">
+              <div class="col-md-12">
+                <div id="inline_cal"></div>
+              </div>
+            </form>
+            <h2 style="padding-top: 40px;">인원 수</h2>
+            <div class="button-slider" id="person-buttons">
+              <button type="button" class="circle-button">1</button>
+              <button type="button" class="circle-button">2</button>
+              <button type="button" class="circle-button">3</button>
+              <button type="button" class="circle-button">4</button>
+              <button type="button" class="circle-button">5</button>
+              <button type="button" class="circle-button">6</button>
+            </div>
+            <h2 style="padding-top: 40px;">예약 시간</h2>
+            <div class="button-slider" id="time-buttons">
+              <button type="button" class="rectangle-button">오후 14 : 00</button>
+              <button type="button" class="rectangle-button">오후 15 : 00</button>
+              <button type="button" class="rectangle-button">오후 16 : 00</button>
+              <button type="button" class="rectangle-button">오후 17 : 00</button>
+              <button type="button" class="rectangle-button">오후 18 : 00</button>
+              <button type="button" class="rectangle-button">오후 19 : 00</button>
+              <button type="button" class="rectangle-button">오후 20 : 00</button>
+            </div>
+            <div class="clear">
+              <button type="button" class="clear-button" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">예약 하기</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<div class="modal fade" id="exampleModalToggle2" data-bs-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel2">결제</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="content">    
+          <h5>예약 날짜</h5>
+          <div class="card">
+              <h5>예약 장소 : 김이정</h5>
+              <h5>예약 날짜 : 11월 3일 (일) 오후 14 : 00</h5>
+              <h5 style="margin-bottom: 0px;">인원 수 : 1명</h5>
+          </div>
+      </div>
+      <div class="content">
+          <div class="d-flex align-items-center">
+              <h5 style="margin-bottom: 0px;">위약금</h5>
+              <a class="position-relative btn-icon btn-ghost-secondary btn rounded-circle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <svg xmlns="http://www.w3.org/2000/svg" style="color: #5AAB6F;" width="20" height="20" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                  </svg>
+              </a>
+          
+              <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg p-0 border-radius-10" style="box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); background-color: #f6f6f6;">
+              <div class="border-bottom p-3 d-flexjustify-content-between align-items-center border-1">
+                  <p class="mb-3">위약금 정책</p>
+                  <p><span style="color: #5AAB6F;">1.</span> 2일 전 취소: 100% 환불</p>
+                  <p><span style="color: #5AAB6F;">2.</span> 1일 전 취소: 50% 환불</p>
+                  <p><span style="color: #5AAB6F;">3.</span> 당일 취소: 환불 불가</p>
+                  <p><span style="color: #5AAB6F;">4.</span> 노쇼: 환불 불가</p>
+              </div>
+      
+              </div>
+          </div>
+          <div class="card">
+              <h5>계산 : (예약 인원 수) x 10000</h5>
+              <h5 style="margin-bottom: 0px;">결제 총액 : 10000원</h5>
+          </div>
+      </div>
+      <div class="content">
+          <h5>결제 수단</h5>
+          <div class="card">
+              <h5 style="margin-right: auto;">결제 수단을 선택하세요.</h5>
+              <button type="button" class="toss" id="toss1">
+                  <img src="/reservation2/logo/logo-toss-pay.svg" style="width: 30%;">
+              </button>
+              <button type="button" class="toss" style="margin-top: 20px;" id="toss2">
+                  <img src="/reservation2/logo/logo-toss-pay.svg" style="width: 30%;">
+              </button>
+              <h5 style="margin-top: 10px; margin-right: auto;">개인정보 제3자 제공고지</h5>
+              <div class="card" style="background-color: #f6f6f6;">
+                  <p>wannaV는 회원들의 개인정보를 안전하게 취급하는 데 최선을 다합니다.</p>
+                  <p>고객님의 개인정보는 원활한 예약을 위한 기록 보존을 위해 아래 업체에 제공됩니다.</p>
+                  <p>1. 제공받는 자: 회원이 예약 신청한 식당, 예약관리 솔루션 wannaV 매장용</p>
+                  <p>2. 제공받는 자의 개인정보 이용 목적: 식당 예약 서비스 제공(서비스 계약 이행, 예약 확인, 예약 및 관리, 고객 관리) 및 제공 거절</p>
+                  <p>3. 제공하는 개인정보 항목: 전화번호, 예약 신청자 이름, 결제정보, 기타 예약 및 대기를 위해 필요한 정보</p>
+                  <p>4. 제공받는 자의 보유기간: 예약을 통한 식당 방문일로부터 1년이 경과한 때까지 보관.</p>
+                  <p style="font-weight: bold;">동의를 거부할 권리가 있으나, 서비스 제공을 위해 필요한 최소한의 개인정보이므로 동의 거부 시 wannaV 예약 서비스 이용이 제한됩니다.</p>
+              </div>
+          </div>
+      </div>
+      
+      <div class="content-payment">
+          <p style="font-size: 10px; margin-right: 10px; margin-bottom: 0%; display: flex; justify-content: center; align-items: center; font-weight: bold;">주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.
+              <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="checkbox" style="width: 20px; height: 20px;">
+                  <label class="form-check-label" style="font-size: 10px;">동의(필수)</label>
+              </div>
+          </p>
+      </div>
+      
+      <div class="pay">
+          <p style="font-weight: bold;">결제 금액: 10000원</p>
+          <button type="button" class="button-payment" id="payment" disabled>결제 하기</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="clear">
+  <button type="button" class="clear-button" data-bs-toggle="modal" href="#exampleModalToggle" style="font-size: 20px;">예약 하기</button>
+</div>
 
 <!-- footer -->
 <footer class="footer">
@@ -446,19 +688,19 @@
           <ul class="list-inline mb-0">
             <li class="list-inline-item text-dark">Payment Partners</li>
             <li class="list-inline-item">
-              <a href="#!"><img src="/assets/images/payment/amazonpay.svg" th:src="@{/assets/images/payment/amazonpay.svg}" alt=""></a>
+              <a href="#!"><img src="/reservation1/assets/images/payment/amazonpay.svg" th:src="@{/reservation1/assets/images/payment/amazonpay.svg}" alt=""></a>
             </li>
             <li class="list-inline-item">
-              <a href="#!"><img src="/assets/images/payment/american-express.svg" th:src="@{/assets/images/payment/american-express.svg}" alt=""></a>
+              <a href="#!"><img src="/reservation1/assets/images/payment/american-express.svg" th:src="@{/reservation1/assets/images/payment/american-express.svg}" alt=""></a>
             </li>
             <li class="list-inline-item">
-              <a href="#!"><img src="/assets/images/payment//mastercard.svg" th:src="@{/assets/images/payment//mastercard.svg}" alt=""></a>
+              <a href="#!"><img src="/reservation1/assets/images/payment//mastercard.svg" th:src="@{/reservation1/assets/images/payment//mastercard.svg}" alt=""></a>
             </li>
             <li class="list-inline-item">
-              <a href="#!"><img src="/assets/images/payment/paypal.svg" th:src="@{/assets/images/payment/paypal.svg}" alt=""></a>
+              <a href="#!"><img src="/reservation1/assets/images/payment/paypal.svg" th:src="@{/reservation1/assets/images/payment/paypal.svg}" alt=""></a>
             </li>
             <li class="list-inline-item">
-              <a href="#!"><img src="/assets/images/payment/visa.svg" th:src="@{/assets/images/payment/visa.svg}" alt=""></a>
+              <a href="#!"><img src="/reservation1/assets/images/payment/visa.svg" th:src="@{/reservation1/assets/images/payment/visa.svg}" alt=""></a>
             </li>
           </ul>
         </div>
@@ -466,10 +708,10 @@
           <ul class="list-inline mb-0 text-lg-end text-center">
             <li class="list-inline-item mb-2 mb-md-0 text-dark">Get deliveries with FreshCart</li>
             <li class="list-inline-item ms-4">
-              <a href="#!"> <img src="assets/images/appbutton/appstore-btn.svg" th:src="@{/assets/images/appbutton/appstore-btn.svg}" alt=""
+              <a href="#!"> <img src="assets/images/appbutton/appstore-btn.svg" th:src="@{/reservation1/assets/images/appbutton/appstore-btn.svg}" alt=""
                                  style="width: 140px;"></a></li>
             <li class="list-inline-item">
-              <a href="#!"> <img src="assets/images/appbutton/googleplay-btn.svg" th:src="@{/assets/images/appbutton/googleplay-btn.svg}" alt=""
+              <a href="#!"> <img src="assets/images/appbutton/googleplay-btn.svg" th:src="@{/reservation1/assets/images/appbutton/googleplay-btn.svg}" alt=""
                                  style="width: 140px;"></a></li>
           </ul>
         </div>
@@ -509,39 +751,89 @@
 </footer>
 
 <!-- Javascript-->
-<script src="../assets/libs/nouislider/dist/nouislider.min.js" th:src="@{/assets/libs/nouislider/dist/nouislider.min.js}"></script>
-<script src="../assets/libs/wnumb/wNumb.min.js" th:src="@{/assets/libs/wnumb/wNumb.min.js}"></script>
+<script src="/reservation1/assets/libs/nouislider/dist/nouislider.min.js" th:src="@{/reservation1/assets/libs/nouislider/dist/nouislider.min.js}"></script>
+<script src="/reservation1/assets/libs/wnumb/wNumb.min.js" th:src="@{/reservation1/assets/libs/wnumb/wNumb.min.js}"></script>
 
 <!-- Libs JS -->
-<script src="../static/assets/libs/jquery/dist/jquery.min.js" th:src="@{/assets/libs/jquery/dist/jquery.min.js}"></script>
-<script src="../static/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js" th:src="@{/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
-<script src="../static/assets/libs/simplebar/dist/simplebar.min.js" th:src="@{/assets/libs/simplebar/dist/simplebar.min.js}"></script>
+<script src="/reservation1/assets/libs/jquery/dist/jquery.min.js" th:src="@{/reservation1/assets/libs/jquery/dist/jquery.min.js}"></script>
+<script src="/reservation1/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js" th:src="@{/reservation1/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+<script src="/reservation1/assets/libs/simplebar/dist/simplebar.min.js" th:src="@{/reservation1/assets/libs/simplebar/dist/simplebar.min.js}"></script>
 
 <!-- Theme JS -->
-<script src="../static/assets/js/theme.min.js" th:src="@{/assets/js/theme.min.js}"></script>
-<script src="../static/assets/libs/jquery-countdown/dist/jquery.countdown.min.js" th:src="@{/assets/libs/jquery-countdown/dist/jquery.countdown.min.js}"></script>
-<script src="../static/assets/js/vendors/countdown.js" th:src="@{/assets/js/vendors/countdown.js}"></script>
-<script src="../static/assets/libs/slick-carousel/slick/slick.min.js" th:src="@{/assets/libs/slick-carousel/slick/slick.min.js}"></script>
-<script src="../static/assets/js/vendors/slick-slider.js" th:src="@{/assets/js/vendors/slick-slider.js}"></script>
-<script src="../static/assets/libs/tiny-slider/dist/min/tiny-slider.js" th:src="@{/assets/libs/tiny-slider/dist/min/tiny-slider.js}"></script>
-<script src="../static/assets/js/vendors/tns-slider.js" th:src="@{/assets/js/vendors/tns-slider.js}"></script>
-<script src="../static/assets/js/vendors/zoom.js" th:src="@{/assets/js/vendors/zoom.js}"></script>
-<script src="../static/assets/js/vendors/increment-value.js" th:src="@{/assets/js/vendors/increment-value.js}"></script>
+<script src="/reservation1/assets/js/theme.min.js" th:src="@{/reservation1/assets/js/theme.min.js}"></script>
+<script src="/reservation1/assets/libs/jquery-countdown/dist/jquery.countdown.min.js" th:src="@{/reservation1/assets/libs/jquery-countdown/dist/jquery.countdown.min.js}"></script>
+<script src="/reservation1/assets/js/vendors/countdown.js" th:src="@{/reservation1/assets/js/vendors/countdown.js}"></script>
+<script src="/reservation1/assets/libs/slick-carousel/slick/slick.min.js" th:src="@{/reservation1/assets/libs/slick-carousel/slick/slick.min.js}"></script>
+<script src="/reservation1/assets/js/vendors/slick-slider.js" th:src="@{/reservation1/assets/js/vendors/slick-slider.js}"></script>
+<script src="/reservation1/assets/libs/tiny-slider/dist/min/tiny-slider.js" th:src="@{/reservation1/assets/libs/tiny-slider/dist/min/tiny-slider.js}"></script>
+<script src="/reservation1/assets/js/vendors/tns-slider.js" th:src="@{/reservation1/assets/js/vendors/tns-slider.js}"></script>
+<script src="/reservation1/assets/js/vendors/zoom.js" th:src="@{/reservation1/assets/js/vendors/zoom.js}"></script>
+<script src="/reservation1/assets/js/vendors/increment-value.js" th:src="@{/reservation1/assets/js/vendors/increment-value.js}"></script>
 
 
+<script>
+  const circleButtons = document.querySelectorAll('.circle-button');
+  const rectangleButtons = document.querySelectorAll('.rectangle-button');
 
+  circleButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      circleButtons.forEach(btn => btn.classList.remove('selected'));
+      button.classList.add('selected');
+    });
+  });
 
+  rectangleButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      rectangleButtons.forEach(btn => btn.classList.remove('selected'));
+      button.classList.add('selected');
+    });
+  });
 
+  document.getElementById('inline_cal').addEventListener('click', () => {
+    circleButtons.forEach(button => button.classList.remove('selected'));
+    rectangleButtons.forEach(button => button.classList.remove('selected'));
+  });
 
-<script th:inline="javascript">
-  var mapOptions = {
-      center: new naver.maps.LatLng(37.3595704, 127.105399),
-      zoom: 10
-  };
+  document.addEventListener("DOMContentLoaded", function() {
+    const checkbox = document.querySelector('.form-check-input');
+    const tossButton1 = document.getElementById('toss1');
+    const tossButton2 = document.getElementById('toss2');
+    const paymentButton = document.getElementById("payment");
 
-  var map = new naver.maps.Map('map', mapOptions);
+    let toss1State = 0;
+    let toss2State = 0;
+
+    // 결제 버튼 활성화 함수
+    function updatePaymentButtonState() {
+        paymentButton.disabled = !(checkbox.checked && (toss1State === 1 || toss2State === 1));
+    }
+
+    function toggleTossState(buttonId, state) {
+        if (state === 'toss1') {
+            toss1State = toss1State === 0 ? 1 : 0;
+            toss2State = 0;
+        } else {
+            toss2State = toss2State === 0 ? 1 : 0;
+            toss1State = 0;
+        }
+
+        document.getElementById(buttonId).classList.toggle('select', state === 'toss1' ? toss1State === 1 : toss2State === 1);
+        document.getElementById(buttonId === 'toss1' ? 'toss2' : 'toss1').classList.remove('select');
+
+        console.log("toss1State:", toss1State);
+        console.log("toss2State:", toss2State);
+
+        // 버튼 클릭 시마다 결제 버튼 활성화 여부 확인
+        updatePaymentButtonState();
+    }
+
+    // Toss 버튼 클릭 시 상태 변경 및 결제 버튼 활성화 확인
+    tossButton1.addEventListener('click', () => toggleTossState('toss1', 'toss1'));
+    tossButton2.addEventListener('click', () => toggleTossState('toss2', 'toss2'));
+
+    // 체크박스 변경 시 결제 버튼 활성화 확인
+    checkbox.addEventListener('change', updatePaymentButtonState);
+});
 </script>
-
-
 </body>
 </html>

@@ -3,367 +3,129 @@
 
 
 <main>
-<!-- Modal -->
-<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content p-4">
-      <div class="modal-header border-0">
-        <h5 class="modal-title fs-3 fw-bold" id="userModalLabel">Sign Up</h5>
+<!--
 
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="fullName" class="form-label">Name</label>
-            <input type="text" class="form-control" id="fullName" placeholder="Enter Your Name" required="">
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter Email address" required="">
-          </div>
-
-          <div class="mb-5">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Enter Password" required="">
-            <small class="form-text">By Signup, you agree to our <a href="#!">Terms of Service</a> & <a
-                href="#!">Privacy Policy</a></small>
-          </div>
-
-          <button type="submit" class="btn btn-primary">Sign Up</button>
-        </form>
-      </div>
-      <div class="modal-footer border-0 justify-content-center">
-
-        Already have an account? <a href="#">Sign in</a>
-      </div>
-    </div>
-  </div>
-</div>
+  &lt;!&ndash;윤호님 CSS &ndash;&gt;
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/reservation1/calendar-17/fonts/icomoon/style.css" th:href="@{/assets/libs/calendar-17/fonts/icomoon/style.css}">
+  <link rel="stylesheet" href="/reservation1/calendar-17/css/rome.css" th:href="@{/assets/libs/calendar-17/css/rome.css}">
+  &lt;!&ndash; Bootstrap CSS &ndash;&gt;
+  <link rel="stylesheet" href="/reservation1/calendar-17/css/bootstrap.min.css" th:href="@{/assets/libs/calendar-17/css/bootstrap.min.css}">
+  &lt;!&ndash; Style &ndash;&gt;
+  <link rel="stylesheet" href="/reservation1/calendar-17/css/style.css" th:href="@{/assets/libs/calendar-17/css/style.css}">
 
 
 
-<!-- Shop Cart -->
 
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header border-bottom">
-    <div class="text-start">
-      <h5 id="offcanvasRightLabel" class="mb-0 fs-4">Shop Cart</h5>
-      <small>Location in 382480</small>
-    </div>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
+  &lt;!&ndash;윤호님 css &ndash;&gt;
+  <style>
+    @import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
 
-    <div class="">
-      <!-- alert -->
-      <div class="alert alert-danger p-2" role="alert">
-        You’ve got FREE delivery. Start <a href="#!" class="alert-link">checkout now!</a>
-      </div>
-      <ul class="list-group list-group-flush">
-        <!-- list group -->
-        <li class="list-group-item py-3 ps-0 border-top">
-          <!-- row -->
-          <div class="row align-items-center">
-            <div class="col-3 col-md-2">
-              <!-- img --> <img src="../../static/assets/images/products/product-img-1.jpg" alt="Ecommerce"
-                                class="img-fluid"></div>
-            <div class="col-4 col-md-6 col-lg-5">
-              <!-- title -->
-              <a href="restaurant.html" class="text-inherit">
-                <h6 class="mb-0">Haldiram's Sev Bhujia</h6>
-              </a>
-              <span><small class="text-muted">.98 / lb</small></span>
-              <!-- text -->
-              <div class="mt-2 small lh-1"> <a href="#!" class="text-decoration-none text-inherit"> <span
-                    class="me-1 align-text-bottom">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      class="feather feather-trash-2 text-success">
-                      <polyline points="3 6 5 6 21 6"></polyline>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                      </path>
-                      <line x1="10" y1="11" x2="10" y2="17"></line>
-                      <line x1="14" y1="11" x2="14" y2="17"></line>
-                    </svg></span><span class="text-muted">Remove</span></a></div>
-            </div>
-            <!-- input group -->
-            <div class="col-3 col-md-3 col-lg-3">
-              <!-- input -->
-              <!-- input -->
-              <div class="input-group input-spinner  ">
-                <input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
-                <input type="number" step="1" max="10" value="1" name="quantity"
-                  class="quantity-field form-control-sm form-input   ">
-                <input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
-              </div>
+  .card {
+        padding: 1rem;
+        background-color: #ffffff;
+        border-radius: 5px;
+    }
 
-            </div>
-            <!-- price -->
-            <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-              <span class="fw-bold">$5.00</span>
+    .card h5{
+        font-size: 12px;
+    }
 
-            </div>
-          </div>
+    p {
+        margin-top: 0;
+        margin-bottom: 5px;
+        font-size: 10px;
+        font-weight:500;
+    }
 
-        </li>
-        <!-- list group -->
-        <li class="list-group-item py-3 ps-0">
-          <!-- row -->
-          <div class="row align-items-center">
-            <div class="col-3 col-md-2">
-              <!-- img --> <img src="../../static/assets/images/products/product-img-2.jpg" alt="Ecommerce"
-                                class="img-fluid"></div>
-            <div class="col-4 col-md-6 col-lg-5">
-              <!-- title -->
-              <a href="restaurant.html" class="text-inherit">
-                <h6 class="mb-0">NutriChoice Digestive </h6>
-              </a>
-              <span><small class="text-muted">250g</small></span>
-              <!-- text -->
-              <div class="mt-2 small lh-1"> <a href="#!" class="text-decoration-none text-inherit"> <span
-                    class="me-1 align-text-bottom">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      class="feather feather-trash-2 text-success">
-                      <polyline points="3 6 5 6 21 6"></polyline>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                      </path>
-                      <line x1="10" y1="11" x2="10" y2="17"></line>
-                      <line x1="14" y1="11" x2="14" y2="17"></line>
-                    </svg></span><span class="text-muted">Remove</span></a></div>
-            </div>
-            <!-- input group -->
-            <div class="col-3 col-md-3 col-lg-3">
-              <!-- input -->
-              <!-- input -->
-              <div class="input-group input-spinner  ">
-                <input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
-                <input type="number" step="1" max="10" value="1" name="quantity"
-                  class="quantity-field form-control-sm form-input   ">
-                <input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
-              </div>
-            </div>
-            <!-- price -->
-            <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-              <span class="fw-bold text-danger">$20.00</span>
-              <div class="text-decoration-line-through text-muted small">$26.00</div>
-            </div>
-          </div>
+    h4{
+        margin-bottom: 10px;
+    }
 
-        </li>
-        <!-- list group -->
-        <li class="list-group-item py-3 ps-0">
-          <!-- row -->
-          <div class="row align-items-center">
-            <div class="col-3 col-md-2">
-              <!-- img --> <img src="../../static/assets/images/products/product-img-3.jpg" alt="Ecommerce"
-                                class="img-fluid"></div>
-            <div class="col-4 col-md-6 col-lg-5">
-              <!-- title -->
-              <a href="restaurant.html" class="text-inherit">
-                <h6 class="mb-0">Cadbury 5 Star Chocolate</h6>
-              </a>
-              <span><small class="text-muted">1 kg</small></span>
-              <!-- text -->
-              <div class="mt-2 small lh-1"> <a href="#!" class="text-decoration-none text-inherit"> <span
-                    class="me-1 align-text-bottom">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      class="feather feather-trash-2 text-success">
-                      <polyline points="3 6 5 6 21 6"></polyline>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                      </path>
-                      <line x1="10" y1="11" x2="10" y2="17"></line>
-                      <line x1="14" y1="11" x2="14" y2="17"></line>
-                    </svg></span><span class="text-muted">Remove</span></a></div>
-            </div>
-            <!-- input group -->
-            <div class="col-3 col-md-3 col-lg-3">
-              <!-- input -->
-              <!-- input -->
-              <div class="input-group input-spinner  ">
-                <input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
-                <input type="number" step="1" max="10" value="1" name="quantity"
-                  class="quantity-field form-control-sm form-input   ">
-                <input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
-              </div>
-            </div>
-            <!-- price -->
-            <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-              <span class="fw-bold">$15.00</span>
-              <div class="text-decoration-line-through text-muted small">$20.00</div>
-            </div>
-          </div>
+    .toss{
+        background-color: #ffffff;
+        padding: 1rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #000000 !important;
+        border-radius: 5px;
+    }
 
-        </li>
-        <!-- list group -->
-        <li class="list-group-item py-3 ps-0">
-          <!-- row -->
-          <div class="row align-items-center">
-            <div class="col-3 col-md-2">
-              <!-- img --> <img src="../../static/assets/images/products/product-img-4.jpg" alt="Ecommerce"
-                                class="img-fluid"></div>
-            <div class="col-4 col-md-6 col-lg-5">
-              <!-- title -->
-              <a href="restaurant.html" class="text-inherit">
-                <h6 class="mb-0">Onion Flavour Potato</h6>
-              </a>
-              <span><small class="text-muted">250g</small></span>
-              <!-- text -->
-              <div class="mt-2 small lh-1"> <a href="#!" class="text-decoration-none text-inherit"> <span
-                    class="me-1 align-text-bottom">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      class="feather feather-trash-2 text-success">
-                      <polyline points="3 6 5 6 21 6"></polyline>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                      </path>
-                      <line x1="10" y1="11" x2="10" y2="17"></line>
-                      <line x1="14" y1="11" x2="14" y2="17"></line>
-                    </svg></span><span class="text-muted">Remove</span></a></div>
-            </div>
-            <!-- input group -->
-            <div class="col-3 col-md-3 col-lg-3">
-              <!-- input -->
-              <!-- input -->
-              <div class="input-group input-spinner  ">
-                <input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
-                <input type="number" step="1" max="10" value="1" name="quantity"
-                  class="quantity-field form-control-sm form-input   ">
-                <input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
-              </div>
-            </div>
-            <!-- price -->
-            <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-              <span class="fw-bold">$15.00</span>
-              <div class="text-decoration-line-through text-muted small">$20.00</div>
-            </div>
-          </div>
+    .toss.select {
+        background-color: #ebedef;
+        border: 1px solid #000000;
+        transition-duration: 0.1s;
+    }
 
-        </li>
-        <!-- list group -->
-        <li class="list-group-item py-3 ps-0 border-bottom">
-          <!-- row -->
-          <div class="row align-items-center">
-            <div class="col-3 col-md-2">
-              <!-- img --> <img src="../../static/assets/images/products/product-img-5.jpg" alt="Ecommerce"
-                                class="img-fluid"></div>
-            <div class="col-4 col-md-6 col-lg-5">
-              <!-- title -->
-              <a href="restaurant.html" class="text-inherit">
-                <h6 class="mb-0">Salted Instant Popcorn </h6>
-              </a>
-              <span><small class="text-muted">100g</small></span>
-              <!-- text -->
-              <div class="mt-2 small lh-1"> <a href="#!" class="text-decoration-none text-inherit"> <span
-                    class="me-1 align-text-bottom">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                      class="feather feather-trash-2 text-success">
-                      <polyline points="3 6 5 6 21 6"></polyline>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                      </path>
-                      <line x1="10" y1="11" x2="10" y2="17"></line>
-                      <line x1="14" y1="11" x2="14" y2="17"></line>
-                    </svg></span><span class="text-muted">Remove</span></a></div>
-            </div>
-            <!-- input group -->
-            <div class="col-3 col-md-3 col-lg-3">
-              <!-- input -->
-              <!-- input -->
-              <div class="input-group input-spinner  ">
-                <input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
-                <input type="number" step="1" max="10" value="1" name="quantity"
-                  class="quantity-field form-control-sm form-input   ">
-                <input type="button" value="+" class="button-plus btn btn-sm " data-field="quantity">
-              </div>
-            </div>
-            <!-- price -->
-            <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-              <span class="fw-bold">$15.00</span>
-              <div class="text-decoration-line-through text-muted small">$25.00</div>
-            </div>
-          </div>
+    .pay{
+        padding: 0.5rem;
+        background-color: #5AAB6F;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-        </li>
+    .pay p {
+        color: #ffffff;
+        padding: 10px;
+        text-align: center;
+        display: flex;
+        direction: right;
+        font-size: 15px;
+        padding-bottom: 0%
+    }
 
-      </ul>
-      <!-- btn -->
-      <div class="d-flex justify-content-between mt-4">
-        <a href="#!" class="btn btn-primary">Continue Shopping</a>
-        <a href="#!" class="btn btn-dark">Update Cart</a>
-      </div>
+    .content{
+        padding: 1rem;
+    }
 
-    </div>
-  </div>
-</div>
+    .content-payment{
+        padding: 1rem;
+        padding-top: 0%;
+        display: flex;
+        justify-content: center;
+    }
 
-<!-- Modal -->
-<div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm modal-dialog-centered">
-    <div class="modal-content">
+    .button-payment{
+        border: 0 solid;
+        border-radius: 5px;
+        background-color: #ffffff;
+        color: #5AAB6F;
+    }
 
-      <div class="modal-body p-6">
-        <div class="d-flex justify-content-between align-items-start ">
-          <div>
-            <h5 class="mb-1" id="locationModalLabel">Choose your Delivery Location</h5>
-            <p class="mb-0 small">Enter your address and we will specify the offer you area. </p>
-          </div>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="my-5">
-          <input type="search" class="form-control" placeholder="Search your area">
-        </div>
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <h6 class="mb-0">Select Location</h6>
-          <a href="#" class="btn btn-outline-gray-400 text-muted btn-sm">Clear All</a>
+    .button-payment:active{
+        background-color: #86ce99;
+        color: #ffffff;
+    }
+
+    .button-payment:focus {
+        color: #ffffff;
+        outline: none;
+    }
+
+    .button-payment:focus:not(:active) {
+        background-color: #ffffff;
+        color: #5AAB6F;
+    }
+
+    a:focus, a:active, a:link, a:visited, button:focus, button:active {
+        border: none;
+    }
 
 
-        </div>
-        <div>
-          <div data-simplebar style="height:300px;">
-            <div class="list-group list-group-flush">
+    .mobile-header-nav-item {
+        padding: 0.5rem 1rem;
+    }
+  }
+  </style>
+-->
 
-              <a href="#"
-                class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action active">
-                <span>Alabama</span><span>Min:$20</span></a>
-              <a href="#"
-                class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>Alaska</span><span>Min:$30</span></a>
-              <a href="#"
-                class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>Arizona</span><span>Min:$50</span></a>
-              <a href="#"
-                class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>California</span><span>Min:$29</span></a>
-              <a href="#"
-                class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>Colorado</span><span>Min:$80</span></a>
-              <a href="#"
-                class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>Florida</span><span>Min:$90</span></a>
-              <a href="#"
-                class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>Arizona</span><span>Min:$50</span></a>
-              <a href="#"
-                class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>California</span><span>Min:$29</span></a>
-              <a href="#"
-                class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>Colorado</span><span>Min:$80</span></a>
-              <a href="#"
-                class="list-group-item d-flex justify-content-between align-items-center px-2 py-3 list-group-item-action">
-                <span>Florida</span><span>Min:$90</span></a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
   <main>
+
+    <!-- 상위 카테고리 표시 영역 Home / 식당 / 오 이터리 이런 느낌-->
   <div class="mt-4">
     <div class="container">
       <!-- row -->
@@ -383,14 +145,20 @@
       </div>
     </div>
   </div>
+
+
+
+
+  <!-- 메인 영역-->
   <section class="mt-8">
     <div class="container">
       <div class="row">
 
+
+        <!-- 이미지 슬라이드 영역-->
         <div class="col-md-6">
+
           <!-- img slide -->
-
-
           <div class="product" id="product">
 
             <div>
@@ -435,7 +203,7 @@
             </div>
 
 
-          <!-- product tools -->
+          <!-- 이미지 슬라이드 하단 썸네일 영역 -->
           <div class="product-tools">
             <div class="thumbnails row g-3" id="productThumbnails">
               <div class="col-3">
@@ -471,6 +239,10 @@
         </div>
 
 
+
+
+
+        <!--메인 매장 정보 영역-->
         <div class="col-md-6 ">
           <div class="ps-lg-10 mt-6 mt-md-0">
             <!-- content -->
@@ -518,9 +290,140 @@
 
               <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid d-flex justify-content-start" style="width:100%">
                 <!-- button -->
-                <!-- btn --> <button type="button" class="btn btn-primary col-11"><i class="feather-icon icon-shopping-bag me-2"></i>예약하기</button>
+                <!-- btn --> <button type="button" class="btn btn-primary col-11 clear-button"  data-bs-toggle="modal" href="#exampleModalToggle"><i class="feather-icon icon-shopping-bag me-2"></i>예약하기</button>
                 <a class="btn btn-light col-1" href="../pages/shop-wishlist.html" data-bs-toggle="tooltip" data-bs-html="true" aria-label="Wishlist"><i class="feather-icon icon-heart"></i></a>
               </div>
+
+
+
+
+              <!-- 예약하기 모달창(윤호님 기능)-->
+              <div class="modal fade" id="exampleModalToggle" data-bs-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalToggleLabel">예약</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="content">
+                        <h2>예약 날짜</h2>
+                        <form action="#" class="row">
+                          <div class="col-md-12">
+                            <div id="inline_cal"></div>
+                          </div>
+                        </form>
+                        <h2 style="padding-top: 40px;">인원 수</h2>
+                        <div class="button-slider" id="person-buttons">
+                          <button type="button" class="circle-button">1</button>
+                          <button type="button" class="circle-button">2</button>
+                          <button type="button" class="circle-button">3</button>
+                          <button type="button" class="circle-button">4</button>
+                          <button type="button" class="circle-button">5</button>
+                          <button type="button" class="circle-button">6</button>
+                        </div>
+                        <h2 style="padding-top: 40px;">예약 시간</h2>
+                        <div class="button-slider" id="time-buttons">
+                          <button type="button" class="rectangle-button">오후 14 : 00</button>
+                          <button type="button" class="rectangle-button">오후 15 : 00</button>
+                          <button type="button" class="rectangle-button">오후 16 : 00</button>
+                          <button type="button" class="rectangle-button">오후 17 : 00</button>
+                          <button type="button" class="rectangle-button">오후 18 : 00</button>
+                          <button type="button" class="rectangle-button">오후 19 : 00</button>
+                          <button type="button" class="rectangle-button">오후 20 : 00</button>
+                        </div>
+                        <div class="clear">
+                          <button type="button" class="clear-button" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">예약 하기</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal fade" id="exampleModalToggle2" data-bs-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalToggleLabel2">결제</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="content">
+                        <h5>예약 날짜</h5>
+                        <div class="card">
+                          <h5>예약 장소 : 김이정</h5>
+                          <h5>예약 날짜 : 11월 3일 (일) 오후 14 : 00</h5>
+                          <h5 style="margin-bottom: 0px;">인원 수 : 1명</h5>
+                        </div>
+                      </div>
+                      <div class="content">
+                        <div class="d-flex align-items-center">
+                          <h5 style="margin-bottom: 0px;">위약금</h5>
+                          <a class="position-relative btn-icon btn-ghost-secondary btn rounded-circle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="color: #5AAB6F;" width="20" height="20" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                              <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                            </svg>
+                          </a>
+
+                          <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg p-0 border-radius-10" style="box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); background-color: #f6f6f6;">
+                            <div class="border-bottom p-3 d-flexjustify-content-between align-items-center border-1">
+                              <p class="mb-3">위약금 정책</p>
+                              <p><span style="color: #5AAB6F;">1.</span> 2일 전 취소: 100% 환불</p>
+                              <p><span style="color: #5AAB6F;">2.</span> 1일 전 취소: 50% 환불</p>
+                              <p><span style="color: #5AAB6F;">3.</span> 당일 취소: 환불 불가</p>
+                              <p><span style="color: #5AAB6F;">4.</span> 노쇼: 환불 불가</p>
+                            </div>
+
+                          </div>
+                        </div>
+                        <div class="card">
+                          <h5>계산 : (예약 인원 수) x 10000</h5>
+                          <h5 style="margin-bottom: 0px;">결제 총액 : 10000원</h5>
+                        </div>
+                      </div>
+                      <div class="content">
+                        <h5>결제 수단</h5>
+                        <div class="card">
+                          <h5 style="margin-right: auto;">결제 수단을 선택하세요.</h5>
+                          <button type="button" class="toss" id="toss1">
+                            <img src="/reservation2/logo/logo-toss-pay.svg" style="width: 30%;">
+                          </button>
+                          <button type="button" class="toss" style="margin-top: 20px;" id="toss2">
+                            <img src="/reservation2/logo/logo-toss-pay.svg" style="width: 30%;">
+                          </button>
+                          <h5 style="margin-top: 10px; margin-right: auto;">개인정보 제3자 제공고지</h5>
+                          <div class="card" style="background-color: #f6f6f6;">
+                            <p>wannaV는 회원들의 개인정보를 안전하게 취급하는 데 최선을 다합니다.</p>
+                            <p>고객님의 개인정보는 원활한 예약을 위한 기록 보존을 위해 아래 업체에 제공됩니다.</p>
+                            <p>1. 제공받는 자: 회원이 예약 신청한 식당, 예약관리 솔루션 wannaV 매장용</p>
+                            <p>2. 제공받는 자의 개인정보 이용 목적: 식당 예약 서비스 제공(서비스 계약 이행, 예약 확인, 예약 및 관리, 고객 관리) 및 제공 거절</p>
+                            <p>3. 제공하는 개인정보 항목: 전화번호, 예약 신청자 이름, 결제정보, 기타 예약 및 대기를 위해 필요한 정보</p>
+                            <p>4. 제공받는 자의 보유기간: 예약을 통한 식당 방문일로부터 1년이 경과한 때까지 보관.</p>
+                            <p style="font-weight: bold;">동의를 거부할 권리가 있으나, 서비스 제공을 위해 필요한 최소한의 개인정보이므로 동의 거부 시 wannaV 예약 서비스 이용이 제한됩니다.</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="content-payment">
+                        <p style="font-size: 10px; margin-right: 10px; margin-bottom: 0%; display: flex; justify-content: center; align-items: center; font-weight: bold;">주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="checkbox" style="width: 20px; height: 20px;">
+                          <label class="form-check-label" style="font-size: 10px;">동의(필수)</label>
+                        </div>
+                        </p>
+                      </div>
+
+                      <div class="pay">
+                        <p style="font-weight: bold;">결제 금액: 10000원</p>
+                        <button type="button" class="button-payment" id="payment" disabled>결제 하기</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
 
             </div>
             <!-- hr -->
@@ -529,17 +432,21 @@
 
           </div>
         </div>
-
-
-
       </div>
     </div>
   </section>
-  <section class="mt-lg-14 mt-8 ">
+
+
+
+    <!-- 하단 전체 영역-->
+    <section class="mt-lg-14 mt-8 ">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <ul class="nav nav-pills nav-lb-tab" id="myTab" role="tablist">
+
+
+          <!-- 메뉴 바 이름 영역-->
+          <ul class="nav nav-pills nav-lb-tab" id="myTab" role="tablist" >
             <!-- nav item -->
             <li class="nav-item" role="presentation">
               <!-- btn --> <button class="nav-link active" id="product-tab" data-bs-toggle="tab"
@@ -560,55 +467,69 @@
             </li>
 
           </ul>
-          <!-- tab content -->
+
+
+
+
+          <!-- 1. 매장 정보 메뉴  -->
           <div class="tab-content" id="myTabContent">
-            <!-- tab pane -->
+
+            <!-- 매장 정보 메뉴 -->
             <div class="tab-pane fade show active" id="product-tab-pane" role="tabpanel" aria-labelledby="product-tab"
               tabindex="0">
               <div class="my-8">
+                <div class="row">
+                  <div class="col-12">
+                    <h4 class="mb-4">매장 소개</h4>
+                    <p>청담동도심 속 정원에서 미국 정통 스테이크의 맛과 서비스를 느껴보세요. 넓은 정원과 쾌적한 환경을 제공해드립니다.</p>
 
-                <ul class="list-group list-group-flush">
+                  </div>
+
+                  <div class="col-12 mt-4">
+                    <h4 class="mb-4">위치</h4>
+
+                    <div id="map" style="width:50%;height:350px; "></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 음식 메뉴바 -->
+            <div class="tab-pane fade" id="details-tab-pane" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
+              <div class="my-8">
+
+                  <ul class="list-group list-group-flush">
                   <!-- list group -->
                   <li class="list-group-item py-3 ps-0 border-top">
                     <!-- row -->
                     <div class="row align-items-center">
                       <div class="col-3 col-md-2">
-                        <!-- img --> <img src="../../static/assets/images/products/product-img-1.jpg" alt="Ecommerce"
+                        <!-- img --> <img src="/assets/images/restaurant/food/food1.jpeg" th:src="@{/assets/images/restaurant/food/food1.jpeg}" alt="Ecommerce"
                                           class="img-fluid"></div>
-                      <div class="col-4 col-md-6 col-lg-5">
+                      <div class="col-4 col-md-6 col-lg-5 d-block d-lg-none">
                         <!-- title -->
                         <a href="../restaurant/restaurant.html" class="text-inherit">
-                          <h6 class="mb-0">Haldiram's Sev Bhujia</h6>
+                          <h5 class="mb-0">비건 소세지 바</h5>
                         </a>
-                        <span><small class="text-muted">.98 / lb</small></span>
                         <!-- text -->
-                        <div class="mt-2 small lh-1"> <a href="#!" class="text-decoration-none text-inherit"> <span
-                            class="me-1 align-text-bottom">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                         class="feather feather-trash-2 text-success">
-                      <polyline points="3 6 5 6 21 6"></polyline>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                      </path>
-                      <line x1="10" y1="11" x2="10" y2="17"></line>
-                      <line x1="14" y1="11" x2="14" y2="17"></line>
-                    </svg></span><span class="text-muted">Remove</span></a></div>
                       </div>
-                      <!-- input group -->
-                      <div class="col-3 col-md-3 col-lg-3">
-                        <!-- input -->
-                        <!-- input -->
 
-
+                      <div class="col-4 col-md-6 col-lg-5 d-none d-lg-block">
+                        <!-- title -->
+                        <a href="../restaurant/restaurant.html" class="text-inherit">
+                          <h2 class="mb-0">비건 소세지 바</h2>
+                        </a>
+                        <!-- text -->
                       </div>
+
                       <!-- price -->
                       <div class="col-2 text-lg-end text-start text-md-end col-md-2">
                         <span class="fw-bold">$5.00</span>
-
                       </div>
                     </div>
 
                   </li>
+
                   <!-- list group -->
                   <li class="list-group-item py-3 ps-0">
                     <!-- row -->
@@ -636,10 +557,7 @@
                     </svg></span><span class="text-muted">Remove</span></a></div>
                       </div>
                       <!-- input group -->
-                      <div class="col-3 col-md-3 col-lg-3">
 
-
-                      </div>
                       <!-- price -->
                       <div class="col-2 text-lg-end text-start text-md-end col-md-2">
                         <span class="fw-bold text-danger">$20.00</span>
@@ -675,15 +593,9 @@
                     </svg></span><span class="text-muted">Remove</span></a></div>
                       </div>
                       <!-- input group -->
-                      <div class="col-3 col-md-3 col-lg-3">
 
-
-                      </div>
                       <!-- price -->
-                      <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-                        <span class="fw-bold">$15.00</span>
-                        <div class="text-decoration-line-through text-muted small">$20.00</div>
-                      </div>
+
                     </div>
 
                   </li>
@@ -714,16 +626,9 @@
                     </svg></span><span class="text-muted">Remove</span></a></div>
                       </div>
                       <!-- input group -->
-                      <div class="col-3 col-md-3 col-lg-3">
-                        <!-- input -->
-                        <!-- input -->
 
-                      </div>
                       <!-- price -->
-                      <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-                        <span class="fw-bold">$15.00</span>
-                        <div class="text-decoration-line-through text-muted small">$20.00</div>
-                      </div>
+
                     </div>
 
                   </li>
@@ -754,16 +659,9 @@
                     </svg></span><span class="text-muted">Remove</span></a></div>
                       </div>
                       <!-- input group -->
-                      <div class="col-3 col-md-3 col-lg-3">
-                        <!-- input -->
-                        <!-- input -->
-                  
-                      </div>
+
                       <!-- price -->
-                      <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-                        <span class="fw-bold">$15.00</span>
-                        <div class="text-decoration-line-through text-muted small">$25.00</div>
-                      </div>
+
                     </div>
 
                   </li>
@@ -771,82 +669,10 @@
                 </ul>
 
 
-              </div>
-            </div>
-            <!-- tab pane -->
-            <div class="tab-pane fade" id="details-tab-pane" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
-              <div class="my-8">
-                <div class="row">
-                  <div class="col-12">
-                    <h4 class="mb-4">Details</h4>
-                  </div>
-                  <div class="col-12 col-lg-6">
-                    <table class="table table-striped">
-                      <!-- table -->
-                      <tbody>
-                        <tr>
-                          <th>Weight</th>
-                          <td>1000 Grams</td>
-                        </tr>
-                        <tr>
-                          <th>Ingredient Type</th>
-                          <td>Vegetarian</td>
-                        </tr>
-                        <tr>
-                          <th>Brand</th>
-                          <td>Dmart</td>
-                        </tr>
-                        <tr>
-                          <th>Item Package Quantity</th>
-                          <td>1</td>
-                        </tr>
-                        <tr>
-                          <th>Form</th>
-                          <td>Larry the Bird</td>
-                        </tr>
-                        <tr>
-                          <th>Manufacturer</th>
-                          <td>Dmart</td>
-                        </tr>
-                        <tr>
-                          <th>Net Quantity</th>
-                          <td>340.0 Gram</td>
-                        </tr>
-                        <tr>
-                          <th>Product Dimensions</th>
-                          <td>9.6 x 7.49 x 18.49 cm</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="col-12 col-lg-6">
-                    <table class="table table-striped">
-                      <!-- table -->
-                      <tbody>
-                        <tr>
-                          <th>ASIN</th>
-                          <td>SB0025UJ75W</td>
-                        </tr>
-                        <tr>
-                          <th>Best Sellers Rank</th>
-                          <td>#2 in Fruits</td>
-                        </tr>
-                        <tr>
-                          <th>Date First Available</th>
-                          <td>30 April 2022</td>
-                        </tr>
-                        <tr>
-                          <th>Item Weight</th>
-                          <td>500g</td>
-                        </tr>
-                        <tr>
-                          <th>Generic Name</th>
-                          <td>Banana Robusta</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+
+
+
+
               </div>
             </div>
             <!-- tab pane -->
@@ -1181,9 +1007,10 @@
       <div class="row">
         <div class="col-12">
           <!-- heading -->
-          <h3>Related Items</h3>
+          <h3>연관된 식당</h3>
         </div>
       </div>
+
       <!-- row -->
       <div class="row g-4 row-cols-lg-5 row-cols-2 row-cols-md-2 mt-2">
         <!-- col -->
@@ -1657,11 +1484,91 @@
 </div>
 
 
+<!--
+
+
+ 윤호님 js 시작
+
+
+  <script src="/reservation1/calendar-17/js/jquery-3.3.1.min.js" th:src="@{/assets/libs/calendar-17/js/jquery-3.3.1.min.js}"></script>
+  <script src="/reservation1/calendar-17/js/popper.min.js" th:src="@{/assets/libs/calendar-17/js/popper.min.js}"></script>
+  <script src="/reservation1/calendar-17/js/bootstrap.min.js" th:src="@{/assets/libs/calendar-17/js/bootstrap.min.js}"></script>
+  <script src="/reservation1/calendar-17/js/rome.js" th:src="@{/assets/libs/calendar-17/js/rome.js}"></script>
+  <script src="/reservation1/calendar-17/js/main.js" th:src="@{/assets/libs/calendar-17/js/main.js}"></script>
 
 
 
 
+  윤호님 js 시작
+  <script>
+    const circleButtons = document.querySelectorAll('.circle-button');
+    const rectangleButtons = document.querySelectorAll('.rectangle-button');
 
+    circleButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        circleButtons.forEach(btn => btn.classList.remove('selected'));
+        button.classList.add('selected');
+      });
+    });
+
+    rectangleButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        rectangleButtons.forEach(btn => btn.classList.remove('selected'));
+        button.classList.add('selected');
+      });
+    });
+
+    document.getElementById('inline_cal').addEventListener('click', () => {
+      circleButtons.forEach(button => button.classList.remove('selected'));
+      rectangleButtons.forEach(button => button.classList.remove('selected'));
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const checkbox = document.querySelector('.form-check-input');
+      const tossButton1 = document.getElementById('toss1');
+      const tossButton2 = document.getElementById('toss2');
+      const paymentButton = document.getElementById("payment");
+
+      let toss1State = 0;
+      let toss2State = 0;
+
+      // 결제 버튼 활성화 함수
+      function updatePaymentButtonState() {
+          paymentButton.disabled = !(checkbox.checked && (toss1State === 1 || toss2State === 1));
+      }
+
+      function toggleTossState(buttonId, state) {
+          if (state === 'toss1') {
+              toss1State = toss1State === 0 ? 1 : 0;
+              toss2State = 0;
+          } else {
+              toss2State = toss2State === 0 ? 1 : 0;
+              toss1State = 0;
+          }
+
+          document.getElementById(buttonId).classList.toggle('select', state === 'toss1' ? toss1State === 1 : toss2State === 1);
+          document.getElementById(buttonId === 'toss1' ? 'toss2' : 'toss1').classList.remove('select');
+
+          console.log("toss1State:", toss1State);
+          console.log("toss2State:", toss2State);
+
+          // 버튼 클릭 시마다 결제 버튼 활성화 여부 확인
+          updatePaymentButtonState();
+      }
+
+      // Toss 버튼 클릭 시 상태 변경 및 결제 버튼 활성화 확인
+      tossButton1.addEventListener('click', () => toggleTossState('toss1', 'toss1'));
+      tossButton2.addEventListener('click', () => toggleTossState('toss2', 'toss2'));
+
+      // 체크박스 변경 시 결제 버튼 활성화 확인
+      checkbox.addEventListener('change', updatePaymentButtonState);
+  });
+  </script>
+
+   윤호님 js 끝
+
+
+-->
 
 
 </main>

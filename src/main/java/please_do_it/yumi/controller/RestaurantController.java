@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @Slf4j
-public class PleaseIBeggingYou {
+public class RestaurantController {
   @RequestMapping
   public String sddfj(){
     return "index";

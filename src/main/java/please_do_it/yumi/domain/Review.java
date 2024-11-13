@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter(AccessLevel.PRIVATE)
+@Getter @Setter
 public class Review {
 
   @Id @GeneratedValue
@@ -24,6 +24,13 @@ public class Review {
   private Restaurant restaurant;
 
 
+  /**
+   * 연관관계 편의 메서드
+   */
+  public void addRestaurant(Restaurant restaurant){
+    this.restaurant = restaurant;
+    restaurant.getReviews().add(this);
+  }
 
 
 

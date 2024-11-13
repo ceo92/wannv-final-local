@@ -46,9 +46,12 @@ public class Restaurant {
   private List<Review> reviews = new ArrayList<>(); //해당 식당에서 작성한 사용자들의 리뷰를 담을  것임
 
 
-
   @OneToMany(mappedBy = "restaurant")
   private List<BusinessDay> businessDays = new ArrayList<>();
+
+
+  @OneToMany(mappedBy = "restaurant")
+  private List<Food> foods = new ArrayList<>();
 
 
   //여러 리뷰 태그들 Review 태그들 , reviews를 통해 나온 리뷰 태그들 top5만 가져와서 해당 기반으로 출력하게 할 것임 ㅇㅇ
@@ -83,6 +86,7 @@ public class Restaurant {
 
   /**
    * 도메인 모델 패턴 : 비즈니스 로직 정의(서비스가 아닌 도메인에 정의하기)
+   * DDD로 하면 단위 테스트에서 객체 생성만으로 테스트도 가능한 유라함도 가져갈 수 있음
    */
 
   public double averageRate(){

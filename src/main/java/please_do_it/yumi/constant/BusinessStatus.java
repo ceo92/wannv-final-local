@@ -2,7 +2,7 @@ package please_do_it.yumi.constant;
 
 public enum BusinessStatus {
 
-  OPEN("영업 중") , CLOSE("영업 종료") , BREAK_TIME("브레이크 타임");
+  OPEN("영업 중") , CLOSE("영업 종료") , BREAK_TIME("브레이크 타임") , TODAY_BREAK("오늘 휴무");
 
   private String description;
 
@@ -11,7 +11,7 @@ public enum BusinessStatus {
   }
 
   public String getDescription(){
-    return description
+    return description;
   }
 
 }

@@ -12,8 +12,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import lombok.Getter;
 import lombok.Setter;
 import please_do_it.yumi.constant.BusinessStatus;
@@ -33,8 +35,9 @@ public class Restaurant {
   private String image;
   private String description;
 
+
   @Enumerated(EnumType.STRING)
-  private BusinessStatus businessStatus;
+  private BusinessStatus businessStatus; //영업 상태 : 영업 중 , 영업 종료 , 브레이크타임
 
   private boolean canPark; //주차 가능 여부
 
@@ -48,8 +51,8 @@ public class Restaurant {
   private List<BusinessDay> businessDays = new ArrayList<>();
 
 
-  //여러 리뷰 태그들 Review 태그들
-  private List<String> reviewTag = new ArrayList<>(); //임의로 여러 리뷰 타입을 갖게 할 것임 , 사장님이 친절해요 , 맛있어요 , 인테리어 유미 쪽에서 등록 ㅇㅇ
+  //여러 리뷰 태그들 Review 태그들 , reviews를 통해 나온 리뷰 태그들 top5만 가져와서 해당 기반으로 출력하게 할 것임 ㅇㅇ
+  //private List<String> reviewTag = new ArrayList<>(); //임의로 여러 리뷰 타입을 갖게 할 것임 , 사장님이 친절해요 , 맛있어요 , 인테리어 유미 쪽에서 등록 ㅇㅇ
 
 
   /**
@@ -91,18 +94,40 @@ public class Restaurant {
   }
 
 
-  public boolean isOpen(){
-    businessDays.forEach(businessDay -> {
-      String dayOfWeek = businessDay.getDayOfWeek();
-      LocalDateTime openTime = businessDay.getOpenTime();
-      LocalDateTime closeTime = businessDay.getCloseTime();
+  //상태 설정 메서드로 가자
+  public void changeBusinessStatus(BusinessStatus businessStatus){
+    this.businessStatus = businessStatus;
+  }
+
+
+  //이건 서비스 단에서 처리해주는 게 맞는 거 같은데 ..
+  public void calculateBusinessStatus(){
+    LocalDateTime now = LocalDateTime.now();
+    String nowDayOfWeek = now.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.KOREAN); //요일 정보(월요일 , ... , 일요일 ) 담김
+    BusinessDay businessDay = businessDays.stream()
+        .filter(bd -> bd.getDayOfWeek().equals(nowDayOfWeek)).findFirst()
+        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 요일입니다."));
+    if (businessDay.getIsClose()){
+      this.businessStatus = BusinessStatus.TODAY_BREAK;
+    }
+
+    LocalDateTime openTime = businessDay.getOpenTime();
+    LocalDateTime closeTime = businessDay.getCloseTime();
+    if (now.isAfter(openTime) && now.isBefore(closeTime)) {
       LocalDateTime breakStartTime = businessDay.getBreakStartTime();
       LocalDateTime breakEndTime = businessDay.getBreakEndTime();
-    });
-    LocalDateTime now = LocalDateTime.now();
+      if (now.isAfter(breakStartTime) && now.isBefore(breakEndTime)) {
+        this.businessStatus = BusinessStatus.BREAK_TIME;
+      }
+      this.businessStatus = BusinessStatus.OPEN;
+    }
+    else {
+      this.businessStatus = BusinessStatus.CLOSE;
+    }
 
-    //
-    now.get
+
+
+
 
   }
 

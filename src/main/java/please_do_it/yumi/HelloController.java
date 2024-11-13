@@ -1,15 +1,16 @@
-package please_do_it.yumi.controller;
+package please_do_it.yumi;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@Slf4j
-public class RestaurantController {
-
-  public String
+public class HelloController {
 
 
+
+  @RequestMapping
+  public String hello(){
+    return "index";
+  }
 
 }

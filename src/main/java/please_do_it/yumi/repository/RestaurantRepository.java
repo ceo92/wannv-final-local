@@ -1,12 +1,21 @@
 package please_do_it.yumi.repository;
 
-import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import please_do_it.yumi.domain.Restaurant;
-
 
 @Repository
-public interface RestaurantRepository extends JpaRepository<Restaurant , Long> {
+public class RestaurantRepository {
+
+  private final EntityManager em;
+  private final JPAQueryFactory query;
+  public RestaurantRepository(EntityManager em){
+    this.em=em;
+    this.query = new JPAQueryFactory(em);
+  }
+  
+
+
 
 }

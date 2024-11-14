@@ -54,8 +54,6 @@ public class Restaurant {
   private List<Food> foods = new ArrayList<>();
 
 
-  //여러 리뷰 태그들 Review 태그들 , reviews를 통해 나온 리뷰 태그들 top5만 가져와서 해당 기반으로 출력하게 할 것임 ㅇㅇ
-  //private List<String> reviewTag = new ArrayList<>(); //임의로 여러 리뷰 타입을 갖게 할 것임 , 사장님이 친절해요 , 맛있어요 , 인테리어 유미 쪽에서 등록 ㅇㅇ
 
 
   /**

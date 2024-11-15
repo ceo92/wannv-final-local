@@ -1,11 +1,13 @@
 package please_do_it.yumi.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -46,20 +48,24 @@ public class Restaurant {
   private List<Review> reviews = new ArrayList<>(); //해당 식당에서 작성한 사용자들의 리뷰를 담을  것임
 
 
-  @OneToMany(mappedBy = "restaurant")
+  //오직 Restaurant 부모에게만 Food는 의존되므로 cascade , orphanRemoval 걸었음
+  @OneToMany(mappedBy = "restaurant" , cascade = CascadeType.ALL , orphanRemoval = true)
   private List<BusinessDay> businessDays = new ArrayList<>();
 
 
-  @OneToMany(mappedBy = "restaurant")
+  //오직 Restaurant 부모에게만 Food는 의존되므로 cascade , orphanRemoval 걸었음 ,
+  @OneToMany(mappedBy = "restaurant" , cascade = CascadeType.ALL , orphanRemoval = true)
   private List<Food> foods = new ArrayList<>();
 
 
-
+  
 
   /**
    * 체크박스 , 동적 검색조건 데이터 , 변경할 일 없으므로 @ElementCollection 정의
    */
-  //여러 포함 음식 종류들(유제품 , 계란 , ...) ContaintFoodType
+  //여러 포함 음식 종류들(유제품 , 계란 , ...) ContaintFoodType ,조회 : 지연로딩 , 필요한 시점에 조회되게 저장 시 cascade로 연달아 저장됨 ㅇㅇ , 즉 알바없음 !
+  // 기본적으로 cascade , orphanRemoval 걸려있음
+
   @ElementCollection
   @CollectionTable(name = "ContainFoodType", joinColumns = @JoinColumn(name = "id"))
   private List<String> containFoodTypes = new ArrayList<>();

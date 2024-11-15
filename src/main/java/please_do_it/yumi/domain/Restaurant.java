@@ -58,7 +58,7 @@ public class Restaurant {
   private List<Food> foods = new ArrayList<>();
 
 
-  
+
 
   /**
    * 체크박스 , 동적 검색조건 데이터 , 변경할 일 없으므로 @ElementCollection 정의

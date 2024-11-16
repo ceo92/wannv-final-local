@@ -7,7 +7,6 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -85,7 +84,7 @@ public class Restaurant {
 
   @ElementCollection
   @CollectionTable(name = "MoodType", joinColumns = @JoinColumn(name = "id"))
-  private List<String> moodType = new ArrayList<>();
+  private List<String> moodTypes = new ArrayList<>();
 
 
   /**

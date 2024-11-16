@@ -22,7 +22,7 @@ public class RestaurantController {
 
   @GetMapping("aa")
   public String sdj(){
-    return "restaurant/reviews";
+    return "restaurant/admin-restaurants";
   }
 
 

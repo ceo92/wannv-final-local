@@ -1,9 +1,13 @@
 package please_do_it.yumi.dto;
 
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class RestaurantSearchCond {
   //별점 순 , 좋아요 순 이건 정렬 정보이니 뭐 상관 없지 ㅇㅇ
   private Integer startPrice; //조건 : 이거보다 크고 roe

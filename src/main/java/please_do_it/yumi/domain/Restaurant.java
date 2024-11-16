@@ -35,6 +35,7 @@ public class Restaurant {
   private Address address;
   private String image;
   private String description;
+  private Double averageRate;
 
 
   @Enumerated(EnumType.STRING)

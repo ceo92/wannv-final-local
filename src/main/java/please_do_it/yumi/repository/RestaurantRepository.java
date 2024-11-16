@@ -40,7 +40,7 @@ public class RestaurantRepository {
   }
 
   public List<Restaurant> findAll(RestaurantSearchCond restaurantSearchCond) {
-    Integer rate = restaurantSearchCond.getRate();
+    List<Integer> rate = restaurantSearchCond.getRates();
     Boolean canPark = restaurantSearchCond.getCanPark();
     Boolean isOpen = restaurantSearchCond.getIsOpen();
     Integer startPrice = restaurantSearchCond.getStartPrice();
@@ -57,8 +57,8 @@ public class RestaurantRepository {
         .join(restaurant.businessDays , businessDay)
         .join(review.reviewTags , reviewTag)
         .where(eqContainFoodTypes(containFoodTypes) , eqRestaurantTypes(restaurantTypes),
-            eqProvideServiceTypes(provideServiceTypes), eqMoodTypes(moodTypes),
-            goeRate(rate), loeGoePrice(startPrice , endPrice) ,
+            eqProvideServiceTypes(provideServiceTypes), eqMoodTypes(moodTypes)
+            , loeGoePrice(startPrice , endPrice) ,
             eqCanPark(canPark) , eqIsOpen(isOpen) , eqRoadAddress(roadAddress))
         .fetch();
 
@@ -100,6 +100,15 @@ public class RestaurantRepository {
     return booleanExpression;
   }
 
+  private BooleanExpression goeRate(List<Integer> rates) {
+    BooleanExpression booleanExpression = null;
+    for (Integer rate : rates) {
+      booleanExpression = rate != null ? restaurant.averageRate.goe(rate).and(restaurant.averageRate.loe(rate+1)) : null;
+    }
+    return booleanExpression;
+
+  }
+
   private BooleanExpression eqRoadAddress(String roadAddress){
     return roadAddress != null ? restaurant.address.roadAddress.eq(roadAddress) : null;
   }
@@ -116,11 +125,7 @@ public class RestaurantRepository {
     return startPrice != null && endPrice != null ? food.price.loe(endPrice).and(food.price.goe(startPrice)) : null;
   }
 
-  private BooleanExpression goeRate(Integer rate) {
-    return rate != null ? review.rate.goe(rate).and(review.rate.loe(rate+1)) : null; //1. 평균 별점이니 계산 로직 들어가야됨
 
-
-  }
 
 
 }

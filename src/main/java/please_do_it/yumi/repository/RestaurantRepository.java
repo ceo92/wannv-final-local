@@ -45,6 +45,7 @@ public class RestaurantRepository {
     Boolean isOpen = restaurantSearchCond.getIsOpen();
     Integer startPrice = restaurantSearchCond.getStartPrice();
     Integer endPrice = restaurantSearchCond.getEndPrice();
+    String roadAddress = restaurantSearchCond.getRoadAddress();
     List<String> restaurantTypes = restaurantSearchCond.getRestaurantTypes();
     List<String> containFoodTypes = restaurantSearchCond.getContainFoodTypes();
     List<String> provideServiceTypes = restaurantSearchCond.getProvideServiceTypes();
@@ -58,16 +59,15 @@ public class RestaurantRepository {
         .where(eqContainFoodTypes(containFoodTypes) , eqRestaurantTypes(restaurantTypes),
             eqProvideServiceTypes(provideServiceTypes), eqMoodTypes(moodTypes),
             goeRate(rate), loeGoePrice(startPrice , endPrice) ,
-            eqCanPark(canPark) , eqIsOpen(isOpen))
+            eqCanPark(canPark) , eqIsOpen(isOpen) , eqRoadAddress(roadAddress))
         .fetch();
-
-
-
 
 
 
     //코드가 굉장히 간결 , return 문만 봐도 동적 쿼리 짤 수 있음
   }
+
+
   private BooleanExpression eqContainFoodTypes(List<String> containFoodTypes){
     BooleanExpression booleanExpression = null;
     for (String containFoodType : containFoodTypes) {
@@ -100,7 +100,9 @@ public class RestaurantRepository {
     return booleanExpression;
   }
 
-
+  private BooleanExpression eqRoadAddress(String roadAddress){
+    return roadAddress != null ? restaurant.address.roadAddress.eq(roadAddress) : null;
+  }
 
   private BooleanExpression eqIsOpen(Boolean isOpen) {
     return isOpen != null ? restaurant.businessStatus.eq(BusinessStatus.OPEN) : null; //영업 중인지 판별 , 누군가 체크박스에 영업 중 여부를 체크했을 경우 영업 중만 뜨게끔 조건 추가하는 것!

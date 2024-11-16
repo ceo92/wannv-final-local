@@ -10,7 +10,7 @@ public class RestaurantSearchCond {
   private Integer endPrice; //조건 : 이거보다 작음 loe
   private Boolean isOpen; // 조건 : eq
   private Boolean canPark; // 조건 : eq
-  private Integer rate;
+  private List<Integer> rates;
   private String roadAddress;
   private List<String> containFoodTypes; //여러 포함음식 체크박스 중 하나 설계
   private List<String> restaurantTypes; // 조건 : forEach로 돌려가면서 ₩일치하는지

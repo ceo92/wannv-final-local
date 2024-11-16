@@ -20,6 +20,11 @@ public class RestaurantController {
     return "restaurant/restaurant";
   }
 
+  @GetMapping("aa")
+  public String sdj(){
+    return "restaurant/reviews";
+  }
+
 
 
 

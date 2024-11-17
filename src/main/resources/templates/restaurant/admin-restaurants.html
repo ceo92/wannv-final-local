@@ -36,7 +36,7 @@ th, td {
 
             <!--필터링 Start-->
             <div class="p-6 d-flex">
-                <form class="me-auto" role="search">
+                <form class="me-auto" role="search" id="searchForm">
                   <div class="d-flex justify-content-start ">
                     <div class="">
                       <input id="name" class="form-control" placeholder="이름 입력" type="search" aria-label="Search">
@@ -58,9 +58,10 @@ th, td {
                       </select>
                     </div>
 
-                    <button class="btn btn-primary px-5 " style="margin-left:20rem"  th:text="검색">검색하기</button>
                   </div>
+
                 </form>
+              <button form="searchForm" class="btn btn-primary px-5 "  th:text="검색">검색하기</button> <!-- button이 form 외부에 있음 , 그래서 form의 id인 searchForm으로 연결!-->
 
 
             </div>

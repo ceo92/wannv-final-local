@@ -26,6 +26,20 @@ public class RestaurantController {
   }
 
 
+  @GetMapping("xx")
+  public String asdsdasdj(){
+    return "restaurant/saveForm";
+  }
+
+  @GetMapping("rr")
+  public String fdsjfsjkfjd(){
+    return "restaurant/review";
+  }
+
+
+
+
+
 
 
 

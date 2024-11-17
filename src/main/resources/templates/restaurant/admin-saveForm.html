@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html th:replace="~{fragment/admin-layout.html :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
+
+
+<main>
+  <div class="container">
+    <form id="productForm">
+      <div class="row mb-8">
+        <div class="col-md-12">
+          <div class="d-md-flex justify-content-between align-items-center">
+            <div>
+              <h2>상품 등록</h2>
+              <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="/products" class="text-inherit">상점 관리</a></li>
+                <li class="breadcrumb-item active" aria-current="page">상품 등록</li>
+              </ol>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-primary">상품 등록</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="card mb-6 card-lg">
+          <div class="card-body p-6 ">
+            <div class="row mb-3">
+              <div class="col-12">
+                <label class="form-label">상품명</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-6">
+                <label class="form-label">원가</label>
+                <input type="number" id="costPrice" name="cost-price" class="form-control" required>
+              </div>
+              <div class="col-6">
+                <label class="form-label">판매가</label>
+                <input type="number" id="sellingPrice" name="selling-price" class="form-control"
+                       required>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-6">
+                <label class="form-label">할인율</label>
+                <input type="number" id="discountRate" name="discount-rate" class="form-control">
+              </div>
+              <div class="col-6" id="formArea">
+                <label class="form-label">카테고리</label>
+                <select id="category" name="category" class="form-select" required>
+                  <option value="" disabled selected hidden>-- 선택 --</option>
+                  <option value="MK">밀키트</option>
+                  <option value="C">화장품</option>
+                  <option value="S">간식</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-6">
+                <label class="form-label">재고</label>
+                <input type="number" id="stock" name="stock" class="form-control" required>
+              </div>
+              <div class="col-6">
+                <label class="form-label">상태</label>
+                <div class="pt-2 pb-2">
+                  <label class="form-check form-check-inline">
+                    <input type="radio" id="statusFalse" name="isActive" value="inactive"
+                           class="form-check-input"
+                           checked>
+                    비활성화
+                  </label>
+                  <label class="form-check form-check-inline">
+                    <input type="radio" id="statusTrue" name="isActive" value="active"
+                           class="form-check-input">
+                    활성화
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="mb-3">
+                <h4 class="mb-3 h5">썸네일</h4>
+                <div class="input-group mb-3">
+                  <input type="file" class="form-control" id="image" name="image" required>
+                </div>
+              </div>
+              <div class="mb-3">
+                <h4 class="mb-3 h5">상품 설명</h4>
+                <div class="input-group mb-3">
+                  <input type="file" class="form-control" id="description" name="description"
+                         required>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+
+</html>

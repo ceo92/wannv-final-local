@@ -3,9 +3,17 @@
 
 
 
-<main style="margin-top:5rem">
+<main>
     <!-- container -->
     <div class="container">
+        <div class="row mb-8">
+            <div class="col-md-12">
+                <!-- page header -->
+                <h2>식당 상세</h2>
+                <!-- breacrumb -->
+            </div>
+        </div>
+
     <!-- row -->
         <div class="row ">
             <div class="col-xl-12 col-12 mb-5">
@@ -82,18 +90,17 @@
                             <tr>
                                 <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">음식 종류</td>
                                 <td colspan="4">
+                                    <button class="btn btn-primary">음식 목록 조회</button>
+<!--                                    <button class="btn btn-primary" th:onclick="|location.href='@{/restaurants/{id}/foods(id = ${restaurant.id})}'|">음식 목록 조회</button>-->
                                 </td>
                             </tr>
-
-
-
-
 
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-outline-secondary me-2" style="border-radius: 5%;">뒤로</button>
-                            <button type="button" class="btn btn-outline-danger" style="border-radius: 5%;">삭제</button>
+                            <button type="button" class="btn btn-outline-dark me-2" style="border-radius: 5%;">뒤로</button>
+                            <button type="button" class="btn btn-outline-info" style="border-radius: 5%;">수정</button>
+                            <button type="button" class="btn btn-outline-danger mx-2" style="border-radius: 5%;">삭제</button>
                         </div>
                     </div>
                 </div>

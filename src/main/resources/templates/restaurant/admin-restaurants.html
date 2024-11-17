@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html th:replace="~{fragment/admin-layout.html :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
 
-<main style="margin-top:5rem">
+<main>
 
   <style>
 
@@ -117,7 +117,7 @@ th, td {
                 </ul>
               </nav>
               <div style="display: flex; justify-content: flex-end;">
-                <button class="btn btn-primary" onclick="|location.href='@{/restaurants/save}'|">식당 등록</button>
+                <button class="btn btn-primary" th:onclick="|location.href='@{/restaurants/save}'|">식당 등록</button>
               </div>
             </div>
           </div>

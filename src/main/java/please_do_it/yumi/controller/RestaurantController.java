@@ -25,6 +25,11 @@ public class RestaurantController {
     return "restaurant/admin-restaurants";
   }
 
+  @GetMapping("dd")
+  public String ssddj(){
+    return "restaurant/admin-restaurant";
+  }
+
 
   @GetMapping("xx")
   public String asdsdasdj(){
@@ -33,7 +38,13 @@ public class RestaurantController {
 
   @GetMapping("rr")
   public String fdsjfsjkfjd(){
-    return "restaurant/review";
+    return "restaurant/admin-saveForm";
+  }
+
+
+  @GetMapping("vv")
+  public String sdfjusd(){
+    return "restaurant/saveForm";
   }
 
 

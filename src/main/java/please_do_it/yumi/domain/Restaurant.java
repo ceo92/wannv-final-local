@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
@@ -37,6 +38,10 @@ public class Restaurant {
   private String image;
   private String description;
   private Double averageRate;
+  private Double averageLikes;
+
+  private LocalDate createdAt;
+  private LocalDate updatedAt;
 
 
   @Enumerated(EnumType.STRING)
@@ -58,7 +63,8 @@ public class Restaurant {
   @OneToMany(mappedBy = "restaurant" , cascade = CascadeType.ALL , orphanRemoval = true)
   private List<Food> foods = new ArrayList<>();
 
-
+  @OneToMany(mappedBy = "restaurant")
+  private List<Likes> likes = new ArrayList<>();
 
 
   /**

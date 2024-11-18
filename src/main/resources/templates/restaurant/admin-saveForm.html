@@ -12,6 +12,7 @@
 
       border-right: 0.25px solid #000; /* Y축 제목 오른쪽 굵은 선 */
     }
+
   </style>
   <div class="container">
     <form id="productForm">
@@ -34,7 +35,7 @@
           <div class="card-body p-6 ">
             <div class="row mb-3">
               <div class="col-12">
-                <label class="form-label" for="name">식당 이름</label>
+                <label class="form-label h5" for="name">식당 이름</label>
                 <input id="name" name="cost-price" class="form-control" required>
               </div>
             </div>
@@ -43,20 +44,20 @@
 
 
             <div class="row mb-3">
-              <div class="col-6">
-                <label class="form-label">사업자 등록번호</label>
+              <div class="col-6 mt-5">
+                <label class="form-label h5">사업자 등록번호</label>
                 <input type="number"  name="cost-price" class="form-control" required>
               </div>
-              <div class="col-6">
-                <label class="form-label">사업자 이름</label>
+              <div class="col-6 mt-5">
+                <label class="form-label h5">사업자 이름</label>
                 <input type="number" name="selling-price" class="form-control"
                        required>
               </div>
             </div>
 
 
-            <div class="row mb-3">
-              <label class="form-label">식당 분류</label>
+            <div class="row mb-3 mt-5">
+              <label class="form-label h5">식당 분류</label>
               <div class="col-12" >
                 <input type="checkbox" class="btn-check" id="restaurantTypes1" autocomplete="off">
                 <label class="btn btn-outline-primary" for="restaurantTypes1" >한식</label>
@@ -87,8 +88,8 @@
             </div>
 
 
-             <div class="row mb-3">
-              <label class="form-label">포함 음식</label>
+             <div class="row mb-3 mt-5">
+              <label class="form-label h5">포함 음식</label>
               <div class="col-12" >
                 <input type="checkbox" class="btn-check" id="containFoodTypes1" autocomplete="off">
                 <label class="btn btn-outline-primary" for="containFoodTypes1" >유제품 포함</label>
@@ -112,8 +113,8 @@
             </div>
 
 
-              <div class="row mb-3">
-              <label class="form-label">제공하는 서비스</label>
+              <div class="row mb-3 mt-5">
+              <label class="form-label h5">제공하는 서비스</label>
               <div class="col-12" >
                 <input type="checkbox" class="btn-check" id="provideServiceTypes1" autocomplete="off">
                 <label class="btn btn-outline-primary" for="provideServiceTypes1" >글루텐프리 메뉴</label>
@@ -142,8 +143,8 @@
               </div>
             </div>
 
-            <div class="row mb-3">
-              <label class="form-label">분위기</label>
+            <div class="row mb-3 mt-5">
+              <label class="form-label h5">분위기</label>
               <div class="col-12" >
                 <input type="checkbox" class="btn-check" id="moodTypes1" autocomplete="off">
                 <label class="btn btn-outline-primary" for="moodTypes1" >데이트하기 좋은</label>
@@ -172,8 +173,8 @@
               </div>
             </div>
 
-            <div class="row mb-3">
-              <label for="zipcode" class="form-label">주소 입력</label>
+            <div class="row mb-3 mt-5">
+              <label for="zipcode" class="form-label h5">주소 입력</label>
               <div class="col-4">
                 <input type="text" class="form-control" id="roadAddress" name="roadAddress" onclick="sample4_execDaumPostcode()" placeholder="도로명 주소 입력">
               </div>
@@ -192,18 +193,20 @@
 
 
 
-            <div class="row mb-3 mx-2">
-              <div class="col-12 form-check">
+
+            <div class="row mb-3 mt-5">
+              <label class="form-label h5">주차 가능 여부</label>
+              <div class="col-12 form-check mx-3">
                 <input type="checkbox"  name="canPark" class="form-check-input" required>
                 <label class="form-check-label">주차 가능 여부</label>
               </div>
             </div>
 
 
-            <div class="row mb-3" >
-              <div class="col-12">
-                <label class="form-label">영업 시간</label>
-                <table class="table-centered table-borderless mb-0 table-with-checkbox text-nowrap text-center" >
+            <div class="row mb-3 mt-5" >
+              <div class="col-12 ">
+                <label class="form-label h5">영업 시간</label>
+                <table class="table-centered table-borderless mb-0 table-with-checkbox text-nowrap text-center " >
                   <thead style="background-color:#D5EED1;">
                   <tr>
                     <th style="text-align: center"></th>
@@ -276,39 +279,27 @@
                     <td style="text-align: center"><input type="time" class="form-control"  required></td>
                   </tr>
 
+                  <tr>
+                    <th  style="background-color: #C7EED5;text-align: center">휴무일여부</th>
+                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
+                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
+                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
+                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
+                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
+                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
+                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
+                  </tr>
+
+
+
+
                   </tbody>
                 </table>
-
               </div>
             </div>
 
 
-
-
-            <div class="row mb-3">
-              <div class="col-6">
-                <label class="form-label">재고</label>
-                <input type="number" id="stock" name="stock" class="form-control" required>
-              </div>
-              <div class="col-6">
-                <label class="form-label">상태</label>
-                <div class="pt-2 pb-2">
-                  <label class="form-check form-check-inline">
-                    <input type="radio" id="statusFalse" name="isActive" value="inactive"
-                           class="form-check-input"
-                           checked>
-                    비활성화
-                  </label>
-                  <label class="form-check form-check-inline">
-                    <input type="radio" id="statusTrue" name="isActive" value="active"
-                           class="form-check-input">
-                    활성화
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="mb-3">
+            <div class="mb-3 mt-5">
               <h4 class="mb-3 h5">식당 사진(4장 이상)</h4>
               <div class="input-group mb-3">
                 <input type="file" class="form-control" id="image" name="image" multiple required>
@@ -317,7 +308,30 @@
 
 
 
+
+
+
+            <div class="row mb-3 mt-5">
+              <label class="form-label h5">메뉴</label>
+              <div class="col-4">
+                <label class="form-label">메뉴명</label>
+                <input  class="form-control" required>
+              </div>
+              <div class="col-4">
+                <label class="form-label ">가격</label>
+                <input type="number" class="form-control" required>
+              </div>
+              <div class="col-4">
+                <label class="form-label">사진</label>
+                <input type="file" multiple class="form-control" required>
+              </div>
+
+              <button id="add-button ">+</button>
+            </div>
+
+
           </div>
+
           <hr>
           <button type="submit" class="btn btn-primary">식당 등록</button>
 
@@ -368,6 +382,28 @@
             }
         }).open();
     }
+  </script>
+
+  <script>
+    document.getElementById('add-button').addEventListener('click', function() {
+      // 입력 상자를 추가할 부모 컨테이너
+      const inputFieldsContainer = document.getElementById('input-fields');
+
+      // 새로운 입력 상자를 담을 div 생성
+      const newInputContainer = document.createElement('div');
+      newInputContainer.className = 'input-container';
+
+      // 새로운 입력 상자 생성
+      const newInput = document.createElement('input');
+      newInput.type = 'text';
+      newInput.placeholder = 'Enter value';
+
+      // 새 입력 상자를 div에 추가
+      newInputContainer.appendChild(newInput);
+
+      // div를 부모 컨테이너에 추가
+      inputFieldsContainer.appendChild(newInputContainer);
+      });
   </script>
 
 </main>

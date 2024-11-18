@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
@@ -119,12 +120,12 @@ public class Restaurant {
       this.businessStatus = BusinessStatus.TODAY_BREAK;
     }
 
-    LocalDateTime openTime = businessDay.getOpenTime();
-    LocalDateTime closeTime = businessDay.getCloseTime();
-    if (now.isAfter(openTime) && now.isBefore(closeTime)) {
-      LocalDateTime breakStartTime = businessDay.getBreakStartTime();
-      LocalDateTime breakEndTime = businessDay.getBreakEndTime();
-      if (now.isAfter(breakStartTime) && now.isBefore(breakEndTime)) {
+    LocalTime openTime = businessDay.getOpenTime();
+    LocalTime closeTime = businessDay.getCloseTime();
+    if (now.toLocalTime().isAfter(openTime) && now.toLocalTime().isBefore(closeTime)) {
+      LocalTime breakStartTime = businessDay.getBreakStartTime();
+      LocalTime breakEndTime = businessDay.getBreakEndTime();
+      if (now.toLocalTime().isAfter(breakStartTime) && now.toLocalTime().isBefore(breakEndTime)) {
         this.businessStatus = BusinessStatus.BREAK_TIME;
       }
       this.businessStatus = BusinessStatus.OPEN;

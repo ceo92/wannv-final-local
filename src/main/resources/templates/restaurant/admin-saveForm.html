@@ -197,10 +197,44 @@
             <div class="row mb-3 mt-5">
               <label class="form-label h5">주차 가능 여부</label>
               <div class="col-12 form-check mx-3">
-                <input type="checkbox"  name="canPark" class="form-check-input" required>
-                <label class="form-check-label">주차 가능 여부</label>
+                <input type="checkbox" id="canPark" name="canPark" class="form-check-input" required>
+                <label class="form-check-label" for="canPark">주차 가능 여부</label>
               </div>
             </div>
+
+
+            <div class="row mb-3 mt-5">
+              <label class="form-label h5">예약 시간 간격</label>
+              <div class="col-12">
+                <div class="form-check">
+                  <input type="radio" id="reservationGap1" name="reservationGap" value="half" class="form-check-input" required>
+                  <label class="form-check-label" for="reservationGap1">30분</label>
+                </div>
+
+                <div class="form-check">
+                  <input type="radio"  id="reservationGap2" name="reservationGap" value="one" class="form-check-input" required>
+                  <label class="form-check-label" for="reservationGap2">1시간</label>
+                </div>
+
+                <div class="form-check">
+                  <input type="radio"  id="reservationGap3" name="reservationGap" value="two" class="form-check-input" required>
+                  <label class="form-check-label" for="reservationGap3">2시간</label>
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="row mb-3 mt-5">
+              <label class="form-label h5">예약 취소 시 위약금 발생 여부</label>
+              <div class="col-12 form-check mx-3">
+                <input type="checkbox" id="isPenalty"  name="canPark" class="form-check-input" required>
+                <label class="form-check-label" for="isPenalty">위약금 발생 여부</label>
+              </div>
+            </div>
+
+
+
 
 
             <div class="row mb-3 mt-5" >
@@ -208,10 +242,10 @@
                 <label class="form-label h5">영업 시간</label>
                 <table class="table-centered table-borderless mb-0 table-with-checkbox text-nowrap text-center " >
                   <thead style="background-color:#D5EED1;">
-                  <tr>
-                    <th style="text-align: center"></th>
-                    <th style="text-align: center">월요일</th>
-                    <th style="text-align: center">화요일</th>
+                  <tr >
+                    <th style="text-align: center "></th>
+                    <th style="text-align: center ">월요일</th>
+                    <th style="text-align: center ">화요일</th>
                     <th style="text-align: center">수요일</th>
                     <th style="text-align: center">목요일</th>
                     <th style="text-align: center">금요일</th>
@@ -280,7 +314,7 @@
                   </tr>
 
                   <tr>
-                    <th  style="background-color: #C7EED5;text-align: center">휴무일여부</th>
+                    <th  style="background-color: #C7EED5;text-align: center"><label class="form-check-label">휴무일여부</label></th>
                     <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
                     <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
                     <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
@@ -309,26 +343,22 @@
 
 
 
-
-
-            <div class="row mb-3 mt-5">
+            <div class="row mb-3 mt-5" id="input-fields">
               <label class="form-label h5">메뉴</label>
-              <div class="col-4">
+              <div class="col-4 input-container">
                 <label class="form-label">메뉴명</label>
                 <input  class="form-control" required>
               </div>
-              <div class="col-4">
+              <div class="col-4 input-container">
                 <label class="form-label ">가격</label>
                 <input type="number" class="form-control" required>
               </div>
-              <div class="col-4">
-                <label class="form-label">사진</label>
+              <div class="col-4 input-container">
+                <label class="form-label">음식 사진</label>
                 <input type="file" multiple class="form-control" required>
               </div>
-
-              <button id="add-button ">+</button>
             </div>
-
+              <button id="add-button ">+</button>
 
           </div>
 

@@ -1,10 +1,470 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
+<html th:replace="~{fragment/admin-layout.html :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
 
-</body>
+
+<main>
+
+  <style>
+    th.axis-x {
+      border-bottom: 0.25px solid #000; /* X축 제목 아래 굵은 선 */
+    }
+    th.axis-y {
+
+      border-right: 0.25px solid #000; /* Y축 제목 오른쪽 굵은 선 */
+    }
+
+  </style>
+  <div class="container">
+    <form id="productForm">
+      <div class="row mb-8">
+        <div class="col-md-12">
+          <div class="d-md-flex justify-content-between align-items-center">
+            <div>
+              <h2>식당 등록</h2>
+              <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="/products" class="text-inherit">식당 관리</a></li>
+                <li class="breadcrumb-item active" aria-current="page">식당 등록</li>
+              </ol>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="card mb-6 card-lg">
+          <div class="card-body p-6 ">
+
+            <div class="row mb-3">
+              <div class="col-12">
+                <label class="form-label h5" for="name">식당 ID</label>
+                <input id="id" name="cost-price" class="form-control" value="1" disabled>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-12">
+                <label class="form-label h5" for="name">식당 이름</label>
+                <input id="name" name="cost-price" class="form-control" required>
+              </div>
+            </div>
+
+
+
+
+            <div class="row mb-3">
+              <div class="col-6 mt-5">
+                <label class="form-label h5">사업자 등록번호</label>
+                <input type="number"  name="cost-price" class="form-control" required>
+              </div>
+              <div class="col-6 mt-5">
+                <label class="form-label h5">사업자 이름</label>
+                <input type="number" name="selling-price" class="form-control"
+                       required>
+              </div>
+            </div>
+
+
+            <div class="row mb-3 mt-5">
+              <label class="form-label h5">식당 분류</label>
+              <div class="col-12" >
+                <input type="checkbox" class="btn-check" id="restaurantTypes1" autocomplete="off">
+                <label class="btn btn-outline-primary" for="restaurantTypes1" >한식</label>
+
+                <input type="checkbox" class="btn-check" id="restaurantTypes2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="restaurantTypes2" >중식</label>
+
+                <input type="checkbox" class="btn-check" id="restaurantTypes3" autocomplete="off">
+                <label class="btn btn-outline-primary" for="restaurantTypes3" >양식</label>
+
+                <input type="checkbox" class="btn-check" id="restaurantTypes4" autocomplete="off">
+                <label class="btn btn-outline-primary" for="restaurantTypes4" >일식</label>
+
+                <input type="checkbox" class="btn-check" id="restaurantTypes5" autocomplete="off">
+                <label class="btn btn-outline-primary" for="restaurantTypes5" >태국 음식</label>
+
+                <input type="checkbox" class="btn-check" id="restaurantTypes6" autocomplete="off">
+                <label class="btn btn-outline-primary" for="restaurantTypes6" >터키 음식</label>
+
+                <input type="checkbox" class="btn-check" id="restaurantTypes7" autocomplete="off">
+                <label class="btn btn-outline-primary" for="restaurantTypes7" >프랑스 음식</label>
+
+                <input type="checkbox" class="btn-check" id="restaurantTypes8" autocomplete="off">
+                <label class="btn btn-outline-primary" for="restaurantTypes8" >이탈리아 음식</label>
+
+
+              </div>
+            </div>
+
+
+            <div class="row mb-3 mt-5">
+              <label class="form-label h5">포함 음식</label>
+              <div class="col-12" >
+                <input type="checkbox" class="btn-check" id="containFoodTypes1" autocomplete="off">
+                <label class="btn btn-outline-primary" for="containFoodTypes1" >유제품 포함</label>
+
+                <input type="checkbox" class="btn-check" id="containFoodTypes2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="containFoodTypes2" >계란 포함</label>
+
+                <input type="checkbox" class="btn-check" id="containFoodTypes3" autocomplete="off">
+                <label class="btn btn-outline-primary" for="containFoodTypes3" >동물의 알 포함</label>
+
+                <input type="checkbox" class="btn-check" id="containFoodTypes4" autocomplete="off">
+                <label class="btn btn-outline-primary" for="containFoodTypes4" >생선 포함</label>
+
+                <input type="checkbox" class="btn-check" id="containFoodTypes5" autocomplete="off">
+                <label class="btn btn-outline-primary" for="containFoodTypes5" >닭고기 포함</label>
+
+                <input type="checkbox" class="btn-check" id="containFoodTypes6" autocomplete="off">
+                <label class="btn btn-outline-primary" for="containFoodTypes6" >붉은 고기 포함</label>
+
+              </div>
+            </div>
+
+
+            <div class="row mb-3 mt-5">
+              <label class="form-label h5">제공하는 서비스</label>
+              <div class="col-12" >
+                <input type="checkbox" class="btn-check" id="provideServiceTypes1" autocomplete="off">
+                <label class="btn btn-outline-primary" for="provideServiceTypes1" >글루텐프리 메뉴</label>
+
+                <input type="checkbox" class="btn-check" id="provideServiceTypes2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="provideServiceTypes2" >단체 이용 가능</label>
+
+                <input type="checkbox" class="btn-check" id="provideServiceTypes3" autocomplete="off">
+                <label class="btn btn-outline-primary" for="provideServiceTypes3" >예약 가능</label>
+
+                <input type="checkbox" class="btn-check" id="provideServiceTypes4" autocomplete="off">
+                <label class="btn btn-outline-primary" for="provideServiceTypes4" >무선 인터넷</label>
+
+                <input type="checkbox" class="btn-check" id="provideServiceTypes5" autocomplete="off">
+                <label class="btn btn-outline-primary" for="provideServiceTypes5" >포장 가능</label>
+
+                <input type="checkbox" class="btn-check" id="provideServiceTypes6" autocomplete="off">
+                <label class="btn btn-outline-primary" for="provideServiceTypes6" >남녀 화장실 구분</label>
+
+                <input type="checkbox" class="btn-check" id="provideServiceTypes7" autocomplete="off">
+                <label class="btn btn-outline-primary" for="provideServiceTypes7" >배달 가능</label>
+
+                <input type="checkbox" class="btn-check" id="provideServiceTypes8" autocomplete="off">
+                <label class="btn btn-outline-primary" for="provideServiceTypes8" >휠체어 이용 가능</label>
+
+              </div>
+            </div>
+
+            <div class="row mb-3 mt-5">
+              <label class="form-label h5">분위기</label>
+              <div class="col-12" >
+                <input type="checkbox" class="btn-check" id="moodTypes1" autocomplete="off">
+                <label class="btn btn-outline-primary" for="moodTypes1" >데이트하기 좋은</label>
+
+                <input type="checkbox" class="btn-check" id="moodTypes2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="moodTypes2" >모던한</label>
+
+                <input type="checkbox" class="btn-check" id="moodTypes3" autocomplete="off">
+                <label class="btn btn-outline-primary" for="moodTypes3" >트랜디한</label>
+
+                <input type="checkbox" class="btn-check" id="moodTypes4" autocomplete="off">
+                <label class="btn btn-outline-primary" for="moodTypes4" >가족회식하기 좋은</label>
+
+                <input type="checkbox" class="btn-check" id="moodTypes5" autocomplete="off">
+                <label class="btn btn-outline-primary" for="moodTypes5" >상견례</label>
+
+                <input type="checkbox" class="btn-check" id="moodTypes6" autocomplete="off">
+                <label class="btn btn-outline-primary" for="moodTypes6" >차분한</label>
+
+                <input type="checkbox" class="btn-check" id="moodTypes7" autocomplete="off">
+                <label class="btn btn-outline-primary" for="moodTypes7" >활기찬</label>
+
+                <input type="checkbox" class="btn-check" id="moodTypes8" autocomplete="off">
+                <label class="btn btn-outline-primary" for="moodTypes8" >즐거운</label>
+
+              </div>
+            </div>
+
+            <div class="row mb-3 mt-5">
+              <label for="zipcode" class="form-label h5">주소 입력</label>
+              <div class="col-4">
+                <input type="text" class="form-control" id="roadAddress" name="roadAddress" onclick="sample4_execDaumPostcode()" placeholder="도로명 주소 입력">
+              </div>
+              <div class="col-4">
+                <input type="text" class="form-control" id="zipcode" name="zipcode" onclick="sample4_execDaumPostcode()" placeholder="우편번호 입력">
+              </div>
+              <div class="col-4">
+                <input type="text" class="form-control" id="detailsAddress" name="detailsAddress" onclick="sample4_execDaumPostcode()" placeholder="상세 주소 입력">
+              </div>
+
+              <div class="col-12">
+                <input type="button" onclick="sample4_execDaumPostcode()" value="주소 찾기" class="btn btn-primary form-control "><br>
+              </div>
+
+            </div>
+
+
+
+
+            <div class="row mb-3 mt-5">
+              <label class="form-label h5">주차 가능 여부</label>
+              <div class="col-12 form-check mx-3">
+                <input type="checkbox" id="canPark" name="canPark" class="form-check-input" required>
+                <label class="form-check-label" for="canPark">주차 가능 여부</label>
+              </div>
+            </div>
+
+
+            <div class="row mb-3 mt-5">
+              <label class="form-label h5">예약 시간 간격</label>
+              <div class="col-12">
+                <div class="form-check">
+                  <input type="radio" id="reservationGap1" name="reservationGap" value="half" class="form-check-input" required>
+                  <label class="form-check-label" for="reservationGap1">30분</label>
+                </div>
+
+                <div class="form-check">
+                  <input type="radio"  id="reservationGap2" name="reservationGap" value="one" class="form-check-input" required>
+                  <label class="form-check-label" for="reservationGap2">1시간</label>
+                </div>
+
+                <div class="form-check">
+                  <input type="radio"  id="reservationGap3" name="reservationGap" value="two" class="form-check-input" required>
+                  <label class="form-check-label" for="reservationGap3">2시간</label>
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="row mb-3 mt-5">
+              <label class="form-label h5">예약 취소 시 위약금 발생 여부</label>
+              <div class="col-12 form-check mx-3">
+                <input type="checkbox" id="isPenalty"  name="canPark" class="form-check-input" required>
+                <label class="form-check-label" for="isPenalty">위약금 발생 여부</label>
+              </div>
+            </div>
+
+
+
+
+
+            <div class="row mb-3 mt-5" >
+              <div class="col-12 ">
+                <label class="form-label h5">영업 시간</label>
+                <table class="table-centered table-borderless mb-0 table-with-checkbox text-nowrap text-center " >
+                  <thead style="background-color:#D5EED1;">
+                  <tr >
+                    <th style="text-align: center "></th>
+                    <th style="text-align: center ">월요일</th>
+                    <th style="text-align: center ">화요일</th>
+                    <th style="text-align: center">수요일</th>
+                    <th style="text-align: center">목요일</th>
+                    <th style="text-align: center">금요일</th>
+                    <th style="text-align: center">토요일</th>
+                    <th style="text-align: center">일요일</th>
+                  </tr>
+                  </thead>
+                  <tbody >
+                  <tr>
+                    <th class="" style="background-color:#C7EED5;text-align: center">시작 시간</th>
+                    <td style="text-align: center"><input type="time" class="form-control" required></td>
+                    <td style="text-align: center"><input type="time" class="form-control" required></td>
+                    <td style="text-align: center"><input type="time" class="form-control" required></td>
+                    <td style="text-align: center"><input type="time" class="form-control" required></td>
+                    <td style="text-align: center"><input type="time" class="form-control" required></td>
+                    <td style="text-align: center"><input type="time" class="form-control" required></td>
+                    <td style="text-align: center"><input type="time" class="form-control" required></td>
+                  </tr>
+
+
+                  <tr>
+                    <th style="background-color: #C7EED5;text-align: center">종료 시간</th>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                  </tr>
+
+
+                  <tr>
+                    <th  style="background-color: #C7EED5;text-align: center">브레이크타임 시작 시간</th>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                  </tr>
+
+
+                  <tr>
+                    <th  style="background-color: #C7EED5;text-align: center">브레이크타임 종료 시간</th>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                  </tr>
+
+
+                  <tr>
+                    <th  style="background-color: #C7EED5;text-align: center">라스트오더</th>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                  </tr>
+
+                  <tr>
+                    <th  style="background-color: #C7EED5;text-align: center"><label class="form-check-label">휴무일여부</label></th>
+                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
+                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
+                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
+                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
+                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
+                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
+                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
+                  </tr>
+
+
+
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+
+            <div class="mb-3 mt-5">
+              <h4 class="mb-3 h5">식당 사진(4장 이상)</h4>
+              <div class="input-group mb-3">
+                <input type="file" class="form-control" id="image" name="image" multiple required>
+              </div>
+            </div>
+
+
+
+
+            <div class="row mb-3 mt-5">
+              <label class="form-label h5">메뉴</label>
+              <div id="input-groups">
+                <div class="row input-group">
+                  <div class="col-1" style="margin-top:2rem">
+                    <label class="menu-label">메뉴 1:</label>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label">메뉴명</label>
+                    <input  class="form-control" required>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label ">가격</label>
+                    <input type="number" class="form-control" required>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label">음식 사진</label>
+                    <input type="file" multiple class="form-control" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button id="add-button" type="button" class="btn btn-primary mt-3">+</button>
+
+          </div>
+
+          <hr>
+          <button type="submit" class="btn btn-primary">식당 등록</button>
+
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script>
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('zipcode').value = data.zonecode;
+                document.getElementById("roadAddress").value = roadAddr;
+                document.getElementById("landLotAddress").value = data.landLotAddress;
+
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                    document.getElementById("detailsAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("detailsAddress").value = '';
+                }
+            }
+        }).open();
+    }
+  </script>
+
+
+
+
+  <script>
+    let menuCounter = 1; // 메뉴 번호를 관리
+
+    document.getElementById('add-button').addEventListener('click', function () {
+
+    // 메뉴 번호 증가
+    menuCounter++;
+
+    // 입력 그룹을 추가할 컨테이너
+    const inputGroupsContainer = document.getElementById('input-groups');
+
+    // 새로운 입력 그룹 생성
+    const newInputGroup = document.createElement('div');
+    newInputGroup.className = 'row input-group';
+    newInputGroup.innerHTML = `
+        <div class="col-1 mt-3" >
+            <label class="menu-label">메뉴 ${menuCounter}:</label>
+        </div>
+        <div class="col-3">
+            <input class="form-control" >
+        </div>
+        <div class="col-3">
+            <input type="number" class="form-control" required>
+        </div>
+        <div class="col-3">
+            <input type="file" multiple class="form-control" required>
+        </div>
+    `;
+
+    // 새 입력 그룹을 컨테이너에 추가
+    inputGroupsContainer.appendChild(newInputGroup);
+});
+  </script>
+
+</main>
 </html>

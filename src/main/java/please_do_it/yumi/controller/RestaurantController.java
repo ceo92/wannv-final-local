@@ -41,6 +41,13 @@ public class RestaurantController {
     return "restaurant/admin-saveForm";
   }
 
+  @GetMapping("rrr")
+  public String fdsjfsjddkfjd(){
+    return "restaurant/admin-updateForm";
+  }
+
+
+
 
   @GetMapping("vv")
   public String sdfjusd(){

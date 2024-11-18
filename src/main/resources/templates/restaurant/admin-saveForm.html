@@ -343,22 +343,29 @@
 
 
 
-            <div class="row mb-3 mt-5" id="input-fields">
+            <div class="row mb-3 mt-5">
               <label class="form-label h5">메뉴</label>
-              <div class="col-4 input-container">
-                <label class="form-label">메뉴명</label>
-                <input  class="form-control" required>
-              </div>
-              <div class="col-4 input-container">
-                <label class="form-label ">가격</label>
-                <input type="number" class="form-control" required>
-              </div>
-              <div class="col-4 input-container">
-                <label class="form-label">음식 사진</label>
-                <input type="file" multiple class="form-control" required>
+              <div id="input-groups">
+                <div class="row input-group">
+                  <div class="col-1" style="margin-top:2rem">
+                    <label class="menu-label">메뉴 1:</label>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label">메뉴명</label>
+                    <input  class="form-control" required>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label ">가격</label>
+                    <input type="number" class="form-control" required>
+                  </div>
+                  <div class="col-3">
+                    <label class="form-label">음식 사진</label>
+                    <input type="file" multiple class="form-control" required>
+                  </div>
+                </div>
               </div>
             </div>
-              <button id="add-button ">+</button>
+              <button id="add-button" class="btn btn-primary mt-3">+</button>
 
           </div>
 
@@ -414,26 +421,41 @@
     }
   </script>
 
+
+
+
   <script>
-    document.getElementById('add-button').addEventListener('click', function() {
-      // 입력 상자를 추가할 부모 컨테이너
-      const inputFieldsContainer = document.getElementById('input-fields');
+    let menuCounter = 1; // 메뉴 번호를 관리
 
-      // 새로운 입력 상자를 담을 div 생성
-      const newInputContainer = document.createElement('div');
-      newInputContainer.className = 'input-container';
+    document.getElementById('add-button').addEventListener('click', function () {
 
-      // 새로운 입력 상자 생성
-      const newInput = document.createElement('input');
-      newInput.type = 'text';
-      newInput.placeholder = 'Enter value';
+    // 메뉴 번호 증가
+    menuCounter++;
 
-      // 새 입력 상자를 div에 추가
-      newInputContainer.appendChild(newInput);
+    // 입력 그룹을 추가할 컨테이너
+    const inputGroupsContainer = document.getElementById('input-groups');
 
-      // div를 부모 컨테이너에 추가
-      inputFieldsContainer.appendChild(newInputContainer);
-      });
+    // 새로운 입력 그룹 생성
+    const newInputGroup = document.createElement('div');
+    newInputGroup.className = 'row input-group';
+    newInputGroup.innerHTML = `
+        <div class="col-1 mt-3" >
+            <label class="menu-label">메뉴 ${menuCounter}:</label>
+        </div>
+        <div class="col-3">
+            <input class="form-control" required>
+        </div>
+        <div class="col-3">
+            <input type="number" class="form-control" required>
+        </div>
+        <div class="col-3">
+            <input type="file" multiple class="form-control" required>
+        </div>
+    `;
+
+    // 새 입력 그룹을 컨테이너에 추가
+    inputGroupsContainer.appendChild(newInputGroup);
+});
   </script>
 
 </main>

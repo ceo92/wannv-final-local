@@ -24,14 +24,15 @@ public class RestaurantSearchCond {
   private List<String> restaurantTypes; // 조건 : forEach로 돌려가면서 ₩일치하는지
   private List<String> provideServiceTypes;
   private List<String> moodTypes;
-  private List<String> reviewTypes;
 
   /**
    * orderBy 동적 조건
    */
   private Boolean isCreatedAtChecked; //등록일자 : 최신 순 정렬 위함
-  private Boolean isRateChecked; // 별점 높은 순 정렬 위함
-  private Boolean isLikesChecked; // 좋아요 높은 순 정렬 위함
+  private Boolean isRateChecked; // 평균 별점 높은 순 정렬 위함
+  private Boolean isLikesChecked; // 좋아요 많은 순 정렬 위함
+  private Boolean isReviewCountChecked; // 리뷰 많은 순 정렬 위함
+
 
 
 

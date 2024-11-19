@@ -44,6 +44,8 @@ public class RestaurantRepository {
 
 
 
+
+
   public List<Restaurant> findAll(RestaurantSearchCond restaurantSearchCond) {
     /**
      * where 동적 조건
@@ -58,7 +60,6 @@ public class RestaurantRepository {
     List<String> containFoodTypes = restaurantSearchCond.getContainFoodTypes();
     List<String> provideServiceTypes = restaurantSearchCond.getProvideServiceTypes();
     List<String> moodTypes = restaurantSearchCond.getMoodTypes();
-    List<String> reviewTypes = new ArrayList<>();//리뷰 타입도 있어야함
 
 
     JPAQuery<Restaurant> dynamicQuery = query.selectFrom(restaurant)
@@ -73,10 +74,10 @@ public class RestaurantRepository {
             eqCanPark(canPark), eqIsOpen(isOpen), eqRoadAddress(roadAddress));
     //최신 순(등록일 기준 정렬) , 별점 높은 순(평균 별점에 따른 정렬) , 좋아요 높은 순
     if (restaurantSearchCond.getIsCreatedAtChecked()){
-      dynamicQuery.orderBy(restaurant.averageRate.desc().nullsLast());
+      dynamicQuery.orderBy(restaurant.rateAverage.desc().nullsLast());
     }
     if (restaurantSearchCond.getIsLikesChecked()){
-      dynamicQuery.orderBy(restaurant.averageLikes.desc().nullsLast());
+      dynamicQuery.orderBy(restaurant.likesCount.desc().nullsLast());
     }
     if (restaurantSearchCond.getIsCreatedAtChecked()){
       dynamicQuery.orderBy(restaurant.createdAt.desc().nullsLast());
@@ -125,7 +126,7 @@ public class RestaurantRepository {
   private BooleanExpression goeRate(List<Integer> rates) {
     BooleanExpression booleanExpression = null;
     for (Integer rate : rates) {
-      booleanExpression = rate != null ? restaurant.averageRate.goe(rate).and(restaurant.averageRate.lt(rate+1)) : null;
+      booleanExpression = rate != null ? restaurant.rateAverage.goe(rate).and(restaurant.rateAverage.lt(rate+1)) : null;
     }
     return booleanExpression;
 

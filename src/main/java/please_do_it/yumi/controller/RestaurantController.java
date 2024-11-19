@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import please_do_it.yumi.domain.Restaurant;
 import please_do_it.yumi.dto.RestaurantSearchCond;
@@ -27,8 +28,9 @@ public class RestaurantController {
     return "restaurant/restaurants";
   }
 
-  @GetMapping("/restaurants/1")
-  public String sdfj22(){
+  @GetMapping("/restaurants/{id}")
+  public String getRestaurant(@PathVariable Long id, Model model) {
+    model.addAttribute("restaurant", restaurantService.findOne(id));
     return "restaurant/restaurant";
   }
 

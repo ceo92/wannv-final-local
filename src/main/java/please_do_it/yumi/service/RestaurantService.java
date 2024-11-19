@@ -21,7 +21,6 @@ import please_do_it.yumi.repository.UserRepository;
 public class RestaurantService {
 
   private final RestaurantRepository restaurantRepository;
-  private final UserRepository userRepository;
 
 
   @Transactional
@@ -49,7 +48,7 @@ public class RestaurantService {
     restaurantSaveDto.getReservationTimeGap(),
     restaurantSaveDto.getIsPenalty() , businessDays , foods);
 
-    restaurantRepository.save(restaurant);
+    return restaurantRepository.save(restaurant);
   }
 
 
@@ -59,6 +58,10 @@ public class RestaurantService {
 
   public List<Restaurant> findRestaurants(RestaurantSearchCond restaurantSearchCond){
     return restaurantRepository.findAll(restaurantSearchCond);
+  }
+
+  public void updateRestaurant(){
+
   }
 
 

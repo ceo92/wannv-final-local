@@ -128,12 +128,8 @@ public class Restaurant {
     restaurant.setCanPark(canPark);
     restaurant.setReservationTimeGap(reservationTimeGap);
     restaurant.setIsPenalty(isPenalty);
-    for (BusinessDay businessDay : businessDays) {
-      restaurant.addBusinessDay(businessDay); //연관관계 설정
-    }
-    for (Food food : foods) {
-      restaurant.addFood(food); //연관관계 설정
-    }
+    businessDays.forEach(restaurant::addBusinessDay);
+    foods.forEach(restaurant::addFood);
 
     return restaurant;
 

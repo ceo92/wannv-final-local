@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import lombok.AccessLevel;
@@ -29,7 +30,7 @@ import lombok.Setter;
 import please_do_it.yumi.constant.BusinessStatus;
 
 @Entity
-@Getter @Setter
+@Getter @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor(access =  AccessLevel.PROTECTED)
 public class Restaurant {
 
@@ -99,6 +100,7 @@ public class Restaurant {
   private List<String> provideServiceTypes = new ArrayList<>();// enum
 
 
+
   //주로 파는 품목 카테고리(추후 단일 객체 고려)RestaurantType
   @ElementCollection
   @CollectionTable(name = "RestaurantType", joinColumns = @JoinColumn(name = "id"))
@@ -130,7 +132,6 @@ public class Restaurant {
     restaurant.setIsPenalty(isPenalty);
     businessDays.forEach(restaurant::addBusinessDay);
     foods.forEach(restaurant::addFood);
-
     return restaurant;
 
   }
@@ -138,13 +139,16 @@ public class Restaurant {
   /**
    * 연관관계 편의 메서드
    */
+  //수정 발생 시 여기서 작업해줘도 될듯? ① 리스트 전부 삭제하고 ② 그 다음 add 하기 => 영소성 컨텍스트 초기화하고 하
   public void addBusinessDay(BusinessDay businessDay){
-    this.businessDays.add(businessDay); //자신에게 연관관계 설정
+    businessDays.clear(); //이걸로 초기화를 먼저 해줘야 아무것도 없는 무의 상태에서 연관관계가 올바르게 설정됨 !
+    businessDays.add(businessDay); //자신에게 연관관계 설정
     businessDay.setRestaurant(this); //B에게 연관관계 설정
   }
 
   public void addFood(Food food){
-    this.foods.add(food); //자신에게 연관관계 설정
+    foods.clear(); //이것도 마찬가지 먼저 비워주고 그 다음에 ㄱㄱ 변경을 대비한 ㅇㅇ
+    foods.add(food); //자신에게 연관관계 설정
     food.setRestaurant(this); //B에게 연관관계 설정
   }
 
@@ -168,6 +172,27 @@ public class Restaurant {
   //상태 설정 메서드로 가자
   public void changeBusinessStatus(BusinessStatus businessStatus){
     this.businessStatus = businessStatus;
+  }
+
+  public void changeRestaurant(String businessNum, String restaurantName , List<String> moodTypes ,
+      List<String> containFoodTypes , List<String> provideServiceTypes , List<String> restaurantTypes ,
+      String image , String roadNameAddress, String zipcode ,
+      String detailsAddress , Boolean canPark , String reservationTimeGap ,
+      Boolean isPenalty , List<BusinessDay> businessDays , List<Food> foods){
+
+    setBusinessNum(businessNum);
+    setName(restaurantName);
+    setMoodTypes(moodTypes);
+    setContainFoodTypes(containFoodTypes);
+    setProvideServiceTypes(provideServiceTypes);
+    setRestaurantTypes(restaurantTypes);
+    setImage(image);
+    setAddress(new Address(roadNameAddress, detailsAddress, zipcode));
+    setCanPark(canPark);
+    setReservationTimeGap(reservationTimeGap);
+    setIsPenalty(isPenalty);
+    businessDays.forEach(this::addBusinessDay);
+    foods.forEach(this::addFood);
   }
 
 

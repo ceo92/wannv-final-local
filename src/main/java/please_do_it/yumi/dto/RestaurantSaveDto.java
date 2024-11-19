@@ -10,7 +10,6 @@ public class RestaurantSaveDto {
 
   private String restaurantName;
   private String businessNum;
-  private String businessUserName;
   private List<String> restaurantTypes = new ArrayList<>();
   private List<String> containFoodTypes = new ArrayList<>();
   private List<String> provideServiceTypes = new ArrayList<>();
@@ -23,6 +22,9 @@ public class RestaurantSaveDto {
   private Boolean isPenalty;
   private String image; //식당 사진
 
+  /**
+   * BusinessDay DTO
+   */
   private List<LocalTime> openTimes = new ArrayList<>();
   private List<LocalTime> closeTimes = new ArrayList<>();
   private List<LocalTime> breakStartTimes = new ArrayList<>();
@@ -30,6 +32,9 @@ public class RestaurantSaveDto {
   private List<LocalTime> lastOrderTimes = new ArrayList<>();
   private List<Boolean> isDayOffList = new ArrayList<>();
 
+  /**
+   * Food DTO
+   */
   private List<FoodSaveDto> foodSaveDtoList = new ArrayList<>();
 
 

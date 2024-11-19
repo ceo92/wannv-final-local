@@ -37,12 +37,14 @@ public class Restaurant {
   private Long id;
 
   private String name;
-  private String contact;
+  private String businessNum;
+
+  private String contact; //연락처
 
   @Embedded
   private Address address;
   private String image;
-  private String description;
+  private String description; //설명
 
   private Double rateAverage; //평균 별점 높은 순
   private Integer likesCount; //좋아요 많은 순
@@ -50,6 +52,9 @@ public class Restaurant {
 
   private LocalDate createdAt;
   private LocalDate updatedAt;
+
+  private String reservationTimeGap;
+  private Boolean isPenalty;
 
 
   @Enumerated(EnumType.STRING)
@@ -74,9 +79,6 @@ public class Restaurant {
   @OneToMany(mappedBy = "restaurant")
   private List<Likes> likes = new ArrayList<>();
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
-  private User user;
 
 
 
@@ -110,13 +112,44 @@ public class Restaurant {
   /**
    * 복잡한 연관관계 => 생성 메서드 , 다른 개발자들이 해당 틀대로 생성하게끔 유도하기 !
    */
-  public Restaurant createRestaurant(String businessUserName , String businessNum, String restaurantName , List<String> moodTypes ,
+  public static Restaurant createRestaurant(String businessNum, String restaurantName , List<String> moodTypes ,
       List<String> containFoodTypes , List<String> provideServiceTypes , List<String> restaurantTypes , String image , String roadNameAddress
-      , String zipcode , String detailsAddress , Boolean canPark , String reservationTimeGap , String isPenalty , List<BusinessDay> businessDays){
+      , String zipcode , String detailsAddress , Boolean canPark , String reservationTimeGap , Boolean isPenalty , List<BusinessDay> businessDays , List<Food> foods){
 
     Restaurant restaurant = new Restaurant();
-    restaurant.setUser();
+    restaurant.setBusinessNum(businessNum);
+    restaurant.setName(restaurantName);
+    restaurant.setMoodTypes(moodTypes);
+    restaurant.setContainFoodTypes(containFoodTypes);
+    restaurant.setProvideServiceTypes(provideServiceTypes);
+    restaurant.setRestaurantTypes(restaurantTypes);
+    restaurant.setImage(image);
+    restaurant.setAddress(new Address(roadNameAddress, detailsAddress, zipcode));
+    restaurant.setCanPark(canPark);
+    restaurant.setReservationTimeGap(reservationTimeGap);
+    restaurant.setIsPenalty(isPenalty);
+    for (BusinessDay businessDay : businessDays) {
+      restaurant.addBusinessDay(businessDay); //연관관계 설정
+    }
+    for (Food food : foods) {
+      restaurant.addFood(food); //연관관계 설정
+    }
 
+    return restaurant;
+
+  }
+
+  /**
+   * 연관관계 편의 메서드
+   */
+  public void addBusinessDay(BusinessDay businessDay){
+    this.businessDays.add(businessDay); //자신에게 연관관계 설정
+    businessDay.setRestaurant(this); //B에게 연관관계 설정
+  }
+
+  public void addFood(Food food){
+    this.foods.add(food); //자신에게 연관관계 설정
+    food.setRestaurant(this); //B에게 연관관계 설정
   }
 
 
@@ -140,6 +173,9 @@ public class Restaurant {
   public void changeBusinessStatus(BusinessStatus businessStatus){
     this.businessStatus = businessStatus;
   }
+
+
+
 
 
   //이건 서비스 단에서 처리해주는 게 맞는 거 같은데 ..
@@ -166,11 +202,6 @@ public class Restaurant {
     else {
       this.businessStatus = BusinessStatus.CLOSE;
     }
-
-
-
-
-
   }
 
 

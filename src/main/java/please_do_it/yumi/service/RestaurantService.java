@@ -1,14 +1,19 @@
 package please_do_it.yumi.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import please_do_it.yumi.domain.BusinessDay;
+import please_do_it.yumi.domain.Food;
 import please_do_it.yumi.domain.Restaurant;
+import please_do_it.yumi.domain.User;
+import please_do_it.yumi.dto.FoodSaveDto;
 import please_do_it.yumi.dto.RestaurantSaveDto;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 import please_do_it.yumi.repository.RestaurantRepository;
+import please_do_it.yumi.repository.UserRepository;
 
 @Transactional(readOnly = true)
 @Service
@@ -16,26 +21,11 @@ import please_do_it.yumi.repository.RestaurantRepository;
 public class RestaurantService {
 
   private final RestaurantRepository restaurantRepository;
-  private final User
+  private final UserRepository userRepository;
 
 
   @Transactional
   public Long save(RestaurantSaveDto restaurantSaveDto) {
-    String restaurantName = restaurantSaveDto.getRestaurantName();
-    String businessUserName = restaurantSaveDto.getBusinessUserName();
-    String businessNum = restaurantSaveDto.getBusinessNum();
-    List<String> moodTypes = restaurantSaveDto.getMoodTypes();
-    List<String> containFoodTypes = restaurantSaveDto.getContainFoodTypes();
-    List<String> provideServiceTypes = restaurantSaveDto.getProvideServiceTypes();
-    List<String> restaurantTypes = restaurantSaveDto.getRestaurantTypes();
-    String image = restaurantSaveDto.getImage();
-    String roadNameAddress = restaurantSaveDto.getRoadNameAddress();
-    String zipcode = restaurantSaveDto.getZipcode();
-    String detailsAddress = restaurantSaveDto.getDetailsAddress();
-    Boolean canPark = restaurantSaveDto.getCanPark();
-    String reservationTimeGap = restaurantSaveDto.getReservationTimeGap();
-    Boolean isPenalty = restaurantSaveDto.getIsPenalty();
-
 
     List<BusinessDay> businessDays = BusinessDay.createBusinessDays(
         restaurantSaveDto.getOpenTimes(),
@@ -43,8 +33,23 @@ public class RestaurantService {
         restaurantSaveDto.getBreakEndTimes(), restaurantSaveDto.getLastOrderTimes(),
         restaurantSaveDto.getIsDayOffList());
 
+    List<Food> foods = restaurantSaveDto.getFoodSaveDtoList()
+        .stream().map(foodSaveDto -> new Food(foodSaveDto.getName() , foodSaveDto.getImage() , foodSaveDto.getPrice())).toList();
 
-    restaurantRepository.save()
+
+    Restaurant restaurant = Restaurant.createRestaurant(restaurantSaveDto.getBusinessNum() , restaurantSaveDto.getRestaurantName()
+    , restaurantSaveDto.getMoodTypes()
+    , restaurantSaveDto.getContainFoodTypes() , restaurantSaveDto.getProvideServiceTypes(),
+    restaurantSaveDto.getRestaurantTypes(),
+    restaurantSaveDto.getImage(),
+    restaurantSaveDto.getRoadNameAddress(),
+     restaurantSaveDto.getZipcode(),
+    restaurantSaveDto.getDetailsAddress(),
+     restaurantSaveDto.getCanPark(),
+    restaurantSaveDto.getReservationTimeGap(),
+    restaurantSaveDto.getIsPenalty() , businessDays , foods);
+
+    restaurantRepository.save(restaurant);
   }
 
 

@@ -21,6 +21,7 @@ public class RestaurantController {
   private final RestaurantService restaurantService;
 
 
+/*
   @GetMapping("/restaurants")
   public String getRestaurants(@ModelAttribute RestaurantSearchCond restaurantSearchCond, Model model){
     List<Restaurant> restaurants = restaurantService.findRestaurants(restaurantSearchCond);
@@ -33,6 +34,20 @@ public class RestaurantController {
     model.addAttribute("restaurant", restaurantService.findOne(id));
     return "restaurant/restaurant";
   }
+*/
+
+
+
+  @GetMapping("/restaurants")
+  public String dsdds(){
+    return "restaurant/restaurants";
+  }
+
+  @GetMapping("/restaurants/1")
+  public String dsdddds(){
+    return "restaurant/restaurant";
+  }
+
 
 
   @GetMapping("/admin/restaurants")

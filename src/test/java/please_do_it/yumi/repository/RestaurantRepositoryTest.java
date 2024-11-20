@@ -2,10 +2,13 @@ package please_do_it.yumi.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,9 @@ class RestaurantRepositoryTest {
   @Rollback(value = false)
   @Test
   void save() {
+    String nowDayOfWeek = LocalDate.now().getDayOfWeek()
+        .getDisplayName(TextStyle.FULL, Locale.KOREAN); //요일 정보(월요일 , ... , 일요일 ) 담김
+    System.out.println("nowDayOfWeek = " + nowDayOfWeek);
   }
 
 

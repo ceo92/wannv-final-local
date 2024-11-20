@@ -42,7 +42,14 @@ public class RestaurantRepository {
     return Optional.ofNullable(em.find(Restaurant.class , id));
   }
 
-
+  public List<Restaurant> findAll(){
+    return query.selectFrom(restaurant).join(restaurant.reviews , review)
+        .join(restaurant.reviews, review)
+        .join(restaurant.foods, food)
+        .join(restaurant.businessDays, businessDay)
+        .join(review.reviewTags, reviewTag)
+        .fetch();
+  }
 
 
 

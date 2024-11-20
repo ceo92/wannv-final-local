@@ -13,7 +13,8 @@ import lombok.Setter;
 public class Address {
 
   private String roadAddress;
-  private String detailsAddress;
+  private String landLotAddress;
+  private String detailAddress;
   private String zipCode;
 
 

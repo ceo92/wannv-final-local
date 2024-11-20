@@ -14,6 +14,7 @@ public class RestaurantUpdateDto {
   private List<String> provideServiceTypes = new ArrayList<>();
   private List<String> moodTypes = new ArrayList<>();
   private String roadNameAddress;
+  private String landLotAddress;
   private String zipcode;
   private String detailsAddress;
   private Boolean canPark;

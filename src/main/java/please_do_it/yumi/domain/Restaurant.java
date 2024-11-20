@@ -116,7 +116,8 @@ public class Restaurant {
    */
   public static Restaurant createRestaurant(String businessNum, String restaurantName , List<String> moodTypes ,
       List<String> containFoodTypes , List<String> provideServiceTypes , List<String> restaurantTypes , String image , String roadNameAddress
-      , String zipcode , String detailsAddress , Boolean canPark , String reservationTimeGap , Boolean isPenalty , List<BusinessDay> businessDays , List<Food> foods){
+      , String landLotAddress , String zipcode , String detailAddress , Boolean canPark , String reservationTimeGap
+      , Boolean isPenalty , List<BusinessDay> businessDays , List<Food> foods){
 
     Restaurant restaurant = new Restaurant();
     restaurant.setBusinessNum(businessNum);
@@ -126,7 +127,7 @@ public class Restaurant {
     restaurant.setProvideServiceTypes(provideServiceTypes);
     restaurant.setRestaurantTypes(restaurantTypes);
     restaurant.setImage(image);
-    restaurant.setAddress(new Address(roadNameAddress, detailsAddress, zipcode));
+    restaurant.setAddress(new Address(roadNameAddress, landLotAddress ,  detailAddress, zipcode));
     restaurant.setCanPark(canPark);
     restaurant.setReservationTimeGap(reservationTimeGap);
     restaurant.setIsPenalty(isPenalty);
@@ -174,9 +175,10 @@ public class Restaurant {
     this.businessStatus = businessStatus;
   }
 
+  //수정 메서드
   public void changeRestaurant(String businessNum, String restaurantName , List<String> moodTypes ,
       List<String> containFoodTypes , List<String> provideServiceTypes , List<String> restaurantTypes ,
-      String image , String roadNameAddress, String zipcode ,
+      String image , String roadNameAddress, String landLotAddress , String zipcode ,
       String detailsAddress , Boolean canPark , String reservationTimeGap ,
       Boolean isPenalty , List<BusinessDay> businessDays , List<Food> foods){
 
@@ -187,7 +189,7 @@ public class Restaurant {
     setProvideServiceTypes(provideServiceTypes);
     setRestaurantTypes(restaurantTypes);
     setImage(image);
-    setAddress(new Address(roadNameAddress, detailsAddress, zipcode));
+    setAddress(new Address(roadNameAddress,landLotAddress , detailsAddress, zipcode));
     setCanPark(canPark);
     setReservationTimeGap(reservationTimeGap);
     setIsPenalty(isPenalty);
@@ -197,33 +199,6 @@ public class Restaurant {
 
 
 
-
-
-  //이건 서비스 단에서 처리해주는 게 맞는 거 같은데 ..
-  public void calculateBusinessStatus(){
-    LocalDateTime now = LocalDateTime.now();
-    String nowDayOfWeek = now.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.KOREAN); //요일 정보(월요일 , ... , 일요일 ) 담김
-    BusinessDay businessDay = businessDays.stream()
-        .filter(bd -> bd.getDayOfWeek().equals(nowDayOfWeek)).findFirst()
-        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 요일입니다."));
-    if (businessDay.getIsDayOff()){
-      this.businessStatus = BusinessStatus.TODAY_BREAK;
-    }
-
-    LocalTime openTime = businessDay.getOpenTime();
-    LocalTime closeTime = businessDay.getCloseTime();
-    if (now.toLocalTime().isAfter(openTime) && now.toLocalTime().isBefore(closeTime)) {
-      LocalTime breakStartTime = businessDay.getBreakStartTime();
-      LocalTime breakEndTime = businessDay.getBreakEndTime();
-      if (now.toLocalTime().isAfter(breakStartTime) && now.toLocalTime().isBefore(breakEndTime)) {
-        this.businessStatus = BusinessStatus.BREAK_TIME;
-      }
-      this.businessStatus = BusinessStatus.OPEN;
-    }
-    else {
-      this.businessStatus = BusinessStatus.CLOSE;
-    }
-  }
 
 
 

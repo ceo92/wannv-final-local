@@ -1,10 +1,18 @@
 package please_do_it.yumi.service;
 
+import static please_do_it.yumi.domain.QBusinessDay.businessDay;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import please_do_it.yumi.constant.BusinessStatus;
 import please_do_it.yumi.domain.Address;
 import please_do_it.yumi.domain.BusinessDay;
 import please_do_it.yumi.domain.Food;
@@ -44,6 +52,7 @@ public class RestaurantService {
     restaurantSaveDto.getRestaurantTypes(),
     restaurantSaveDto.getImage(),
     restaurantSaveDto.getRoadNameAddress(),
+     restaurantSaveDto.getLandLotAddress(),
      restaurantSaveDto.getZipcode(),
     restaurantSaveDto.getDetailsAddress(),
      restaurantSaveDto.getCanPark(),
@@ -52,6 +61,7 @@ public class RestaurantService {
 
     return restaurantRepository.save(restaurant);
   }
+
 
 
   public Restaurant findOne(Long id){
@@ -79,10 +89,49 @@ public class RestaurantService {
     Restaurant updateRestaurant = findOne(id);
     updateRestaurant.changeRestaurant(restaurantUpdateDto.getBusinessNum() , restaurantUpdateDto.getRestaurantName(),
     restaurantUpdateDto.getMoodTypes(), restaurantUpdateDto.getContainFoodTypes(), restaurantUpdateDto.getProvideServiceTypes(),
-    restaurantUpdateDto.getRestaurantTypes(), restaurantUpdateDto.getImage(), restaurantUpdateDto.getRoadNameAddress(),
+    restaurantUpdateDto.getRestaurantTypes(), restaurantUpdateDto.getImage(), restaurantUpdateDto.getRoadNameAddress(), restaurantUpdateDto.getLandLotAddress(),
         restaurantUpdateDto.getZipcode(),restaurantUpdateDto.getDetailsAddress(), restaurantUpdateDto.getCanPark(),
     restaurantUpdateDto.getReservationTimeGap(), restaurantUpdateDto.getIsPenalty() ,  businessDays, foods);
 
+  }
+
+  // 프로세스 : 현재 요일과는 아무 상관없음 , 그냥 전체에 대한 로직임
+  @Transactional
+  @Scheduled(cron = "0 */30 * * * *")
+  public void updateBusinessStatus(){
+    LocalDateTime now = LocalDateTime.now();
+    List<Restaurant> restaurants = restaurantRepository.findAll();
+    //다 계산해주는 거니까 여기서 그냥 모든 상태를 이 메서드 안에서 동시에 업데이트 해주는 것!
+
+    //아니네 휴무일 계산은 마지막에 해줘야하네
+    for (Restaurant restaurant : restaurants) {
+      List<BusinessDay> businessDays = restaurant.getBusinessDays(); //한 식당에 대한 영업일들(7일)
+      for (BusinessDay businessDay : businessDays) {
+
+        LocalTime openTime = businessDay.getOpenTime();
+        LocalTime closeTime = businessDay.getCloseTime();
+        LocalTime breakStartTime = businessDay.getBreakStartTime();
+        LocalTime breakEndTime = businessDay.getBreakEndTime();
+        Boolean isDayOff = businessDay.getIsDayOff();
+
+        if (isDayOff.equals(true)){
+          restaurant.changeBusinessStatus(BusinessStatus.TODAY_BREAK);
+          return; //휴무일이면 아래로 내려가지 않고 바로 종료되게 , 30분마다 스케줄링해서 휴무일 시 계속해서 리턴됨
+        }
+
+        if ((now.toLocalTime().isAfter(openTime) && now.toLocalTime().isBefore(breakStartTime))
+            || (now.toLocalTime().isAfter(breakEndTime) && now.toLocalTime().isBefore(closeTime))) {
+          restaurant.changeBusinessStatus(BusinessStatus.OPEN);
+        }
+
+        else if (now.toLocalTime().isAfter(breakStartTime) && now.toLocalTime().isBefore(breakEndTime)) {
+          restaurant.changeBusinessStatus(BusinessStatus.BREAK_TIME);
+        }
+        else {
+          restaurant.changeBusinessStatus(BusinessStatus.CLOSE);
+        }
+      }
+    }
   }
 
 

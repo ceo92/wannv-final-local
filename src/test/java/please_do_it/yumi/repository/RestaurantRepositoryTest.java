@@ -27,7 +27,8 @@ import please_do_it.yumi.dto.RestaurantSearchCond;
 @Transactional
 class RestaurantRepositoryTest {
 
-  @Autowired RestaurantRepository restaurantRepository;
+  @Autowired
+  RestaurantRepository restaurantRepository;
 
   @Rollback(value = false)
   @Test
@@ -60,9 +61,20 @@ class RestaurantRepositoryTest {
     for (Restaurant restaurant1 : restaurants) {
       System.out.println("restaurant1 = " + restaurant1);
       System.out.println("restaurant1.getFoods() = " + restaurant1.getFoods());
+      System.out.println("restaurant1.getBusinessDays() = " + restaurant1.getBusinessDays());
+      System.out.println("restaurant1.getReviews() = " + restaurant1.getReviews());
+
+      System.out.println();
+      System.out.println(
+          "==========================================================================================");
+      System.out.println(
+          "==========================================================================================");
+      System.out.println(
+          "==========================================================================================");
+      System.out.println();
+
     }
   }
-
 
 
 }

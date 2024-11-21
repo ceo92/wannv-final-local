@@ -2,6 +2,7 @@ package please_do_it.yumi.domain;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -14,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -27,14 +29,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import lombok.ToString.Exclude;
 import please_do_it.yumi.constant.BusinessStatus;
 
 @Entity
-@Getter @Setter(AccessLevel.PRIVATE)
-@NoArgsConstructor(access =  AccessLevel.PROTECTED)
+@Getter
+@Setter(AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(exclude = {"foods", "businessDays", "reviews", "likes"})
 public class Restaurant {
 
-  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private String name;
@@ -47,12 +54,12 @@ public class Restaurant {
   private String image;
   private String description; //설명
 
-  private Double rateAverage; //평균 별점 높은 순
+ /* private Double rateAverage; //평균 별점 높은 순
   private Integer likesCount; //좋아요 많은 순
-  private Integer reviewCount; //리뷰 많은 순
+  private Integer reviewCount; //리뷰 많은 순*/
 
-  private LocalDate createdAt;
-  private LocalDate updatedAt;
+  private LocalDate createdAt; //생성일
+  private LocalDate updatedAt; //수정일
 
   private String reservationTimeGap;
   private Boolean isPenalty;
@@ -69,18 +76,16 @@ public class Restaurant {
 
 
   //오직 Restaurant 부모에게만 Food는 의존되므로 cascade , orphanRemoval 걸었음 , cascade , orphanRemoval 특징 : 리포지토리 없어도 됨 즉 em.perist(BusinessDay)하지 않아도 연쇄적으로 알아서 저장됨 , 생명주기가 전부 rESTAURANT에 의존되었기 때문!
-  @OneToMany(mappedBy = "restaurant" , cascade = CascadeType.ALL , orphanRemoval = true)
+  @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<BusinessDay> businessDays = new ArrayList<>();
 
 
   //오직 Restaurant 부모에게만 Food는 의존되므로 cascade , orphanRemoval 걸었음 ,
-  @OneToMany(mappedBy = "restaurant" , cascade = CascadeType.ALL , orphanRemoval = true)
+  @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Food> foods = new ArrayList<>();
 
   @OneToMany(mappedBy = "restaurant")
   private List<Likes> likes = new ArrayList<>();
-
-
 
 
   /**
@@ -90,34 +95,40 @@ public class Restaurant {
   // 기본적으로 cascade , orphanRemoval 걸려있음
 
   @ElementCollection
-  @CollectionTable(name = "ContainFoodType", joinColumns = @JoinColumn(name = "id"))
+  @CollectionTable(name = "ContainFoodTypes", joinColumns = @JoinColumn(name = "restaurant_id"))
+  @Column(name = "contain_food_type")
   private List<String> containFoodTypes = new ArrayList<>();
 
 
   //여러 제공하는 서비스 종류들(단체석 이용 가능 , 무선 와이파이 존재 , 콜키지 가능 , ...) ProvideServiceType
   @ElementCollection
-  @CollectionTable(name = "ProvideServiceType", joinColumns = @JoinColumn(name = "id"))
+  @CollectionTable(name = "ProvideServiceType", joinColumns = @JoinColumn(name = "restaurant_id"))
+  @Column(name = "provide_service_type")
   private List<String> provideServiceTypes = new ArrayList<>();// enum
-
 
 
   //주로 파는 품목 카테고리(추후 단일 객체 고려)RestaurantType
   @ElementCollection
-  @CollectionTable(name = "RestaurantType", joinColumns = @JoinColumn(name = "id"))
+  @CollectionTable(name = "RestaurantType", joinColumns = @JoinColumn(name = "restaurant_id"))
+  @Column(name = "restaurant_type")
   private List<String> restaurantTypes = new ArrayList<>();
 
 
   @ElementCollection
-  @CollectionTable(name = "MoodType", joinColumns = @JoinColumn(name = "id"))
+  @CollectionTable(name = "MoodType", joinColumns = @JoinColumn(name = "restaurant_id"))
+  @Column(name = "mood_type")
   private List<String> moodTypes = new ArrayList<>();
 
   /**
    * 복잡한 연관관계 => 생성 메서드 , 다른 개발자들이 해당 틀대로 생성하게끔 유도하기 !
    */
-  public static Restaurant createRestaurant(String businessNum, String restaurantName , List<String> moodTypes ,
-      List<String> containFoodTypes , List<String> provideServiceTypes , List<String> restaurantTypes , String image , String roadNameAddress
-      , String landLotAddress , String zipcode , String detailAddress , Boolean canPark , String reservationTimeGap
-      , Boolean isPenalty , List<BusinessDay> businessDays , List<Food> foods){
+  public static Restaurant createRestaurant(String businessNum, String restaurantName,
+      List<String> moodTypes,
+      List<String> containFoodTypes, List<String> provideServiceTypes, List<String> restaurantTypes,
+      String image, String roadNameAddress
+      , String landLotAddress, String zipcode, String detailAddress, Boolean canPark,
+      String reservationTimeGap
+      , Boolean isPenalty, List<BusinessDay> businessDays, List<Food> foods) {
 
     Restaurant restaurant = new Restaurant();
     restaurant.setBusinessNum(businessNum);
@@ -127,7 +138,7 @@ public class Restaurant {
     restaurant.setProvideServiceTypes(provideServiceTypes);
     restaurant.setRestaurantTypes(restaurantTypes);
     restaurant.setImage(image);
-    restaurant.setAddress(new Address(roadNameAddress, landLotAddress ,  detailAddress, zipcode));
+    restaurant.setAddress(new Address(roadNameAddress, landLotAddress, detailAddress, zipcode));
     restaurant.setCanPark(canPark);
     restaurant.setReservationTimeGap(reservationTimeGap);
     restaurant.setIsPenalty(isPenalty);
@@ -141,46 +152,43 @@ public class Restaurant {
    * 연관관계 편의 메서드
    */
   //수정 발생 시 여기서 작업해줘도 될듯? ① 리스트 전부 삭제하고 ② 그 다음 add 하기 => 영소성 컨텍스트 초기화하고 하
-  public void addBusinessDay(BusinessDay businessDay){
+  public void addBusinessDay(BusinessDay businessDay) {
     businessDays.clear(); //이걸로 초기화를 먼저 해줘야 아무것도 없는 무의 상태에서 연관관계가 올바르게 설정됨 !
     businessDays.add(businessDay); //자신에게 연관관계 설정
     businessDay.setRestaurant(this); //B에게 연관관계 설정
   }
 
-  public void addFood(Food food){
+  public void addFood(Food food) {
     foods.clear(); //이것도 마찬가지 먼저 비워주고 그 다음에 ㄱㄱ 변경을 대비한 ㅇㅇ
     foods.add(food); //자신에게 연관관계 설정
     food.setRestaurant(this); //B에게 연관관계 설정
   }
 
 
-
-
   /**
-   * 도메인 모델 패턴 : 비즈니스 로직 정의(서비스가 아닌 도메인에 정의하기)
-   * DDD로 하면 단위 테스트에서 객체 생성만으로 테스트도 가능한 유라함도 가져갈 수 있음
+   * 도메인 모델 패턴 : 비즈니스 로직 정의(서비스가 아닌 도메인에 정의하기) DDD로 하면 단위 테스트에서 객체 생성만으로 테스트도 가능한 유라함도 가져갈 수 있음
    */
 
-  public double averageRate(){
+  public double averageRate() {
     return reviews.stream().mapToInt(Review::getRate).average().getAsDouble(); //평균 계산
   }
 
-  public int totalReviewCount(){
+  public int totalReviewCount() {
     return reviews.size();
   }
 
 
   //상태 설정 메서드로 가자
-  public void changeBusinessStatus(BusinessStatus businessStatus){
+  public void changeBusinessStatus(BusinessStatus businessStatus) {
     this.businessStatus = businessStatus;
   }
 
   //수정 메서드
-  public void changeRestaurant(String businessNum, String restaurantName , List<String> moodTypes ,
-      List<String> containFoodTypes , List<String> provideServiceTypes , List<String> restaurantTypes ,
-      String image , String roadNameAddress, String landLotAddress , String zipcode ,
-      String detailsAddress , Boolean canPark , String reservationTimeGap ,
-      Boolean isPenalty , List<BusinessDay> businessDays , List<Food> foods){
+  public void changeRestaurant(String businessNum, String restaurantName, List<String> moodTypes,
+      List<String> containFoodTypes, List<String> provideServiceTypes, List<String> restaurantTypes,
+      String image, String roadNameAddress, String landLotAddress, String zipcode,
+      String detailsAddress, Boolean canPark, String reservationTimeGap,
+      Boolean isPenalty, List<BusinessDay> businessDays, List<Food> foods) {
 
     setBusinessNum(businessNum);
     setName(restaurantName);
@@ -189,18 +197,13 @@ public class Restaurant {
     setProvideServiceTypes(provideServiceTypes);
     setRestaurantTypes(restaurantTypes);
     setImage(image);
-    setAddress(new Address(roadNameAddress,landLotAddress , detailsAddress, zipcode));
+    setAddress(new Address(roadNameAddress, landLotAddress, detailsAddress, zipcode));
     setCanPark(canPark);
     setReservationTimeGap(reservationTimeGap);
     setIsPenalty(isPenalty);
     businessDays.forEach(this::addBusinessDay);
     foods.forEach(this::addFood);
   }
-
-
-
-
-
 
 
 }

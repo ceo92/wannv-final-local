@@ -2,6 +2,7 @@ package please_do_it.yumi.repository;
 
 import static please_do_it.yumi.domain.QBusinessDay.businessDay;
 import static please_do_it.yumi.domain.QFood.food;
+import static please_do_it.yumi.domain.QLikes.likes;
 import static please_do_it.yumi.domain.QRestaurant.restaurant;
 import static please_do_it.yumi.domain.QReview.review;
 import static please_do_it.yumi.domain.QReviewTag.reviewTag;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 import please_do_it.yumi.constant.BusinessStatus;
+
 import please_do_it.yumi.domain.Restaurant;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 
@@ -25,6 +27,7 @@ public class RestaurantRepository {
 
   private final EntityManager em;
   private final JPAQueryFactory query;
+
 
 
   @Autowired
@@ -43,16 +46,20 @@ public class RestaurantRepository {
   }
 
   public List<Restaurant> findAll(){
-    return query.selectFrom(restaurant).join(restaurant.reviews , review)
-        .join(restaurant.reviews, review)
+    return query.selectFrom(restaurant)
+        .join(restaurant.reviews , review)
         .join(restaurant.foods, food)
         .join(restaurant.businessDays, businessDay)
         .join(review.reviewTags, reviewTag)
         .fetch();
   }
 
+  public List<Restaurant> findAllAll(){
+    return query.selectFrom(restaurant).fetch();
+  }
 
 
+  //모달 보안성 우수 => 제3자가 접근하기 어려움, 단순 팝업창 느낌이므로 , 이런 2가지 방법을 고려했을 때 ~~가 더 괜찮아서 이거를 선정하였다. 이렇게 면접이든 포폴이든 정의하자!
   public List<Restaurant> findAll(RestaurantSearchCond restaurantSearchCond) {
     /**
      * where 동적 조건
@@ -68,11 +75,12 @@ public class RestaurantRepository {
     List<String> provideServiceTypes = restaurantSearchCond.getProvideServiceTypes();
     List<String> moodTypes = restaurantSearchCond.getMoodTypes();
 
-
+//원래 .join( 조인할 연관관계 , 연관관계에 대한 Q타입)
     JPAQuery<Restaurant> dynamicQuery = query.selectFrom(restaurant)
         .join(restaurant.reviews, review)
         .join(restaurant.foods, food)
         .join(restaurant.businessDays, businessDay)
+        .join(restaurant.likes, likes)
         .join(review.reviewTags, reviewTag)
         .where(eqContainFoodTypes(containFoodTypes), goeRate(rates),
             eqRestaurantTypes(restaurantTypes),
@@ -80,15 +88,19 @@ public class RestaurantRepository {
             , loeGoePrice(startPrice, endPrice),
             eqCanPark(canPark), eqIsOpen(isOpen), eqRoadAddress(roadAddress));
     //최신 순(등록일 기준 정렬) , 별점 높은 순(평균 별점에 따른 정렬) , 좋아요 높은 순
-    if (restaurantSearchCond.getIsCreatedAtChecked()){
-      dynamicQuery.orderBy(restaurant.rateAverage.desc().nullsLast());
-    }
     if (restaurantSearchCond.getIsLikesChecked()){
-      dynamicQuery.orderBy(restaurant.likesCount.desc().nullsLast());
+      dynamicQuery.orderBy(likes.count().desc().nullsLast()); //좋아요 많은 순
+    }
+    if (restaurantSearchCond.getIsReviewCountChecked()){
+      dynamicQuery.orderBy(review.count().desc().nullsLast()); //리뷰 많은 순
     }
     if (restaurantSearchCond.getIsCreatedAtChecked()){
-      dynamicQuery.orderBy(restaurant.createdAt.desc().nullsLast());
+      dynamicQuery.orderBy(restaurant.createdAt.desc().nullsLast()); //최신 순
     }
+    if (restaurantSearchCond.getIsRateChecked()){
+      dynamicQuery.orderBy(review.rate.count().desc().nullsLast()); //별점 높은 순
+    }
+
 
     return dynamicQuery.fetch();
 
@@ -96,6 +108,8 @@ public class RestaurantRepository {
 
     //코드가 굉장히 간결 , return 문만 봐도 동적 쿼리 짤 수 있음
   }
+
+
 
 
   private BooleanExpression eqContainFoodTypes(List<String> containFoodTypes){
@@ -133,7 +147,7 @@ public class RestaurantRepository {
   private BooleanExpression goeRate(List<Integer> rates) {
     BooleanExpression booleanExpression = null;
     for (Integer rate : rates) {
-      booleanExpression = rate != null ? restaurant.rateAverage.goe(rate).and(restaurant.rateAverage.lt(rate+1)) : null;
+      booleanExpression = rate != null ? review.rate.avg().goe(rate).and(review.rate.lt(rate+1)) : null;
     }
     return booleanExpression;
 

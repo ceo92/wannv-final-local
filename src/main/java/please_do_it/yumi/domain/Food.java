@@ -12,11 +12,13 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.format.annotation.NumberFormat;
 
 @Entity
 @Getter @Setter
 @NoArgsConstructor
+@ToString(exclude = "restaurant")
 public class Food {
 
   @Id @GeneratedValue(strategy =  GenerationType.IDENTITY)

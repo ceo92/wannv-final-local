@@ -1,7 +1,12 @@
 package please_do_it.yumi.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static please_do_it.yumi.domain.QBusinessDay.businessDay;
+import static please_do_it.yumi.domain.QFood.food;
+import static please_do_it.yumi.domain.QRestaurant.restaurant;
+import static please_do_it.yumi.domain.QReview.review;
 
+import com.querydsl.core.Tuple;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -34,21 +39,30 @@ class RestaurantRepositoryTest {
 
 
   @Test
-  void findAll() {
-    List<Restaurant> all = restaurantRepository.findAll();
-    for (Restaurant restaurant : all) {
-      System.out.println("restaurant = " + restaurant);
-    }
-    /*List<Restaurant> all = restaurantRepository.findAll(
-        new RestaurantSearchCond(10000, 20000, null, null, null, Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), true,
-            true, true, true));
-    for (Restaurant restaurant : all) {
-      System.out.println("restaurant = " + restaurant);
-    }
+  void findAllWithTuple() {
 
-*/
+    /*List<Restaurant> tuples = restaurantRepository.findAll(
+        new RestaurantSearchCond(null, null, null, null, null, Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), null,
+            null, null, null));*/
+    List<Tuple> tuples = restaurantRepository.findAllWithTuple();
+    for (Tuple tuple : tuples) {
+      System.out.println("restaurant = " + tuple.get(restaurant));
+      System.out.println("review = " + tuple.get(review));
+      System.out.println("food = " + tuple.get(food));
+      System.out.println("businessDay = " + tuple.get(businessDay));
+    }
 
   }
+
+  @Test
+  void findAllOnlyRestaurant() {
+    List<Restaurant> restaurants = restaurantRepository.findAllOnlyRestaurant();
+    for (Restaurant restaurant1 : restaurants) {
+      System.out.println("restaurant1 = " + restaurant1);
+      System.out.println("restaurant1.getFoods() = " + restaurant1.getFoods());
+    }
+  }
+
 
 
 }

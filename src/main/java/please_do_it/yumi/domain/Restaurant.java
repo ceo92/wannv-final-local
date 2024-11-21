@@ -8,29 +8,19 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.ToString.Exclude;
 import please_do_it.yumi.constant.BusinessStatus;
 
 @Entity
@@ -95,27 +85,27 @@ public class Restaurant {
   // 기본적으로 cascade , orphanRemoval 걸려있음
 
   @ElementCollection
-  @CollectionTable(name = "ContainFoodTypes", joinColumns = @JoinColumn(name = "restaurant_id"))
+  @CollectionTable(name = "contain_food_type", joinColumns = @JoinColumn(name = "restaurant_id"))
   @Column(name = "contain_food_type")
   private List<String> containFoodTypes = new ArrayList<>();
 
 
   //여러 제공하는 서비스 종류들(단체석 이용 가능 , 무선 와이파이 존재 , 콜키지 가능 , ...) ProvideServiceType
   @ElementCollection
-  @CollectionTable(name = "ProvideServiceType", joinColumns = @JoinColumn(name = "restaurant_id"))
+  @CollectionTable(name = "provide_service_type", joinColumns = @JoinColumn(name = "restaurant_id"))
   @Column(name = "provide_service_type")
   private List<String> provideServiceTypes = new ArrayList<>();// enum
 
 
   //주로 파는 품목 카테고리(추후 단일 객체 고려)RestaurantType
   @ElementCollection
-  @CollectionTable(name = "RestaurantType", joinColumns = @JoinColumn(name = "restaurant_id"))
+  @CollectionTable(name = "restaurant_type", joinColumns = @JoinColumn(name = "restaurant_id"))
   @Column(name = "restaurant_type")
   private List<String> restaurantTypes = new ArrayList<>();
 
 
   @ElementCollection
-  @CollectionTable(name = "MoodType", joinColumns = @JoinColumn(name = "restaurant_id"))
+  @CollectionTable(name = "mood_type", joinColumns = @JoinColumn(name = "restaurant_id"))
   @Column(name = "mood_type")
   private List<String> moodTypes = new ArrayList<>();
 
@@ -170,7 +160,7 @@ public class Restaurant {
    */
 
   public double averageRate() {
-    return reviews.stream().mapToInt(Review::getRate).average().getAsDouble(); //평균 계산
+    return reviews.stream().mapToInt(Review::getRating).average().getAsDouble(); //평균 계산
   }
 
   public int totalReviewCount() {

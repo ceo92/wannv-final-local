@@ -11,9 +11,11 @@ import javax.print.attribute.standard.MediaSize.NA;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter @Setter(AccessLevel.PRIVATE)
+@ToString(exclude = "restaurant")
 public class Likes {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

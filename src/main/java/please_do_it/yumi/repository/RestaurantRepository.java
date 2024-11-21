@@ -7,11 +7,11 @@ import static please_do_it.yumi.domain.QRestaurant.restaurant;
 import static please_do_it.yumi.domain.QReview.review;
 import static please_do_it.yumi.domain.QReviewTag.reviewTag;
 
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +54,28 @@ public class RestaurantRepository {
         .fetch();
   }
 
-  public List<Restaurant> findAllAll(){
-    return query.selectFrom(restaurant).fetch();
+  public List<Tuple> findAllWithTuple(){
+    return query
+        .select(restaurant, review , food , businessDay)
+        .from(restaurant)
+        .join(restaurant.reviews, review) //조인으로 가져와야 오류가 안 나지
+        .join(restaurant.foods , food)
+        .join(restaurant.businessDays , businessDay)
+        .fetch();
   }
+
+
+  public List<Restaurant> findAllOnlyRestaurant(){
+    return query
+        .select(restaurant)
+        .from(restaurant)
+        .join(restaurant.reviews, review) //조인으로 가져와야 오류가 안 나지
+        .join(restaurant.foods , food)
+        .join(restaurant.businessDays , businessDay)
+        .fetch();
+  }
+
+
 
 
   //모달 보안성 우수 => 제3자가 접근하기 어려움, 단순 팝업창 느낌이므로 , 이런 2가지 방법을 고려했을 때 ~~가 더 괜찮아서 이거를 선정하였다. 이렇게 면접이든 포폴이든 정의하자!
@@ -88,20 +107,19 @@ public class RestaurantRepository {
             , loeGoePrice(startPrice, endPrice),
             eqCanPark(canPark), eqIsOpen(isOpen), eqRoadAddress(roadAddress));
     //최신 순(등록일 기준 정렬) , 별점 높은 순(평균 별점에 따른 정렬) , 좋아요 높은 순
-    if (restaurantSearchCond.getIsLikesChecked()){
-      dynamicQuery.orderBy(likes.count().desc().nullsLast()); //좋아요 많은 순
+    /*if (restaurantSearchCond.getIsLikesChecked()){
+      dynamicQuery.groupBy(likes.count()).orderBy(likes.count().desc().nullsLast()); //좋아요 많은 순
     }
     if (restaurantSearchCond.getIsReviewCountChecked()){
-      dynamicQuery.orderBy(review.count().desc().nullsLast()); //리뷰 많은 순
+      dynamicQuery.groupBy(review.count()).orderBy(review.count().desc().nullsLast()); //리뷰 많은 순
     }
     if (restaurantSearchCond.getIsCreatedAtChecked()){
-      dynamicQuery.orderBy(restaurant.createdAt.desc().nullsLast()); //최신 순
+      dynamicQuery.groupBy(restaurant.createdAt).orderBy(restaurant.createdAt.desc().nullsLast()); //최신 순
     }
     if (restaurantSearchCond.getIsRateChecked()){
-      dynamicQuery.orderBy(review.rate.count().desc().nullsLast()); //별점 높은 순
+      dynamicQuery.groupBy(review.rating.count()).orderBy(review.rating.count().desc().nullsLast()); //별점 높은 순
     }
-
-
+*/
     return dynamicQuery.fetch();
 
 
@@ -147,7 +165,7 @@ public class RestaurantRepository {
   private BooleanExpression goeRate(List<Integer> rates) {
     BooleanExpression booleanExpression = null;
     for (Integer rate : rates) {
-      booleanExpression = rate != null ? review.rate.avg().goe(rate).and(review.rate.lt(rate+1)) : null;
+      booleanExpression = rate != null ? review.rating.avg().goe(rate).and(review.rating.lt(rate+1)) : null;
     }
     return booleanExpression;
 

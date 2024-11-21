@@ -10,18 +10,19 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter @Setter
+@ToString(exclude = {"restaurant" , "reviewTags"})
 public class Review {
 
   @Id @GeneratedValue
   private Long id;
 
-  private Integer rate;
+  private Integer rating;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "restaurant_id")

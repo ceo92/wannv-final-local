@@ -11,10 +11,12 @@ import com.querydsl.core.Tuple;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +59,7 @@ class RestaurantRepositoryTest {
   void findAllWithTuple() {
 
     List<Restaurant> tuples = restaurantRepository.findAll(
-        new RestaurantSearchCond(10000, 20000, true, true, null, Collections.emptyList(), Collections.emptySet(), Collections.emptySet(), Collections.emptySet(), Collections.emptySet(), null,
+        new RestaurantSearchCond(10000, 20000, true, true, "도%", Collections.emptyList(), Collections.emptySet(), Collections.emptySet(), Collections.emptySet(), Collections.emptySet(), null,
             null, null, null));
     for (Restaurant tuple : tuples) {
       System.out.println("tuple = " + tuple);

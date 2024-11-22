@@ -101,7 +101,7 @@ public class RestaurantRepository {
             eqRestaurantTypes(restaurantTypes),
             eqProvideServiceTypes(provideServiceTypes), eqMoodTypes(moodTypes)
             , loeGoePrice(startPrice, endPrice),
-            eqCanPark(canPark), eqIsOpen(isOpen), eqRoadAddress(roadAddress));
+            eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress));
     //최신 순(등록일 기준 정렬) , 별점 높은 순(평균 별점에 따른 정렬) , 좋아요 높은 순
     /*if (restaurantSearchCond.getIsLikesChecked()){
       dynamicQuery.groupBy(likes.count()).orderBy(likes.count().desc().nullsLast()); //좋아요 많은 순
@@ -146,7 +146,7 @@ public class RestaurantRepository {
             eqRestaurantTypes(restaurantTypes),
             eqProvideServiceTypes(provideServiceTypes), eqMoodTypes(moodTypes)
             , loeGoePrice(startPrice, endPrice),
-            eqCanPark(canPark), eqIsOpen(isOpen), eqRoadAddress(roadAddress)).fetch();
+            eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress)).fetch();
   }
 
 
@@ -184,16 +184,18 @@ public class RestaurantRepository {
     return booleanExpression;
   }
 
+
+  //goeRate : 별표 1,2,3,4,5 체크박스 중 여러 개를 누를 수 있어서 List를 받아올 수 있는 것이고,  이때 별점은 평균별점임 그래서 avg로 계산했음
   private BooleanExpression goeRate(List<Integer> rates) {
     BooleanExpression booleanExpression = null;
     for (Integer rate : rates) {
-      booleanExpression = rate != null ? review.rating.avg().goe(rate).and(review.rating.lt(rate+1)) : null;
+      booleanExpression = rate != null ? review.rating.avg().goe(rate).and(review.rating.avg().lt(rate+1)) : null;
     }
 
     return booleanExpression;
   }
 
-  private BooleanExpression eqRoadAddress(String roadAddress){
+  private BooleanExpression likeRoadAddress(String roadAddress){
     return StringUtils.hasText(roadAddress) ? restaurant.address.roadAddress.like(roadAddress) : null;
   }
 

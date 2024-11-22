@@ -22,7 +22,8 @@ public class RestaurantSearchCond {
   private Boolean isOpen; // 조건 : eq
   private Boolean canPark; // 조건 : eq
   private String roadAddress;
-  private List<Integer> rates = new ArrayList<>();
+
+  private List<Integer> rates = new ArrayList<>(); //별점
   private Set<String> containFoodTypes = new HashSet<>(); //여러 포함음식 체크박스 중 하나 설계
   private Set<String> restaurantTypes = new HashSet<>(); // 조건 : forEach로 돌려가면서 ₩일치하는지
   private Set<String> provideServiceTypes = new HashSet<>();

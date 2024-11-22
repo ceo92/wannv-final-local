@@ -46,14 +46,6 @@ public class RestaurantRepository {
     return Optional.ofNullable(em.find(Restaurant.class , id));
   }
 
-  public List<Restaurant> findAll(){
-    return query.selectFrom(restaurant)
-        .join(restaurant.reviews , review)
-        .join(restaurant.foods, food)
-        .join(restaurant.businessDays, businessDay)
-        .join(review.reviewTags, reviewTag)
-        .fetch();
-  }
 
   public List<Tuple> findAllWithTuple(){
     return query
@@ -79,8 +71,9 @@ public class RestaurantRepository {
   }
 
 
-
-
+  /**
+   * 이게 찐탱이
+   */
   //모달 보안성 우수 => 제3자가 접근하기 어려움, 단순 팝업창 느낌이므로 , 이런 2가지 방법을 고려했을 때 ~~가 더 괜찮아서 이거를 선정하였다. 이렇게 면접이든 포폴이든 정의하자!
   public List<Restaurant> findAll(RestaurantSearchCond restaurantSearchCond) {
     /**
@@ -124,10 +117,36 @@ public class RestaurantRepository {
     }
 */
     return dynamicQuery.fetch();
+  }
+ public List<Tuple> findAllTuple(RestaurantSearchCond restaurantSearchCond) {
+    /**
+     * where 동적 조건
+     */
+    Boolean canPark = restaurantSearchCond.getCanPark();
+    Boolean isOpen = restaurantSearchCond.getIsOpen();
+    Integer startPrice = restaurantSearchCond.getStartPrice();
+    Integer endPrice = restaurantSearchCond.getEndPrice();
+    String roadAddress = restaurantSearchCond.getRoadAddress();
+    List<Integer> rates = restaurantSearchCond.getRates();
+    Set<String> restaurantTypes = restaurantSearchCond.getRestaurantTypes();
+    Set<String> containFoodTypes = restaurantSearchCond.getContainFoodTypes();
+    Set<String> provideServiceTypes = restaurantSearchCond.getProvideServiceTypes();
+    Set<String> moodTypes = restaurantSearchCond.getMoodTypes();
 
-
-
-    //코드가 굉장히 간결 , return 문만 봐도 동적 쿼리 짤 수 있음
+//원래 .join( 조인할 연관관계 , 연관관계에 대한 Q타입)
+    return query
+        .select(restaurant , food ) //싹 다 로딩을 해오는 게 좋음 ㅇㅇ 다른 칼럼 참조할 거면 ㅇㅇ
+        .from(restaurant)
+        .join(restaurant.reviews, review)
+        .join(restaurant.foods, food)
+        .join(restaurant.businessDays, businessDay)
+        .join(restaurant.likes, likes)
+        .join(review.reviewTags, reviewTag)
+        .where(eqContainFoodTypes(containFoodTypes), goeRate(rates),
+            eqRestaurantTypes(restaurantTypes),
+            eqProvideServiceTypes(provideServiceTypes), eqMoodTypes(moodTypes)
+            , loeGoePrice(startPrice, endPrice),
+            eqCanPark(canPark), eqIsOpen(isOpen), eqRoadAddress(roadAddress)).fetch();
   }
 
 
@@ -170,12 +189,12 @@ public class RestaurantRepository {
     for (Integer rate : rates) {
       booleanExpression = rate != null ? review.rating.avg().goe(rate).and(review.rating.lt(rate+1)) : null;
     }
-    return booleanExpression;
 
+    return booleanExpression;
   }
 
   private BooleanExpression eqRoadAddress(String roadAddress){
-    return StringUtils.hasText(roadAddress) ? restaurant.address.roadAddress.eq(roadAddress) : null;
+    return StringUtils.hasText(roadAddress) ? restaurant.address.roadAddress.like(roadAddress) : null;
   }
 
   private BooleanExpression eqIsOpen(Boolean isOpen) {

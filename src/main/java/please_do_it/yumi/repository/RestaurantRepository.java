@@ -21,6 +21,7 @@ import org.springframework.util.StringUtils;
 import please_do_it.yumi.constant.BusinessStatus;
 
 import please_do_it.yumi.domain.Restaurant;
+import please_do_it.yumi.dto.RestaurantResponseDto;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 
 @Repository
@@ -47,54 +48,20 @@ public class RestaurantRepository {
   }
 
 
-  /**
-   * 이게 찐탱이
-   */
-  //모달 보안성 우수 => 제3자가 접근하기 어려움, 단순 팝업창 느낌이므로 , 이런 2가지 방법을 고려했을 때 ~~가 더 괜찮아서 이거를 선정하였다. 이렇게 면접이든 포폴이든 정의하자!
-  public List<Restaurant> findAll(RestaurantSearchCond restaurantSearchCond) {
-    /**
-     * where 동적 조건
-     */
-    Boolean canPark = restaurantSearchCond.getCanPark();
-    Boolean isOpen = restaurantSearchCond.getIsOpen();
-    Integer startPrice = restaurantSearchCond.getStartPrice();
-    Integer endPrice = restaurantSearchCond.getEndPrice();
-    String roadAddress = restaurantSearchCond.getRoadAddress();
-    List<Integer> rates = restaurantSearchCond.getRates();
-    Set<String> restaurantTypes = restaurantSearchCond.getRestaurantTypes();
-    Set<String> containFoodTypes = restaurantSearchCond.getContainFoodTypes();
-    Set<String> provideServiceTypes = restaurantSearchCond.getProvideServiceTypes();
-    Set<String> moodTypes = restaurantSearchCond.getMoodTypes();
-
-//원래 .join( 조인할 연관관계 , 연관관계에 대한 Q타입)
-    JPAQuery<Restaurant> dynamicQuery = query.selectFrom(restaurant)
+  public List<Restaurant> findAll(){
+    return query.selectFrom(restaurant)
         .join(restaurant.reviews, review)
         .join(restaurant.foods, food)
         .join(restaurant.businessDays, businessDay)
         .join(restaurant.likes, likes)
-        .join(review.reviewTags, reviewTag)
-        .where(eqContainFoodTypes(containFoodTypes), goeRate(rates),
-            eqRestaurantTypes(restaurantTypes),
-            eqProvideServiceTypes(provideServiceTypes), eqMoodTypes(moodTypes)
-            , loeGoePrice(startPrice, endPrice),
-            eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress));
-    //최신 순(등록일 기준 정렬) , 별점 높은 순(평균 별점에 따른 정렬) , 좋아요 높은 순
-    /*if (restaurantSearchCond.getIsLikesChecked()){
-      dynamicQuery.groupBy(likes.count()).orderBy(likes.count().desc().nullsLast()); //좋아요 많은 순
-    }
-    if (restaurantSearchCond.getIsReviewCountChecked()){
-      dynamicQuery.groupBy(review.count()).orderBy(review.count().desc().nullsLast()); //리뷰 많은 순
-    }
-    if (restaurantSearchCond.getIsCreatedAtChecked()){
-      dynamicQuery.groupBy(restaurant.createdAt).orderBy(restaurant.createdAt.desc().nullsLast()); //최신 순
-    }
-    if (restaurantSearchCond.getIsRateChecked()){
-      dynamicQuery.groupBy(review.rating.count()).orderBy(review.rating.count().desc().nullsLast()); //별점 높은 순
-    }
-*/
-    return dynamicQuery.fetch();
+        .join(review.reviewTags, reviewTag).fetch();
   }
- public List<Tuple> findAllTuple(RestaurantSearchCond restaurantSearchCond) {
+
+  /**
+   * 동적쿼리용 findAll
+   */
+  //모달 보안성 우수 => 제3자가 접근하기 어려움, 단순 팝업창 느낌이므로 , 이런 2가지 방법을 고려했을 때 ~~가 더 괜찮아서 이거를 선정하였다. 이렇게 면접이든 포폴이든 정의하자!
+ public List<RestaurantResponseDto> findAll(RestaurantSearchCond restaurantSearchCond) {
     /**
      * where 동적 조건
      */
@@ -109,7 +76,7 @@ public class RestaurantRepository {
     Set<String> provideServiceTypes = restaurantSearchCond.getProvideServiceTypes();
     Set<String> moodTypes = restaurantSearchCond.getMoodTypes();
 
-   return query.select(restaurant.id, restaurant.name, review.rating.avg())
+   JPAQuery<RestaurantResponseDto> dynamicQuery = query.select(restaurant, review.rating.avg())
        .from(restaurant)
        .join(restaurant.reviews, review)
        .join(restaurant.foods, food)
@@ -117,17 +84,26 @@ public class RestaurantRepository {
        .join(restaurant.likes, likes)
        .join(review.reviewTags, reviewTag)
        .where(eqContainFoodTypes(containFoodTypes), eqRestaurantTypes(restaurantTypes),
-           eqProvideServiceTypes(provideServiceTypes), eqMoodTypes(moodTypes), loeGoePrice(startPrice, endPrice),
+           eqProvideServiceTypes(provideServiceTypes), eqMoodTypes(moodTypes),
+           loeGoePrice(startPrice, endPrice),
            eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress))
        .groupBy(restaurant.id)
-       .having(goeRate(rates))
-       .fetch();
+       .having(goeRate(rates));
+   if (restaurantSearchCond.getIsLikesChecked().equals(true)){
+     dynamicQuery.orderBy(likes.count().desc().nullsLast()); //좋아요 많은 순
+   }
+   if (restaurantSearchCond.getIsReviewCountChecked().equals(true)){
+     dynamicQuery.orderBy(review.count().desc().nullsLast()); //리뷰 많은 순
+   }
+   if (restaurantSearchCond.getIsCreatedAtChecked().equals(true)){
+     dynamicQuery.orderBy(restaurant.createdAt.desc().nullsLast()); //최신 순
+   }
+   if (restaurantSearchCond.getIsRateChecked().equals(true)){
+     dynamicQuery.orderBy(review.rating.avg().desc().nullsLast()); //별점 높은 순
+   }
+
+   return dynamicQuery.fetch();
   }
-
-
-
-
-
 
 
   private BooleanExpression eqContainFoodTypes(Set<String> containFoodTypes) {

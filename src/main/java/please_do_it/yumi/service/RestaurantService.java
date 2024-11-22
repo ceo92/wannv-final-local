@@ -2,6 +2,7 @@ package please_do_it.yumi.service;
 
 import static please_do_it.yumi.domain.QBusinessDay.businessDay;
 
+import com.querydsl.core.Tuple;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
@@ -68,7 +69,7 @@ public class RestaurantService {
     return restaurantRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("잘못된 id 입니다."));
   }
 
-  public List<Restaurant> findRestaurants(RestaurantSearchCond restaurantSearchCond){
+  public List<Tuple> findRestaurants(RestaurantSearchCond restaurantSearchCond){
     return restaurantRepository.findAll(restaurantSearchCond);
   }
 
@@ -100,7 +101,7 @@ public class RestaurantService {
   @Scheduled(cron = "0 */30 * * * *")
   public void updateBusinessStatus(){
     LocalDateTime now = LocalDateTime.now();
-    List<Restaurant> restaurants = restaurantRepository.findAll(new RestaurantSearchCond());
+    List<Restaurant> restaurants = restaurantRepository.findAll();
     //다 계산해주는 거니까 여기서 그냥 모든 상태를 이 메서드 안에서 동시에 업데이트 해주는 것!
 
     //아니네 휴무일 계산은 마지막에 해줘야하네

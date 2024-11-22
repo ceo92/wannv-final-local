@@ -46,9 +46,6 @@ public class Restaurant {
   private String image;
   private String description; //설명
 
- /* private Double rateAverage; //평균 별점 높은 순
-  private Integer likesCount; //좋아요 많은 순
-  private Integer reviewCount; //리뷰 많은 순*/
 
   private LocalDate createdAt; //생성일
   private LocalDate updatedAt; //수정일

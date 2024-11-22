@@ -5,6 +5,7 @@ import static please_do_it.yumi.domain.QBusinessDay.businessDay;
 import static please_do_it.yumi.domain.QFood.food;
 import static please_do_it.yumi.domain.QRestaurant.restaurant;
 import static please_do_it.yumi.domain.QReview.review;
+import static please_do_it.yumi.domain.QReviewTag.reviewTag;
 
 import com.querydsl.core.Tuple;
 import java.time.LocalDate;
@@ -51,6 +52,7 @@ class RestaurantRepositoryTest {
       System.out.println("review = " + tuple.get(review));
       System.out.println("food = " + tuple.get(food));
       System.out.println("businessDay = " + tuple.get(businessDay));
+      System.out.println("reviewTag = " + tuple.get(reviewTag));
     }
 
   }
@@ -59,10 +61,10 @@ class RestaurantRepositoryTest {
   void findAllOnlyRestaurant() {
     List<Restaurant> restaurants = restaurantRepository.findAllOnlyRestaurant();
     for (Restaurant restaurant1 : restaurants) {
-      System.out.println("restaurant1 = " + restaurant1);
-      System.out.println("restaurant1.getFoods() = " + restaurant1.getFoods());
-      System.out.println("restaurant1.getBusinessDays() = " + restaurant1.getBusinessDays());
-      System.out.println("restaurant1.getReviews() = " + restaurant1.getReviews());
+      System.out.println("restaurant = " + restaurant1);
+      System.out.println("restaurant.foods = " + restaurant1.getFoods());
+      System.out.println("restaurant.businessDays = " + restaurant1.getBusinessDays());
+      System.out.println("restaurant.reviews() = " + restaurant1.getReviews());
 
       System.out.println();
       System.out.println(

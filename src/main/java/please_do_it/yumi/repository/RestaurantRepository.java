@@ -61,6 +61,7 @@ public class RestaurantRepository {
         .join(restaurant.reviews, review) //조인으로 가져와야 오류가 안 나지
         .join(restaurant.foods , food)
         .join(restaurant.businessDays , businessDay)
+        .join(review.reviewTags , reviewTag)
         .fetch();
   }
 
@@ -72,6 +73,7 @@ public class RestaurantRepository {
         .join(restaurant.reviews, review) //조인으로 가져와야 오류가 안 나지
         .join(restaurant.foods , food)
         .join(restaurant.businessDays , businessDay)
+        .join(review.reviewTags , reviewTag)
         .fetch();
   }
 

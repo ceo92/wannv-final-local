@@ -15,7 +15,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -87,27 +89,27 @@ public class Restaurant {
   @ElementCollection
   @CollectionTable(name = "contain_food_type", joinColumns = @JoinColumn(name = "restaurant_id"))
   @Column(name = "contain_food_type")
-  private List<String> containFoodTypes = new ArrayList<>();
+  private Set<String> containFoodTypes = new HashSet<>();
 
 
   //여러 제공하는 서비스 종류들(단체석 이용 가능 , 무선 와이파이 존재 , 콜키지 가능 , ...) ProvideServiceType
   @ElementCollection
   @CollectionTable(name = "provide_service_type", joinColumns = @JoinColumn(name = "restaurant_id"))
   @Column(name = "provide_service_type")
-  private List<String> provideServiceTypes = new ArrayList<>();// enum
+  private Set<String> provideServiceTypes = new HashSet<>();// enum
 
 
   //주로 파는 품목 카테고리(추후 단일 객체 고려)RestaurantType
   @ElementCollection
   @CollectionTable(name = "restaurant_type", joinColumns = @JoinColumn(name = "restaurant_id"))
   @Column(name = "restaurant_type")
-  private List<String> restaurantTypes = new ArrayList<>();
+  private Set<String> restaurantTypes = new HashSet<>();
 
 
   @ElementCollection
   @CollectionTable(name = "mood_type", joinColumns = @JoinColumn(name = "restaurant_id"))
   @Column(name = "mood_type")
-  private List<String> moodTypes = new ArrayList<>();
+  private Set<String> moodTypes = new HashSet<>();
 
   /**
    * 복잡한 연관관계 => 생성 메서드 , 다른 개발자들이 해당 틀대로 생성하게끔 유도하기 !

@@ -47,30 +47,6 @@ public class RestaurantRepository {
   }
 
 
-  public List<Tuple> findAllWithTuple(){
-    return query
-        .select(restaurant, review , food , businessDay)
-        .from(restaurant)
-        .join(restaurant.reviews, review) //조인으로 가져와야 오류가 안 나지
-        .join(restaurant.foods , food)
-        .join(restaurant.businessDays , businessDay)
-        .join(review.reviewTags , reviewTag)
-        .fetch();
-  }
-
-
-  public List<Restaurant> findAllOnlyRestaurant(){
-    return query
-        .select(restaurant)
-        .from(restaurant)
-        .join(restaurant.reviews, review) //조인으로 가져와야 오류가 안 나지
-        .join(restaurant.foods , food)
-        .join(restaurant.businessDays , businessDay)
-        .join(review.reviewTags , reviewTag)
-        .fetch();
-  }
-
-
   /**
    * 이게 찐탱이
    */
@@ -133,67 +109,110 @@ public class RestaurantRepository {
     Set<String> provideServiceTypes = restaurantSearchCond.getProvideServiceTypes();
     Set<String> moodTypes = restaurantSearchCond.getMoodTypes();
 
-//원래 .join( 조인할 연관관계 , 연관관계에 대한 Q타입)
-    return query
-        .select(restaurant , food ) //싹 다 로딩을 해오는 게 좋음 ㅇㅇ 다른 칼럼 참조할 거면 ㅇㅇ
-        .from(restaurant)
-        .join(restaurant.reviews, review)
-        .join(restaurant.foods, food)
-        .join(restaurant.businessDays, businessDay)
-        .join(restaurant.likes, likes)
-        .join(review.reviewTags, reviewTag)
-        .where(eqContainFoodTypes(containFoodTypes), goeRate(rates),
-            eqRestaurantTypes(restaurantTypes),
-            eqProvideServiceTypes(provideServiceTypes), eqMoodTypes(moodTypes)
-            , loeGoePrice(startPrice, endPrice),
-            eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress)).fetch();
+   return query.select(restaurant.id, restaurant.name, review.rating.avg())
+       .from(restaurant)
+       .join(restaurant.reviews, review)
+       .join(restaurant.foods, food)
+       .join(restaurant.businessDays, businessDay)
+       .join(restaurant.likes, likes)
+       .join(review.reviewTags, reviewTag)
+       .where(eqContainFoodTypes(containFoodTypes), eqRestaurantTypes(restaurantTypes),
+           eqProvideServiceTypes(provideServiceTypes), eqMoodTypes(moodTypes), loeGoePrice(startPrice, endPrice),
+           eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress))
+       .groupBy(restaurant.id)
+       .having(goeRate(rates))
+       .fetch();
   }
 
 
 
 
-  private BooleanExpression eqContainFoodTypes(Set<String> containFoodTypes){
+
+
+
+  private BooleanExpression eqContainFoodTypes(Set<String> containFoodTypes) {
+    if (containFoodTypes == null || containFoodTypes.isEmpty()) {
+      return null; // 조건이 없으면 null 반환
+    }
     BooleanExpression booleanExpression = null;
     for (String containFoodType : containFoodTypes) {
-      booleanExpression =  containFoodType != null ? restaurant.containFoodTypes.any().eq(containFoodType) : null;
+      if (containFoodType != null) {
+        BooleanExpression condition = restaurant.containFoodTypes.any().eq(containFoodType);
+        booleanExpression = (booleanExpression == null) ? condition : booleanExpression.or(condition); //or 조건을 꼭 후미에 붙여줘야함
+      }
     }
     return booleanExpression;
   }
 
-  private BooleanExpression eqRestaurantTypes(Set<String> restaurantTypes){
+
+
+
+  private BooleanExpression eqRestaurantTypes(Set<String> restaurantTypes) {
+    if (restaurantTypes == null || restaurantTypes.isEmpty()) {
+      return null; // 조건이 없으면 null 반환
+    }
     BooleanExpression booleanExpression = null;
     for (String restaurantType : restaurantTypes) {
-      booleanExpression =  restaurantType != null ? restaurant.restaurantTypes.any().eq(restaurantType) : null;
+      if (restaurantType != null) {
+        BooleanExpression condition = restaurant.restaurantTypes.any().eq(restaurantType);
+        booleanExpression = (booleanExpression == null) ? condition : booleanExpression.or(condition); //or 조건을 꼭 후미에 붙여줘야함
+      }
     }
     return booleanExpression;
   }
 
-  private BooleanExpression eqProvideServiceTypes(Set<String> provideServiceTypes){
+
+
+  private BooleanExpression eqProvideServiceTypes(Set<String> provideServiceTypes) {
+    if (provideServiceTypes == null || provideServiceTypes.isEmpty()) {
+      return null; // 조건이 없으면 null 반환
+    }
+
     BooleanExpression booleanExpression = null;
     for (String provideServiceType : provideServiceTypes) {
-      booleanExpression =  provideServiceType != null ? restaurant.provideServiceTypes.any().eq(provideServiceType) : null;
+      if (provideServiceType != null) {
+        BooleanExpression condition = restaurant.provideServiceTypes.any().eq(provideServiceType);
+        booleanExpression =
+            (booleanExpression == null) ? condition : booleanExpression.or(condition); //or 조건을 꼭 후미에 붙여줘야함
+      }
     }
     return booleanExpression;
   }
 
   private BooleanExpression eqMoodTypes(Set<String> moodTypes){
+    if (moodTypes == null || moodTypes.isEmpty()) {
+      return null; // 조건이 없으면 null 반환
+    }
+
     BooleanExpression booleanExpression = null;
     for (String moodType : moodTypes) {
-      booleanExpression =  moodType != null ? restaurant.moodTypes.any().eq(moodType) : null;
+      if (moodType != null) {
+        BooleanExpression condition = restaurant.moodTypes.any().eq(moodType);
+        booleanExpression = (booleanExpression == null) ? condition : booleanExpression.or(condition);
+      }
     }
+
     return booleanExpression;
   }
 
 
   //goeRate : 별표 1,2,3,4,5 체크박스 중 여러 개를 누를 수 있어서 List를 받아올 수 있는 것이고,  이때 별점은 평균별점임 그래서 avg로 계산했음
   private BooleanExpression goeRate(List<Integer> rates) {
+    if (rates == null || rates.isEmpty()) {
+      return null; // 조건이 없으면 null 반환
+    }
+
     BooleanExpression booleanExpression = null;
     for (Integer rate : rates) {
-      booleanExpression = rate != null ? review.rating.avg().goe(rate).and(review.rating.avg().lt(rate+1)) : null;
+      if (rate != null) {
+        BooleanExpression condition = review.rating.avg().goe(rate).and(review.rating.avg().lt(rate + 1));
+        booleanExpression = (booleanExpression == null) ? condition : booleanExpression.or(condition);
+      }
     }
 
     return booleanExpression;
   }
+
 
   private BooleanExpression likeRoadAddress(String roadAddress){
     return StringUtils.hasText(roadAddress) ? restaurant.address.roadAddress.like(roadAddress) : null;

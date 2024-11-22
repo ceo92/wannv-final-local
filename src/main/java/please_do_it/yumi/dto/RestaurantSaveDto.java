@@ -2,7 +2,9 @@ package please_do_it.yumi.dto;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.Data;
 
 @Data
@@ -10,10 +12,10 @@ public class RestaurantSaveDto {
 
   private String restaurantName;
   private String businessNum;
-  private List<String> restaurantTypes = new ArrayList<>();
-  private List<String> containFoodTypes = new ArrayList<>();
-  private List<String> provideServiceTypes = new ArrayList<>();
-  private List<String> moodTypes = new ArrayList<>();
+  private Set<String> restaurantTypes = new HashSet<>();
+  private Set<String> containFoodTypes = new HashSet<>();
+  private Set<String> provideServiceTypes = new HashSet<>();
+  private Set<String> moodTypes = new HashSet<>();
   private String roadNameAddress;
   private String landLotAddress;
   private String zipcode;

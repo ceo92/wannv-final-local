@@ -115,8 +115,8 @@ public class Restaurant {
    * 복잡한 연관관계 => 생성 메서드 , 다른 개발자들이 해당 틀대로 생성하게끔 유도하기 !
    */
   public static Restaurant createRestaurant(String businessNum, String restaurantName,
-      List<String> moodTypes,
-      List<String> containFoodTypes, List<String> provideServiceTypes, List<String> restaurantTypes,
+      Set<String> moodTypes,
+      Set<String> containFoodTypes, Set<String> provideServiceTypes, Set<String> restaurantTypes,
       String image, String roadNameAddress
       , String landLotAddress, String zipcode, String detailAddress, Boolean canPark,
       String reservationTimeGap
@@ -176,8 +176,8 @@ public class Restaurant {
   }
 
   //수정 메서드
-  public void changeRestaurant(String businessNum, String restaurantName, List<String> moodTypes,
-      List<String> containFoodTypes, List<String> provideServiceTypes, List<String> restaurantTypes,
+  public void changeRestaurant(String businessNum, String restaurantName, Set<String> moodTypes,
+      Set<String> containFoodTypes, Set<String> provideServiceTypes, Set<String> restaurantTypes,
       String image, String roadNameAddress, String landLotAddress, String zipcode,
       String detailsAddress, Boolean canPark, String reservationTimeGap,
       Boolean isPenalty, List<BusinessDay> businessDays, List<Food> foods) {

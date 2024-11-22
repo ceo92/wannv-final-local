@@ -43,10 +43,10 @@ class RestaurantRepositoryTest {
   @Test
   void findAllWithTuple() {
 
-    /*List<Restaurant> tuples = restaurantRepository.findAll(
+    List<Restaurant> tuples = restaurantRepository.findAll(
         new RestaurantSearchCond(null, null, null, null, null, Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), null,
-            null, null, null));*/
-    List<Tuple> tuples = restaurantRepository.findAllWithTuple();
+            null, null, null));
+    /*List<Tuple> tuples = restaurantRepository.findAllWithTuple();
     for (Tuple tuple : tuples) {
       System.out.println("restaurant = " + tuple.get(restaurant));
       System.out.println("review = " + tuple.get(review));
@@ -54,6 +54,8 @@ class RestaurantRepositoryTest {
       System.out.println("businessDay = " + tuple.get(businessDay));
       System.out.println("reviewTag = " + tuple.get(reviewTag));
     }
+    */
+
 
   }
 

@@ -1,6 +1,7 @@
 package please_do_it.yumi.dto;
 
 
+import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashSet;
@@ -75,6 +76,8 @@ public class RestaurantResponseDto {
    */
   private Long likesId;
 
+
+  @QueryProjection
   public RestaurantResponseDto(String restaurantName, String businessNum, String contact, String roadAddress, String landLotAddress,
       String detailAddress, String zipCode, String restaurantImage, String description, LocalDate createdAt,
       LocalDate updatedAt, String reservationTimeGap, Boolean isPenalty, String businessStatus, Boolean canPark,

@@ -76,7 +76,7 @@ public class RestaurantRepository {
     Set<String> provideServiceTypes = restaurantSearchCond.getProvideServiceTypes();
     Set<String> moodTypes = restaurantSearchCond.getMoodTypes();
 
-   JPAQuery<RestaurantResponseDto> dynamicQuery = query.select(restaurant, review.rating.avg())
+   JPAQuery<RestaurantResponseDto> dynamicQuery = query.select(new RestaurantResponseDto(restaurant.name ), review.rating.avg())
        .from(restaurant)
        .join(restaurant.reviews, review)
        .join(restaurant.foods, food)

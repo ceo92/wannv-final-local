@@ -46,6 +46,9 @@ class RestaurantRepositoryTest {
     List<Restaurant> tuples = restaurantRepository.findAll(
         new RestaurantSearchCond(null, null, null, null, null, Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), null,
             null, null, null));
+    for (Restaurant tuple : tuples) {
+      System.out.println("tuple = " + tuple);
+    }
     /*List<Tuple> tuples = restaurantRepository.findAllWithTuple();
     for (Tuple tuple : tuples) {
       System.out.println("restaurant = " + tuple.get(restaurant));

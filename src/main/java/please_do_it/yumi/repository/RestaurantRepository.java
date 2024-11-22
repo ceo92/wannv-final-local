@@ -14,6 +14,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -91,10 +92,10 @@ public class RestaurantRepository {
     Integer endPrice = restaurantSearchCond.getEndPrice();
     String roadAddress = restaurantSearchCond.getRoadAddress();
     List<Integer> rates = restaurantSearchCond.getRates();
-    List<String> restaurantTypes = restaurantSearchCond.getRestaurantTypes();
-    List<String> containFoodTypes = restaurantSearchCond.getContainFoodTypes();
-    List<String> provideServiceTypes = restaurantSearchCond.getProvideServiceTypes();
-    List<String> moodTypes = restaurantSearchCond.getMoodTypes();
+    Set<String> restaurantTypes = restaurantSearchCond.getRestaurantTypes();
+    Set<String> containFoodTypes = restaurantSearchCond.getContainFoodTypes();
+    Set<String> provideServiceTypes = restaurantSearchCond.getProvideServiceTypes();
+    Set<String> moodTypes = restaurantSearchCond.getMoodTypes();
 
 //원래 .join( 조인할 연관관계 , 연관관계에 대한 Q타입)
     JPAQuery<Restaurant> dynamicQuery = query.selectFrom(restaurant)
@@ -132,7 +133,7 @@ public class RestaurantRepository {
 
 
 
-  private BooleanExpression eqContainFoodTypes(List<String> containFoodTypes){
+  private BooleanExpression eqContainFoodTypes(Set<String> containFoodTypes){
     BooleanExpression booleanExpression = null;
     for (String containFoodType : containFoodTypes) {
       booleanExpression =  containFoodType != null ? restaurant.containFoodTypes.any().eq(containFoodType) : null;
@@ -140,7 +141,7 @@ public class RestaurantRepository {
     return booleanExpression;
   }
 
-  private BooleanExpression eqRestaurantTypes(List<String> restaurantTypes){
+  private BooleanExpression eqRestaurantTypes(Set<String> restaurantTypes){
     BooleanExpression booleanExpression = null;
     for (String restaurantType : restaurantTypes) {
       booleanExpression =  restaurantType != null ? restaurant.restaurantTypes.any().eq(restaurantType) : null;
@@ -148,7 +149,7 @@ public class RestaurantRepository {
     return booleanExpression;
   }
 
-  private BooleanExpression eqProvideServiceTypes(List<String> provideServiceTypes){
+  private BooleanExpression eqProvideServiceTypes(Set<String> provideServiceTypes){
     BooleanExpression booleanExpression = null;
     for (String provideServiceType : provideServiceTypes) {
       booleanExpression =  provideServiceType != null ? restaurant.provideServiceTypes.any().eq(provideServiceType) : null;
@@ -156,7 +157,7 @@ public class RestaurantRepository {
     return booleanExpression;
   }
 
-  private BooleanExpression eqMoodTypes(List<String> moodTypes){
+  private BooleanExpression eqMoodTypes(Set<String> moodTypes){
     BooleanExpression booleanExpression = null;
     for (String moodType : moodTypes) {
       booleanExpression =  moodType != null ? restaurant.moodTypes.any().eq(moodType) : null;

@@ -1,6 +1,9 @@
 package please_do_it.yumi.dto;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,11 +22,11 @@ public class RestaurantSearchCond {
   private Boolean isOpen; // 조건 : eq
   private Boolean canPark; // 조건 : eq
   private String roadAddress;
-  private List<Integer> rates;
-  private List<String> containFoodTypes; //여러 포함음식 체크박스 중 하나 설계
-  private List<String> restaurantTypes; // 조건 : forEach로 돌려가면서 ₩일치하는지
-  private List<String> provideServiceTypes;
-  private List<String> moodTypes;
+  private List<Integer> rates = new ArrayList<>();
+  private Set<String> containFoodTypes = new HashSet<>(); //여러 포함음식 체크박스 중 하나 설계
+  private Set<String> restaurantTypes = new HashSet<>(); // 조건 : forEach로 돌려가면서 ₩일치하는지
+  private Set<String> provideServiceTypes = new HashSet<>();
+  private Set<String> moodTypes = new HashSet<>();
 
   /**
    * orderBy 동적 조건

@@ -116,7 +116,7 @@
                   </div>
 
                   <div class="mb-8">
-                    <h5 class="mb-3">음식 종류</h5>
+                    <h5 class="mb-3">식당 분</h5>
                     <!-- form check -->
                     <div class="form-check mb-2" th:each="restaurantType : ${restaurantTypes}">
                       <!-- input -->
@@ -129,12 +129,12 @@
 
 
                   <div class="mb-8">
-                    <h5 class="mb-3">서비스</h5>
+                    <h5 class="mb-3">제공하는 서비스</h5>
                     <!-- form check -->
-                    <div class="form-check mb-2">
+                    <div class="form-check mb-2" th:each="provideServiceType : ${provideServiceTypes}">
                       <!-- input -->
-                      <input class="form-check-input" type="checkbox" value=""  checked>
-                      <label class="form-check-label" for="eGrocery">
+                      <input class="form-check-input" type="checkbox" th:field="*{provideServiceTypes}" th:value="${provideServiceType.name()}"  checked>
+                      <label class="form-check-label" th:for="${#ids.prev('provideServiceTypes')}" th:text="${provideServiceType.description}">
                         콜키지 가능
                       </label>
                     </div>
@@ -143,11 +143,11 @@
                   <div class="mb-8">
                     <h5 class="mb-3">분위기</h5>
                     <!-- form check -->
-                    <div class="form-check mb-2">
+                    <div class="form-check mb-2" th:each="moodType : ${moodTypes}">
                       <!-- input -->
-                      <input class="form-check-input" type="checkbox" value=""  checked>
-                      <label class="form-check-label" for="eGrocery">
-                        데이트
+                      <input class="form-check-input" type="checkbox" th:field="*{moodTypes}" th:value="${moodType.name()}"  checked>
+                      <label class="form-check-label" th:for="${#ids.prev('moodTypes')}" th:text="${moodType.description}">
+                        콜키지 가능
                       </label>
                     </div>
                   </div>
@@ -156,70 +156,21 @@
 
                     <!-- rating -->
                     <div class="mb-8">
-
                       <h5 class="mb-3">평점</h5>
                       <div>
                         <!-- form check -->
-                        <div class="form-check mb-2">
+                        <div class="form-check mb-2" > <!-- 별점부터 해결하면 됨 , 별점 1,2,3,4,5 넘겨줄까 이것도-->
                           <!-- input -->
-                          <input class="form-check-input" type="checkbox" value="" id="ratingFive">
-                          <label class="form-check-label" for="ratingFive">
+                          <input class="form-check-input" type="checkbox" th:field="*{}" value="">
+                          <label class="form-check-label" >
                             <i class="bi bi-star-fill text-warning"></i>
                             <i class="bi bi-star-fill text-warning "></i>
                             <i class="bi bi-star-fill text-warning "></i>
                             <i class="bi bi-star-fill text-warning "></i>
                             <i class="bi bi-star-fill text-warning "></i>
-                          </label>
-                        </div>
-                        <!-- form check -->
-                        <div class="form-check mb-2">
-                          <!-- input -->
-                          <input class="form-check-input" type="checkbox" value="" id="ratingFour" checked>
-                          <label class="form-check-label" for="ratingFour">
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning "></i>
-                            <i class="bi bi-star-fill text-warning "></i>
-                            <i class="bi bi-star-fill text-warning "></i>
-                            <i class="bi bi-star text-warning"></i>
                           </label>
                         </div>
 
-                        <!-- form check -->
-                        <div class="form-check mb-2">
-                          <!-- input -->
-                          <input class="form-check-input" type="checkbox" value="" id="ratingThree">
-                          <label class="form-check-label" for="ratingThree">
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning "></i>
-                            <i class="bi bi-star-fill text-warning "></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                          </label>
-                        </div>
-                        <!-- form check -->
-                        <div class="form-check mb-2">
-                          <!-- input -->
-                          <input class="form-check-input" type="checkbox" value="" id="ratingTwo">
-                          <label class="form-check-label" for="ratingTwo">
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                          </label>
-                        </div>
-                        <!-- form check -->
-                        <div class="form-check mb-2">
-                          <!-- input -->
-                          <input class="form-check-input" type="checkbox" value="" id="ratingOne">
-                          <label class="form-check-label" for="ratingOne">
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                          </label>
-                        </div>
                       </div>
                     </div>
                 </form>

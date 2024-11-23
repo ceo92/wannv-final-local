@@ -1,6 +1,7 @@
 package please_do_it.yumi.controller;
 
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,11 @@ public class RestaurantController {
     return MoodType.values();
   }
 
+
+  @ModelAttribute("stars") //half Integer
+  public Map<Integer , String> stars(){
+
+  }
 
   @GetMapping
   public String getRestaurants(@ModelAttribute("restaurantSearchCond") RestaurantSearchCond restaurantSearchCond, Model model){

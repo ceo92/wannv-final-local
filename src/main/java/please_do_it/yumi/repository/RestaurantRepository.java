@@ -48,22 +48,36 @@ public class RestaurantRepository {
   }
 
 
-  public List<Restaurant> findAll(){
+  public List<Restaurant> findAllReal(RestaurantSearchCond restaurantSearchCond){
+
+    Boolean canPark = restaurantSearchCond.getCanPark();
+    Boolean isOpen = restaurantSearchCond.getIsOpen();
+    Integer startPrice = restaurantSearchCond.getStartPrice();
+    Integer endPrice = restaurantSearchCond.getEndPrice();
+    String roadAddress = restaurantSearchCond.getRoadAddress();
+    List<Integer> rates = restaurantSearchCond.getRates();
+    Set<String> restaurantTypes = restaurantSearchCond.getRestaurantTypes();
+    Set<String> containFoodTypes = restaurantSearchCond.getContainFoodTypes();
+    Set<String> provideServiceTypes = restaurantSearchCond.getProvideServiceTypes();
+    Set<String> moodTypes = restaurantSearchCond.getMoodTypes();
+
     return query.selectFrom(restaurant)
-        .join(restaurant.reviews, review)
-        .join(restaurant.foods, food)
-        .join(restaurant.businessDays, businessDay)
-        .join(restaurant.likes, likes)
-        .join(review.reviewTags, reviewTag).fetch();
+        .join(restaurant.reviews , review)
+        .join(restaurant.foods , food)
+        .where(eqContainFoodTypes(containFoodTypes), eqRestaurantTypes(restaurantTypes),
+            eqProvideServiceTypes(provideServiceTypes), eqMoodTypes(moodTypes),
+            loeGoePrice(startPrice, endPrice),
+            eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress))
+        .groupBy(restaurant.id )
+        .having(goeRate(rates))
+        .fetch();
+
   }
 
-  /**
-   * 동적쿼리용 findAll
-   */
   //모달 보안성 우수 => 제3자가 접근하기 어려움, 단순 팝업창 느낌이므로 , 이런 2가지 방법을 고려했을 때 ~~가 더 괜찮아서 이거를 선정하였다. 이렇게 면접이든 포폴이든 정의하자!
  public List<Restaurant> findAll(RestaurantSearchCond restaurantSearchCond) {
     /**
-     * where 동적 조건
+     * 지옥에서 온 쿼리
      */
     Boolean canPark = restaurantSearchCond.getCanPark();
     Boolean isOpen = restaurantSearchCond.getIsOpen();
@@ -192,22 +206,23 @@ public class RestaurantRepository {
     return booleanExpression;
   }
 
+  private BooleanExpression loeGoePrice(Integer startPrice, Integer endPrice) {
+    return startPrice != null && endPrice != null ? food.price.avg().goe(startPrice).and(food.price.avg().loe(endPrice)) : null;
+  }
+
 
   private BooleanExpression likeRoadAddress(String roadAddress){
     return StringUtils.hasText(roadAddress) ? restaurant.address.roadAddress.like(roadAddress) : null;
   }
 
   private BooleanExpression eqIsOpen(Boolean isOpen) {
-    return isOpen != null || !isOpen ? restaurant.businessStatus.eq(BusinessStatus.OPEN) : null; //영업 중인지 판별 , 누군가 체크박스에 영업 중 여부를 체크했을 경우 영업 중만 뜨게끔 조건 추가하는 것!
+    return Boolean.TRUE.equals(isOpen) ? restaurant.businessStatus.eq(BusinessStatus.OPEN) : null; //영업 중인지 판별 , 누군가 체크박스에 영업 중 여부를 체크했을 경우 영업 중만 뜨게끔 조건 추가하는 것!
   }
 
   private BooleanExpression eqCanPark(Boolean canPark) {
-    return canPark != null || !canPark ? restaurant.canPark.eq(canPark) : null;
+    return Boolean.TRUE.equals(canPark) ? restaurant.canPark.eq(true) : null;
   }
 
-  private BooleanExpression loeGoePrice(Integer startPrice, Integer endPrice) {
-    return startPrice != null && endPrice != null ? food.price.loe(endPrice).and(food.price.goe(startPrice)) : null;
-  }
 
 
 

@@ -101,7 +101,7 @@ public class RestaurantService {
   @Scheduled(cron = "0 */30 * * * *")
   public void updateBusinessStatus(){
     LocalDateTime now = LocalDateTime.now();
-    List<Restaurant> restaurants = restaurantRepository.findAll();
+    List<Restaurant> restaurants = restaurantRepository.findAll(new RestaurantSearchCond());
     //다 계산해주는 거니까 여기서 그냥 모든 상태를 이 메서드 안에서 동시에 업데이트 해주는 것!
 
     //아니네 휴무일 계산은 마지막에 해줘야하네

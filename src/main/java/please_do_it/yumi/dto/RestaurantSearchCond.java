@@ -19,8 +19,8 @@ public class RestaurantSearchCond {
   //별점 순 , 좋아요 순 이건 정렬 정보이니 뭐 상관 없지 ㅇㅇ
   private Integer startPrice; //조건 : 이거보다 크고 roe
   private Integer endPrice; //조건 : 이거보다 작음 loe
-  private Boolean isOpen; // 조건 : eq
-  private Boolean canPark; // 조건 : eq
+  private Boolean isOpen = false; // 조건 : eq
+  private Boolean canPark = false; // 조건 : eq
   private String roadAddress;
 
   private List<Integer> rates = new ArrayList<>(); //별점
@@ -32,10 +32,10 @@ public class RestaurantSearchCond {
   /**
    * orderBy 동적 조건
    */
-  private Boolean isCreatedAtChecked; //등록일자 : 최신 순 정렬 위함
-  private Boolean isRateChecked; // 평균 별점 높은 순 정렬 위함
-  private Boolean isLikesChecked; // 좋아요 많은 순 정렬 위함
-  private Boolean isReviewCountChecked; // 리뷰 많은 순 정렬 위함
+  private Boolean isCreatedAtChecked = false; //등록일자 : 최신 순 정렬 위함
+  private Boolean isRateChecked = false; // 평균 별점 높은 순 정렬 위함
+  private Boolean isLikesChecked = false; // 좋아요 많은 순 정렬 위함
+  private Boolean isReviewCountChecked = false; // 리뷰 많은 순 정렬 위함
 
 
 

@@ -81,9 +81,16 @@ class RestaurantRepositoryTest {
     moodTypes.add("활기찬");
 
 
+/*
     restaurantSearchCond.setStartPrice(20000);
     restaurantSearchCond.setEndPrice(30000);
+    restaurantSearchCond.setRoadAddress("서울%");
+*/
 
+    restaurantSearchCond.setIsCreatedAtChecked(true);
+    restaurantSearchCond.setIsLikesChecked(true);
+    restaurantSearchCond.setIsReviewCountChecked(true);
+    restaurantSearchCond.setIsRateChecked(true);
     List<Restaurant> all = restaurantRepository.findAllReal(restaurantSearchCond);
     for (Restaurant restaurant1 : all) {
       List<Review> reviews = restaurant1.getReviews();

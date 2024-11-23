@@ -61,16 +61,30 @@ public class RestaurantRepository {
     Set<String> provideServiceTypes = restaurantSearchCond.getProvideServiceTypes();
     Set<String> moodTypes = restaurantSearchCond.getMoodTypes();
 
-    return query.selectFrom(restaurant)
-        .join(restaurant.reviews , review)
-        .join(restaurant.foods , food)
+    JPAQuery<Restaurant> dynamicQuery = query.selectFrom(restaurant)
+        .join(restaurant.reviews, review)
+        .join(restaurant.foods, food)
+        .join(restaurant.likes , likes)
         .where(eqContainFoodTypes(containFoodTypes), eqRestaurantTypes(restaurantTypes),
             eqProvideServiceTypes(provideServiceTypes), eqMoodTypes(moodTypes),
             eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress))
-        .groupBy(restaurant.id )
-        .having(goeRate(rates) , loeGoePrice(startPrice, endPrice))
-        .fetch();
+        .groupBy(restaurant) //restaurant.id로 해도 되고 restaurant로 해도 되는듯 ㅇㅇ 그냥 restaurant로 그루핑이 됨 ㅇㅇ
+        .having(goeRate(rates), loeGoePrice(startPrice, endPrice));
 
+    if (Boolean.TRUE.equals(restaurantSearchCond.getIsLikesChecked())){
+      dynamicQuery.orderBy(likes.count().desc().nullsLast()); //좋아요 많은 순
+    }
+    if (Boolean.TRUE.equals(restaurantSearchCond.getIsReviewCountChecked())){
+      dynamicQuery.orderBy(review.count().desc().nullsLast()); //리뷰 많은 순
+    }
+    if (Boolean.TRUE.equals(restaurantSearchCond.getIsCreatedAtChecked())){
+      dynamicQuery.orderBy(restaurant.createdAt.desc().nullsLast()); //최신 순
+    }
+    if (Boolean.TRUE.equals(restaurantSearchCond.getIsRateChecked())){
+      dynamicQuery.orderBy(review.rating.avg().desc().nullsLast()); //별점 높은 순
+    }
+
+    return dynamicQuery.fetch();
   }
 
   //모달 보안성 우수 => 제3자가 접근하기 어려움, 단순 팝업창 느낌이므로 , 이런 2가지 방법을 고려했을 때 ~~가 더 괜찮아서 이거를 선정하였다. 이렇게 면접이든 포폴이든 정의하자!
@@ -104,6 +118,19 @@ public class RestaurantRepository {
        .having(goeRate(rates)); //이거부터 해결 ㄱㄱ
    //여기까진 픽스 11/24 오후 3:17
 
+   /*if (Boolean.TRUE.equals(restaurantSearchCond.getIsLikesChecked())){
+     dynamicQuery.orderBy(likes.count().desc().nullsLast()); //좋아요 많은 순
+   }
+   if (Boolean.TRUE.equals(restaurantSearchCond.getIsReviewCountChecked())){
+     dynamicQuery.orderBy(review.count().desc().nullsLast()); //리뷰 많은 순
+   }
+   if (Boolean.TRUE.equals(restaurantSearchCond.getIsCreatedAtChecked())){
+     dynamicQuery.orderBy(restaurant.createdAt.desc().nullsLast()); //최신 순
+   }
+   if (Boolean.TRUE.equals(restaurantSearchCond.getIsRateChecked())){
+     dynamicQuery.orderBy(review.rating.avg().desc().nullsLast()); //별점 높은 순
+   }
+*/
    // 이 order by 정렬 조건들은 파라메터가 필요 없음 파라메터는 그냥 검증 역할 정도 해주는 거고 파라메터가 orderBy 내부에 들어가지 않음 , 즉 응답할 일이 없음
    if (restaurantSearchCond.getIsLikesChecked().equals(true)){
      dynamicQuery.orderBy(likes.count().desc().nullsLast()); //좋아요 많은 순

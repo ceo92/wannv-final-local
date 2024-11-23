@@ -57,410 +57,174 @@
                   <hr>
                 </div>
 
-                <div class="mb-8">
-                  <h5 class="mb-3">포함 음식</h5>
+
 
                   <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" id="eGrocery" checked>
-                    <label class="form-check-label" for="eGrocery">
-                      유제품
-                    </label>
-                  </div>
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" id="DealShare">
-                    <label class="form-check-label" for="DealShare">
-                      계란
-                    </label>
-                  </div>
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" id="Dmart">
-                    <label class="form-check-label" for="Dmart">
-                      동물의 알
-                    </label>
-                  </div>
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" id="Blinkit">
-                    <label class="form-check-label" for="Blinkit">
-                      생선
-                    </label>
-                  </div>
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" id="BigBasket">
-                    <label class="form-check-label" for="BigBasket">
-                      닭고기
-                    </label>
-                  </div>
-                </div>
+                <form th:object="${restaurantSearchCond}" th:action method="get">
 
-
-                <div class="mb-8">
-                  <h5 class="mb-3">위치</h5>
-                  <!-- form check -->
-
-                </div>
-
-
-
-                <div class="mb-8">
-                  <!-- price -->
-                  <h5 class="mb-3">평균 가격대</h5>
-                  <div>
-                    <!-- range -->
-                    <div id="priceRange" class="mb-3"></div>
-                    <small class="text-muted">평균 가격대:</small> <span id="priceRange-value" class="small"></span>
-
-                  </div>
-                </div>
-
-
-                <div class="mb-8">
-                  <h5 class="mb-3">영업 중 여부</h5>
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" checked>
-                    <label class="form-check-label" for="eGrocery">
-                      영업 중
-                    </label>
-                  </div>
-                </div>
-
-                <div class="mb-8">
-                  <h5 class="mb-3">주차 가능 여부</h5>
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value=""  checked>
-                    <label class="form-check-label" for="eGrocery">
-                      주차 가능
-                    </label>
-                  </div>
-                </div>
-
-
-
-                <div class="mb-8">
-                  <h5 class="mb-3">음식 종류</h5>
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value=""  checked>
-                    <label class="form-check-label" for="eGrocery">
-                      한식
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value=""  checked>
-                    <label class="form-check-label" for="eGrocery">
-                      일식
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" checked>
-                    <label class="form-check-label" for="eGrocery">
-                      중식
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value=""  checked>
-                    <label class="form-check-label" for="eGrocery">
-                      양식
-                    </label>
-                  </div>
-                </div>
-
-
-
-                <div class="mb-8">
-                  <h5 class="mb-3">서비스</h5>
-
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value=""  checked>
-                    <label class="form-check-label" for="eGrocery">
-                      콜키지 가능
-                    </label>
-                  </div>
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="DealShare">
-                      글루텐프리 메뉴
-                    </label>
-                  </div>
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="Dmart">
-                      단체 이용 가능
-                    </label>
-                  </div>
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="Blinkit">
-                      무선 인터넷
-                    </label>
-                  </div>
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="BigBasket">
-                      포장
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="BigBasket">
-                      남녀 화장실 구분
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="BigBasket">
-                      배달
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="BigBasket">
-                      장애인 휠체어 이용 가능
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="BigBasket">
-                      출입구 휠체어 이용 가능
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="BigBasket">
-                      좌석 휠체어 이용 가능
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="BigBasket">
-                      유아의자 존재
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="BigBasket">
-                      반려동물 동반
-                    </label>
-                  </div>
-                </div>
-
-
-
-                <div class="mb-8">
-                  <h5 class="mb-3">분위기</h5>
-
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value=""  checked>
-                    <label class="form-check-label" for="eGrocery">
-                      데이트
-                    </label>
-                  </div>
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="DealShare">
-                      비즈니스미팅
-                    </label>
-                  </div>
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="Dmart">
-                      기념일
-                    </label>
-                  </div>
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="Blinkit">
-                      단체회식
-                    </label>
-                  </div>
-                  <!-- form check -->
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="BigBasket">
-                      가족모임
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="BigBasket">
-                      뷰맛집
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="BigBasket">
-                      상견례
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="BigBasket">
-                      조용한
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="BigBasket">
-                      모던한
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="BigBasket">
-                      전통적인
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="BigBasket">
-                      트렌디한
-                    </label>
-                  </div>
-
-                  <div class="form-check mb-2">
-                    <!-- input -->
-                    <input class="form-check-input" type="checkbox" value="" >
-                    <label class="form-check-label" for="BigBasket">
-                      활기찬
-                    </label>
-                  </div>
-                </div>
-
-
-
-                <!-- rating -->
-                <div class="mb-8">
-
-                  <h5 class="mb-3">평점</h5>
-                  <div>
-                    <!-- form check -->
-                    <div class="form-check mb-2">
-                      <!-- input -->
-                      <input class="form-check-input" type="checkbox" value="" id="ratingFive">
-                      <label class="form-check-label" for="ratingFive">
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-fill text-warning "></i>
-                        <i class="bi bi-star-fill text-warning "></i>
-                        <i class="bi bi-star-fill text-warning "></i>
-                        <i class="bi bi-star-fill text-warning "></i>
-                      </label>
-                    </div>
-                    <!-- form check -->
-                    <div class="form-check mb-2">
-                      <!-- input -->
-                      <input class="form-check-input" type="checkbox" value="" id="ratingFour" checked>
-                      <label class="form-check-label" for="ratingFour">
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-fill text-warning "></i>
-                        <i class="bi bi-star-fill text-warning "></i>
-                        <i class="bi bi-star-fill text-warning "></i>
-                        <i class="bi bi-star text-warning"></i>
-                      </label>
-                    </div>
-
-                    <!-- form check -->
-                    <div class="form-check mb-2">
-                      <!-- input -->
-                      <input class="form-check-input" type="checkbox" value="" id="ratingThree">
-                      <label class="form-check-label" for="ratingThree">
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-fill text-warning "></i>
-                        <i class="bi bi-star-fill text-warning "></i>
-                        <i class="bi bi-star text-warning"></i>
-                        <i class="bi bi-star text-warning"></i>
-                      </label>
-                    </div>
-                    <!-- form check -->
-                    <div class="form-check mb-2">
-                      <!-- input -->
-                      <input class="form-check-input" type="checkbox" value="" id="ratingTwo">
-                      <label class="form-check-label" for="ratingTwo">
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star text-warning"></i>
-                        <i class="bi bi-star text-warning"></i>
-                        <i class="bi bi-star text-warning"></i>
-                      </label>
-                    </div>
-                    <!-- form check -->
-                    <div class="form-check mb-2">
-                      <!-- input -->
-                      <input class="form-check-input" type="checkbox" value="" id="ratingOne">
-                      <label class="form-check-label" for="ratingOne">
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star text-warning"></i>
-                        <i class="bi bi-star text-warning"></i>
-                        <i class="bi bi-star text-warning"></i>
-                        <i class="bi bi-star text-warning"></i>
+                  <div class="mb-8">
+                    <h5 class="mb-3">포함 음식</h5>
+                    <div class="form-check mb-2" th:each="containFoodType : ${containFoodTypes}">
+                      <input class="form-check-input" type="checkbox" th:field="*{containFoodTypes}" th:value="${containFoodType.name()}" >
+                      <label th:for="${#ids.prev('containFoodTypes')}" th:text="${containFoodType.description}" class="form-check-label">
+                        유제품
                       </label>
                     </div>
                   </div>
-                </div>
+
+
+
+                  <div class="mb-8">
+                    <h5 class="mb-3">위치</h5>
+                      <!-- form check -->
+                  </div>
+
+
+                  <div class="mb-8">
+                    <!-- price -->
+                    <h5 class="mb-3">평균 가격대</h5>
+                    <div>
+                      <!-- range -->
+                      <div id="priceRange" class="mb-3"></div>
+                      <small class="text-muted">평균 가격대:</small> <span id="priceRange-value" class="small"></span>
+
+                    </div>
+                  </div>
+
+
+                  <div class="mb-8">
+                    <h5 class="mb-3">영업 중 여부</h5>
+                    <!-- form check -->
+                    <div class="form-check mb-2">
+                      <!-- input , boolean 필드는 자동 true & false가 됨 value를 오히려 지정하면 안됨 ㅇㅇ-->
+                      <input class="form-check-input" type="checkbox" th:field="*{isOpen}" >
+                      <label class="form-check-label" th:text="|영업 중|" th:for="${#ids.prev('isOpen')}">영업 중</label>
+                    </div>
+                  </div>
+
+
+                  <div class="mb-8">
+                    <h5 class="mb-3">주차 가능 여부</h5>
+                    <!-- form check -->
+                    <div class="form-check mb-2">
+                      <!-- input -->
+                      <input class="form-check-input" type="checkbox" th:field="*{canPark}"  checked>
+                      <label class="form-check-label" th:for="${#ids.prev('canPark')}" th:text="|주차 가능|">
+                        주차 가능
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="mb-8">
+                    <h5 class="mb-3">음식 종류</h5>
+                    <!-- form check -->
+                    <div class="form-check mb-2" th:each="restaurantType : ${restaurantTypes}">
+                      <!-- input -->
+                      <input class="form-check-input" type="checkbox" th:field="*{restaurantTypes}" th:value="${restaurantType.name()}"  checked>
+                      <label class="form-check-label" th:for="${#ids.prev('restaurantTypes')}" th:text="${restaurantType.description}">
+                        한식
+                      </label>
+                    </div>
+                  </div>
+
+
+                  <div class="mb-8">
+                    <h5 class="mb-3">서비스</h5>
+                    <!-- form check -->
+                    <div class="form-check mb-2">
+                      <!-- input -->
+                      <input class="form-check-input" type="checkbox" value=""  checked>
+                      <label class="form-check-label" for="eGrocery">
+                        콜키지 가능
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="mb-8">
+                    <h5 class="mb-3">분위기</h5>
+                    <!-- form check -->
+                    <div class="form-check mb-2">
+                      <!-- input -->
+                      <input class="form-check-input" type="checkbox" value=""  checked>
+                      <label class="form-check-label" for="eGrocery">
+                        데이트
+                      </label>
+                    </div>
+                  </div>
+                    <!-- enum은 DB와 키와 값 중 키로 서버 단에서 왔다갔다 하게 됨 , 값은 그저 사용자에게 보여주는 용도 ! -->
+
+
+                    <!-- rating -->
+                    <div class="mb-8">
+
+                      <h5 class="mb-3">평점</h5>
+                      <div>
+                        <!-- form check -->
+                        <div class="form-check mb-2">
+                          <!-- input -->
+                          <input class="form-check-input" type="checkbox" value="" id="ratingFive">
+                          <label class="form-check-label" for="ratingFive">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning "></i>
+                            <i class="bi bi-star-fill text-warning "></i>
+                            <i class="bi bi-star-fill text-warning "></i>
+                            <i class="bi bi-star-fill text-warning "></i>
+                          </label>
+                        </div>
+                        <!-- form check -->
+                        <div class="form-check mb-2">
+                          <!-- input -->
+                          <input class="form-check-input" type="checkbox" value="" id="ratingFour" checked>
+                          <label class="form-check-label" for="ratingFour">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning "></i>
+                            <i class="bi bi-star-fill text-warning "></i>
+                            <i class="bi bi-star-fill text-warning "></i>
+                            <i class="bi bi-star text-warning"></i>
+                          </label>
+                        </div>
+
+                        <!-- form check -->
+                        <div class="form-check mb-2">
+                          <!-- input -->
+                          <input class="form-check-input" type="checkbox" value="" id="ratingThree">
+                          <label class="form-check-label" for="ratingThree">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning "></i>
+                            <i class="bi bi-star-fill text-warning "></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                          </label>
+                        </div>
+                        <!-- form check -->
+                        <div class="form-check mb-2">
+                          <!-- input -->
+                          <input class="form-check-input" type="checkbox" value="" id="ratingTwo">
+                          <label class="form-check-label" for="ratingTwo">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                          </label>
+                        </div>
+                        <!-- form check -->
+                        <div class="form-check mb-2">
+                          <!-- input -->
+                          <input class="form-check-input" type="checkbox" value="" id="ratingOne">
+                          <label class="form-check-label" for="ratingOne">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                            <i class="bi bi-star text-warning"></i>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                </form>
+
+
               </div>
               <!--실제 필터링 영역 끝-->
             </div>

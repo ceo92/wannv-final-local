@@ -20,6 +20,7 @@ import please_do_it.yumi.service.RestaurantService;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/restaurants")
 public class RestaurantController {
 
   private final RestaurantService restaurantService;
@@ -45,50 +46,17 @@ public class RestaurantController {
   }
 
 
-
-  @GetMapping("/restaurants")
+  @GetMapping
   public String getRestaurants(@ModelAttribute("restaurantSearchCond") RestaurantSearchCond restaurantSearchCond, Model model){
     List<Restaurant> restaurants = restaurantService.findRestaurants(restaurantSearchCond);
     model.addAttribute("restaurants", restaurants);
     return "restaurant/restaurants";
   }
 
-  @GetMapping("/restaurants/{id}")
+  @GetMapping("/{id}")
   public String getRestaurant(@PathVariable Long id, Model model) {
     model.addAttribute("restaurant", restaurantService.findOne(id));
     return "restaurant/restaurant";
-  }
-
-  @GetMapping("/restaurants")
-  public String sdkjds(){
-    return "restaurant/restaurants";
-  }
-
-
-  @GetMapping("/restaurants/1")
-  public String dfsjdf(){
-    return "restaurant/restaurant";
-  }
-
-
-
-  @GetMapping("/admin/restaurants")
-  public String fdskjd(){
-    return "restaurant/admin-restaurants";
-  }
-  @GetMapping("/admin/restaurant")
-  public String fdskjddd(){
-    return "restaurant/admin-restaurant";
-  }
-
-  @GetMapping("/admin/save")
-  public String fdskjddddd(){
-    return "restaurant/admin-saveForm";
-  }
-
-  @GetMapping("/admin/update")
-  public String fdskjddddddd(){
-    return "restaurant/admin-updateForm";
   }
 
 

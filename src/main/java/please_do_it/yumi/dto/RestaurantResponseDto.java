@@ -71,10 +71,7 @@ public class RestaurantResponseDto {
   private String foodImage;
   private Integer foodPrice;
 
-  /**
-   * Likes
-   */
-  private Long likesId;
+
 
 
   @QueryProjection
@@ -84,7 +81,7 @@ public class RestaurantResponseDto {
       Set<String> containFoodTypes, Set<String> provideServiceTypes, Set<String> restaurantTypes, Set<String> moodTypes,
       Integer rating, String tagCategory, String tagName, String dayOfWeek, LocalTime openTime, LocalTime closeTime,
       LocalTime breakStartTime, LocalTime breakEndTime, LocalTime lastOrderTime, Boolean isDayOff,
-      String foodName, String foodImage, Integer foodPrice, Long likesId) {
+      String foodName, String foodImage, Integer foodPrice) {
     this.restaurantName = restaurantName;
     this.businessNum = businessNum;
     this.contact = contact;
@@ -117,7 +114,6 @@ public class RestaurantResponseDto {
     this.foodName = foodName;
     this.foodImage = foodImage;
     this.foodPrice = foodPrice;
-    this.likesId = likesId;
   }
 
 

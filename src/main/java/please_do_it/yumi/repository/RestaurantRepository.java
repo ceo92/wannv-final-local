@@ -61,7 +61,7 @@ public class RestaurantRepository {
    * 동적쿼리용 findAll
    */
   //모달 보안성 우수 => 제3자가 접근하기 어려움, 단순 팝업창 느낌이므로 , 이런 2가지 방법을 고려했을 때 ~~가 더 괜찮아서 이거를 선정하였다. 이렇게 면접이든 포폴이든 정의하자!
- public List<RestaurantResponseDto> findAll(RestaurantSearchCond restaurantSearchCond) {
+ public List<Restaurant> findAll(RestaurantSearchCond restaurantSearchCond) {
     /**
      * where 동적 조건
      */
@@ -76,7 +76,7 @@ public class RestaurantRepository {
     Set<String> provideServiceTypes = restaurantSearchCond.getProvideServiceTypes();
     Set<String> moodTypes = restaurantSearchCond.getMoodTypes();
 
-   JPAQuery<RestaurantResponseDto> dynamicQuery = query.select(new RestaurantResponseDto(restaurant.name ), review.rating.avg())
+   JPAQuery<Restaurant> dynamicQuery = query.select(restaurant)
        .from(restaurant)
        .join(restaurant.reviews, review)
        .join(restaurant.foods, food)
@@ -88,7 +88,10 @@ public class RestaurantRepository {
            loeGoePrice(startPrice, endPrice),
            eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress))
        .groupBy(restaurant.id)
-       .having(goeRate(rates));
+       .having(goeRate(rates)); //이거부터 해결 ㄱㄱ
+   //여기까진 픽스 11/24 오후 3:17
+
+   // 이 order by 정렬 조건들은 파라메터가 필요 없음 파라메터는 그냥 검증 역할 정도 해주는 거고 파라메터가 orderBy 내부에 들어가지 않음 , 즉 응답할 일이 없음
    if (restaurantSearchCond.getIsLikesChecked().equals(true)){
      dynamicQuery.orderBy(likes.count().desc().nullsLast()); //좋아요 많은 순
    }
@@ -195,11 +198,11 @@ public class RestaurantRepository {
   }
 
   private BooleanExpression eqIsOpen(Boolean isOpen) {
-    return isOpen != null ? restaurant.businessStatus.eq(BusinessStatus.OPEN) : null; //영업 중인지 판별 , 누군가 체크박스에 영업 중 여부를 체크했을 경우 영업 중만 뜨게끔 조건 추가하는 것!
+    return isOpen != null || !isOpen ? restaurant.businessStatus.eq(BusinessStatus.OPEN) : null; //영업 중인지 판별 , 누군가 체크박스에 영업 중 여부를 체크했을 경우 영업 중만 뜨게끔 조건 추가하는 것!
   }
 
   private BooleanExpression eqCanPark(Boolean canPark) {
-    return canPark != null ? restaurant.canPark.eq(canPark) : null;
+    return canPark != null || !canPark ? restaurant.canPark.eq(canPark) : null;
   }
 
   private BooleanExpression loeGoePrice(Integer startPrice, Integer endPrice) {

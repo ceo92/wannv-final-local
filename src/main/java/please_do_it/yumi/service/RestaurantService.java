@@ -69,7 +69,7 @@ public class RestaurantService {
     return restaurantRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("잘못된 id 입니다."));
   }
 
-  public List<Tuple> findRestaurants(RestaurantSearchCond restaurantSearchCond){
+  public List<Restaurant> findRestaurants(RestaurantSearchCond restaurantSearchCond){
     return restaurantRepository.findAll(restaurantSearchCond);
   }
 

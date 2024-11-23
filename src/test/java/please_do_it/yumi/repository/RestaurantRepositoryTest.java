@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import please_do_it.yumi.domain.Restaurant;
+import please_do_it.yumi.domain.Review;
+import please_do_it.yumi.domain.ReviewTag;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 
 @SpringBootTest
@@ -42,16 +44,34 @@ class RestaurantRepositoryTest {
     provideServiceTypes.add("포장 가능");
 
 
-    List<Tuple> tuples = restaurantRepository.findAll(
+    List<Restaurant> restaurants = restaurantRepository.findAll(
         new RestaurantSearchCond(10000, 20000, true, true,
             "도%", Arrays.asList(3,4,5), containFoodTypes,restaurantTypes ,
             provideServiceTypes, moodTypes , true,
             true, true, true));
-    for (Tuple tuple : tuples) {
-      System.out.println("tuple.get(restaurant) = " + tuple.get(restaurant));
-      System.out.println("tuple.get(restaurant) = " + tuple.get(review.rating.avg()));
+
+    for (Restaurant restaurant : restaurants) {
+      System.out.println("restaurant = " + restaurant);
+      System.out.println("restaurant.getReviews() = " + restaurant.getReviews());
+      System.out.println("restaurant.getFoods() = " + restaurant.getFoods());
+      System.out.println("restaurant.getBusinessDays() = " + restaurant.getBusinessDays());
+
+      List<Review> reviews = restaurant.getReviews();
+
+      for (Review review1 : reviews) {
+        List<ReviewTag> reviewTags = review1.getReviewTags();
+        for (ReviewTag reviewTag : reviewTags) {
+          System.out.println("reviewTag.get = " + reviewTag.getTag());
+        }
+
+      }
+
+
+
+
     }
   }
+
 
   @Test
   void select_from_join_where만으로조회() {

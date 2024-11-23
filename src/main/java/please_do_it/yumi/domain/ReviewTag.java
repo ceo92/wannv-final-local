@@ -7,10 +7,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @ToString(exclude = {"review" , "tag"})
+@Getter @Setter(AccessLevel.PRIVATE)
 public class ReviewTag {
 
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

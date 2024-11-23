@@ -1,13 +1,7 @@
 package please_do_it.yumi.repository;
 
-import static please_do_it.yumi.domain.QRestaurant.restaurant;
-import static please_do_it.yumi.domain.QReview.review;
-
-import com.querydsl.core.Tuple;
-import jakarta.persistence.criteria.CriteriaBuilder.In;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -19,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import please_do_it.yumi.domain.Food;
 import please_do_it.yumi.domain.Restaurant;
 import please_do_it.yumi.domain.Review;
-import please_do_it.yumi.domain.ReviewTag;
-import please_do_it.yumi.domain.Tag;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 
 @SpringBootTest
@@ -91,7 +83,7 @@ class RestaurantRepositoryTest {
     restaurantSearchCond.setIsLikesChecked(true);
     restaurantSearchCond.setIsReviewCountChecked(true);
     restaurantSearchCond.setIsRateChecked(true);
-    List<Restaurant> all = restaurantRepository.findAllReal(restaurantSearchCond);
+    List<Restaurant> all = restaurantRepository.findAll(restaurantSearchCond);
     for (Restaurant restaurant1 : all) {
       List<Review> reviews = restaurant1.getReviews();
       List<Food> foods = restaurant1.getFoods();

@@ -66,10 +66,9 @@ public class RestaurantRepository {
         .join(restaurant.foods , food)
         .where(eqContainFoodTypes(containFoodTypes), eqRestaurantTypes(restaurantTypes),
             eqProvideServiceTypes(provideServiceTypes), eqMoodTypes(moodTypes),
-            loeGoePrice(startPrice, endPrice),
             eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress))
         .groupBy(restaurant.id )
-        .having(goeRate(rates))
+        .having(goeRate(rates) , loeGoePrice(startPrice, endPrice))
         .fetch();
 
   }

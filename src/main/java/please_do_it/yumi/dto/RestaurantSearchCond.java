@@ -30,7 +30,7 @@ public class RestaurantSearchCond {
   private Set<String> moodTypes = new HashSet<>();
 
   /**
-   * orderBy 동적 조건
+   * orderBy 동적 조건 , 애초에 라디오 버튼으로 할라면 이걸 컬렉션으로 묶었어야됨..
    */
   private Boolean isCreatedAtChecked = false; //등록일자 : 최신 순 정렬 위함
   private Boolean isRateChecked = false; // 평균 별점 높은 순 정렬 위함

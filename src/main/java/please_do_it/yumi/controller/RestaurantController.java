@@ -2,6 +2,7 @@ package please_do_it.yumi.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -49,9 +50,26 @@ public class RestaurantController {
   }
 
 
+  @ModelAttribute("sortConditions")
+  public Map<String , Boolean> sortConditions(){
+    Map<String, Boolean > sortConditions = new HashMap<>();
+    sortConditions.put("최신 순" , false);
+    sortConditions.put("평점 높은 순" , false);
+    sortConditions.put("좋아요 많은 순" , false);
+    sortConditions.put("리뷰 많은 순" ,false);
+    return sortConditions;
+  }
+
+
   @GetMapping
   public String getRestaurants(@ModelAttribute("restaurantSearchCond") RestaurantSearchCond restaurantSearchCond, Model model){
     List<Restaurant> restaurants = restaurantService.findRestaurants(restaurantSearchCond);
+    Map<String , Boolean> sortConditions = new HashMap<>();
+    sortConditions.put("최신 순" , restaurantSearchCond.getIsCreatedAtChecked());
+    sortConditions.put("평점 높은 순" , restaurantSearchCond.getIsRateChecked());
+    sortConditions.put("좋아요 많은 순" , restaurantSearchCond.getIsLikesChecked());
+    sortConditions.put("리뷰 많은 순" ,restaurantSearchCond.getIsReviewCountChecked());
+    model.addAttribute("sortConditions", sortConditions);
     model.addAttribute("restaurants", restaurants);
     return "restaurant/restaurants";
   }

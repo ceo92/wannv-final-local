@@ -1,5 +1,7 @@
 package please_do_it.yumi.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -47,11 +49,6 @@ public class RestaurantController {
   }
 
 
-  @ModelAttribute("stars") //half Integer
-  public Map<Integer , String> stars(){
-
-  }
-
   @GetMapping
   public String getRestaurants(@ModelAttribute("restaurantSearchCond") RestaurantSearchCond restaurantSearchCond, Model model){
     List<Restaurant> restaurants = restaurantService.findRestaurants(restaurantSearchCond);
@@ -64,6 +61,8 @@ public class RestaurantController {
     model.addAttribute("restaurant", restaurantService.findOne(id));
     return "restaurant/restaurant";
   }
+
+
 
 
 

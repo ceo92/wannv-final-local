@@ -156,18 +156,21 @@
 
                     <!-- rating -->
                     <div class="mb-8">
-                      <h5 class="mb-3">평점</h5>
+                      <h5 class="mb-3">평균 별점</h5>
                       <div>
                         <!-- form check -->
-                        <div class="form-check mb-2" > <!-- 별점부터 해결하면 됨 , 별점 1,2,3,4,5 넘겨줄까 이것도-->
+                        <div class="form-check mb-2" th:each="rate : ${#numbers.sequence(1, 5)}"> <!-- 별점부터 해결하면 됨 , 별점 1,2,3,4,5 넘겨줄까 이것도 , 중첩 for문으로 별찍기문제마냥 해결-->
                           <!-- input -->
-                          <input class="form-check-input" type="checkbox" th:field="*{}" value="">
-                          <label class="form-check-label" >
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning "></i>
-                            <i class="bi bi-star-fill text-warning "></i>
-                            <i class="bi bi-star-fill text-warning "></i>
-                            <i class="bi bi-star-fill text-warning "></i>
+                          <input class="form-check-input" type="checkbox" th:field="*{rates}" th:value="${rate}"> <!-- 어차피 @ModelAttriubte에서 타입 컨버전 통해 String 으로 넘겨도 자동으로 Integer로 변환해서 할당해줌 ㅇㅇ-->
+                          <label class="form-check-label" th:for="${#ids.prev('rates')}">
+                            <!-- label 안에서 별 렌더링 -->
+                            <span th:each="filled : ${#numbers.sequence(1, rate)}">
+                              <i class="bi bi-star-fill text-warning"></i>
+                            </span>
+                            <span th:each="empty : ${#numbers.sequence(1, 5 - rate)}" th:if="${rate < 5}">
+                                <i class="bi bi-star text-warning"></i>
+                            </span>
+
                           </label>
                         </div>
 

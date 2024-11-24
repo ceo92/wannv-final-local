@@ -87,6 +87,9 @@
                       <!-- range -->
                       <div id="priceRange" class="mb-3"></div>
                       <small class="text-muted">평균 가격대:</small> <span id="priceRange-value" class="small"></span>
+                      <!-- Hidden inputs to store minimum and maximum values -->
+                      <input type="hidden" th:field="*{startPrice}" th:value="*{startPrice}">
+                      <input type="hidden" th:field="*{endPrice}" th:value="*{endPrice}">
 
                     </div>
                   </div>
@@ -176,6 +179,10 @@
 
                       </div>
                     </div>
+
+
+                  <button class="btn btn-outline-primary" th:text="검색하기" type="submit"></button>
+
                 </form>
 
 
@@ -2092,6 +2099,8 @@
       </div>
     </div>
   </div>
+
+
 </main>
 
 </html>

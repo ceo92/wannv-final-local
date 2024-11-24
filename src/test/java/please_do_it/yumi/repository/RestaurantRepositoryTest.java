@@ -23,31 +23,9 @@ class RestaurantRepositoryTest {
   RestaurantRepository restaurantRepository;
 
   @Test
-  void groupby_having_test(){
-
-
-    List<Restaurant> restaurants = restaurantRepository.findAll(
-        new RestaurantSearchCond(0, 100000, true, true,
-            null , Arrays.asList(1,2,3,4,5), Collections.emptySet(),Collections.emptySet() ,
-            Collections.emptySet(), Collections.emptySet(), true,
-            true, true, true));
-
-    for (Restaurant restaurant : restaurants) {
-      System.out.println("restaurant = " + restaurant);
-      System.out.println("restaurant.getReviews() = " + restaurant.getReviews());
-      System.out.println("restaurant.getFoods() = " + restaurant.getFoods());
-      System.out.println("restaurant.getBusinessDays() = " + restaurant.getBusinessDays());
-
-      System.out.println("======");
-      System.out.println("======");
-
-    }
-  }
-
-  @Test
   void ds(){
     RestaurantSearchCond restaurantSearchCond = new RestaurantSearchCond();
-    ArrayList<Integer> rates = new ArrayList<>();
+    /*ArrayList<Integer> rates = new ArrayList<>();
     rates.add(1);
     rates.add(2);
     rates.add(3);
@@ -70,7 +48,7 @@ class RestaurantRepositoryTest {
 
     Set<String> moodTypes = new HashSet<>();
     moodTypes.add("데이트하기 좋은");
-    moodTypes.add("활기찬");
+    moodTypes.add("활기찬");*/
 
 
 /*
@@ -79,10 +57,11 @@ class RestaurantRepositoryTest {
     restaurantSearchCond.setRoadAddress("서울%");
 */
 
-    restaurantSearchCond.setIsCreatedAtChecked(true);
-    restaurantSearchCond.setIsLikesChecked(true);
-    restaurantSearchCond.setIsReviewCountChecked(true);
-    restaurantSearchCond.setIsRateChecked(true);
+    List<String> sortConditions = restaurantSearchCond.getSortConditions();
+    sortConditions.add("NEW");
+    sortConditions.add("REVIEW");
+    sortConditions.add("RATE");
+    sortConditions.add("LIKE");
     List<Restaurant> all = restaurantRepository.findAll(restaurantSearchCond);
     for (Restaurant restaurant1 : all) {
       List<Review> reviews = restaurant1.getReviews();

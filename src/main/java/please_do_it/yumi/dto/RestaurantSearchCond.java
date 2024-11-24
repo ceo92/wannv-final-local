@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class RestaurantSearchCond {
 
   /**
@@ -32,11 +34,7 @@ public class RestaurantSearchCond {
   /**
    * orderBy 동적 조건 , 애초에 라디오 버튼으로 할라면 이걸 컬렉션으로 묶었어야됨..
    */
-  private Boolean isCreatedAtChecked = false; //등록일자 : 최신 순 정렬 위함
-  private Boolean isRateChecked = false; // 평균 별점 높은 순 정렬 위함
-  private Boolean isLikesChecked = false; // 좋아요 많은 순 정렬 위함
-  private Boolean isReviewCountChecked = false; // 리뷰 많은 순 정렬 위함
-
+  private List<String> sortConditions = new ArrayList<>();
 
 
 

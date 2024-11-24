@@ -56,6 +56,7 @@ public class RestaurantRepository {
     Set<String> containFoodTypes = restaurantSearchCond.getContainFoodTypes();
     Set<String> provideServiceTypes = restaurantSearchCond.getProvideServiceTypes();
     Set<String> moodTypes = restaurantSearchCond.getMoodTypes();
+    List<String> sortConditions = restaurantSearchCond.getSortConditions();
 
     JPAQuery<Restaurant> dynamicQuery = query.selectFrom(restaurant)
         .join(restaurant.reviews, review)
@@ -66,21 +67,30 @@ public class RestaurantRepository {
             eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress))
         .groupBy(restaurant) //restaurant.id로 해도 되고 restaurant로 해도 되는듯 ㅇㅇ 그냥 restaurant로 그루핑이 됨 ㅇㅇ
         .having(goeRate(rates), loeGoePrice(startPrice, endPrice));
-
-    if (Boolean.TRUE.equals(restaurantSearchCond.getIsLikesChecked())){
-      dynamicQuery.orderBy(likes.count().desc().nullsLast()); //좋아요 많은 순
-    }
-    if (Boolean.TRUE.equals(restaurantSearchCond.getIsReviewCountChecked())){
-      dynamicQuery.orderBy(review.count().desc().nullsLast()); //리뷰 많은 순
-    }
-    if (Boolean.TRUE.equals(restaurantSearchCond.getIsCreatedAtChecked())){
-      dynamicQuery.orderBy(restaurant.createdAt.desc().nullsLast()); //최신 순
-    }
-    if (Boolean.TRUE.equals(restaurantSearchCond.getIsRateChecked())){
-      dynamicQuery.orderBy(review.rating.avg().desc().nullsLast()); //별점 높은 순
-    }
+    addOrderBy(sortConditions, dynamicQuery);
 
     return dynamicQuery.fetch();
+  }
+
+  private void addOrderBy(List<String> sortConditions, JPAQuery<Restaurant> dynamicQuery) {
+    //생각해보면 굳이 Boolean으로 판정할 필요가 아예 없었네 ㅇㅇ 그냥 라디오 버튼으로 String 값 넘어오면 이 String 값 있냐고 확인해서 판정하면 끝나는 일을 ;; ㅋㅋ
+    for (String sortCondition : sortConditions) {
+      switch (sortCondition){
+        case "NEW":
+          dynamicQuery.orderBy(restaurant.createdAt.desc().nullsLast()); //최신 순
+          break;
+        case "RATE":
+          dynamicQuery.orderBy(review.rating.avg().desc().nullsLast()); //별점 높은 순
+          break;
+        case "LIKE":
+          dynamicQuery.orderBy(likes.count().desc().nullsLast()); //좋아요 많은 순
+          break;
+        case "REVIEW":
+          dynamicQuery.orderBy(review.count().desc().nullsLast()); //리뷰 많은 순
+          break;
+      }
+    }
+    sortConditions.clear();
   }
 
   //모달 보안성 우수 => 제3자가 접근하기 어려움, 단순 팝업창 느낌이므로 , 이런 2가지 방법을 고려했을 때 ~~가 더 괜찮아서 이거를 선정하였다. 이렇게 면접이든 포폴이든 정의하자!

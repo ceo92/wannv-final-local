@@ -51,6 +51,9 @@ public class Restaurant {
   @Transient
   private Integer likesCount;
 
+  @Transient
+  private String[] restaurantImages;
+
 
   @Embedded
   private Address address;
@@ -188,6 +191,10 @@ public class Restaurant {
 
   public int totalLikesCount(){
     return likes.size();
+  }
+
+  public void addRestaurantImages(String[] restaurantImages){
+    this.restaurantImages = restaurantImages;
   }
 
 

@@ -1,4 +1,4 @@
-package multipart.practice.file;
+package please_do_it.yumi.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,12 +25,14 @@ public class FileStore {
   @Value("${restaurant.image.dir}")
   private String restaurantImageDir;
 
-  @Value("${restaurant.food.dir}")
+  @Value("${food.image.dir}")
   private String foodImageDir;
 
 
-  //단일 이미지 저장 , 이걸 통해 여러 이미지를 저장하게 할 수 있음
-  public String storeFile(MultipartFile multipartFile) throws IOException {
+  /**
+   * 음식 이미지 저장
+   */
+  public String storeFood(MultipartFile multipartFile) throws IOException {
     if (multipartFile.isEmpty()){
       log.info("multipartFile = {}", multipartFile);
       return null;
@@ -42,8 +44,10 @@ public class FileStore {
   }
 
 
-  //다중 이미지 저장 , 이거 쓸거임
-  public List<String> storeFiles(List<MultipartFile> multipartFiles) throws IOException {
+  /**
+   * 식당 이미지들 저장
+   */
+  public List<String> storeRestaurants(List<MultipartFile> multipartFiles) throws IOException {
     List<String> storeFileResult = new ArrayList<>(); //계속해서 UploadFile이 생성되면 생성된 것을 계속해서 담아줘야됨
     for (MultipartFile multipartFile : multipartFiles) {
       if (!multipartFile.isEmpty()){
@@ -56,14 +60,12 @@ public class FileStore {
     return storeFileResult; //null 반환 안해도 어차피 리스트는 기본적으로 비어있는 객체로 초기화되어있으니 그냥 아닐 경우만 리턴해주면 됨!
   }
 
-  private String getRestaurantImageFullPath(String storeFileName) {
-    String restaurantImagePath = restaurantImageDir + storeFileName;
-    return restaurantImagePath;
+  public String getRestaurantImageFullPath(String storeFileName) {
+    return restaurantImageDir + storeFileName;
   }
 
-  private String getFoodImageFullPath(String storeFileName) {
-    String foodImagePath = foodImageDir + storeFileName;
-    return foodImagePath;
+  public String getFoodImageFullPath(String storeFileName) {
+    return foodImageDir + storeFileName;
   }
 
 

@@ -14,6 +14,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import please_do_it.yumi.constant.BusinessStatus;
+import please_do_it.yumi.controller.FileStore;
 import please_do_it.yumi.domain.Address;
 import please_do_it.yumi.domain.BusinessDay;
 import please_do_it.yumi.domain.Food;
@@ -34,7 +35,6 @@ import please_do_it.yumi.repository.UserRepository;
 public class RestaurantService {
 
   private final RestaurantRepository restaurantRepository;
-
 
   @Transactional
   public Long save(RestaurantSaveDto restaurantSaveDto) {
@@ -76,8 +76,11 @@ public class RestaurantService {
       double avgRating = restaurant.averageRate();
       int likesCount = restaurant.totalLikesCount();
       int reviewCount = restaurant.totalReviewCount();
-      restaurant.addStatistics(avgRating , likesCount , reviewCount);
+      restaurant.addStatistics(avgRating, likesCount, reviewCount);
+      String[] splitImages = restaurant.getImage().split(", ");
+      restaurant.addRestaurantImages(splitImages);
     });
+
     return restaurants;
   }
 

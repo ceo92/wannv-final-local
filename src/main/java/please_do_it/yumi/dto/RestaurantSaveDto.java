@@ -24,7 +24,7 @@ public class RestaurantSaveDto {
   private Boolean canPark;
   private String reservationTimeGap;
   private Boolean isPenalty;
-  private List<MultipartFile> image = new ArrayList<>(); //식당 사진
+  private String image; // 식당 사진
 
   /**
    * BusinessDay DTO

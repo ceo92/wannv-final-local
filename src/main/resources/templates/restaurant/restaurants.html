@@ -267,66 +267,11 @@
                       <!-- col -->
                       <div class="category-slider ">
 
-                        <div class="item" style="margin-left:0.1rem">
+                        <div class="item" style="margin-left:0.1rem" th:each="image : ${restaurant.restaurantImages}">
                           <a href="/restaurants/1" th:href="@{/restaurants/{id}(id = ${restaurant.id})}" class="text-decoration-none text-inherit">
                           <div class="mb-lg-4">
                             <div class="py-8">
-                              <img src="/assets/images/restaurant/umm/umm.jpeg"  th:src="@{/assets/images/restaurant/umm/umm2.jpeg}" style="width:30rem;height:22rem" alt="Grocery Ecommerce Template" class="mb-3">
-                            </div>
-                          </div>
-                          </a>
-                        </div>
-
-                        <div class="item" style="margin-left:0.1rem">
-                          <a href="/restaurants/1" class="text-decoration-none text-inherit">
-                          <div class="mb-lg-4">
-                            <div class="py-8">
-                              <img src="/assets/images/restaurant/umm/umm0.jpeg" style="width:30rem;height:22rem" alt="Grocery Ecommerce Template" class="mb-3">
-                            </div>
-                          </div>
-                          </a>
-                        </div>
-
-
-                        <div class="item" style="margin-left:0.1rem">
-                          <a href="/restaurants/1" class="text-decoration-none text-inherit">
-                          <div class="mb-lg-4">
-                            <div class="py-8">
-                              <img src="/assets/images/restaurant/umm/umm1.jpeg" style="width:30rem;height:22rem" alt="Grocery Ecommerce Template" class="mb-3">
-                            </div>
-                          </div>
-                          </a>
-                        </div>
-
-
-
-                        <div class="item" style="margin-left:0.1rem">
-                          <a href="/restaurants/1" class="text-decoration-none text-inherit">
-                          <div class="mb-lg-4">
-                            <div class="py-8">
-                              <img src="/assets/images/restaurant/umm/umm2.jpeg"style="width:30rem;height:22rem" alt="Grocery Ecommerce Template" class="mb-3">
-                            </div>
-                          </div>
-                          </a>
-                        </div>
-
-
-                        <div class="item" style="margin-left:0.1rem">
-                          <a href="/restaurants/1" class="text-decoration-none text-inherit">
-                          <div class="mb-lg-4">
-                            <div class="py-8">
-                              <img src="/assets/images/restaurant/umm/umm3.jpeg" style="width:30rem;height:22rem" alt="Grocery Ecommerce Template" class="mb-3">
-                            </div>
-                          </div>
-                          </a>
-                        </div>
-
-
-                        <div class="item" style="margin-left:0.1rem">
-                          <a href="/restaurants/1" class="text-decoration-none text-inherit">
-                          <div class="mb-lg-4">
-                            <div class="py-8">
-                              <img src="/assets/images/restaurant/umm/umm4.jpeg" style="width:30rem;height:22rem" alt="Grocery Ecommerce Template" class="mb-3">
+                              <img th:src="@{${image}}" style="width:30rem;height:22rem" class="mb-3">
                             </div>
                           </div>
                           </a>

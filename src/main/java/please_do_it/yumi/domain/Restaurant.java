@@ -41,6 +41,11 @@ public class Restaurant {
 
   private String contact; //연락처
 
+  private Double averageRating;
+  private Integer reviewCount;
+  private Integer likesCount;
+
+
   @Embedded
   private Address address;
   private String image;
@@ -111,6 +116,9 @@ public class Restaurant {
   /**
    * 복잡한 연관관계 => 생성 메서드 , 다른 개발자들이 해당 틀대로 생성하게끔 유도하기 !
    */
+
+
+
   public static Restaurant createRestaurant(String businessNum, String restaurantName,
       Set<String> moodTypes,
       Set<String> containFoodTypes, Set<String> provideServiceTypes, Set<String> restaurantTypes,
@@ -162,8 +170,18 @@ public class Restaurant {
     return reviews.stream().mapToInt(Review::getRating).average().getAsDouble(); //평균 계산
   }
 
+  public void addStatistics(double averageRating , int likesCount , int reviewCount){
+    this.averageRating = averageRating;
+    this.likesCount = likesCount;
+    this.reviewCount = reviewCount;
+  }
+
   public int totalReviewCount() {
     return reviews.size();
+  }
+
+  public int totalLikesCount(){
+    return likes.size();
   }
 
 

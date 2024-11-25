@@ -18,8 +18,10 @@ import please_do_it.yumi.domain.Address;
 import please_do_it.yumi.domain.BusinessDay;
 import please_do_it.yumi.domain.Food;
 import please_do_it.yumi.domain.Restaurant;
+import please_do_it.yumi.domain.Review;
 import please_do_it.yumi.domain.User;
 import please_do_it.yumi.dto.FoodSaveDto;
+import please_do_it.yumi.dto.RestaurantDto;
 import please_do_it.yumi.dto.RestaurantSaveDto;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 import please_do_it.yumi.dto.RestaurantUpdateDto;
@@ -64,14 +66,22 @@ public class RestaurantService {
   }
 
 
-
   public Restaurant findOne(Long id){
     return restaurantRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("잘못된 id 입니다."));
   }
 
   public List<Restaurant> findRestaurants(RestaurantSearchCond restaurantSearchCond){
-    return restaurantRepository.findAll(restaurantSearchCond);
+    List<Restaurant> restaurants = restaurantRepository.findAll(restaurantSearchCond);
+    restaurants.forEach(restaurant -> {
+      double avgRating = restaurant.averageRate();
+      int likesCount = restaurant.totalLikesCount();
+      int reviewCount = restaurant.totalReviewCount();
+      restaurant.addStatistics(avgRating , likesCount , reviewCount);
+    });
+    return restaurants;
   }
+
+
 
   @Transactional
   public void updateRestaurant(Long id , RestaurantUpdateDto restaurantUpdateDto) {

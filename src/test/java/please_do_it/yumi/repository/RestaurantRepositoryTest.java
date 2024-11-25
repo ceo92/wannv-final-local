@@ -1,8 +1,6 @@
 package please_do_it.yumi.repository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import please_do_it.yumi.domain.Food;
 import please_do_it.yumi.domain.Restaurant;
 import please_do_it.yumi.domain.Review;
+import please_do_it.yumi.dto.RestaurantDto;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 
 @SpringBootTest
@@ -22,10 +21,13 @@ class RestaurantRepositoryTest {
   @Autowired
   RestaurantRepository restaurantRepository;
 
+
+
+
   @Test
   void ds(){
     RestaurantSearchCond restaurantSearchCond = new RestaurantSearchCond();
-    /*ArrayList<Integer> rates = new ArrayList<>();
+    ArrayList<Integer> rates = new ArrayList<>();
     rates.add(1);
     rates.add(2);
     rates.add(3);
@@ -48,7 +50,7 @@ class RestaurantRepositoryTest {
 
     Set<String> moodTypes = new HashSet<>();
     moodTypes.add("데이트하기 좋은");
-    moodTypes.add("활기찬");*/
+    moodTypes.add("활기찬");
 
 
 /*
@@ -75,6 +77,12 @@ class RestaurantRepositoryTest {
         System.out.println("food = " + food);
       }
     }
+  }
+
+  @Test
+  void sdjfsd(){
+    List<RestaurantDto> restaurantStatistics = restaurantRepository.findStatistics();
+    System.out.println("restaurantStatistics = " + restaurantStatistics);
   }
 
 

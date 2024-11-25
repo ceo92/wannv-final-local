@@ -18,6 +18,7 @@ import org.springframework.util.StringUtils;
 import please_do_it.yumi.constant.BusinessStatus;
 
 import please_do_it.yumi.domain.Restaurant;
+import please_do_it.yumi.dto.RestaurantDto;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 
 @Repository

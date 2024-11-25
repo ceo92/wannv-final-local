@@ -65,6 +65,7 @@ public class RestaurantController {
   @GetMapping
   public String getRestaurants(@ModelAttribute("restaurantSearchCond") RestaurantSearchCond restaurantSearchCond, Model model){
     List<Restaurant> restaurants = restaurantService.findRestaurants(restaurantSearchCond);
+    model.addAttribute("statistics" , restaurantService.findRestaurantStatistics());
     model.addAttribute("restaurants", restaurants);
     return "restaurant/restaurants";
   }

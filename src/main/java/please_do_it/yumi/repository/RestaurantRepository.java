@@ -45,6 +45,7 @@ public class RestaurantRepository {
   }
 
 
+
   public List<Restaurant> findAll(RestaurantSearchCond restaurantSearchCond){
 
     Boolean canPark = restaurantSearchCond.getCanPark();

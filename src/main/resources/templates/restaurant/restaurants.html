@@ -256,7 +256,7 @@
                           <span class="text-dark" th:text="${restaurant.businessStatus.description}">영업 중</span>
                           <span class="text-muted small">&nbsp;・&nbsp;</span>
                           <!-- rating -->
-                          <small class="text-warning"> <i class="bi bi-star-fill"></i></small><span class="text-muted small" th:text="${#lists.filter(statistics, stat -> stat.id == restaurant.id)[0]?.avgRating}">4.5(2186)</span>
+                          <small class="text-warning"> <i class="bi bi-star-fill"></i></small><span class="text-muted small" th:text="${restaurant.averageRating}">4.5(2186)</span>
                           <span class="text-muted small">&nbsp;・&nbsp;</span>
                           <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small">975</span>
                         </div>

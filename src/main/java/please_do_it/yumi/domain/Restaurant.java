@@ -13,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -41,8 +42,13 @@ public class Restaurant {
 
   private String contact; //연락처
 
+  @Transient
   private Double averageRating;
+
+  @Transient
   private Integer reviewCount;
+
+  @Transient
   private Integer likesCount;
 
 
@@ -167,7 +173,7 @@ public class Restaurant {
    */
 
   public double averageRate() {
-    return reviews.stream().mapToInt(Review::getRating).average().getAsDouble(); //평균 계산
+    return reviews.stream().mapToInt(Review::getRating).average().orElseThrow(()->new IllegalArgumentException("현 식당에 대한 리뷰가 존재하지 않습니다.")); //평균 계산
   }
 
   public void addStatistics(double averageRating , int likesCount , int reviewCount){

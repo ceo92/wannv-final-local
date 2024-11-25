@@ -256,9 +256,9 @@
                           <span class="text-dark" th:text="${restaurant.businessStatus.description}">영업 중</span>
                           <span class="text-muted small">&nbsp;・&nbsp;</span>
                           <!-- rating -->
-                          <small class="text-warning"> <i class="bi bi-star-fill"></i></small><span class="text-muted small" th:text="|${restaurant.averageRating}(${restaurant.reviewCount})|">4.5(2186)</span>
+                          <small class="text-warning"> <i class="bi bi-star-fill"></i></small><span class="text-muted small" th:text="|${restaurant.averageRating}(${restaurant.reviewCount})|">4.5(60)</span>
                           <span class="text-muted small">&nbsp;・&nbsp;</span>
-                          <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${restaurant.likesCount}|">975</span>
+                          <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${restaurant.likesCount}|">123</span>
                         </div>
 
                       </div>
@@ -268,10 +268,10 @@
                       <div class="category-slider ">
 
                         <div class="item" style="margin-left:0.1rem">
-                          <a href="/restaurants/1" class="text-decoration-none text-inherit">
+                          <a href="/restaurants/1" th:href="@{/restaurants/{id}(id = ${restaurant.id})}" class="text-decoration-none text-inherit">
                           <div class="mb-lg-4">
                             <div class="py-8">
-                              <img src="/assets/images/restaurant/umm/umm.jpeg" style="width:30rem;height:22rem" alt="Grocery Ecommerce Template" class="mb-3">
+                              <img src="/assets/images/restaurant/umm/umm.jpeg"  th:src="@{/assets/images/restaurant/umm/umm2.jpeg}" style="width:30rem;height:22rem" alt="Grocery Ecommerce Template" class="mb-3">
                             </div>
                           </div>
                           </a>

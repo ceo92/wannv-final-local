@@ -19,6 +19,7 @@ import please_do_it.yumi.constant.MoodType;
 import please_do_it.yumi.constant.ProvideServiceType;
 import please_do_it.yumi.constant.RestaurantType;
 import please_do_it.yumi.domain.Restaurant;
+import please_do_it.yumi.dto.RestaurantSaveDto;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 import please_do_it.yumi.service.RestaurantService;
 
@@ -62,6 +63,7 @@ public class RestaurantController {
   }
 
 
+  //restaurant
   @GetMapping
   public String getRestaurants(@ModelAttribute("restaurantSearchCond") RestaurantSearchCond restaurantSearchCond, Model model){
     List<Restaurant> restaurants = restaurantService.findRestaurants(restaurantSearchCond);
@@ -74,6 +76,9 @@ public class RestaurantController {
     model.addAttribute("restaurant", restaurantService.findOne(id));
     return "restaurant/restaurant";
   }
+
+
+
 
 
 

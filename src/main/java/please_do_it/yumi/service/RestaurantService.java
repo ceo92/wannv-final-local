@@ -1,8 +1,11 @@
 package please_do_it.yumi.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -54,15 +57,17 @@ public class RestaurantService {
 
 
   public Restaurant findOne(Long id){
-    restaurantRepository.findById(id).ifPresent(restaurant -> {
-      double avgRating = restaurant.averageRate();
-      int likesCount = restaurant.totalLikesCount();
-      int reviewCount = restaurant.totalReviewCount();
-      restaurant.addStatistics(avgRating, likesCount, reviewCount);
-      String[] splitImages = restaurant.getImage().split(",");
-      restaurant.addRestaurantImages(splitImages);
-    });
-    return restaurantRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 id 입니다 !"));
+    Restaurant restaurant = restaurantRepository.findById(id).orElse(null);
+    double avgRating = restaurant.averageRate();
+    int likesCount = restaurant.totalLikesCount();
+    int reviewCount = restaurant.totalReviewCount();
+    String[] splitImages = restaurant.getImage().split(",");
+    restaurant.addStatistics(avgRating, likesCount, reviewCount);
+    restaurant.addRestaurantImages(splitImages);
+    double foodsPriceAverage = Math.round(restaurant.getFoods().stream().mapToInt(Food::getPrice).average().getAsDouble()/1000.0)*1000; //백의 자리에서 반올림
+    restaurant.addFoodsPriceAverage(foodsPriceAverage);
+    return restaurant;
+
   }
 
   public List<Restaurant> findRestaurants(RestaurantSearchCond restaurantSearchCond){
@@ -79,6 +84,16 @@ public class RestaurantService {
     return restaurants;
   }
 
+  public BusinessDay findToday(Restaurant restaurant){
+    String todayDayOfWeek = restaurant.getBusinessDays().stream()
+        .map(BusinessDay::getDayOfWeek)
+        .filter(dayOfWeek -> dayOfWeek.equals(
+            LocalDateTime.now().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.KOREAN)))
+        .findAny().get();
+    BusinessDay todayBusinessDay = restaurant.getBusinessDays().stream().filter(businessDay -> businessDay.getDayOfWeek().equals(todayDayOfWeek)).findAny().get();
+    return todayBusinessDay;
+
+  }
 
 
   @Transactional

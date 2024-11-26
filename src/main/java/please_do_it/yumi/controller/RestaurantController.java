@@ -22,6 +22,7 @@ import please_do_it.yumi.constant.ContainFoodType;
 import please_do_it.yumi.constant.MoodType;
 import please_do_it.yumi.constant.ProvideServiceType;
 import please_do_it.yumi.constant.RestaurantType;
+import please_do_it.yumi.domain.BusinessDay;
 import please_do_it.yumi.domain.Restaurant;
 import please_do_it.yumi.dto.RestaurantSaveDto;
 import please_do_it.yumi.dto.RestaurantSearchCond;
@@ -88,7 +89,8 @@ public class RestaurantController {
       System.out.println("restaurantImage = " + restaurantImage);
     }
     model.addAttribute("restaurant", restaurant);
-
+    model.addAttribute("todayBusinessDay", restaurantService.findToday(restaurant));
+    restaurant.getProvideServiceTypes().forEach(System.out::println);
     return "restaurant/restaurant";
   }
 

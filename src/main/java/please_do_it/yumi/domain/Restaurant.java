@@ -24,6 +24,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.NumberFormat;
 import please_do_it.yumi.constant.BusinessStatus;
 
 @Entity
@@ -53,6 +54,10 @@ public class Restaurant {
 
   @Transient
   private String[] restaurantImages;
+
+  @Transient
+  @NumberFormat(pattern = "#,###원")
+  private Double averageFoodsPrice;
 
 
   @Embedded
@@ -196,6 +201,11 @@ public class Restaurant {
   public void addRestaurantImages(String[] restaurantImages){
     this.restaurantImages = restaurantImages;
   }
+
+  public void addFoodsPriceAverage(Double averageFoodsPrice){
+    this.averageFoodsPrice = averageFoodsPrice;
+  }
+
 
 
   //상태 설정 메서드로 가자

@@ -77,12 +77,12 @@
           <div class="ps-lg-10 mt-6 mt-md-0">
             <!-- content -->
             <!-- heading -->
-            <h6 class="text-muted ">양식</h6>
-            <h1 class="mb-1">음 이터리 </h1>
+            <h6 class="text-muted " th:each="restaurantType : ${restaurant.restaurantTypes}" th:text="${restaurantType}">양식</h6>
+            <h1 class="mb-1" th:text="${restaurant.name}">음 이터리 </h1>
             <div class="mb-4">
-              <!-- rating --> <small class="text-warning"><i class="bi bi-star-fill"></i></small><a href="#" class="ms-1">리뷰 30개</a>
+              <!-- rating --> <small class="text-warning"><i class="bi bi-star-fill"></i></small><a href="#" class="ms-1" th:text="|리뷰 ${restaurant.reviewCount}개|">리뷰 30개</a>
             </div>
-            <span>최고의 비건 맛집 음 이터리입니다.</span>
+            <span th:text="${restaurant.description}">최고의 비건 맛집 음 이터리입니다.</span>
 
             <!-- hr -->
             <hr class="my-3">
@@ -95,21 +95,19 @@
 
 
             <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
-              <i class="bi bi-currency-dollar"></i><span>&nbsp;&nbsp;평균 1만원</span>
+              <i class="bi bi-currency-dollar"></i><span th:text="|평균 ${{restaurant.averageFoodsPrice}}|">&nbsp;&nbsp;평균 10,000원</span>
             </div>
-
 
 
             <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
-              <i class="bi bi-alarm"></i><span>&nbsp;&nbsp;영업 중 <span class="text-muted small">∙</span> 22:00 영업 종료</span>
-
+              <i class="bi bi-alarm"></i>
+              <span class="ms-1" th:text="| ${restaurant.businessStatus.description}|">영업 중 </span>
+              <span class="text-muted small">∙</span>
+              <span th:text="|${{todayBusinessDay.closeTime}} 영업 종료|" >22:00 영업 종료</span>
             </div>
 
             <div class="mt-3">
-              <div class="badge text-bg-light ">주차 가능</div>
-              <div class="badge text-bg-light ">단체 이용 가능 </div>
-              <div class="badge text-bg-light ">포장 </div>
-              <div class="badge text-bg-light ">배달 </div>
+              <div class="badge text-bg-light " th:each="provideServiceType : ${restaurant.provideServiceTypes}" th:text="${provideServiceType}" ></div>
             </div>
 
 

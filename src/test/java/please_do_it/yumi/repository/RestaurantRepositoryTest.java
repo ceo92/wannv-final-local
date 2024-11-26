@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import please_do_it.yumi.domain.Food;
 import please_do_it.yumi.domain.Restaurant;
 import please_do_it.yumi.domain.Review;
-import please_do_it.yumi.dto.RestaurantDto;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 
 @SpringBootTest

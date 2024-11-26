@@ -41,80 +41,29 @@
 
           <!-- img slide -->
           <div class="product" id="product">
-
-            <div>
-              <a href="/restaurants/1" class="text-decoration-none text-inherit">
+            <div th:each="restaurantImage : ${restaurant.restaurantImages}" th:if="${restaurantImageStat.index} < 4">
+              <a href="/restaurants/1" th:href="@{/restaurants/{id}(id = ${restaurant.id})}" class="text-decoration-none text-inherit">
                 <div >
                   <div>
-                    <img src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm.jpeg}"  style="width:100%;height:27rem" alt="Grocery Ecommerce Template" class="mb-3">
+                    <img src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{${restaurantImage}}"  style="width:100%;height:27rem" alt="Grocery Ecommerce Template" class="mb-3">
                   </div>
                 </div>
               </a>
             </div>
-
-            <div>
-              <a href="/restaurants/1" class="text-decoration-none text-inherit">
-                <div >
-                  <div >
-                    <img src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm0.jpeg}" style="width:100%;height:27rem" alt="Grocery Ecommerce Template" class="mb-3">
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div>
-              <a href="/restaurants/1" class="text-decoration-none text-inherit">
-                <div>
-                  <div>
-                    <img src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm1.jpeg}"  style="width:100%;height:27rem" alt="Grocery Ecommerce Template" class="mb-3">
-                  </div>
-                </div>
-              </a>
-            </div>
-
-            <div>
-              <a href="/restaurants/1" class="text-decoration-none text-inherit">
-                <div>
-                  <div>
-                    <img src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm2.jpeg}"  style="width:100%;height:27rem" alt="Grocery Ecommerce Template" class="mb-3">
-                  </div>
-                </div>
-              </a>
-            </div>
-            </div>
+          </div>
 
 
           <!-- 이미지 슬라이드 하단 썸네일 영역 -->
           <div class="product-tools">
             <div class="thumbnails row g-3" id="productThumbnails">
-              <div class="col-3">
+              <div class="col-3" th:each="restaurantImage : ${restaurant.restaurantImages}" th:if="${restaurantImageStat.index} < 4">
                 <div class="thumbnails-img">
                   <!-- img -->
-                  <img class="d-lg-none d-block" src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm.jpeg}" style="width:10rem;height:5rem" alt="">
-                  <img class="d-lg-block d-none" src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm.jpeg}" style="width:10rem;height:7rem" alt="">
+                  <img class="d-lg-none d-block" src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{${restaurantImage}}" style="width:10rem;height:5rem" alt="">
+                  <img class="d-lg-block d-none" src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{${restaurantImage}}" style="width:10rem;height:7rem" alt="">
                 </div>
               </div>
-              <div class="col-3">
-                <div class="thumbnails-img">
-                  <!-- img -->
-                  <img class="d-lg-none d-block"  src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm0.jpeg}" style="width:10rem;height:5rem"  alt="">
-                  <img class="d-lg-block d-none" src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm0.jpeg}" style="width:10rem;height:7rem"  alt="">
-                </div>
-              </div>
-              <div class="col-3">
-                <div class="thumbnails-img">
-                  <!-- img -->
-                  <img class="d-lg-none d-block"  src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm1.jpeg}" style="width:10rem;height:5rem"  alt="">
-                  <img class="d-lg-block d-none"  src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm1.jpeg}" style="width:10rem;height:7rem"  alt="">
-                </div>
-              </div>
-              <div class="col-3">
-                <div class="thumbnails-img">
-                  <!-- img -->
-                  <img class="d-lg-none d-block"  src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm2.jpeg}" style="width:10rem;height:5rem"  alt="">
-                  <img class="d-lg-block d-none"  src="../../static/assets/images/products/product-single-img-1.jpg" th:src="@{/assets/images/restaurant/umm/umm2.jpeg}" style="width:10rem;height:7rem"  alt="">
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
@@ -761,56 +710,15 @@
                       </div>
                     </div>
                     <div>
-                      <!-- rating -->
-                      <h3 class="mb-5">Create Review</h3>
-                      <div class="border-bottom py-4 mb-4">
-                        <h4 class="mb-3">Overall rating</h4>
-                        <div id="rater"></div>
-                      </div>
-                      <div class="border-bottom py-4 mb-4">
-                        <h4 class="mb-0">Rate Features</h4>
-                        <div class="my-5">
-                          <h5>Flavor</h5>
-                          <div id="rate-2"></div>
-                        </div>
-                        <div class="my-5">
-                          <h5>Value for money</h5>
-                          <div id="rate-3"></div>
-                        </div>
-                        <div class="my-5">
-                          <h5>Scent</h5>
-                          <div id="rate-4"></div>
-                        </div>
 
-
-                      </div>
                       <!-- form control -->
                       <div class="border-bottom py-4 mb-4">
                         <h5>Add a headline</h5>
                         <input type="text" class="form-control" placeholder="What’s most important to know">
                       </div>
-                      <div class="border-bottom py-4 mb-4">
-                        <h5>Add a photo or video</h5>
-                        <p>Shoppers find images and videos more helpful than text alone.</p>
-                        <!-- form -->
-                        <form action="#" class=" dropzone profile-dropzone">
-                          <div class="fallback">
-                            <input name="file" type="file" multiple />
-                          </div>
-                        </form>
 
-                      </div>
-                      <div class=" py-4 mb-4">
-                        <!-- heading -->
-                        <h5>Add a written review</h5>
-                        <textarea class="form-control" rows="3"
-                          placeholder="What did you like or dislike? What did you use this product for?"></textarea>
 
-                      </div>
-                      <!-- button -->
-                      <div class="d-flex justify-content-end">
-                        <a href="#" class="btn btn-primary">Submit Review</a>
-                      </div>
+
                     </div>
                   </div>
                 </div>

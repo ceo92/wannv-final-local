@@ -75,14 +75,20 @@ public class RestaurantController {
       @ModelAttribute("restaurantSearchCond") RestaurantSearchCond restaurantSearchCond,
       Model model) {
     List<Restaurant> restaurants = restaurantService.findRestaurants(restaurantSearchCond);
-    restaurants.forEach(restaurant -> log.info("image = {}",restaurant.getImage()));
     model.addAttribute("restaurants", restaurants);
     return "restaurant/restaurants";
   }
 
   @GetMapping("/{id}")
   public String getRestaurant(@PathVariable Long id, Model model) {
-    model.addAttribute("restaurant", restaurantService.findOne(id));
+    System.out.println("id = " + id);
+    Restaurant restaurant = restaurantService.findOne(id);
+    String[] restaurantImages = restaurant.getRestaurantImages();
+    for (String restaurantImage : restaurantImages) {
+      System.out.println("restaurantImage = " + restaurantImage);
+    }
+    model.addAttribute("restaurant", restaurant);
+
     return "restaurant/restaurant";
   }
 

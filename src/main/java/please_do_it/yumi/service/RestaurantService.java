@@ -1,33 +1,20 @@
 package please_do_it.yumi.service;
 
-import static please_do_it.yumi.domain.QBusinessDay.businessDay;
-
-import com.querydsl.core.Tuple;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.TextStyle;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import please_do_it.yumi.constant.BusinessStatus;
-import please_do_it.yumi.controller.FileStore;
-import please_do_it.yumi.domain.Address;
 import please_do_it.yumi.domain.BusinessDay;
 import please_do_it.yumi.domain.Food;
 import please_do_it.yumi.domain.Restaurant;
-import please_do_it.yumi.domain.Review;
-import please_do_it.yumi.domain.User;
-import please_do_it.yumi.dto.FoodSaveDto;
-import please_do_it.yumi.dto.RestaurantDto;
 import please_do_it.yumi.dto.RestaurantSaveDto;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 import please_do_it.yumi.dto.RestaurantUpdateDto;
 import please_do_it.yumi.repository.RestaurantRepository;
-import please_do_it.yumi.repository.UserRepository;
 
 @Transactional(readOnly = true)
 @Service
@@ -67,7 +54,15 @@ public class RestaurantService {
 
 
   public Restaurant findOne(Long id){
-    return restaurantRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("잘못된 id 입니다."));
+    restaurantRepository.findById(id).ifPresent(restaurant -> {
+      double avgRating = restaurant.averageRate();
+      int likesCount = restaurant.totalLikesCount();
+      int reviewCount = restaurant.totalReviewCount();
+      restaurant.addStatistics(avgRating, likesCount, reviewCount);
+      String[] splitImages = restaurant.getImage().split(",");
+      restaurant.addRestaurantImages(splitImages);
+    });
+    return restaurantRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 id 입니다 !"));
   }
 
   public List<Restaurant> findRestaurants(RestaurantSearchCond restaurantSearchCond){
@@ -77,7 +72,7 @@ public class RestaurantService {
       int likesCount = restaurant.totalLikesCount();
       int reviewCount = restaurant.totalReviewCount();
       restaurant.addStatistics(avgRating, likesCount, reviewCount);
-      String[] splitImages = restaurant.getImage().split(", ");
+      String[] splitImages = restaurant.getImage().split(",");
       restaurant.addRestaurantImages(splitImages);
     });
 

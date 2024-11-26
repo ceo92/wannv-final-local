@@ -266,7 +266,6 @@
                     <!-- 가로 정렬이 필요한 부분에 row 하자 , align-items-center : 컴포넌트 중앙으로 배치-->
                       <!-- col -->
                       <div class="category-slider ">
-
                         <div class="item" style="margin-left:0.1rem" th:each="image : ${restaurant.restaurantImages}">
                           <a href="/restaurants/1" th:href="@{/restaurants/{id}(id = ${restaurant.id})}" class="text-decoration-none text-inherit">
                           <div class="mb-lg-4">
@@ -276,7 +275,7 @@
                           </div>
                           </a>
                         </div>
-                        <!--이미지 슬라이더 끝 -->
+
                       </div>
 
                     <!-- card body 끝-->

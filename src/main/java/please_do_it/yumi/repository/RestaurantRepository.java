@@ -73,6 +73,26 @@ public class RestaurantRepository {
     return dynamicQuery.fetch();
   }
 
+  public List<Restaurant> findSimilarRestaurantsAll(RestaurantSearchCond restaurantSearchCond) {
+    Set<String> containFoodTypes = restaurantSearchCond.getContainFoodTypes();
+    Set<String> restaurantTypes = restaurantSearchCond.getRestaurantTypes();
+    String roadAddress = restaurantSearchCond.getRoadAddress();
+    return query.selectFrom(restaurant).where(eqContainFoodTypes(containFoodTypes)
+        , eqRestaurantTypes(restaurantTypes) , likeSimilarRoadAddress(roadAddress)).limit(6).fetch();
+
+
+  }
+
+  private BooleanExpression likeSimilarRoadAddress(String roadAddress) {
+    if (roadAddress == null ){
+      return null;
+    }
+    String[] split = roadAddress.split(" ");
+    String similarAddress = split[0]+" "+split[1];
+    return restaurant.address.roadAddress.like(similarAddress);
+  }
+
+
   private void addOrderBy(List<String> sortConditions, JPAQuery<Restaurant> dynamicQuery) {
     //생각해보면 굳이 Boolean으로 판정할 필요가 아예 없었네 ㅇㅇ 그냥 라디오 버튼으로 String 값 넘어오면 이 String 값 있냐고 확인해서 판정하면 끝나는 일을 ;; ㅋㅋ
     for (String sortCondition : sortConditions) {

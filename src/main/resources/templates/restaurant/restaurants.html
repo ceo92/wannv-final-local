@@ -77,7 +77,7 @@
                   <div class="mb-8">
                     <h5 class="mb-3">포함 음식</h5>
                     <div class="form-check mb-2" th:each="containFoodType : ${containFoodTypes}">
-                      <input class="form-check-input" type="checkbox" th:field="*{containFoodTypes}" th:value="${containFoodType.name()}" >
+                      <input class="form-check-input" type="checkbox" th:field="*{containFoodTypes}" th:value="${containFoodType.description}" >
                       <label th:for="${#ids.prev('containFoodTypes')}" th:text="${containFoodType.description}" class="form-check-label">
                         유제품
                       </label>
@@ -135,7 +135,7 @@
                     <!-- form check -->
                     <div class="form-check mb-2" th:each="restaurantType : ${restaurantTypes}">
                       <!-- input -->
-                      <input class="form-check-input" type="checkbox" th:field="*{restaurantTypes}" th:value="${restaurantType.name()}"  checked>
+                      <input class="form-check-input" type="checkbox" th:field="*{restaurantTypes}" th:value="${restaurantType.description}"  checked>
                       <label class="form-check-label" th:for="${#ids.prev('restaurantTypes')}" th:text="${restaurantType.description}">
                         한식
                       </label>
@@ -148,7 +148,7 @@
                     <!-- form check -->
                     <div class="form-check mb-2" th:each="provideServiceType : ${provideServiceTypes}">
                       <!-- input -->
-                      <input class="form-check-input" type="checkbox" th:field="*{provideServiceTypes}" th:value="${provideServiceType.name()}"  checked>
+                      <input class="form-check-input" type="checkbox" th:field="*{provideServiceTypes}" th:value="${provideServiceType.description}"  checked>
                       <label class="form-check-label" th:for="${#ids.prev('provideServiceTypes')}" th:text="${provideServiceType.description}">
                         콜키지 가능
                       </label>
@@ -160,7 +160,7 @@
                     <!-- form check -->
                     <div class="form-check mb-2" th:each="moodType : ${moodTypes}">
                       <!-- input -->
-                      <input class="form-check-input" type="checkbox" th:field="*{moodTypes}" th:value="${moodType.name()}"  checked>
+                      <input class="form-check-input" type="checkbox" th:field="*{moodTypes}" th:value="${moodType.description}"  checked>
                       <label class="form-check-label" th:for="${#ids.prev('moodTypes')}" th:text="${moodType.description}">
                         콜키지 가능
                       </label>

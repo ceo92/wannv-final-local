@@ -55,6 +55,7 @@ public class Restaurant {
   @Transient
   private String[] restaurantImages;
 
+
   @Transient
   @NumberFormat(pattern = "#,###원")
   private Double averageFoodsPrice;
@@ -71,6 +72,8 @@ public class Restaurant {
 
   private String reservationTimeGap;
   private Boolean isPenalty;
+
+
 
 
   @Enumerated(EnumType.STRING)

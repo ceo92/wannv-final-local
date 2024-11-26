@@ -77,7 +77,7 @@
           <div class="ps-lg-10 mt-6 mt-md-0">
             <!-- content -->
             <!-- heading -->
-            <h6 class="text-muted " th:each="restaurantType : ${restaurant.restaurantTypes}" th:text="${restaurantType}">양식</h6>
+              <span class="text-muted me-1" th:each="restaurantType : ${restaurant.restaurantTypes}" th:text="|${restaurantType}|">양식</span>
             <h1 class="mb-1" th:text="${restaurant.name}">음 이터리 </h1>
             <div class="mb-4">
               <!-- rating --> <small class="text-warning"><i class="bi bi-star-fill"></i></small><a href="#" class="ms-1" th:text="|리뷰 ${restaurant.reviewCount}개|">리뷰 30개</a>
@@ -89,13 +89,13 @@
 
               <!-- heading -->
             <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
-              <i class="bi bi-geo-alt"></i><span>&nbsp;&nbsp;강남역 1번출구에서 100m</span>
+              <i class="bi bi-geo-alt"></i><span class="ms-1" th:text="|${restaurant.address.roadAddress} ${restaurant.address.detailAddress}|">&nbsp;&nbsp;강남역 1번출구에서 100m</span>
             </div>
 
 
 
             <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
-              <i class="bi bi-currency-dollar"></i><span th:text="|평균 ${{restaurant.averageFoodsPrice}}|">&nbsp;&nbsp;평균 10,000원</span>
+              <i class="bi bi-currency-dollar"></i><span class="ms-1" th:text="|평균 ${{restaurant.averageFoodsPrice}}|">&nbsp;&nbsp;평균 10,000원</span>
             </div>
 
 
@@ -107,7 +107,7 @@
             </div>
 
             <div class="mt-3">
-              <div class="badge text-bg-light " th:each="provideServiceType : ${restaurant.provideServiceTypes}" th:text="${provideServiceType}" ></div>
+              <div class="fs-6 badge text-bg-light-primary " th:each="provideServiceType : ${restaurant.provideServiceTypes}" th:text="${provideServiceType}"></div>
             </div>
 
 
@@ -322,7 +322,7 @@
                 <div class="row">
                   <div class="col-12">
                     <h4 class="mb-4">매장 소개</h4>
-                    <p>청담동도심 속 정원에서 미국 정통 스테이크의 맛과 서비스를 느껴보세요. 넓은 정원과 쾌적한 환경을 제공해드립니다.</p>
+                    <p th:text="${restaurant.description}">청담동도심 속 정원에서 미국 정통 스테이크의 맛과 서비스를 느껴보세요. 넓은 정원과 쾌적한 환경을 제공해드립니다.</p>
 
                   </div>
 
@@ -341,105 +341,27 @@
 
                   <ul class="list-group list-group-flush">
                   <!-- list group -->
-                  <li class="list-group-item py-3 ps-0 border-top">
+                  <li class="list-group-item py-3 ps-0 border-top" th:each="food : ${restaurant.foods}">
                     <!-- 이미지 -->
                     <div class="row align-items-center" >
                       <div class="col-3 col-lg-1">
-                        <img src="/assets/images/restaurant/food/food1.jpeg" th:src="@{/assets/images/restaurant/food/food1.jpeg}" alt="Ecommerce" class="img-fluid">
+                        <img src="/assets/images/restaurant/food/food1.jpeg" th:src="@{${food.image}}" alt="Ecommerce" class="img-fluid">
                       </div>
 
                       <div class="col-4 col-md-6 col-lg-5">  <!-- col로 조절하면 됨-->
                         <!-- title -->
                         <a href="../restaurant/restaurant.html" class="text-inherit">
-                          <h5 class="mb-0" style="white-space: nowrap;">비건 소세지 바</h5>
+                          <h5 th:text="${food.name}" class="mb-0" style="white-space: nowrap;">비건 소세지 바</h5>
                         </a>
                         <div class="mt-1">
                         <!-- price -->
-                          <span class="fw-bold ">15,000원</span>
+                          <span class="fw-bold " th:text="${{food.price}}">15,000원</span>
                         </div>
                       </div>
                     </div>
                   </li>
                   <!-- list group -->
-                  <li class="list-group-item py-3 ps-0 border-top">
-                    <!-- 이미지 -->
-                    <div class="row align-items-center" >
-                      <div class="col-3 col-lg-1">
-                        <img src="/assets/images/restaurant/food/food1.jpeg" th:src="@{/assets/images/restaurant/food/food2.jpeg}" alt="Ecommerce" class="img-fluid">
-                      </div>
 
-                      <div class="col-4 col-md-6 col-lg-5">  <!-- col로 조절하면 됨-->
-                        <!-- title -->
-                        <a href="../restaurant/restaurant.html" class="text-inherit">
-                          <h5 class="mb-0" style="white-space: nowrap;">여러가지 버섯을 넣은 오일 파스타</h5>
-                        </a>
-                        <div class="mt-1">
-                        <!-- price -->
-                          <span class="fw-bold ">30,000원</span>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <!-- list group -->
-                  <li class="list-group-item py-3 ps-0 border-top">
-                    <!-- 이미지 -->
-                    <div class="row align-items-center" >
-                      <div class="col-3 col-lg-1">
-                        <img src="/assets/images/restaurant/food/food1.jpeg" th:src="@{/assets/images/restaurant/food/food3.jpeg}" alt="Ecommerce" class="img-fluid">
-                      </div>
-
-                      <div class="col-4 col-lg-5">  <!-- col로 조절하면 됨-->
-                        <!-- title -->
-                        <a href="../restaurant/restaurant.html" class="text-inherit">
-                          <h5 class="mb-0 " style="white-space: nowrap;">여러가지 버섯을 넣은 크림 파스타</h5>
-                        </a>
-                        <div class="mt-1">
-                        <!-- price -->
-                          <span class="fw-bold ">30,000원</span>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <!-- list group -->
-                  <li class="list-group-item py-3 ps-0 border-top">
-                    <!-- 이미지 -->
-                    <div class="row align-items-center" >
-                      <div class="col-3 col-lg-1">
-                        <img src="/assets/images/restaurant/food/food1.jpeg" th:src="@{/assets/images/restaurant/food/food4.jpeg}" alt="Ecommerce" class="img-fluid">
-                      </div>
-
-                      <div class="col-4 col-lg-5">  <!-- col로 조절하면 됨-->
-                        <!-- title -->
-                        <a href="../restaurant/restaurant.html" class="text-inherit">
-                          <h5 class="mb-0" style="white-space: nowrap;">마파두부를 올린 크림 리조또</h5>
-                        </a>
-                        <div class="mt-1">
-                        <!-- price -->
-                          <span class="fw-bold ">23,000원</span>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <!-- list group -->
-                  <li class="list-group-item py-3 ps-0 border-top">
-                    <!-- 이미지 -->
-                    <div class="row align-items-center" >
-                      <div class="col-3 col-lg-1">
-                        <img src="/assets/images/restaurant/food/food1.jpeg" th:src="@{/assets/images/restaurant/food/food5.jpeg}" alt="Ecommerce" class="img-fluid">
-                      </div>
-
-                      <div class="col-4 col-md-6 col-lg-5">  <!-- col로 조절하면 됨-->
-                        <!-- title -->
-                        <a href="../restaurant/restaurant.html" class="text-inherit">
-                          <h5 class="mb-0" style="white-space: nowrap;">고르곤졸라 크림 가지 발도스타나</h5>
-                        </a>
-                        <div class="mt-1">
-                        <!-- price -->
-                          <span class="fw-bold ">25,000원</span>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
 
 
 
@@ -750,225 +672,32 @@
 
       <!-- row -->
       <div class="row g-4 row-cols-xl-3 row-cols-lg-3 row-cols-2 row-cols-md-2 mt-2">
+
         <!-- col -->
-        <div class="col">
+        <div class="col" th:each="similarRestaurant : ${similarRestaurants}">
           <div class="card card-product" style="display: flex;flex-direction: column;flex: 1;">
             <div class="card-body " >
               <!-- badge -->
               <div class="text-center position-relative ">
-                <a href="/hello" ><img src="/assets/images/restaurant/dliea/place1.jpg" style="width:50rem;height:20rem" alt="딜리아다이닝" class="mb-3 img-fluid d-none d-lg-block"></a>
-                <a href="/hello" ><img src="/assets/images/restaurant/dliea/place1.jpg" style="width:50rem;height:9rem" alt="딜리아다이닝" class="mb-3 img-fluid d-block d-lg-none"></a>
+                <a href="/restaurants/1" ><img src="/assets/images/restaurant/dliea/place1.jpg" th:src="@{${similarRestaurant.restaurantImages[0]}}" style="width:50rem;height:20rem" class="mb-3 img-fluid d-none d-lg-block"></a>
+                <a href="/restaurants/1" ><img src="/assets/images/restaurant/dliea/place1.jpg" th:src="@{${similarRestaurant.restaurantImages[0]}}"  style="width:50rem;height:9rem" class="mb-3 img-fluid d-block d-lg-none"></a>
               </div>
 
               <!-- 식당 이름 및 분류-->
-              <div class="text-small mb-1"><a href="#!" class="text-decoration-none text-muted"><small>양식</small></a></div>
-              <h1 class="fs-5"><a href="#!" class="text-inherit text-decoration-none">딜리아다이닝</a></h1>
+              <div class="text-small mb-1"><a href="#!" class="text-decoration-none text-muted"><small th:each="restaurantType : ${similarRestaurant.restaurantTypes}" th:text="|${restaurantType} |">양식</small></a></div>
+              <h1 class="fs-5"><a href="/restaurants/1" th:href="@{/restaurants/{id}(id = ${similarRestaurant.id})}" class="text-inherit text-decoration-none" th:text="${similarRestaurant.name}">딜리아다이닝</a></h1>
 
               <div>
                 <!-- 별점-->
                  <small class="text-warning">
-                  <i class="bi bi-star-fill"></i></small> <span class="text-muted small">4.5(149)</span>
+                  <i class="bi bi-star-fill"></i></small> <span class="text-muted small" th:text="|${similarRestaurant.averageRating}(${similarRestaurant.reviewCount})|">4.5(149)</span>
               </div>
 
             </div>
           </div>
         </div>
-        <!-- col -->
-        <div class="col">
-          <div class="card card-product">
-            <div class="card-body  ">
-              <!-- badge -->
-
-              <div class="text-center position-relative ">
-                <a href="#!" class="col-12"><img src="/assets/images/restaurant/dliea/place2.jpg" style="width:50rem;height:20rem" alt="비건페스타" class="mb-3 img-fluid d-none d-lg-block"></a>
-                <a href="/hello" ><img src="/assets/images/restaurant/dliea/place2.jpg" style="width:50rem;height:9rem" alt="딜리아다이닝" class="mb-3 img-fluid d-block d-lg-none"></a>
-
-
-                <!-- action btn -->
-                <div class="card-product-action">
-                  <a href="#!" class="btn-action" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
-                      class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true" title="Quick View"></i></a>
-                  <a href="../pages/shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-                     title="Wishlist"><i class="bi bi-heart"></i></a>
-                  <a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true" title="Compare"><i
-                      class="bi bi-arrow-left-right"></i></a>
-                </div>
-              </div>
-              <!-- heading -->
-              <div class="text-small mb-1"><a href="#!" class="text-decoration-none text-muted"><small>한식</small></a></div>
-              <h1 class="fs-5"><a href="#!" class="text-inherit text-decoration-none">비건페스타</a></h1>
-              <div>
-
-                <!-- 별점-->
-                 <small class="text-warning">
-                  <i class="bi bi-star-fill"></i></small> <span class="text-muted small">4.5(149)</span>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <!-- col -->
-        <div class="col">
-          <div class="card card-product">
-            <div class="card-body">
-              <!-- badge -->
-
-              <div class="text-center position-relative ">
-
-                <a href="#!"><img src="/assets/images/restaurant/dliea/place3.jpg" style="width:50rem;height:20rem" alt="딜리아다이닝" class="mb-3 img-fluid d-none d-lg-block"></a>
-                <a href="/hello" ><img src="/assets/images/restaurant/dliea/place3.jpg" style="width:50rem;height:9rem" alt="딜리아다이닝" class="mb-3 img-fluid d-block d-lg-none"></a>
-
-                <!-- action btn -->
-                <div class="card-product-action">
-                  <a href="#!" class="btn-action" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
-                      class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true" title="Quick View"></i></a>
-                  <a href="../pages/shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-                     title="Wishlist"><i class="bi bi-heart"></i></a>
-                  <a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true" title="Compare"><i
-                      class="bi bi-arrow-left-right"></i></a>
-                </div>
-              </div>
-              <!-- heading -->
-              <div class="text-small mb-1"><a href="#!" class="text-decoration-none text-muted"><small>양식</small></a></div>
-              <h1 class="fs-5"><a href="#!" class="text-inherit text-decoration-none">딜리아다이닝</a></h1>
-              <div>
-
-                <!-- 별점-->
-                 <small class="text-warning">
-                  <i class="bi bi-star-fill"></i></small> <span class="text-muted small">4.5(149)</span>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <!-- col -->
-        <div class="col">
-          <div class="card card-product">
-            <div class="card-body">
-              <!-- badge -->
-
-              <div class="text-center position-relative ">
-
-                <a href="#!"><img src="/assets/images/restaurant/salardy_dache.jpeg" style="width:50rem;height:20rem" alt="딜리아다이닝" class="mb-3 img-fluid d-none d-lg-block"></a>
-                <a href="/hello" ><img src="/assets/images/restaurant/salardy_dache.jpeg" style="width:50rem;height:9rem" alt="딜리아다이닝" class="mb-3 img-fluid d-block d-lg-none"></a>
-
-
-                <!-- action btn -->
-                <div class="card-product-action">
-                  <a href="#!" class="btn-action" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
-                      class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true" title="Quick View"></i></a>
-                  <a href="../pages/shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-                     title="Wishlist"><i class="bi bi-heart"></i></a>
-                  <a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true" title="Compare"><i
-                      class="bi bi-arrow-left-right"></i></a>
-                </div>
-              </div>
-              <!-- heading -->
-              <div class="text-small mb-1"><a href="#!" class="text-decoration-none text-muted"><small>양식</small></a></div>
-              <h1 class="fs-5"><a href="#!" class="text-inherit text-decoration-none">딜리아다이닝</a></h1>
-              <div>
-
-                <!-- 별점-->
-                 <small class="text-warning">
-                  <i class="bi bi-star-fill"></i></small> <span class="text-muted small">4.5(149)</span>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <!-- col -->
-        <div class="col">
-          <div class="card card-product">
-            <div class="card-body">
-              <!-- badge -->
-
-              <div class="text-center position-relative ">
-
-                <a href="#!"><img src="/assets/images/restaurant/begun_begining.jpeg" style="width:50rem;height:20rem" alt="딜리아다이닝" class="mb-3 img-fluid d-none d-lg-block"></a>
-                <a href="/hello" ><img src="/assets/images/restaurant/begun_begining.jpeg" style="width:50rem;height:9rem" alt="딜리아다이닝" class="mb-3 img-fluid d-block d-lg-none"></a>
-
-                <!-- action btn -->
-                <div class="card-product-action">
-                  <a href="#!" class="btn-action" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
-                      class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true" title="Quick View"></i></a>
-                  <a href="../pages/shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-                     title="Wishlist"><i class="bi bi-heart"></i></a>
-                  <a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true" title="Compare"><i
-                      class="bi bi-arrow-left-right"></i></a>
-                </div>
-              </div>
-              <!-- heading -->
-              <div class="text-small mb-1"><a href="#!" class="text-decoration-none text-muted"><small>양식</small></a></div>
-              <h1 class="fs-5"><a href="#!" class="text-inherit text-decoration-none">딜리아다이닝</a></h1>
-              <div>
-
-                <!-- 별점-->
-                 <small class="text-warning">
-                  <i class="bi bi-star-fill"></i></small> <span class="text-muted small">4.5(149)</span>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <!-- col -->
-        <div class="col">
-          <div class="card card-product">
-            <div class="card-body">
-              <!-- badge -->
-
-              <div class="text-center position-relative ">
-
-                <a href="#!"><img src="/assets/images/restaurant/dliea/place3.jpg" style="width:50rem;height:20rem" alt="딜리아다이닝" class="mb-3 img-fluid d-none d-lg-block"></a>
-                <a href="/hello" ><img src="/assets/images/restaurant/dliea/place3.jpg" style="width:50rem;height:9rem" alt="딜리아다이닝" class="mb-3 img-fluid d-block d-lg-none"></a>
-
-                <!-- action btn -->
-                <div class="card-product-action">
-                  <a href="#!" class="btn-action" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i
-                      class="bi bi-eye" data-bs-toggle="tooltip" data-bs-html="true" title="Quick View"></i></a>
-                  <a href="../pages/shop-wishlist.html" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true"
-                     title="Wishlist"><i class="bi bi-heart"></i></a>
-                  <a href="#!" class="btn-action" data-bs-toggle="tooltip" data-bs-html="true" title="Compare"><i
-                      class="bi bi-arrow-left-right"></i></a>
-                </div>
-              </div>
-              <!-- heading -->
-              <div class="text-small mb-1"><a href="#!" class="text-decoration-none text-muted"><small>양식</small></a></div>
-              <h1 class="fs-5"><a href="#!" class="text-inherit text-decoration-none">딜리아다이닝</a></h1>
-              <div>
-
-                <!-- 별점-->
-                 <small class="text-warning">
-                  <i class="bi bi-star-fill"></i></small> <span class="text-muted small">4.5(149)</span>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
 
       </div>
-
-        <nav class="mt-3">
-          <ul class="pagination">
-            <li class="page-item disabled">
-              <a class="page-link  mx-1 " href="#" aria-label="Previous">
-                <i class="feather-icon icon-chevron-left"></i>
-              </a>
-            </li>
-            <li class="page-item "><a class="page-link  mx-1 active" href="#">1</a></li>
-            <li class="page-item"><a class="page-link mx-1 text-body" href="#">2</a></li>
-
-            <li class="page-item"><a class="page-link mx-1 text-body" href="#">...</a></li>
-            <li class="page-item"><a class="page-link mx-1 text-body" href="#">12</a></li>
-            <li class="page-item">
-              <a class="page-link mx-1 text-body" href="#" aria-label="Next">
-                <i class="feather-icon icon-chevron-right"></i>
-              </a>
-            </li>
-          </ul>
-        </nav>
-
-
     </div>
   </section>
 

@@ -65,26 +65,43 @@ class RestaurantRepositoryTest {
     sortConditions.add("LIKE");
     List<Restaurant> all = restaurantRepository.findAll(restaurantSearchCond);
     for (Restaurant restaurant1 : all) {
-      List<Review> reviews = restaurant1.getReviews();
-      List<Food> foods = restaurant1.getFoods();
       System.out.println("restaurant = " + restaurant1);
+      /*List<Review> reviews = restaurant1.getReviews();
+      List<Food> foods = restaurant1.getFoods();
       for (Review review1 : reviews) {
         System.out.println("review = " + review1);
       }
       System.out.println("음식들의 평균 값 : "+foods.stream().mapToInt(a->a.getPrice()).average().getAsDouble());
       for (Food food : foods) {
         System.out.println("food = " + food);
-      }
+      }*/
     }
   }
 
+
   @Test
-  void sdjfsd(){
-    List<RestaurantDto> restaurantStatistics = restaurantRepository.findStatistics();
-    System.out.println("restaurantStatistics = " + restaurantStatistics);
+  void djusd(){
+    Set<String> containFoodTypes = new HashSet<>();
+    containFoodTypes.add("계란 포함");
+    containFoodTypes.add("유제품 포함");
+    containFoodTypes.add("생선 포함");
+
+    Set<String> restaurantTypes = new HashSet<>();
+    restaurantTypes.add("한식");
+    restaurantTypes.add("이탈리아 음식");
+    restaurantTypes.add("터키 음식");
+
+    RestaurantSearchCond restaurantSearchCond = new RestaurantSearchCond();
+    restaurantSearchCond.setRestaurantTypes(restaurantTypes);
+    restaurantSearchCond.setContainFoodTypes(containFoodTypes);
+    restaurantSearchCond.setRoadAddress("서울 강남구 논현로28길 47 1층");
+    List<Restaurant> similarRestaurantsAll = restaurantRepository.findSimilarRestaurantsAll(
+        restaurantSearchCond);
+    for (Restaurant restaurant : similarRestaurantsAll) {
+      System.out.println("restaurant = " + restaurant);
+    }
+
   }
-
-
 
 
 }

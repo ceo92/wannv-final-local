@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -70,6 +71,18 @@ public class RestaurantService {
 
   }
 
+  public List<Restaurant> findSimilarRestaurants(Long id){
+    Restaurant ownerRestaurant = findOne(id);
+    Set<String> restaurantTypes = ownerRestaurant.getRestaurantTypes(); // 유제품 포함 , 계란 포함
+    Set<String> containFoodTypes = ownerRestaurant.getContainFoodTypes(); //양식 , 중식 , 한식
+    String roadAddress = ownerRestaurant.getAddress().getRoadAddress(); //도로명 주소 , 근처 주소면 좋으니 ! , 서울 강남구 까지 비슷할 경우 ㅇㅇ
+    RestaurantSearchCond restaurantSearchCond = new RestaurantSearchCond();
+    restaurantSearchCond.setContainFoodTypes(containFoodTypes);
+    restaurantSearchCond.setRestaurantTypes(restaurantTypes);
+    restaurantSearchCond.setRoadAddress(roadAddress);
+    return restaurantRepository.findSimilarRestaurantsAll(restaurantSearchCond);
+  }
+
   public List<Restaurant> findRestaurants(RestaurantSearchCond restaurantSearchCond){
     List<Restaurant> restaurants = restaurantRepository.findAll(restaurantSearchCond);
     restaurants.forEach(restaurant -> {
@@ -80,6 +93,7 @@ public class RestaurantService {
       String[] splitImages = restaurant.getImage().split(",");
       restaurant.addRestaurantImages(splitImages);
     });
+
 
     return restaurants;
   }
@@ -92,7 +106,6 @@ public class RestaurantService {
         .findAny().get();
     BusinessDay todayBusinessDay = restaurant.getBusinessDays().stream().filter(businessDay -> businessDay.getDayOfWeek().equals(todayDayOfWeek)).findAny().get();
     return todayBusinessDay;
-
   }
 
 

@@ -72,8 +72,7 @@ public class RestaurantController {
 
   //restaurant
   @GetMapping
-  public String getRestaurants(
-      @ModelAttribute("restaurantSearchCond") RestaurantSearchCond restaurantSearchCond,
+  public String getRestaurants(@ModelAttribute("restaurantSearchCond") RestaurantSearchCond restaurantSearchCond,
       Model model) {
     List<Restaurant> restaurants = restaurantService.findRestaurants(restaurantSearchCond);
     model.addAttribute("restaurants", restaurants);
@@ -90,7 +89,7 @@ public class RestaurantController {
     }
     model.addAttribute("restaurant", restaurant);
     model.addAttribute("todayBusinessDay", restaurantService.findToday(restaurant));
-    restaurant.getProvideServiceTypes().forEach(System.out::println);
+    model.addAttribute("similarRestaurants" , restaurantService.findSimilarRestaurants(id));
     return "restaurant/restaurant";
   }
 

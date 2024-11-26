@@ -80,7 +80,17 @@ public class RestaurantService {
     restaurantSearchCond.setContainFoodTypes(containFoodTypes);
     restaurantSearchCond.setRestaurantTypes(restaurantTypes);
     restaurantSearchCond.setRoadAddress(roadAddress);
-    return restaurantRepository.findSimilarRestaurantsAll(restaurantSearchCond);
+    List<Restaurant> similarRestaurants = restaurantRepository.findSimilarRestaurantsAll(
+        restaurantSearchCond);
+    similarRestaurants.forEach(restaurant -> {
+      double avgRating = restaurant.averageRate();
+      int likesCount = restaurant.totalLikesCount();
+      int reviewCount = restaurant.totalReviewCount();
+      restaurant.addStatistics(avgRating, likesCount, reviewCount);
+      String[] splitImages = restaurant.getImage().split(",");
+      restaurant.addRestaurantImages(splitImages);
+    });
+    return similarRestaurants;
   }
 
   public List<Restaurant> findRestaurants(RestaurantSearchCond restaurantSearchCond){

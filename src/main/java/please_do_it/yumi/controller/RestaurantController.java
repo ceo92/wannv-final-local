@@ -34,7 +34,6 @@ import please_do_it.yumi.service.RestaurantService;
 @RequestMapping("/restaurants")
 public class RestaurantController {
 
-  private final FileStore fileStore;
 
   private final RestaurantService restaurantService;
 
@@ -42,7 +41,7 @@ public class RestaurantController {
   public ContainFoodType[] containFoodTypes() {
     return ContainFoodType.values();
   }
-
+  
   @ModelAttribute("provideServiceTypes")
   public ProvideServiceType[] provideServiceTypes() {
     return ProvideServiceType.values();
@@ -89,7 +88,12 @@ public class RestaurantController {
     }
     model.addAttribute("restaurant", restaurant);
     model.addAttribute("todayBusinessDay", restaurantService.findToday(restaurant));
-    model.addAttribute("similarRestaurants" , restaurantService.findSimilarRestaurants(id));
+    List<Restaurant> similarRestaurants = restaurantService.findSimilarRestaurants(id);
+    for (Restaurant similarRestaurant : similarRestaurants) {
+      System.out.println("similarRestaurant = " + similarRestaurant);
+      System.out.println("similarRestaurantImage = " + similarRestaurant.getImage());
+    }
+    model.addAttribute("similarRestaurants" , similarRestaurants);
     return "restaurant/restaurant";
   }
 

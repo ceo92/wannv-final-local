@@ -5,6 +5,7 @@ import static please_do_it.yumi.domain.QLikes.likes;
 import static please_do_it.yumi.domain.QRestaurant.restaurant;
 import static please_do_it.yumi.domain.QReview.review;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -59,12 +60,25 @@ public class RestaurantRepository {
     Set<String> moodTypes = restaurantSearchCond.getMoodTypes();
     List<String> sortConditions = restaurantSearchCond.getSortConditions();
 
+    BooleanBuilder builder = new BooleanBuilder();
+    for (String restaurantType : restaurantTypes) {
+      builder.or(restaurant.restaurantTypes.any().eq(restaurantType));
+    }
+    for (String moodType : moodTypes) {
+      builder.or(restaurant.moodTypes.any().eq(moodType));
+    }
+    for (String containFoodType : containFoodTypes) {
+      builder.or(restaurant.containFoodTypes.any().eq(containFoodType));
+    }
+    for (String provideServiceType : provideServiceTypes) {
+      builder.or(restaurant.provideServiceTypes.any().eq(provideServiceType));
+    }
+
     JPAQuery<Restaurant> dynamicQuery = query.selectFrom(restaurant)
         .join(restaurant.reviews, review)
         .join(restaurant.foods, food)
         .join(restaurant.likes , likes)
-        .where(eqContainFoodTypes(containFoodTypes), eqRestaurantTypes(restaurantTypes),
-            eqProvideServiceTypes(provideServiceTypes), eqMoodTypes(moodTypes),
+        .where(builder,
             eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress))
         .groupBy(restaurant) //restaurant.id로 해도 되고 restaurant로 해도 되는듯 ㅇㅇ 그냥 restaurant로 그루핑이 됨 ㅇㅇ
         .having(goeRate(rates), loeGoePrice(startPrice, endPrice));
@@ -73,12 +87,22 @@ public class RestaurantRepository {
     return dynamicQuery.fetch();
   }
 
+
+
+
+
   public List<Restaurant> findSimilarRestaurantsAll(RestaurantSearchCond restaurantSearchCond) {
     Set<String> containFoodTypes = restaurantSearchCond.getContainFoodTypes();
     Set<String> restaurantTypes = restaurantSearchCond.getRestaurantTypes();
     String roadAddress = restaurantSearchCond.getRoadAddress();
-    return query.selectFrom(restaurant).where(eqContainFoodTypes(containFoodTypes)
-        , eqRestaurantTypes(restaurantTypes) , likeSimilarRoadAddress(roadAddress)).limit(6).fetch();
+    BooleanBuilder builder = new BooleanBuilder();
+    for (String restaurantType : restaurantTypes) {
+      builder.or(restaurant.restaurantTypes.any().eq(restaurantType));
+    }
+    for (String containFoodType : containFoodTypes) {
+      builder.or(restaurant.containFoodTypes.any().eq(containFoodType));
+    }
+    return query.selectFrom(restaurant).where(builder, likeSimilarRoadAddress(roadAddress)).limit(6).fetch();
 
 
   }
@@ -88,7 +112,7 @@ public class RestaurantRepository {
       return null;
     }
     String[] split = roadAddress.split(" ");
-    String similarAddress = split[0]+" "+split[1];
+    String similarAddress = split[0]+" "+split[1]+"%";
     return restaurant.address.roadAddress.like(similarAddress);
   }
 
@@ -122,9 +146,9 @@ public class RestaurantRepository {
       return null; // 조건이 없으면 null 반환
     }
     BooleanExpression booleanExpression = null;
-    for (String containFoodType : containFoodTypes) {
-      if (containFoodType != null) {
-        BooleanExpression condition = restaurant.containFoodTypes.any().eq(containFoodType);
+    for (String restaurantType : containFoodTypes) {
+      if (restaurantType != null) {
+        BooleanExpression condition = restaurant.restaurantTypes.any().eq(restaurantType);
         booleanExpression = (booleanExpression == null) ? condition : booleanExpression.or(condition); //or 조건을 꼭 후미에 붙여줘야함
       }
     }

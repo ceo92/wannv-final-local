@@ -25,7 +25,7 @@ public class HelloController {
     List<Restaurant> manyReviewsRestaurants = getManyReviewsRestaurants();
     List<Restaurant> highRatingRestaurants = getHighRatingRestaurants();
     List<Restaurant> manyLikesRestaurants = getManyLikesRestaurants();
-    List<Restaurant> restaurantsByPriceRange1 = getRestaurantsByPriceRange(5000 , 9999);
+    List<Restaurant> restaurantsByPriceRange1 = getRestaurantsByPriceRange(5000 , 10000);
     List<Restaurant> restaurantsByPriceRange2 = getRestaurantsByPriceRange(10000 , 30000);
     List<Restaurant> restaurantsByPriceRange3 = getRestaurantsByPriceRange(40000 , 60000);
     List<Restaurant> restaurantsByPriceRange4 = getRestaurantsByPriceRange(70000 , 100000);

@@ -15,14 +15,14 @@
 
   </style>
   <div class="container">
-    <form id="productForm">
+    <form id="productForm" th:object="${restaurantSaveDto}" method="post" th:action>
       <div class="row mb-8">
         <div class="col-md-12">
           <div class="d-md-flex justify-content-between align-items-center">
             <div>
               <h2>식당 등록</h2>
               <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="/products" class="text-inherit">식당 관리</a></li>
+                <li class="breadcrumb-item"><a href="/admin/restaurants" th:href="@{/admin/restaurants}" class="text-inherit">식당 관리</a></li>
                 <li class="breadcrumb-item active" aria-current="page">식당 등록</li>
               </ol>
             </div>
@@ -30,6 +30,8 @@
           </div>
         </div>
       </div>
+
+
       <div class="row">
         <div class="card mb-6 card-lg">
           <div class="card-body p-6 ">
@@ -37,26 +39,24 @@
 
             <div class="row mb-3">
               <div class="col-4 mt-5">
-                <label class="form-label h5">사업자 등록번호</label>
-                <input  name="cost-price" class="form-control" required>
+                <label class="form-label h5" for="businessNum">사업자 등록번호</label>
+                <input  th:field="*{businessNum}" id="businessNum" class="form-control" required>
               </div>
               <div class="col-4 mt-5">
-                <label class="form-label h5">식당 이름</label>
-                <input name="selling-price" class="form-control"
-                       required>
+                <label class="form-label h5" for="name">식당 이름</label>
+                <input class="form-control" th:field="*{name}" required>
               </div>
               <div class="col-4 mt-5">
-                <label class="form-label h5">식당 연락처</label>
-                <input name="selling-price" class="form-control"
-                       required>
+                <label for="contact" class="form-label h5">식당 연락처</label>
+                <input name="selling-price" class="form-control" th:field="*{contact}" required>
               </div>
 
             </div>
 
             <div class="row mb-3">
               <div class="col-12">
-                <label class="form-label h5" for="name">식당 설명</label>
-                <input id="name" name="cost-price" class="form-control" required>
+                <label class="form-label h5" for="description">식당 설명</label>
+                <input th:field="*{description}" class="form-control" required>
               </div>
             </div>
 
@@ -64,30 +64,10 @@
             <div class="row mb-3 mt-5">
               <label class="form-label h5">식당 분류</label>
               <div class="col-12" >
-                <input type="checkbox" class="btn-check" id="restaurantTypes1" autocomplete="off">
-                <label class="btn btn-outline-primary" for="restaurantTypes1" >한식</label>
-
-                <input type="checkbox" class="btn-check" id="restaurantTypes2" autocomplete="off">
-                <label class="btn btn-outline-primary" for="restaurantTypes2" >중식</label>
-
-                <input type="checkbox" class="btn-check" id="restaurantTypes3" autocomplete="off">
-                <label class="btn btn-outline-primary" for="restaurantTypes3" >양식</label>
-
-                <input type="checkbox" class="btn-check" id="restaurantTypes4" autocomplete="off">
-                <label class="btn btn-outline-primary" for="restaurantTypes4" >일식</label>
-
-                <input type="checkbox" class="btn-check" id="restaurantTypes5" autocomplete="off">
-                <label class="btn btn-outline-primary" for="restaurantTypes5" >태국 음식</label>
-
-                <input type="checkbox" class="btn-check" id="restaurantTypes6" autocomplete="off">
-                <label class="btn btn-outline-primary" for="restaurantTypes6" >터키 음식</label>
-
-                <input type="checkbox" class="btn-check" id="restaurantTypes7" autocomplete="off">
-                <label class="btn btn-outline-primary" for="restaurantTypes7" >프랑스 음식</label>
-
-                <input type="checkbox" class="btn-check" id="restaurantTypes8" autocomplete="off">
-                <label class="btn btn-outline-primary" for="restaurantTypes8" >이탈리아 음식</label>
-
+                <th:block th:each="restaurantType : ${restaurantTypes}">
+                  <input type="checkbox" class="btn-check"  th:field="*{restaurantTypes}" th:value="${restaurantType.description}" autocomplete="off">
+                  <label class="btn btn-outline-primary" th:for="${#ids.prev('restaurantTypes')}" th:text="${restaurantType.description}" >한식</label>
+                </th:block>
 
               </div>
             </div>
@@ -96,24 +76,10 @@
              <div class="row mb-3 mt-5">
               <label class="form-label h5">포함 음식</label>
               <div class="col-12" >
-                <input type="checkbox" class="btn-check" id="containFoodTypes1" autocomplete="off">
-                <label class="btn btn-outline-primary" for="containFoodTypes1" >유제품 포함</label>
-
-                <input type="checkbox" class="btn-check" id="containFoodTypes2" autocomplete="off">
-                <label class="btn btn-outline-primary" for="containFoodTypes2" >계란 포함</label>
-
-                <input type="checkbox" class="btn-check" id="containFoodTypes3" autocomplete="off">
-                <label class="btn btn-outline-primary" for="containFoodTypes3" >동물의 알 포함</label>
-
-                <input type="checkbox" class="btn-check" id="containFoodTypes4" autocomplete="off">
-                <label class="btn btn-outline-primary" for="containFoodTypes4" >생선 포함</label>
-
-                <input type="checkbox" class="btn-check" id="containFoodTypes5" autocomplete="off">
-                <label class="btn btn-outline-primary" for="containFoodTypes5" >닭고기 포함</label>
-
-                <input type="checkbox" class="btn-check" id="containFoodTypes6" autocomplete="off">
-                <label class="btn btn-outline-primary" for="containFoodTypes6" >붉은 고기 포함</label>
-
+                <th:block th:each="containFoodType : ${containFoodTypes}">
+                  <input type="checkbox" class="btn-check"  th:field="*{containFoodTypes}" th:value="${containFoodType.description}" autocomplete="off">
+                  <label class="btn btn-outline-primary" th:for="${#ids.prev('containFoodType')}" th:text="${containFoodType.description}" >유제품 포함</label>
+                </th:block>
               </div>
             </div>
 
@@ -121,59 +87,20 @@
               <div class="row mb-3 mt-5">
               <label class="form-label h5">제공하는 서비스</label>
               <div class="col-12" >
-                <input type="checkbox" class="btn-check" id="provideServiceTypes1" autocomplete="off">
-                <label class="btn btn-outline-primary" for="provideServiceTypes1" >글루텐프리 메뉴</label>
-
-                <input type="checkbox" class="btn-check" id="provideServiceTypes2" autocomplete="off">
-                <label class="btn btn-outline-primary" for="provideServiceTypes2" >단체 이용 가능</label>
-
-                <input type="checkbox" class="btn-check" id="provideServiceTypes3" autocomplete="off">
-                <label class="btn btn-outline-primary" for="provideServiceTypes3" >예약 가능</label>
-
-                <input type="checkbox" class="btn-check" id="provideServiceTypes4" autocomplete="off">
-                <label class="btn btn-outline-primary" for="provideServiceTypes4" >무선 인터넷</label>
-
-                <input type="checkbox" class="btn-check" id="provideServiceTypes5" autocomplete="off">
-                <label class="btn btn-outline-primary" for="provideServiceTypes5" >포장 가능</label>
-
-                <input type="checkbox" class="btn-check" id="provideServiceTypes6" autocomplete="off">
-                <label class="btn btn-outline-primary" for="provideServiceTypes6" >남녀 화장실 구분</label>
-
-                <input type="checkbox" class="btn-check" id="provideServiceTypes7" autocomplete="off">
-                <label class="btn btn-outline-primary" for="provideServiceTypes7" >배달 가능</label>
-
-                <input type="checkbox" class="btn-check" id="provideServiceTypes8" autocomplete="off">
-                <label class="btn btn-outline-primary" for="provideServiceTypes8" >휠체어 이용 가능</label>
-
+                <th:block th:each="provideServiceType : ${provideServiceTypes}">
+                  <input type="checkbox" class="btn-check"  th:field="*{provideServiceTypes}" th:value="${provideServiceType.description}" autocomplete="off">
+                  <label class="btn btn-outline-primary" th:for="${#ids.prev('provideServiceType')}" th:text="${provideServiceType.description}" >휠체어 이용 가능</label>
+                </th:block>
               </div>
             </div>
 
             <div class="row mb-3 mt-5">
               <label class="form-label h5">분위기</label>
               <div class="col-12" >
-                <input type="checkbox" class="btn-check" id="moodTypes1" autocomplete="off">
-                <label class="btn btn-outline-primary" for="moodTypes1" >데이트하기 좋은</label>
-
-                <input type="checkbox" class="btn-check" id="moodTypes2" autocomplete="off">
-                <label class="btn btn-outline-primary" for="moodTypes2" >모던한</label>
-
-                <input type="checkbox" class="btn-check" id="moodTypes3" autocomplete="off">
-                <label class="btn btn-outline-primary" for="moodTypes3" >트랜디한</label>
-
-                <input type="checkbox" class="btn-check" id="moodTypes4" autocomplete="off">
-                <label class="btn btn-outline-primary" for="moodTypes4" >가족회식하기 좋은</label>
-
-                <input type="checkbox" class="btn-check" id="moodTypes5" autocomplete="off">
-                <label class="btn btn-outline-primary" for="moodTypes5" >상견례</label>
-
-                <input type="checkbox" class="btn-check" id="moodTypes6" autocomplete="off">
-                <label class="btn btn-outline-primary" for="moodTypes6" >차분한</label>
-
-                <input type="checkbox" class="btn-check" id="moodTypes7" autocomplete="off">
-                <label class="btn btn-outline-primary" for="moodTypes7" >활기찬</label>
-
-                <input type="checkbox" class="btn-check" id="moodTypes8" autocomplete="off">
-                <label class="btn btn-outline-primary" for="moodTypes8" >즐거운</label>
+                <th:block th:each="moodType : ${moodTypes}">
+                  <input type="checkbox" class="btn-check"  th:field="*{moodTypes}" th:value="${moodType.description}" autocomplete="off">
+                  <label class="btn btn-outline-primary" th:for="${#ids.prev('moodType')}" th:text="${moodType.description}" >분위기 있는</label>
+                </th:block>
 
               </div>
             </div>
@@ -202,7 +129,7 @@
             <div class="row mb-3 mt-5">
               <label class="form-label h5">주차 가능 여부</label>
               <div class="col-12 form-check mx-3">
-                <input type="checkbox" id="canPark" name="canPark" class="form-check-input" required>
+                <input type="checkbox" th:field="*{canPark}" id="canPark" class="form-check-input" required>
                 <label class="form-check-label" for="canPark">주차 가능 여부</label>
               </div>
             </div>

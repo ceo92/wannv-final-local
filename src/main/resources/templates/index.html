@@ -149,18 +149,18 @@
 
         <div class="category-slider ">
 
-          <div class="item mt-5"  th:each="popularRestaurant : ${popularRestaurants}">
+          <div class="item mt-5"  th:each="manyLikesRestaurant : ${manyLikesRestaurants}">
             <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
               <div class="card card-product mb-lg-4">
                 <div class="card-body py-8">
-                  <img src="assets/images" th:src="@{${popularRestaurant.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
+                  <img src="assets/images" th:src="@{${manyLikesRestaurant.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
                   <div class="d-flex justify-content-start">
-                    <div class="text-truncate me-2 fs-5" th:text="${popularRestaurant.name}">Pet Care</div>
-                    <small class="me-1 text-muted mt-1" th:each="restaurantType : ${popularRestaurant.restaurantTypes}" th:text="${restaurantType}"></small>
+                    <div class="text-truncate me-2 fs-5" th:text="${manyLikesRestaurant.name}">Pet Care</div>
+                    <small class="me-1 text-muted mt-1" th:each="restaurantType : ${manyLikesRestaurant.restaurantTypes}" th:text="${restaurantType}"></small>
                   </div>
                   <small class="text-warning"><i class="bi bi-star-fill"></i></small>
-                  <small class="ms-1" th:text="|${#numbers.formatDecimal(popularRestaurant.averageRating , 0 , 1)}(${popularRestaurant.reviewCount})|">4.5(30)</small>
-                  <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${popularRestaurant.likesCount}|">123</span>
+                  <small class="ms-1" th:text="|${#numbers.formatDecimal(manyLikesRestaurant.averageRating , 0 , 1)}(${manyLikesRestaurant.reviewCount})|">4.5(30)</small>
+                  <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${manyLikesRestaurant.likesCount}|">123</span>
                 </div>
               </div>
             </a>
@@ -181,18 +181,18 @@
 
         <div class="category-slider ">
 
-          <div class="item mt-5"  th:each="popularRestaurant : ${popularRestaurants}">
+          <div class="item mt-5"  th:each="highRatingRestaurant : ${highRatingRestaurants}">
             <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
               <div class="card card-product mb-lg-4">
                 <div class="card-body py-8">
-                  <img src="assets/images" th:src="@{${popularRestaurant.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
+                  <img src="assets/images" th:src="@{${highRatingRestaurant.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
                   <div class="d-flex justify-content-start">
-                    <div class="text-truncate me-2 fs-5" th:text="${popularRestaurant.name}">Pet Care</div>
-                    <small class="me-1 text-muted mt-1" th:each="restaurantType : ${popularRestaurant.restaurantTypes}" th:text="${restaurantType}"></small>
+                    <div class="text-truncate me-2 fs-5" th:text="${highRatingRestaurant.name}">Pet Care</div>
+                    <small class="me-1 text-muted mt-1" th:each="restaurantType : ${highRatingRestaurant.restaurantTypes}" th:text="${restaurantType}"></small>
                   </div>
                   <small class="text-warning"><i class="bi bi-star-fill"></i></small>
-                  <small class="ms-1" th:text="|${#numbers.formatDecimal(popularRestaurant.averageRating , 0 , 1)}(${popularRestaurant.reviewCount})|">4.5(30)</small>
-                  <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${popularRestaurant.likesCount}|">123</span>
+                  <small class="ms-1" th:text="|${#numbers.formatDecimal(highRatingRestaurant.averageRating , 0 , 1)}(${highRatingRestaurant.reviewCount})|">4.5(30)</small>
+                  <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${highRatingRestaurant.likesCount}|">123</span>
                 </div>
               </div>
             </a>
@@ -213,18 +213,18 @@
 
         <div class="category-slider ">
 
-          <div class="item mt-5"  th:each="popularRestaurant : ${popularRestaurants}">
+          <div class="item mt-5"  th:each="manyReviewsRestaurant : ${manyReviewsRestaurants}">
             <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
               <div class="card card-product mb-lg-4">
                 <div class="card-body py-8">
-                  <img src="assets/images" th:src="@{${popularRestaurant.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
+                  <img src="assets/images" th:src="@{${manyReviewsRestaurant.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
                   <div class="d-flex justify-content-start">
-                    <div class="text-truncate me-2 fs-5" th:text="${popularRestaurant.name}">Pet Care</div>
-                    <small class="me-1 text-muted mt-1" th:each="restaurantType : ${popularRestaurant.restaurantTypes}" th:text="${restaurantType}"></small>
+                    <div class="text-truncate me-2 fs-5" th:text="${manyReviewsRestaurant.name}">Pet Care</div>
+                    <small class="me-1 text-muted mt-1" th:each="restaurantType : ${manyReviewsRestaurant.restaurantTypes}" th:text="${restaurantType}"></small>
                   </div>
                   <small class="text-warning"><i class="bi bi-star-fill"></i></small>
-                  <small class="ms-1" th:text="|${#numbers.formatDecimal(popularRestaurant.averageRating , 0 , 1)}(${popularRestaurant.reviewCount})|">4.5(30)</small>
-                  <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${popularRestaurant.likesCount}|">123</span>
+                  <small class="ms-1" th:text="|${#numbers.formatDecimal(manyReviewsRestaurant.averageRating , 0 , 1)}(${manyReviewsRestaurant.reviewCount})|">4.5(30)</small>
+                  <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${manyReviewsRestaurant.likesCount}|">123</span>
                 </div>
               </div>
             </a>
@@ -240,24 +240,56 @@
       <div class="container">
         <div class="row">
           <div class="col-12 mb-6">
+            <h3 class="mb-0">5천원 ~ 1만원 사이 추천 식당</h3>
+          </div>
+        </div>
+
+        <div class="category-slider ">
+
+          <div class="item mt-5"  th:each="restaurantByPriceRange : ${restaurantsByPriceRange1}">
+            <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
+              <div class="card card-product mb-lg-4">
+                <div class="card-body py-8">
+                  <img src="assets/images" th:src="@{${restaurantByPriceRange.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
+                  <div class="d-flex justify-content-start">
+                    <div class="text-truncate me-2 fs-5" th:text="${restaurantByPriceRange.name}">Pet Care</div>
+                    <small class="me-1 text-muted mt-1" th:each="restaurantType : ${restaurantByPriceRange.restaurantTypes}" th:text="${restaurantType}"></small>
+                  </div>
+                  <small class="text-warning"><i class="bi bi-star-fill"></i></small>
+                  <small class="ms-1" th:text="|${#numbers.formatDecimal(restaurantByPriceRange.averageRating , 0 , 1)}(${restaurantByPriceRange.reviewCount})|">4.5(30)</small>
+                  <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${restaurantByPriceRange.likesCount}|">123</span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <section class="mb-lg-10 mt-lg-14 my-8">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 mb-6">
             <h3 class="mb-0">1 ~ 3만원 사이 추천 식당</h3>
           </div>
         </div>
 
         <div class="category-slider ">
 
-          <div class="item mt-5"  th:each="popularRestaurant : ${popularRestaurants}">
+          <div class="item mt-5"  th:each="restaurantByPriceRange : ${restaurantsByPriceRange2}">
             <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
               <div class="card card-product mb-lg-4">
                 <div class="card-body py-8">
-                  <img src="assets/images" th:src="@{${popularRestaurant.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
+                  <img src="assets/images" th:src="@{${restaurantByPriceRange.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
                   <div class="d-flex justify-content-start">
-                    <div class="text-truncate me-2 fs-5" th:text="${popularRestaurant.name}">Pet Care</div>
-                    <small class="me-1 text-muted mt-1" th:each="restaurantType : ${popularRestaurant.restaurantTypes}" th:text="${restaurantType}"></small>
+                    <div class="text-truncate me-2 fs-5" th:text="${restaurantByPriceRange.name}">Pet Care</div>
+                    <small class="me-1 text-muted mt-1" th:each="restaurantType : ${restaurantByPriceRange.restaurantTypes}" th:text="${restaurantType}"></small>
                   </div>
                   <small class="text-warning"><i class="bi bi-star-fill"></i></small>
-                  <small class="ms-1" th:text="|${#numbers.formatDecimal(popularRestaurant.averageRating , 0 , 1)}(${popularRestaurant.reviewCount})|">4.5(30)</small>
-                  <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${popularRestaurant.likesCount}|">123</span>
+                  <small class="ms-1" th:text="|${#numbers.formatDecimal(restaurantByPriceRange.averageRating , 0 , 1)}(${restaurantByPriceRange.reviewCount})|">4.5(30)</small>
+                  <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${restaurantByPriceRange.likesCount}|">123</span>
                 </div>
               </div>
             </a>
@@ -278,18 +310,18 @@
 
         <div class="category-slider ">
 
-          <div class="item mt-5"  th:each="popularRestaurant : ${popularRestaurants}">
+          <div class="item mt-5"  th:each="restaurantByPriceRange : ${restaurantsByPriceRange3}">
             <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
               <div class="card card-product mb-lg-4">
                 <div class="card-body py-8">
-                  <img src="assets/images" th:src="@{${popularRestaurant.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
+                  <img src="assets/images" th:src="@{${restaurantByPriceRange.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
                   <div class="d-flex justify-content-start">
-                    <div class="text-truncate me-2 fs-5" th:text="${popularRestaurant.name}">Pet Care</div>
-                    <small class="me-1 text-muted mt-1" th:each="restaurantType : ${popularRestaurant.restaurantTypes}" th:text="${restaurantType}"></small>
+                    <div class="text-truncate me-2 fs-5" th:text="${restaurantByPriceRange.name}">Pet Care</div>
+                    <small class="me-1 text-muted mt-1" th:each="restaurantType : ${restaurantByPriceRange.restaurantTypes}" th:text="${restaurantType}"></small>
                   </div>
                   <small class="text-warning"><i class="bi bi-star-fill"></i></small>
-                  <small class="ms-1" th:text="|${#numbers.formatDecimal(popularRestaurant.averageRating , 0 , 1)}(${popularRestaurant.reviewCount})|">4.5(30)</small>
-                  <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${popularRestaurant.likesCount}|">123</span>
+                  <small class="ms-1" th:text="|${#numbers.formatDecimal(restaurantByPriceRange.averageRating , 0 , 1)}(${restaurantByPriceRange.reviewCount})|">4.5(30)</small>
+                  <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${restaurantByPriceRange.likesCount}|">123</span>
                 </div>
               </div>
             </a>
@@ -298,7 +330,6 @@
         </div>
       </div>
     </section>
-
 
 
 
@@ -312,18 +343,18 @@
 
         <div class="category-slider ">
 
-          <div class="item mt-5"  th:each="popularRestaurant : ${popularRestaurants}">
+          <div class="item mt-5"  th:each="restaurantByPriceRange : ${restaurantsByPriceRange4}">
             <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
               <div class="card card-product mb-lg-4">
                 <div class="card-body py-8">
-                  <img src="assets/images" th:src="@{${popularRestaurant.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
+                  <img src="assets/images" th:src="@{${restaurantByPriceRange.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
                   <div class="d-flex justify-content-start">
-                    <div class="text-truncate me-2 fs-5" th:text="${popularRestaurant.name}">Pet Care</div>
-                    <small class="me-1 text-muted mt-1" th:each="restaurantType : ${popularRestaurant.restaurantTypes}" th:text="${restaurantType}"></small>
+                    <div class="text-truncate me-2 fs-5" th:text="${restaurantByPriceRange.name}">Pet Care</div>
+                    <small class="me-1 text-muted mt-1" th:each="restaurantType : ${restaurantByPriceRange.restaurantTypes}" th:text="${restaurantType}"></small>
                   </div>
                   <small class="text-warning"><i class="bi bi-star-fill"></i></small>
-                  <small class="ms-1" th:text="|${#numbers.formatDecimal(popularRestaurant.averageRating , 0 , 1)}(${popularRestaurant.reviewCount})|">4.5(30)</small>
-                  <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${popularRestaurant.likesCount}|">123</span>
+                  <small class="ms-1" th:text="|${#numbers.formatDecimal(restaurantByPriceRange.averageRating , 0 , 1)}(${restaurantByPriceRange.reviewCount})|">4.5(30)</small>
+                  <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${restaurantByPriceRange.likesCount}|">123</span>
                 </div>
               </div>
             </a>
@@ -332,6 +363,9 @@
         </div>
       </div>
     </section>
+
+
+
 
 
 
@@ -361,9 +395,7 @@
               <div class="py-10 px-8 rounded"
                 style="background:url(./assets/images/banner/grocery-banner-2.jpg)no-repeat; background-size: cover; background-position: center;">
                 <div>
-                  <h3 class="fw-bold mb-1">유쾌한 분위기의 식당
-                    Buns
-                  </h3>
+                  <h3 class="fw-bold mb-1">유쾌한 분위기의 식당</h3>
                   <p class="mb-4">Get Upto <span class="fw-bold">25%</span> Off</p>
                   <a href="#!" class="btn btn-dark">Shop Now</a>
                 </div>
@@ -377,9 +409,7 @@
               <div class="py-10 px-8 rounded"
                 style="background:url(./assets/images/banner/grocery-banner-2.jpg)no-repeat; background-size: cover; background-position: center;">
                 <div>
-                  <h3 class="fw-bold mb-1">차분한 분위기의 식당
-                    Buns
-                  </h3>
+                  <h3 class="fw-bold mb-1">차분한 분위기의 식당</h3>
                   <p class="mb-4">Get Upto <span class="fw-bold">25%</span> Off</p>
                   <a href="#!" class="btn btn-dark">Shop Now</a>
                 </div>

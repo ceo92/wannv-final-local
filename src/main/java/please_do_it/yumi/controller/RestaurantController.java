@@ -96,7 +96,14 @@ public class RestaurantController {
     return "restaurant/restaurant";
   }
 
-  public Map<Integer, List<Review>> getReviewsByRating(Long id) {
+
+  @GetMapping("/save")
+  public String saveRestaurant(Model model){
+    model.addAttribute("restaurantSaveDto", new RestaurantSaveDto());
+    return "restaurant/admin-saveForm";
+  }
+
+  private Map<Integer, List<Review>> getReviewsByRating(Long id) {
     List<Review> reviewsByOneRating = restaurantService.findReviewsByRating(id, 1);
     List<Review> reviewsByTwoRating = restaurantService.findReviewsByRating(id, 2);
     List<Review> reviewsByThreeRating = restaurantService.findReviewsByRating(id, 3);
@@ -110,6 +117,9 @@ public class RestaurantController {
     reviewsByRating.put(5, reviewsByFiveRating);
     return reviewsByRating;
   }
+
+
+
 
 
 

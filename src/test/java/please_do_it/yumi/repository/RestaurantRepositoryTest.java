@@ -3,11 +3,13 @@ package please_do_it.yumi.repository;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import please_do_it.yumi.controller.RestaurantController;
 import please_do_it.yumi.domain.Food;
 import please_do_it.yumi.domain.Restaurant;
 import please_do_it.yumi.domain.Review;
@@ -19,6 +21,9 @@ class RestaurantRepositoryTest {
 
   @Autowired
   RestaurantRepository restaurantRepository;
+
+  @Autowired
+  RestaurantController restaurantController;
 
 
 
@@ -99,6 +104,15 @@ class RestaurantRepositoryTest {
         restaurantSearchCond);
     for (Restaurant restaurant : similarRestaurantsAll) {
       System.out.println("restaurant = " + restaurant);
+    }
+
+  }
+
+  @Test
+  void sfdsdffdskj(){
+    Map<Integer, List<Review>> reviewsByRating = restaurantController.getReviewsByRating(2L);
+    for (List<Review> value : reviewsByRating.values()) {
+      System.out.println((double)value.size() * 100/restaurantController.findRestaurant(2L).getReviewCount());
     }
 
   }

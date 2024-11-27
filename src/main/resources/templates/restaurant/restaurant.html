@@ -361,15 +361,7 @@
                     </div>
                   </li>
                   <!-- list group -->
-
-
-
-
                 </ul>
-
-
-
-
 
 
               </div>
@@ -383,81 +375,37 @@
                     <div class="me-lg-12 mb-6 mb-md-0">
                       <div class="mb-5">
                         <!-- title -->
-                        <h4 class="mb-3">Customer reviews</h4>
+                        <h4 class="mb-3">리뷰 통계</h4>
                         <span>
-                          <!-- rating --> <small class="text-warning"> <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i></small><span class="ms-3">4.1 out of 5</span><small
-                            class="ms-3">11,130 global ratings</small></span>
+                          <!-- rating -->
+                            <small class="text-warning" th:with="intAverageRating=${#numbers.formatDecimal(restaurant.averageRating , 0 , 0)}">
+                            <i class="bi bi-star-fill" th:each="rating : ${#numbers.sequence(1, intAverageRating)}"></i>
+                            <i class="bi bi-star-half" th:if="${restaurant.averageRating} - ${intAverageRating} > 0"></i>
+                            </small>
+                          <span class="ms-3" th:text="|5점 만점에 ${restaurant.averageRating}점|">5점 만점에 4.1점</span>
+                          <small class="ms-3" th:text="|${restaurant.reviewCount}명 투표|">130명 투표</small></span>
                       </div>
                       <div class="mb-8">
                         <!-- progress -->
-                        <div class="d-flex align-items-center mb-2">
-                          <div class="text-nowrap me-3 text-muted"><span
-                              class="d-inline-block align-middle text-muted">5</span><i
-                              class="bi bi-star-fill ms-1 small text-warning"></i></div>
+                        <div class="d-flex align-items-center mb-2" th:each="reviewsByRatingEntry : ${reviewsByRating}" th:with="rateCount=${#numbers.formatDecimal((reviewsByRatingEntry.value.size() * 100.0) / restaurant.reviewCount , 0 , 1)}">
+                          <div class="text-nowrap me-3 text-muted">
+                            <span class="d-inline-block align-middle text-muted" th:text="${reviewsByRatingEntry.key}">5</span><i class="bi bi-star-fill ms-1 small text-warning"></i>
+                          </div>
                           <div class="w-100">
                             <div class="progress" style="height: 6px;">
-                              <div class="progress-bar bg-warning" role="progressbar" style="width: 60%;"
-                                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                              <div class="progress-bar bg-warning" role="progressbar" style="width: 60%;" th:style="|width : ${rateCount}%|"
+                                aria-valuenow="60" th:aria-valuenow="${rateCount}" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
-                          </div><span class="text-muted ms-3">53%</span>
+                          </div>
+                              <span class="text-muted ms-3" th:text="|${rateCount}|"></span>
                         </div>
-                        <!-- progress -->
-                        <div class="d-flex align-items-center mb-2">
-                          <div class="text-nowrap me-3 text-muted"><span
-                              class="d-inline-block align-middle text-muted">4</span><i
-                              class="bi bi-star-fill ms-1 small text-warning"></i></div>
-                          <div class="w-100">
-                            <div class="progress" style="height: 6px;">
-                              <div class="progress-bar bg-warning" role="progressbar" style="width: 50%;"
-                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="50"></div>
-                            </div>
-                          </div><span class="text-muted ms-3">22%</span>
-                        </div>
-                        <!-- progress -->
-                        <div class="d-flex align-items-center mb-2">
-                          <div class="text-nowrap me-3 text-muted"><span
-                              class="d-inline-block align-middle text-muted">3</span><i
-                              class="bi bi-star-fill ms-1 small text-warning"></i></div>
-                          <div class="w-100">
-                            <div class="progress" style="height: 6px;">
-                              <div class="progress-bar bg-warning" role="progressbar" style="width: 35%;"
-                                aria-valuenow="35" aria-valuemin="0" aria-valuemax="35"></div>
-                            </div>
-                          </div><span class="text-muted ms-3">14%</span>
-                        </div>
-                        <!-- progress -->
-                        <div class="d-flex align-items-center mb-2">
-                          <div class="text-nowrap me-3 text-muted"><span
-                              class="d-inline-block align-middle text-muted">2</span><i
-                              class="bi bi-star-fill ms-1 small text-warning"></i></div>
-                          <div class="w-100">
-                            <div class="progress" style="height: 6px;">
-                              <div class="progress-bar bg-warning" role="progressbar" style="width: 22%;"
-                                aria-valuenow="22" aria-valuemin="0" aria-valuemax="22"></div>
-                            </div>
-                          </div><span class="text-muted ms-3">5%</span>
-                        </div>
-                        <!-- progress -->
-                        <div class="d-flex align-items-center mb-2">
-                          <div class="text-nowrap me-3 text-muted"><span
-                              class="d-inline-block align-middle text-muted">1</span><i
-                              class="bi bi-star-fill ms-1 small text-warning"></i></div>
-                          <div class="w-100">
-                            <div class="progress" style="height: 6px;">
-                              <div class="progress-bar bg-warning" role="progressbar" style="width: 14%;"
-                                aria-valuenow="14" aria-valuemin="0" aria-valuemax="14"></div>
-                            </div>
-                          </div><span class="text-muted ms-3">7%</span>
-                        </div>
+
+
                       </div>
+
                       <div class="d-grid">
-                        <h4>Review this product</h4>
-                        <p class="mb-0">Share your thoughts with other customers.</p>
-                        <a href="#" class="btn btn-outline-gray-400 mt-4 text-muted">Write the Review</a>
+                        <h4>리뷰 쓰기</h4>
+                        <a href="#" class="btn btn-outline-gray-400 mt-4 text-muted">리뷰 작성하기</a>
                       </div>
 
                     </div>
@@ -468,177 +416,41 @@
                       <div class="d-flex justify-content-between align-items-center mb-8">
                         <div>
                           <!-- heading -->
-                          <h4>Reviews</h4>
-                        </div>
-                        <div>
-                          <select class="form-select">
-                            <option selected>Top Review</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
+                          <h4>사용자 리뷰</h4>
                         </div>
 
                       </div>
-                      <div class="d-flex border-bottom pb-6 mb-6">
+                      <div class="d-flex border-bottom pb-6 mb-6" th:each="review : ${restaurant.reviews}">
                         <!-- img -->
-                        <!-- img --><img src="../../static/assets/images/avatar/avatar-10.jpg" alt=""
-                                         class="rounded-circle avatar-lg">
+                        <!-- img --><img src="../../static/assets/images/avatar/avatar-10.jpg" th:src="@{${review.user.profile}}" alt="" class="rounded-circle avatar-lg">
                         <div class="ms-5">
-                          <h6 class="mb-1">
-                            Shankar Subbaraman
-
-                          </h6>
+                          <h6 class="mb-1" th:text="${review.user.username}">이경민</h6>
                           <!-- select option -->
                           <!-- content -->
-                          <p class="small"> <span class="text-muted">30 December 2022</span>
-                            <span class="text-primary ms-3 fw-bold">Verified Purchase</span></p>
+                          <p class="small"> <span class="text-muted" th:text="${review.visitDate}">2022-12-04</span>
                           <!-- rating -->
                           <div class=" mb-2">
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <span class="ms-3 text-dark fw-bold">Need to recheck the weight at delivery point</span>
+                            <i class="bi bi-star-fill text-warning" th:each="rating : ${#numbers.sequence(1, review.rating)}"></i>
                           </div>
                           <!-- text-->
-                          <p>Product quality is good. But, weight seemed less than 1kg. Since it is being sent in open
-                            package, there is a possibility of pilferage in between. FreshCart sends the veggies and
-                            fruits through sealed plastic covers and Barcode on the weight etc. .</p>
+                          <p th:text="${review.content}">맛있어요 최고</p>
                           <div>
-                            <div class="border icon-shape icon-lg border-2 ">
-                              <!-- img --><img src="../../static/assets/images/products/product-img-1.jpg" alt=""
-                                               class="img-fluid ">
+                            <div class="border icon-shape border-2 "th:each="image : ${#strings.setSplit(review.image, ',')}">
+                              <img src="../../static/assets/images/products/product-img-1.jpg" th:src="@{${image}}" style="width:20rem;height:20rem" alt="" class="img-fluid ">
                             </div>
-                            <div class="border icon-shape icon-lg border-2 ms-1 ">
-                              <!-- img --><img src="../../static/assets/images/products/product-img-2.jpg" alt=""
-                                               class="img-fluid ">
-                            </div>
-                            <div class="border icon-shape icon-lg border-2 ms-1 ">
-                              <!-- img --><img src="../../static/assets/images/products/product-img-3.jpg" alt=""
-                                               class="img-fluid ">
-                            </div>
+                          </div>
 
+                          <div class="mt-3">
+                            <span class="fs-6 badge text-bg-light-primary me-1 mt-2" th:each="reviewTag : ${review.reviewTags}" th:text="${reviewTag.tag.name}">글루텐프리 메뉴</span>
                           </div>
-                          <!-- icon -->
-                          <div class="d-flex justify-content-end mt-4">
-                            <a href="#" class="text-muted"><i class="feather-icon icon-thumbs-up me-1"></i>Helpful</a>
-                            <a href="#" class="text-muted ms-4"><i class="feather-icon icon-flag me-2"></i>Report
-                              abuse</a>
-                          </div>
+
+
                         </div>
                       </div>
-                      <div class="d-flex border-bottom pb-6 mb-6 pt-4">
-                        <!-- img --><img src="../../static/assets/images/avatar/avatar-12.jpg" alt=""
-                                         class="rounded-circle avatar-lg">
-                        <div class="ms-5">
-                          <h6 class="mb-1">
-                            Robert Thomas
 
-                          </h6>
-                          <!-- content -->
-                          <p class="small"> <span class="text-muted">29 December 2022</span>
-                            <span class="text-primary ms-3 fw-bold">Verified Purchase</span></p>
-                          <!-- rating -->
-                          <div class=" mb-2">
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <span class="ms-3 text-dark fw-bold">Need to recheck the weight at delivery point</span>
-                          </div>
-
-                          <p>Product quality is good. But, weight seemed less than 1kg. Since it is being sent in open
-                            package, there is a possibility of pilferage in between. FreshCart sends the veggies and
-                            fruits through sealed plastic covers and Barcode on the weight etc. .</p>
-
-                          <!-- icon -->
-                          <div class="d-flex justify-content-end mt-4">
-                            <a href="#" class="text-muted"><i class="feather-icon icon-thumbs-up me-1"></i>Helpful</a>
-                            <a href="#" class="text-muted ms-4"><i class="feather-icon icon-flag me-2"></i>Report
-                              abuse</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex border-bottom pb-6 mb-6 pt-4">
-                        <!-- img --><img src="../../static/assets/images/avatar/avatar-9.jpg" alt=""
-                                         class="rounded-circle avatar-lg">
-                        <div class="ms-5">
-                          <h6 class="mb-1">
-                            Barbara Tay
-
-                          </h6>
-                          <!-- content -->
-                          <p class="small"> <span class="text-muted">28 December 2022</span>
-                            <span class="text-danger ms-3 fw-bold">Unverified Purchase</span></p>
-                          <!-- rating -->
-                          <div class=" mb-2">
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <span class="ms-3 text-dark fw-bold">Need to recheck the weight at delivery point</span>
-                          </div>
-
-                          <p>Everytime i ordered from fresh i got greenish yellow bananas just like i wanted so go for
-                            it , its happens very rare that u get over riped ones.</p>
-
-                          <!-- icon -->
-                          <div class="d-flex justify-content-end mt-4">
-                            <a href="#" class="text-muted"><i class="feather-icon icon-thumbs-up me-1"></i>Helpful</a>
-                            <a href="#" class="text-muted ms-4"><i class="feather-icon icon-flag me-2"></i>Report
-                              abuse</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex border-bottom pb-6 mb-6 pt-4">
-                        <!-- img --><img src="../../static/assets/images/avatar/avatar-8.jpg" alt=""
-                                         class="rounded-circle avatar-lg">
-                        <div class="ms-5 flex-grow-1">
-                          <h6 class="mb-1">
-                            Sandra Langevin
-
-                          </h6>
-                          <!-- content -->
-                          <p class="small"> <span class="text-muted">8 December 2022</span>
-                            <span class="text-danger ms-3 fw-bold">Unverified Purchase</span></p>
-                          <!-- rating -->
-                          <div class=" mb-2">
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star text-warning"></i>
-                            <span class="ms-3 text-dark fw-bold">Great product</span>
-                          </div>
-
-                          <p>Great product & package. Delivery can be expedited. </p>
-
-                          <!-- icon -->
-                          <div class="d-flex justify-content-end mt-4">
-                            <a href="#" class="text-muted"><i class="feather-icon icon-thumbs-up me-1"></i>Helpful</a>
-                            <a href="#" class="text-muted ms-4"><i class="feather-icon icon-flag me-2"></i>Report
-                              abuse</a>
-                          </div>
-                        </div>
-                      </div>
                       <div>
-                        <a href="#" class="btn btn-outline-gray-400 text-muted">Read More Reviews</a>
+                        <a href="#" class="btn btn-outline-gray-400 text-muted">더 많은 리뷰 보기</a>
                       </div>
-                    </div>
-                    <div>
-
-                      <!-- form control -->
-                      <div class="border-bottom py-4 mb-4">
-                        <h5>Add a headline</h5>
-                        <input type="text" class="form-control" placeholder="What’s most important to know">
-                      </div>
-
-
-
                     </div>
                   </div>
                 </div>
@@ -646,9 +458,7 @@
 
 
             </div>
-            <!-- tab pane -->
-            <div class="tab-pane fade" id="sellerInfo-tab-pane" role="tabpanel" aria-labelledby="sellerInfo-tab"
-              tabindex="0">...</div>
+
           </div>
         </div>
       </div>
@@ -690,7 +500,7 @@
               <div>
                 <!-- 별점-->
                  <small class="text-warning">
-                  <i class="bi bi-star-fill"></i></small> <span class="text-muted small" th:text="|${similarRestaurant.averageRating}(${similarRestaurant.reviewCount})|">4.5(149)</span>
+                  <i class="bi bi-star-fill"></i></small> <span class="text-muted small" th:text="|${{similarRestaurant.averageRating}}(${similarRestaurant.reviewCount})|">4.5(149)</span>
               </div>
 
             </div>

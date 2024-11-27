@@ -13,7 +13,8 @@ public class User {
   @Id @GeneratedValue
   private Long id;
 
-  private String name;
+  private String username; // 유저 이름
 
+  private String profile; //프로필 이미지
 
 }

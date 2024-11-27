@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -15,6 +16,7 @@ import please_do_it.yumi.constant.BusinessStatus;
 import please_do_it.yumi.domain.BusinessDay;
 import please_do_it.yumi.domain.Food;
 import please_do_it.yumi.domain.Restaurant;
+import please_do_it.yumi.domain.Review;
 import please_do_it.yumi.dto.RestaurantSaveDto;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 import please_do_it.yumi.dto.RestaurantUpdateDto;
@@ -57,6 +59,12 @@ public class RestaurantService {
   }
 
 
+  public List<Review> findReviewsByRating(Long id , Integer rating){
+    return findOne(id).getReviews().stream().filter(review -> review.getRating().equals(rating)).toList();
+  }
+
+
+
   public Restaurant findOne(Long id){
     Restaurant restaurant = restaurantRepository.findById(id).orElse(null);
     double avgRating = restaurant.averageRate();
@@ -73,13 +81,8 @@ public class RestaurantService {
 
   public List<Restaurant> findSimilarRestaurants(Long id){
     Restaurant ownerRestaurant = findOne(id);
-    Set<String> restaurantTypes = ownerRestaurant.getRestaurantTypes(); // 유제품 포함 , 계란 포함
-    Set<String> containFoodTypes = ownerRestaurant.getContainFoodTypes(); //양식 , 중식 , 한식
-    String roadAddress = ownerRestaurant.getAddress().getRoadAddress(); //도로명 주소 , 근처 주소면 좋으니 ! , 서울 강남구 까지 비슷할 경우 ㅇㅇ
-    RestaurantSearchCond restaurantSearchCond = new RestaurantSearchCond();
-    restaurantSearchCond.setContainFoodTypes(containFoodTypes);
-    restaurantSearchCond.setRestaurantTypes(restaurantTypes);
-    restaurantSearchCond.setRoadAddress(roadAddress);
+    RestaurantSearchCond restaurantSearchCond = getRestaurantSearchCond(
+        ownerRestaurant);
     List<Restaurant> similarRestaurants = restaurantRepository.findSimilarRestaurantsAll(
         restaurantSearchCond);
     similarRestaurants.forEach(restaurant -> {
@@ -91,6 +94,17 @@ public class RestaurantService {
       restaurant.addRestaurantImages(splitImages);
     });
     return similarRestaurants;
+  }
+
+  private static RestaurantSearchCond getRestaurantSearchCond(Restaurant ownerRestaurant) {
+    Set<String> restaurantTypes = ownerRestaurant.getRestaurantTypes(); // 유제품 포함 , 계란 포함
+    Set<String> containFoodTypes = ownerRestaurant.getContainFoodTypes(); //양식 , 중식 , 한식
+    String roadAddress = ownerRestaurant.getAddress().getRoadAddress(); //도로명 주소 , 근처 주소면 좋으니 ! , 서울 강남구 까지 비슷할 경우 ㅇㅇ
+    RestaurantSearchCond restaurantSearchCond = new RestaurantSearchCond();
+    restaurantSearchCond.setContainFoodTypes(containFoodTypes);
+    restaurantSearchCond.setRestaurantTypes(restaurantTypes);
+    restaurantSearchCond.setRoadAddress(roadAddress);
+    return restaurantSearchCond;
   }
 
   public List<Restaurant> findRestaurants(RestaurantSearchCond restaurantSearchCond){

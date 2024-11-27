@@ -46,6 +46,7 @@ public class RestaurantRepository {
 
 
 
+
   public List<Restaurant> findAll(RestaurantSearchCond restaurantSearchCond){
 
     Boolean canPark = restaurantSearchCond.getCanPark();
@@ -60,28 +61,33 @@ public class RestaurantRepository {
     Set<String> moodTypes = restaurantSearchCond.getMoodTypes();
     List<String> sortConditions = restaurantSearchCond.getSortConditions();
 
-    BooleanBuilder builder = new BooleanBuilder();
+    BooleanBuilder whereBuilder = new BooleanBuilder();
     for (String restaurantType : restaurantTypes) {
-      builder.or(restaurant.restaurantTypes.any().eq(restaurantType));
+      whereBuilder.or(restaurant.restaurantTypes.any().eq(restaurantType));
     }
     for (String moodType : moodTypes) {
-      builder.or(restaurant.moodTypes.any().eq(moodType));
+      whereBuilder.or(restaurant.moodTypes.any().eq(moodType));
     }
     for (String containFoodType : containFoodTypes) {
-      builder.or(restaurant.containFoodTypes.any().eq(containFoodType));
+      whereBuilder.or(restaurant.containFoodTypes.any().eq(containFoodType));
     }
     for (String provideServiceType : provideServiceTypes) {
-      builder.or(restaurant.provideServiceTypes.any().eq(provideServiceType));
+      whereBuilder.or(restaurant.provideServiceTypes.any().eq(provideServiceType));
+    }
+
+    BooleanBuilder havingBuilder = new BooleanBuilder();
+    for (Integer rate : rates) {
+      havingBuilder.or(review.rating.avg().goe(rate).and(review.rating.avg().lt(rate + 1)));
     }
 
     JPAQuery<Restaurant> dynamicQuery = query.selectFrom(restaurant)
         .join(restaurant.reviews, review)
         .join(restaurant.foods, food)
         .join(restaurant.likes , likes)
-        .where(builder,
+        .where(whereBuilder,
             eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress))
         .groupBy(restaurant) //restaurant.id로 해도 되고 restaurant로 해도 되는듯 ㅇㅇ 그냥 restaurant로 그루핑이 됨 ㅇㅇ
-        .having(goeRate(rates), loeGoePrice(startPrice, endPrice));
+        .having(havingBuilder, loeGoePrice(startPrice, endPrice));
     addOrderBy(sortConditions, dynamicQuery);
 
     return dynamicQuery.fetch();
@@ -102,7 +108,7 @@ public class RestaurantRepository {
     for (String containFoodType : containFoodTypes) {
       builder.or(restaurant.containFoodTypes.any().eq(containFoodType));
     }
-    return query.selectFrom(restaurant).where(builder, likeSimilarRoadAddress(roadAddress)).limit(6).fetch();
+    return query.selectFrom(restaurant).where(builder, likeSimilarRoadAddress(roadAddress)).fetch();
 
 
   }

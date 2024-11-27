@@ -44,12 +44,15 @@ public class Restaurant {
   private String contact; //연락처
 
   @Transient
+  @NumberFormat(pattern = "#,###.##")
   private Double averageRating;
 
   @Transient
+  @NumberFormat(pattern = "#,###")
   private Integer reviewCount;
 
   @Transient
+  @NumberFormat(pattern = "#,###")
   private Integer likesCount;
 
   @Transient

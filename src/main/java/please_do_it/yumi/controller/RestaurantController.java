@@ -24,6 +24,7 @@ import please_do_it.yumi.constant.ProvideServiceType;
 import please_do_it.yumi.constant.RestaurantType;
 import please_do_it.yumi.domain.BusinessDay;
 import please_do_it.yumi.domain.Restaurant;
+import please_do_it.yumi.domain.Review;
 import please_do_it.yumi.dto.RestaurantSaveDto;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 import please_do_it.yumi.service.RestaurantService;
@@ -89,17 +90,34 @@ public class RestaurantController {
     model.addAttribute("restaurant", restaurant);
     model.addAttribute("todayBusinessDay", restaurantService.findToday(restaurant));
     List<Restaurant> similarRestaurants = restaurantService.findSimilarRestaurants(id);
-    for (Restaurant similarRestaurant : similarRestaurants) {
-      System.out.println("similarRestaurant = " + similarRestaurant);
-      System.out.println("similarRestaurantImage = " + similarRestaurant.getImage());
-    }
-    model.addAttribute("similarRestaurants" , similarRestaurants);
+    model.addAttribute("similarRestaurants", similarRestaurants);
+    model.addAttribute("reviewsByRating", getReviewsByRating(id));
+
     return "restaurant/restaurant";
   }
 
+
+  public Restaurant findRestaurant(Long id){
+    return restaurantService.findOne(id);
+  }
+  public Map<Integer, List<Review>> getReviewsByRating(Long id) {
+    List<Review> reviewsByOneRating = restaurantService.findReviewsByRating(id, 1);
+    List<Review> reviewsByTwoRating = restaurantService.findReviewsByRating(id, 2);
+    List<Review> reviewsByThreeRating = restaurantService.findReviewsByRating(id, 3);
+    List<Review> reviewsByFourRating = restaurantService.findReviewsByRating(id, 4);
+    List<Review> reviewsByFiveRating = restaurantService.findReviewsByRating(id, 5);
+    Map<Integer, List<Review>> reviewsByRating = new HashMap<>();
+    reviewsByRating.put(1, reviewsByOneRating);
+    reviewsByRating.put(2, reviewsByTwoRating);
+    reviewsByRating.put(3, reviewsByThreeRating);
+    reviewsByRating.put(4, reviewsByFourRating);
+    reviewsByRating.put(5, reviewsByFiveRating);
+    return reviewsByRating;
+  }
+
+
+
   //UrlResource 자체가 필요 없음 , 어차피 Url직접 웹에서 링크로 조회해서 띄우는 것임 ㅇㅇ 내 서버로 들어와서 DB에 접근해서 띄우는 게 아닌 !
-
-
 
 
 }

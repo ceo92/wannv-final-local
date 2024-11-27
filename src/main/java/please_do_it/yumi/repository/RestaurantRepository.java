@@ -124,9 +124,10 @@ public class RestaurantRepository {
 
 
   private void addOrderBy(List<String> sortConditions, JPAQuery<Restaurant> dynamicQuery) {
+
     //생각해보면 굳이 Boolean으로 판정할 필요가 아예 없었네 ㅇㅇ 그냥 라디오 버튼으로 String 값 넘어오면 이 String 값 있냐고 확인해서 판정하면 끝나는 일을 ;; ㅋㅋ
     for (String sortCondition : sortConditions) {
-      switch (sortCondition){
+      switch (sortCondition) {
         case "NEW":
           dynamicQuery.orderBy(restaurant.createdAt.desc().nullsLast()); //최신 순
           break;
@@ -140,8 +141,9 @@ public class RestaurantRepository {
           dynamicQuery.orderBy(review.count().desc().nullsLast()); //리뷰 많은 순
           break;
       }
+      System.out.println("11111");
     }
-    sortConditions.clear();
+//      sortConditions.clear();
   }
 
   //모달 보안성 우수 => 제3자가 접근하기 어려움, 단순 팝업창 느낌이므로 , 이런 2가지 방법을 고려했을 때 ~~가 더 괜찮아서 이거를 선정하였다. 이렇게 면접이든 포폴이든 정의하자!

@@ -66,7 +66,7 @@
                     <h5 class="mb-3">정렬 조건</h5>
 
                     <th:block class="form-check mb-2" th:each="sortCondition : ${sortConditions}">
-                      <input th:field="*{sortConditions}" class="btn-check" type="radio"  th:value="${sortCondition.key}">
+                      <input th:field="*{sortConditions}" class="btn-check" type="checkbox"  th:value="${sortCondition.key}">
                       <label class="btn btn-outline-primary btn-sm" th:for="${#ids.prev('sortConditions')}" th:text="${sortCondition.value}"></label>
                     </th:block>
 
@@ -256,7 +256,7 @@
                           <span class="text-dark" th:text="${restaurant.businessStatus.description}">영업 중</span>
                           <span class="text-muted small">&nbsp;・&nbsp;</span>
                           <!-- rating -->
-                          <small class="text-warning"> <i class="bi bi-star-fill"></i></small><span class="text-muted small" th:text="|${restaurant.averageRating}(${restaurant.reviewCount})|">4.5(60)</span>
+                          <small class="text-warning"> <i class="bi bi-star-fill"></i></small><span class="text-muted small" th:text="|${#numbers.formatDecimal(restaurant.averageRating , 0 , 1)}(${restaurant.reviewCount})|">4.5(60)</span>
                           <span class="text-muted small">&nbsp;・&nbsp;</span>
                           <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${restaurant.likesCount}|">123</span>
                         </div>

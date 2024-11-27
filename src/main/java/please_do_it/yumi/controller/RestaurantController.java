@@ -96,10 +96,6 @@ public class RestaurantController {
     return "restaurant/restaurant";
   }
 
-
-  public Restaurant findRestaurant(Long id){
-    return restaurantService.findOne(id);
-  }
   public Map<Integer, List<Review>> getReviewsByRating(Long id) {
     List<Review> reviewsByOneRating = restaurantService.findReviewsByRating(id, 1);
     List<Review> reviewsByTwoRating = restaurantService.findReviewsByRating(id, 2);

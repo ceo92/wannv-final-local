@@ -80,7 +80,7 @@
               <span class="text-muted me-1" th:each="restaurantType : ${restaurant.restaurantTypes}" th:text="|${restaurantType}|">양식</span>
             <h1 class="mb-1" th:text="${restaurant.name}">음 이터리 </h1>
             <div class="mb-4">
-              <!-- rating --> <small class="text-warning"><i class="bi bi-star-fill"></i></small><a href="#" class="ms-1" th:text="|리뷰 ${restaurant.reviewCount}개|">리뷰 30개</a>
+              <!-- rating --> <small class="text-warning"><i class="bi bi-star-fill"></i></small><a href="#" class="ms-1" th:text="|${restaurant.averageRating}(${restaurant.reviewCount})|">4.5(30)</a>
             </div>
             <span th:text="${restaurant.description}">최고의 비건 맛집 음 이터리입니다.</span>
 
@@ -123,51 +123,6 @@
               </div>
 
 
-
-
-              <!-- 예약하기 모달창(윤호님 기능)-->
-              <div class="modal fade" id="exampleModalToggle" data-bs-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalToggleLabel">예약</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="content">
-                        <h2>예약 날짜</h2>
-                        <form action="#" class="row">
-                          <div class="col-md-12">
-                            <div id="inline_cal"></div>
-                          </div>
-                        </form>
-                        <h2 style="padding-top: 40px;">인원 수</h2>
-                        <div class="button-slider" id="person-buttons">
-                          <button type="button" class="circle-button">1</button>
-                          <button type="button" class="circle-button">2</button>
-                          <button type="button" class="circle-button">3</button>
-                          <button type="button" class="circle-button">4</button>
-                          <button type="button" class="circle-button">5</button>
-                          <button type="button" class="circle-button">6</button>
-                        </div>
-                        <h2 style="padding-top: 40px;">예약 시간</h2>
-                        <div class="button-slider" id="time-buttons">
-                          <button type="button" class="rectangle-button">오후 14 : 00</button>
-                          <button type="button" class="rectangle-button">오후 15 : 00</button>
-                          <button type="button" class="rectangle-button">오후 16 : 00</button>
-                          <button type="button" class="rectangle-button">오후 17 : 00</button>
-                          <button type="button" class="rectangle-button">오후 18 : 00</button>
-                          <button type="button" class="rectangle-button">오후 19 : 00</button>
-                          <button type="button" class="rectangle-button">오후 20 : 00</button>
-                        </div>
-                        <div class="clear">
-                          <button type="button" class="clear-button" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">예약 하기</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
               <div class="modal fade" id="exampleModalToggle2" data-bs-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">

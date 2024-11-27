@@ -96,6 +96,7 @@ public class RestaurantService {
     return similarRestaurants;
   }
 
+
   private static RestaurantSearchCond getRestaurantSearchCond(Restaurant ownerRestaurant) {
     Set<String> restaurantTypes = ownerRestaurant.getRestaurantTypes(); // 유제품 포함 , 계란 포함
     Set<String> containFoodTypes = ownerRestaurant.getContainFoodTypes(); //양식 , 중식 , 한식

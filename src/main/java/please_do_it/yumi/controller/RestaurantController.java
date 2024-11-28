@@ -1,5 +1,6 @@
 package please_do_it.yumi.controller;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import please_do_it.yumi.constant.ContainFoodType;
 import please_do_it.yumi.constant.MoodType;
@@ -26,6 +28,7 @@ import please_do_it.yumi.constant.ReservationTimeGap;
 import please_do_it.yumi.constant.RestaurantType;
 import please_do_it.yumi.domain.Restaurant;
 import please_do_it.yumi.domain.Review;
+import please_do_it.yumi.dto.FoodSaveDto;
 import please_do_it.yumi.dto.RestaurantSaveDto;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 import please_do_it.yumi.service.RestaurantService;
@@ -35,7 +38,7 @@ import please_do_it.yumi.service.RestaurantService;
 @RequiredArgsConstructor
 public class RestaurantController {
 
-
+  private final FileStore fileStore;
   private final RestaurantService restaurantService;
 
   @ModelAttribute("containFoodTypes")
@@ -89,21 +92,6 @@ public class RestaurantController {
     return dayOfWeeks;
   }
 
- /* @ModelAttribute("isDayOffList")
-  public List<String> isDayOffList(){
-    List<String> list = new ArrayList<>();
-    list.add("월요일 휴무");
-    list.add("화요일 휴무");
-    list.add("수요일 휴무");
-    list.add("월요일 휴무");
-    list.add("월요일 휴무");
-    list.add("월요일 휴무");
-    list.add("월요일 휴무");
-
-
-  }*/
-
-
 
 
   //restaurant
@@ -140,13 +128,15 @@ public class RestaurantController {
   }
 
   @PostMapping("/restaurants/save")
-  public String saveRestaurantPost(@ModelAttribute("restaurantSaveDto") RestaurantSaveDto restaurantSaveDto ,  RedirectAttributes redirectAttributes){
+  public String saveRestaurantPost(@ModelAttribute("restaurantSaveDto") RestaurantSaveDto restaurantSaveDto ,  RedirectAttributes redirectAttributes) throws IOException {
     log.info("food = {}" , restaurantSaveDto.getFoodSaveDtoList());
+    restaurantSaveDto.getImage()
+    List<FoodSaveDto> foodSaveDtoList = restaurantSaveDto.getFoodSaveDtoList();
+    for (FoodSaveDto foodSaveDto : foodSaveDtoList) {
 
+      String imagePathName = fileStore.storeFood(foodSaveDto.getImage());
+    }
 
-    /*if (bindingResult.hasErrors()){
-      return "restaurant/admin-saveForm";
-    }*/
     Long saveId = restaurantService.save(restaurantSaveDto);
     redirectAttributes.addAttribute("saveId" , saveId);
     return "redirect:/admin/restaurants/{saveId}";

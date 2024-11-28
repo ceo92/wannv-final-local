@@ -8,6 +8,6 @@ public class FoodSaveDto {
 
   private String name;
   private Integer price;
-  private String image; //음식 사진은 한장
+  private MultipartFile image; //음식 사진은 한장
 
 }

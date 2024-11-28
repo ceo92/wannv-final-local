@@ -42,6 +42,7 @@ public class RestaurantService {
         .stream().map(foodSaveDto -> new Food(foodSaveDto.getName() , foodSaveDto.getImage() , foodSaveDto.getPrice())).toList();
 
 
+
     Restaurant restaurant = Restaurant.createRestaurant(restaurantSaveDto.getBusinessNum() , restaurantSaveDto.getRestaurantName()
     , restaurantSaveDto.getMoodTypes()
     , restaurantSaveDto.getContainFoodTypes() , restaurantSaveDto.getProvideServiceTypes(),
@@ -54,6 +55,14 @@ public class RestaurantService {
      restaurantSaveDto.getCanPark(),
     restaurantSaveDto.getReservationTimeGap(),
     restaurantSaveDto.getIsPenalty() , businessDays , foods);
+
+    /*foods.forEach(food ->{
+      food.addRestaurant(restaurant);
+    });
+    businessDays.forEach(businessDay -> {
+      businessDay.addRestaurant(restaurant);
+    });*/
+
 
     return restaurantRepository.save(restaurant);
   }
@@ -174,9 +183,9 @@ public class RestaurantService {
         LocalTime closeTime = businessDay.getCloseTime();
         LocalTime breakStartTime = businessDay.getBreakStartTime();
         LocalTime breakEndTime = businessDay.getBreakEndTime();
-        Boolean isDayOff = businessDay.getIsDayOff();
+        String isDayOff = businessDay.getIsDayOff();
 
-        if (isDayOff.equals(true)){
+        if (!isDayOff.isBlank()){
           restaurant.changeBusinessStatus(BusinessStatus.DAY_OFF);
           return; //휴무일이면 아래로 내려가지 않고 바로 종료되게 , 30분마다 스케줄링해서 휴무일 시 계속해서 리턴됨
         }

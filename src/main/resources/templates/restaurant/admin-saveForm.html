@@ -15,7 +15,7 @@
 
   </style>
   <div class="container">
-    <form id="productForm" th:object="${restaurantSaveDto}" method="post" th:action>
+    <form th:object="${restaurantSaveDto}" method="post" th:action>
       <div class="row mb-8">
         <div class="col-md-12">
           <div class="d-md-flex justify-content-between align-items-center">
@@ -40,15 +40,15 @@
             <div class="row mb-3">
               <div class="col-4 mt-5">
                 <label class="form-label h5" for="businessNum">사업자 등록번호</label>
-                <input  th:field="*{businessNum}" id="businessNum" class="form-control" required>
+                <input  th:field="*{businessNum}" id="businessNum" class="form-control" >
               </div>
               <div class="col-4 mt-5">
-                <label class="form-label h5" for="name">식당 이름</label>
-                <input class="form-control" th:field="*{name}" required>
+                <label class="form-label h5" for="restaurantName">식당 이름</label>
+                <input class="form-control" id="restaurantName" th:field="*{restaurantName}" >
               </div>
               <div class="col-4 mt-5">
                 <label for="contact" class="form-label h5">식당 연락처</label>
-                <input name="selling-price" class="form-control" th:field="*{contact}" required>
+                <input name="selling-price" id="contact" class="form-control" th:field="*{contact}" >
               </div>
 
             </div>
@@ -56,7 +56,7 @@
             <div class="row mb-3">
               <div class="col-12">
                 <label class="form-label h5" for="description">식당 설명</label>
-                <input th:field="*{description}" class="form-control" required>
+                <input th:field="*{description}" id="description" class="form-control" >
               </div>
             </div>
 
@@ -64,57 +64,92 @@
             <div class="row mb-3 mt-5">
               <label class="form-label h5">식당 분류</label>
               <div class="col-12" >
-                <th:block th:each="restaurantType : ${restaurantTypes}">
-                  <input type="checkbox" class="btn-check"  th:field="*{restaurantTypes}" th:value="${restaurantType.description}" autocomplete="off">
-                  <label class="btn btn-outline-primary" th:for="${#ids.prev('restaurantTypes')}" th:text="${restaurantType.description}" >한식</label>
-                </th:block>
+                <div>
+                  <th:block th:each="restaurantType : ${restaurantTypes}" class="form-check me-1" th:if="${restaurantTypeStat.index < 14}">
+                    <input type="checkbox" class="form-check-input"  th:field="*{restaurantTypes}" th:value="${restaurantType.description}" autocomplete="off">
+                    <label class="form-check-label" th:for="${#ids.prev('restaurantTypes')}" th:text="${restaurantType.description}" >한식</label>
+                  </th:block>
+                </div>
+
+                <div class="mt-2">
+                  <th:block th:each="restaurantType : ${restaurantTypes}" class="form-check me-1" th:unless="${restaurantTypeStat.index < 14}">
+                    <input type="checkbox" class="form-check-input"  th:field="*{restaurantTypes}" th:value="${restaurantType.description}" autocomplete="off">
+                    <label class="form-check-label" th:for="${#ids.prev('restaurantTypes')}" th:text="${restaurantType.description}" >한식</label>
+                  </th:block>
+                </div>
 
               </div>
             </div>
 
 
-             <div class="row mb-3 mt-5">
+
+            <div class="row mb-3 mt-5">
               <label class="form-label h5">포함 음식</label>
               <div class="col-12" >
-                <th:block th:each="containFoodType : ${containFoodTypes}">
-                  <input type="checkbox" class="btn-check"  th:field="*{containFoodTypes}" th:value="${containFoodType.description}" autocomplete="off">
-                  <label class="btn btn-outline-primary" th:for="${#ids.prev('containFoodType')}" th:text="${containFoodType.description}" >유제품 포함</label>
-                </th:block>
+                <div>
+                  <th:block th:each="containFoodType : ${containFoodTypes}" class="form-check me-1">
+                    <input type="checkbox" class="form-check-input"  th:field="*{containFoodTypes}" th:value="${containFoodType.description}" autocomplete="off">
+                    <label class="form-check-label" th:for="${#ids.prev('containFoodTypes')}" th:text="${containFoodType.description}" >유제품 포함</label>
+                  </th:block>
+                </div>
+
               </div>
             </div>
 
 
-              <div class="row mb-3 mt-5">
+
+            <div class="row mb-3 mt-5">
               <label class="form-label h5">제공하는 서비스</label>
               <div class="col-12" >
-                <th:block th:each="provideServiceType : ${provideServiceTypes}">
-                  <input type="checkbox" class="btn-check"  th:field="*{provideServiceTypes}" th:value="${provideServiceType.description}" autocomplete="off">
-                  <label class="btn btn-outline-primary" th:for="${#ids.prev('provideServiceType')}" th:text="${provideServiceType.description}" >휠체어 이용 가능</label>
-                </th:block>
+                <div>
+                  <th:block th:each="provideServiceType : ${provideServiceTypes}" class="form-check me-1" th:if="${provideServiceTypeStat.index < 6}">
+                    <input type="checkbox" class="form-check-input"  th:field="*{provideServiceTypes}" th:value="${provideServiceType.description}" autocomplete="off">
+                    <label class="form-check-label" th:for="${#ids.prev('provideServiceTypes')}" th:text="${provideServiceType.description}" >유제품 포함</label>
+                  </th:block>
+                </div>
+
+                <div class="mt-2">
+                  <th:block th:each="provideServiceType : ${provideServiceTypes}" class="form-check me-1" th:if="${provideServiceTypeStat.index >= 6}">
+                    <input type="checkbox" class="form-check-input"  th:field="*{provideServiceTypes}" th:value="${provideServiceType.description}" autocomplete="off">
+                    <label class="form-check-label" th:for="${#ids.prev('provideServiceTypes')}" th:text="${provideServiceType.description}" >유제품 포함</label>
+                  </th:block>
+                </div>
+
               </div>
             </div>
 
-            <div class="row mb-3 mt-5">
+
+           <div class="row mb-3 mt-5">
               <label class="form-label h5">분위기</label>
               <div class="col-12" >
-                <th:block th:each="moodType : ${moodTypes}">
-                  <input type="checkbox" class="btn-check"  th:field="*{moodTypes}" th:value="${moodType.description}" autocomplete="off">
-                  <label class="btn btn-outline-primary" th:for="${#ids.prev('moodType')}" th:text="${moodType.description}" >분위기 있는</label>
-                </th:block>
+                <div>
+                  <th:block th:each="moodType : ${moodTypes}" class="form-check me-1" th:if="${moodTypeStat.index < 6}">
+                    <input type="checkbox" class="form-check-input"  th:field="*{moodTypes}" th:value="${moodType.description}" autocomplete="off">
+                    <label class="form-check-label" th:for="${#ids.prev('moodTypes')}" th:text="${moodType.description}" >유제품 포함</label>
+                  </th:block>
+                </div>
+
+                <div class="mt-2">
+                  <th:block th:each="moodType : ${moodTypes}" class="form-check me-1" th:if="${moodTypeStat.index >= 6}">
+                    <input type="checkbox" class="form-check-input"  th:field="*{moodTypes}" th:value="${moodType.description}" autocomplete="off">
+                    <label class="form-check-label" th:for="${#ids.prev('moodTypes')}" th:text="${moodType.description}" >유제품 포함</label>
+                  </th:block>
+                </div>
 
               </div>
             </div>
 
+
             <div class="row mb-3 mt-5">
-              <label for="zipcode" class="form-label h5">주소 입력</label>
+              <label class="form-label h5">주소 입력</label>
               <div class="col-4">
-                <input type="text" class="form-control" id="roadAddress" name="roadAddress" onclick="sample4_execDaumPostcode()" placeholder="도로명 주소 입력">
+                <input type="text" class="form-control" th:field="*{roadNameAddress}" onclick="sample4_execDaumPostcode()" placeholder="도로명 주소 입력">
               </div>
               <div class="col-4">
-                <input type="text" class="form-control" id="zipcode" name="zipcode" onclick="sample4_execDaumPostcode()" placeholder="우편번호 입력">
+                <input type="text" class="form-control" th:field="*{zipcode}" onclick="sample4_execDaumPostcode()" placeholder="우편번호 입력">
               </div>
               <div class="col-4">
-                <input type="text" class="form-control" id="detailsAddress" name="detailsAddress" onclick="sample4_execDaumPostcode()" placeholder="상세 주소 입력">
+                <input type="text" class="form-control" th:field="*{detailsAddress}" onclick="sample4_execDaumPostcode()" placeholder="상세 주소 입력">
               </div>
 
               <div class="col-12">
@@ -129,7 +164,7 @@
             <div class="row mb-3 mt-5">
               <label class="form-label h5">주차 가능 여부</label>
               <div class="col-12 form-check mx-3">
-                <input type="checkbox" th:field="*{canPark}" id="canPark" class="form-check-input" required>
+                <input type="checkbox" th:field="*{canPark}" id="canPark" class="form-check-input">
                 <label class="form-check-label" for="canPark">주차 가능 여부</label>
               </div>
             </div>
@@ -138,20 +173,12 @@
             <div class="row mb-3 mt-5">
               <label class="form-label h5">예약 시간 간격</label>
               <div class="col-12">
-                <div class="form-check">
-                  <input type="radio" id="reservationGap1" name="reservationGap" value="half" class="form-check-input" required>
-                  <label class="form-check-label" for="reservationGap1">30분</label>
+                <div class="form-check" th:each="reservationTimeGap : ${reservationTimeGaps}">
+                  <input type="radio" th:field="*{reservationTimeGap}" th:value="${reservationTimeGap.name()}" class="form-check-input">
+                  <label class="form-check-label" th:for="${#ids.prev('reservationTimeGap')}" th:text="${reservationTimeGap.description}">30분</label>
                 </div>
 
-                <div class="form-check">
-                  <input type="radio"  id="reservationGap2" name="reservationGap" value="one" class="form-check-input" required>
-                  <label class="form-check-label" for="reservationGap2">1시간</label>
-                </div>
 
-                <div class="form-check">
-                  <input type="radio"  id="reservationGap3" name="reservationGap" value="two" class="form-check-input" required>
-                  <label class="form-check-label" for="reservationGap3">2시간</label>
-                </div>
               </div>
             </div>
 
@@ -160,7 +187,7 @@
             <div class="row mb-3 mt-5">
               <label class="form-label h5">예약 취소 시 위약금 발생 여부</label>
               <div class="col-12 form-check mx-3">
-                <input type="checkbox" id="isPenalty"  name="canPark" class="form-check-input" required>
+                <input type="checkbox" th:field="*{isPenalty}" id="isPenalty" class="form-check-input">
                 <label class="form-check-label" for="isPenalty">위약금 발생 여부</label>
               </div>
             </div>
@@ -176,88 +203,55 @@
                   <thead style="background-color:#D5EED1;">
                   <tr >
                     <th style="text-align: center "></th>
-                    <th style="text-align: center ">월요일</th>
-                    <th style="text-align: center ">화요일</th>
-                    <th style="text-align: center">수요일</th>
-                    <th style="text-align: center">목요일</th>
-                    <th style="text-align: center">금요일</th>
-                    <th style="text-align: center">토요일</th>
-                    <th style="text-align: center">일요일</th>
+                    <th th:each="dayOfWeek : ${dayOfWeeks}" th:text="${dayOfWeek}" style="text-align: center ">월요일</th>
                   </tr>
                   </thead>
                   <tbody >
                   <tr>
                     <th class="" style="background-color:#C7EED5;text-align: center">시작 시간</th>
-                    <td style="text-align: center"><input type="time" class="form-control" required></td>
-                    <td style="text-align: center"><input type="time" class="form-control" required></td>
-                    <td style="text-align: center"><input type="time" class="form-control" required></td>
-                    <td style="text-align: center"><input type="time" class="form-control" required></td>
-                    <td style="text-align: center"><input type="time" class="form-control" required></td>
-                    <td style="text-align: center"><input type="time" class="form-control" required></td>
-                    <td style="text-align: center"><input type="time" class="form-control" required></td>
+                    <td style="text-align: center" th:each="dayOfWeek : ${dayOfWeeks}">
+                      <input type="time" class="form-control" th:field="*{openTimes}">
+                    </td>
                   </tr>
 
 
                   <tr>
-                    <th style="background-color: #C7EED5;text-align: center">종료 시간</th>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <th class="" style="background-color:#C7EED5;text-align: center">종료 시간</th>
+                    <td style="text-align: center" th:each="dayOfWeek : ${dayOfWeeks}">
+                      <input type="time" class="form-control" th:field="*{closeTimes}">
+                    </td>
                   </tr>
 
 
                   <tr>
-                    <th  style="background-color: #C7EED5;text-align: center">브레이크타임 시작 시간</th>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <th class="" style="background-color:#C7EED5;text-align: center">브레이크타임 시작 시간</th>
+                    <td style="text-align: center" th:each="dayOfWeek : ${dayOfWeeks}">
+                      <input type="time" class="form-control" th:field="*{breakStartTimes}">
+                    </td>
                   </tr>
 
 
                   <tr>
-                    <th  style="background-color: #C7EED5;text-align: center">브레이크타임 종료 시간</th>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <th class="" style="background-color:#C7EED5;text-align: center">브레이크타임 종료 시간</th>
+                    <td style="text-align: center" th:each="dayOfWeek : ${dayOfWeeks}">
+                      <input type="time" class="form-control" th:field="*{breakEndTimes}">
+                    </td>
                   </tr>
 
 
                   <tr>
-                    <th  style="background-color: #C7EED5;text-align: center">라스트오더</th>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
-                    <td style="text-align: center"><input type="time" class="form-control"  required></td>
+                    <th class="" style="background-color:#C7EED5;text-align: center">라스트오더</th>
+                    <td style="text-align: center" th:each="dayOfWeek : ${dayOfWeeks}">
+                      <input type="time" class="form-control" th:field="*{lastOrderTimes}">
+                    </td>
                   </tr>
 
                   <tr>
-                    <th  style="background-color: #C7EED5;text-align: center"><label class="form-check-label">휴무일여부</label></th>
-                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
-                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
-                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
-                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
-                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
-                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
-                    <td style="text-align: center"><input type="checkbox" class="form-check-input"  required></td>
+                    <th class="" style="background-color:#C7EED5;text-align: center">휴무일 여부</th>
+                    <td style="text-align: center" th:each="dayOfWeek : ${dayOfWeeks}"> <!-- 휴무일 리스트로 DTO 에 바인딩 받는데, 값은 dayOfWeek으로 전달 , dayOfWeek으로 전달하면 월요일 , 화요일 , ... , 일요일 구분이 되잖아 !-->
+                      <input type="checkbox" class="form-check-input" th:field="*{isDayOffList}" th:value="${dayOfWeek}"> <!-- 즉 파라메터에 요일을 받게 함으로써 어느 요일이 휴무일인지를 구분지을 수 있음!-->
+                    </td>
                   </tr>
-
-
-
 
                   </tbody>
                 </table>
@@ -268,7 +262,7 @@
             <div class="mb-3 mt-5">
               <h4 class="mb-3 h5">식당 사진(4장 이상)</h4>
               <div class="input-group mb-3">
-                <input type="file" class="form-control" id="image" name="image" multiple required>
+                <input type="file" class="form-control" id="image" name="image" multiple >
               </div>
             </div>
 
@@ -276,7 +270,7 @@
 
 
             <div class="row mb-3 mt-5">
-              <label class="form-label h5">메뉴</label>
+              <label class="form-label h5">음식 메뉴</label>
               <div id="input-groups">
                 <div class="row input-group">
                   <div class="col-1" style="margin-top:2rem">
@@ -284,20 +278,20 @@
                   </div>
                   <div class="col-3">
                     <label class="form-label">메뉴명</label>
-                    <input  class="form-control" required>
+                    <input  class="form-control" >
                   </div>
                   <div class="col-3">
                     <label class="form-label ">가격</label>
-                    <input type="number" class="form-control" required>
+                    <input type="number" class="form-control" >
                   </div>
                   <div class="col-3">
                     <label class="form-label">음식 사진</label>
-                    <input type="file" multiple class="form-control" required>
+                    <input type="file" multiple class="form-control" >
                   </div>
                 </div>
               </div>
             </div>
-              <button id="add-button" class="btn btn-primary mt-3">+</button>
+              <button id="add-button" th:text="|메뉴 추가|" class="btn btn-primary mt-3">+</button>
 
           </div>
 
@@ -375,13 +369,13 @@
             <label class="menu-label">메뉴 ${menuCounter}:</label>
         </div>
         <div class="col-3">
-            <input class="form-control" required>
+            <input class="form-control" >
         </div>
         <div class="col-3">
-            <input type="number" class="form-control" required>
+            <input type="number" class="form-control" >
         </div>
         <div class="col-3">
-            <input type="file" multiple class="form-control" required>
+            <input type="file" multiple class="form-control" >
         </div>
     `;
 

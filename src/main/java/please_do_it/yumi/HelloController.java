@@ -46,7 +46,7 @@ public class HelloController {
   /**
    * 현재 위치 기준 인기 식당 , 일단 보류 ㅇㅇ
    */
-  /*private List<Restaurant> getPopularRestaurantsByCurrentLocation(String currentLocationRoadAddress) {
+  private List<Restaurant> getPopularRestaurantsByCurrentLocation(String currentLocationRoadAddress) {
 
     RestaurantSearchCond currentLocationRestaurantCond = new RestaurantSearchCond();
     currentLocationRestaurantCond.setRoadAddress(currentLocationRoadAddress);
@@ -54,7 +54,7 @@ public class HelloController {
     List<Restaurant> popularRestaurants = restaurantService.findRestaurants(currentLocationRestaurantCond)
         .stream().limit(8).toList();
     return popularRestaurants;
-  }*/
+  }
 
   /**
    * 전국 인기 식당

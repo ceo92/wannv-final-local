@@ -32,7 +32,7 @@ public class RestaurantUpdateDto {
   private List<LocalTime> breakStartTimes = new ArrayList<>();
   private List<LocalTime> breakEndTimes = new ArrayList<>();
   private List<LocalTime> lastOrderTimes = new ArrayList<>();
-  private List<Boolean> isDayOffList = new ArrayList<>();
+  private List<String> isDayOffList = new ArrayList<>();
 
   /**
    * Food DTO

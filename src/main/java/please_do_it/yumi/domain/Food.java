@@ -40,5 +40,15 @@ public class Food {
   }
 
 
+  /**
+   * 연관관계 편의 메서드
+   */
+
+  public void addRestaurant(Restaurant restaurant){
+    this.restaurant = restaurant;
+    restaurant.getFoods().add(this);
+  }
+
+
 
 }

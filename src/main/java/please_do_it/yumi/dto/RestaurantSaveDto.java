@@ -12,7 +12,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class RestaurantSaveDto {
 
   private String restaurantName;
+  private String contact;
   private String businessNum;
+  private String description;
+
   private Set<String> restaurantTypes = new HashSet<>();
   private Set<String> containFoodTypes = new HashSet<>();
   private Set<String> provideServiceTypes = new HashSet<>();
@@ -34,7 +37,7 @@ public class RestaurantSaveDto {
   private List<LocalTime> breakStartTimes = new ArrayList<>();
   private List<LocalTime> breakEndTimes = new ArrayList<>();
   private List<LocalTime> lastOrderTimes = new ArrayList<>();
-  private List<Boolean> isDayOffList = new ArrayList<>();
+  private List<String> isDayOffList = new ArrayList<>();
 
   /**
    * Food DTO

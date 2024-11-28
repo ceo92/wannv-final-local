@@ -170,13 +170,11 @@ public class Restaurant {
    */
   //수정 발생 시 여기서 작업해줘도 될듯? ① 리스트 전부 삭제하고 ② 그 다음 add 하기 => 영소성 컨텍스트 초기화하고 하
   public void addBusinessDay(BusinessDay businessDay) {
-    businessDays.clear(); //이걸로 초기화를 먼저 해줘야 아무것도 없는 무의 상태에서 연관관계가 올바르게 설정됨 !
     businessDays.add(businessDay); //자신에게 연관관계 설정
     businessDay.setRestaurant(this); //B에게 연관관계 설정
   }
 
   public void addFood(Food food) {
-    foods.clear(); //이것도 마찬가지 먼저 비워주고 그 다음에 ㄱㄱ 변경을 대비한 ㅇㅇ
     foods.add(food); //자신에게 연관관계 설정
     food.setRestaurant(this); //B에게 연관관계 설정
   }

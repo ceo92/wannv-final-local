@@ -1,24 +1,19 @@
 package please_do_it.yumi.controller;
 
 import java.io.IOException;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cglib.core.Local;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import please_do_it.yumi.constant.ContainFoodType;
@@ -28,9 +23,11 @@ import please_do_it.yumi.constant.ReservationTimeGap;
 import please_do_it.yumi.constant.RestaurantType;
 import please_do_it.yumi.domain.Restaurant;
 import please_do_it.yumi.domain.Review;
+import please_do_it.yumi.dto.FileDTO;
 import please_do_it.yumi.dto.FoodSaveDto;
 import please_do_it.yumi.dto.RestaurantSaveDto;
 import please_do_it.yumi.dto.RestaurantSearchCond;
+import please_do_it.yumi.service.FileService;
 import please_do_it.yumi.service.RestaurantService;
 
 @Controller
@@ -38,14 +35,20 @@ import please_do_it.yumi.service.RestaurantService;
 @RequiredArgsConstructor
 public class RestaurantController {
 
-  private final FileStore fileStore;
+  @Value("restaurant.image.dir")
+  private String restaurantDir;
+
+  @Value("food.image.dir")
+  private String foodDir;
+
   private final RestaurantService restaurantService;
+  private final FileService fileService;
 
   @ModelAttribute("containFoodTypes")
   public ContainFoodType[] containFoodTypes() {
     return ContainFoodType.values();
   }
-  
+
   @ModelAttribute("provideServiceTypes")
   public ProvideServiceType[] provideServiceTypes() {
     return ProvideServiceType.values();
@@ -74,13 +77,13 @@ public class RestaurantController {
 
 
   @ModelAttribute("reservationTimeGaps")
-  public ReservationTimeGap[] reservationGaps(){
+  public ReservationTimeGap[] reservationGaps() {
     return ReservationTimeGap.values();
   }
 
 
   @ModelAttribute("dayOfWeeks")
-  public List<String> dayOfWeeks(){
+  public List<String> dayOfWeeks() {
     List<String> dayOfWeeks = new ArrayList<>();
     dayOfWeeks.add("월요일");
     dayOfWeeks.add("화요일");
@@ -93,11 +96,10 @@ public class RestaurantController {
   }
 
 
-
   //restaurant
   @GetMapping("restaurants")
   public String getRestaurants(@ModelAttribute("restaurantSearchCond") RestaurantSearchCond restaurantSearchCond,
-      Model model) {
+                               Model model) {
     List<Restaurant> restaurants = restaurantService.findRestaurants(restaurantSearchCond);
     model.addAttribute("restaurants", restaurants);
     return "restaurant/restaurants";
@@ -122,29 +124,53 @@ public class RestaurantController {
 
 
   @GetMapping("/restaurants/save")
-  public String saveRestaurant(Model model){
+  public String saveRestaurant(Model model) {
     model.addAttribute("restaurantSaveDto", new RestaurantSaveDto());
     return "restaurant/admin-saveForm";
   }
 
   @PostMapping("/restaurants/save")
-  public String saveRestaurantPost(@ModelAttribute("restaurantSaveDto") RestaurantSaveDto restaurantSaveDto ,  RedirectAttributes redirectAttributes) throws IOException {
-    log.info("food = {}" , restaurantSaveDto.getFoodSaveDtoList());
-    restaurantSaveDto.getImage()
+  public String saveRestaurantPost(@ModelAttribute("restaurantSaveDto") RestaurantSaveDto restaurantSaveDto, RedirectAttributes redirectAttributes) {
+    log.info("restaurant = {}" , restaurantSaveDto.getRestaurantImages());
+    log.info("food = {}", restaurantSaveDto.getFoodSaveDtoList());
+
+
+    List<MultipartFile> restaurantImages = restaurantSaveDto.getRestaurantImages();
+    List<MultipartFile> foodImages = new ArrayList<>();
     List<FoodSaveDto> foodSaveDtoList = restaurantSaveDto.getFoodSaveDtoList();
     for (FoodSaveDto foodSaveDto : foodSaveDtoList) {
-
-      String imagePathName = fileStore.storeFood(foodSaveDto.getImage());
+      foodImages.add(foodSaveDto.getFoodImage());
     }
 
+    /**
+     * 식당 스토리지 저장 + DB에 스토리지 Url 저장
+     */
+    List<FileDTO> restaurantImagesFileDto = fileService.uploadFiles(restaurantImages, restaurantDir);
+    List<String> restaurantImagesUrl = restaurantImagesFileDto.stream().map(FileDTO::getUploadFileUrl).toList();
+    restaurantSaveDto.setRestaurantImagesUrl(restaurantImagesUrl);
+
+    /**
+     * 음식 스토리지 저장 + DB에 스토리지 Url 저장
+     */
+    List<FileDTO> foodImagesFileDto = fileService.uploadFiles(foodImages, foodDir);
+    List<String> foodImagesUrl = foodImagesFileDto.stream().map(FileDTO::getUploadFileUrl).toList();
+    for (String foodImageUrl : foodImagesUrl) {
+      foodSaveDtoList.forEach(foodSaveDto -> {
+        foodSaveDto.setFoodImageUrl(foodImageUrl);
+      });
+    };
+
+    log.info("restaurantSaveDto = {}" , restaurantSaveDto);
+    log.info("foodSaveDtoList = {}" , restaurantSaveDto.getFoodSaveDtoList());
+
     Long saveId = restaurantService.save(restaurantSaveDto);
-    redirectAttributes.addAttribute("saveId" , saveId);
+    redirectAttributes.addAttribute("saveId", saveId);
     return "redirect:/admin/restaurants/{saveId}";
   }
 
   @GetMapping("admin/restaurants/{id}")
   public String getAdminRestaurant(@PathVariable("id") Long id, Model model) {
-    model.addAttribute("restaurant" ,restaurantService.findOne(id));
+    model.addAttribute("restaurant", restaurantService.findOne(id));
     return "restaurant/admin-restaurant";
   }
 
@@ -167,10 +193,6 @@ public class RestaurantController {
     reviewsByRating.put(5, reviewsByFiveRating);
     return reviewsByRating;
   }
-
-
-
-
 
 
   //UrlResource 자체가 필요 없음 , 어차피 Url직접 웹에서 링크로 조회해서 띄우는 것임 ㅇㅇ 내 서버로 들어와서 DB에 접근해서 띄우는 게 아닌 !

@@ -27,7 +27,8 @@ public class RestaurantSaveDto {
   private Boolean canPark;
   private String reservationTimeGap;
   private Boolean isPenalty;
-  private List<MultipartFile> image = new ArrayList<>(); // 식당 사진
+  private List<MultipartFile> restaurantImages = new ArrayList<>(); // 식당 사진 폼에서 꺼내기
+  private List<String> restaurantImagesUrl = new ArrayList<>(); //식당 스토리지에 저장 후 URL을 DB에 저장용
 
   /**
    * BusinessDay DTO
@@ -43,6 +44,8 @@ public class RestaurantSaveDto {
    * Food DTO
    */
   private List<FoodSaveDto> foodSaveDtoList = new ArrayList<>();
+
+
 
 
 }

@@ -1,17 +1,22 @@
 package please_do_it.yumi.service;
 
-import java.time.LocalDate;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import please_do_it.yumi.constant.BusinessStatus;
 import please_do_it.yumi.domain.BusinessDay;
 import please_do_it.yumi.domain.Food;
@@ -29,32 +34,40 @@ public class RestaurantService {
 
   private final RestaurantRepository restaurantRepository;
 
+
   @Transactional
   public Long save(RestaurantSaveDto restaurantSaveDto) {
-
+    StringBuilder sb = new StringBuilder();
     List<BusinessDay> businessDays = BusinessDay.createBusinessDays(
-        restaurantSaveDto.getOpenTimes(),
-        restaurantSaveDto.getCloseTimes(), restaurantSaveDto.getBreakStartTimes(),
-        restaurantSaveDto.getBreakEndTimes(), restaurantSaveDto.getLastOrderTimes(),
-        restaurantSaveDto.getIsDayOffList());
+            restaurantSaveDto.getOpenTimes(),
+            restaurantSaveDto.getCloseTimes(), restaurantSaveDto.getBreakStartTimes(),
+            restaurantSaveDto.getBreakEndTimes(), restaurantSaveDto.getLastOrderTimes(),
+            restaurantSaveDto.getIsDayOffList());
+
+    List<String> restaurantImagesUrl = restaurantSaveDto.getRestaurantImagesUrl();
+
+    for (String restaurantImageUrl : restaurantImagesUrl) {
+      sb.append(restaurantImageUrl).append(",");
+    }
+    restaurantSaveDto.getFoodSaveDtoList().stream().map(foodSaveDto -> foodSaveDto.getFoodImageUrl()).toList()
+
 
     List<Food> foods = restaurantSaveDto.getFoodSaveDtoList()
-        .stream().map(foodSaveDto -> new Food(foodSaveDto.getName() , foodSaveDto.getImage() , foodSaveDto.getPrice())).toList();
+            .stream().map(foodSaveDto -> new Food(foodSaveDto.getName(), foodSaveDto.getFoodImageUrl(), foodSaveDto.getPrice())).toList();
 
 
-
-    Restaurant restaurant = Restaurant.createRestaurant(restaurantSaveDto.getBusinessNum() , restaurantSaveDto.getRestaurantName()
-    , restaurantSaveDto.getMoodTypes()
-    , restaurantSaveDto.getContainFoodTypes() , restaurantSaveDto.getProvideServiceTypes(),
-    restaurantSaveDto.getRestaurantTypes(),
-    restaurantSaveDto.getImage(),
-    restaurantSaveDto.getRoadNameAddress(),
-     restaurantSaveDto.getLandLotAddress(),
-     restaurantSaveDto.getZipcode(),
-    restaurantSaveDto.getDetailsAddress(),
-     restaurantSaveDto.getCanPark(),
-    restaurantSaveDto.getReservationTimeGap(),
-    restaurantSaveDto.getIsPenalty() , businessDays , foods);
+    Restaurant restaurant = Restaurant.createRestaurant(restaurantSaveDto.getBusinessNum(), restaurantSaveDto.getRestaurantName()
+            , restaurantSaveDto.getMoodTypes()
+            , restaurantSaveDto.getContainFoodTypes(), restaurantSaveDto.getProvideServiceTypes(),
+            restaurantSaveDto.getRestaurantTypes(),
+            restaurantSaveDto.getRestaurantImagesUrl(),
+            restaurantSaveDto.getRoadNameAddress(),
+            restaurantSaveDto.getLandLotAddress(),
+            restaurantSaveDto.getZipcode(),
+            restaurantSaveDto.getDetailsAddress(),
+            restaurantSaveDto.getCanPark(),
+            restaurantSaveDto.getReservationTimeGap(),
+            restaurantSaveDto.getIsPenalty(), businessDays, foods);
 
     /*foods.forEach(food ->{
       food.addRestaurant(restaurant);
@@ -154,7 +167,7 @@ public class RestaurantService {
 
     // 새로 만들어줬음 , 이걸로 통으로 변경
     List<Food> foods = restaurantUpdateDto.getFoodSaveDtoList().stream().map(
-        foodSaveDto -> new Food(foodSaveDto.getName(), foodSaveDto.getImage(),
+        foodSaveDto -> new Food(foodSaveDto.getName(), foodSaveDto.getFoodImage(),
             foodSaveDto.getPrice())).toList();
 
     Restaurant updateRestaurant = findOne(id);

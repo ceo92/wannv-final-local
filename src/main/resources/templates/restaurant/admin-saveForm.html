@@ -262,10 +262,9 @@
             <div class="mb-3 mt-5">
               <h4 class="mb-3 h5">식당 사진(4장 이상)</h4>
               <div class="input-group mb-3">
-                <input type="file" class="form-control" id="image" name="image" multiple >
+                <input type="file" class="form-control" th:field="*{image}" multiple >
               </div>
             </div>
-
 
 
 
@@ -277,7 +276,7 @@
                     <label class="menu-label">메뉴 1:</label>
                   </div>
                   <div class="col-3">
-                    <label class="form-label">메뉴명</label>
+                    <label class="form-label">이름</label>
                     <input  class="form-control" >
                   </div>
                   <div class="col-3">
@@ -286,7 +285,7 @@
                   </div>
                   <div class="col-3">
                     <label class="form-label">음식 사진</label>
-                    <input type="file" multiple class="form-control" >
+                    <input type="file" class="form-control" >
                   </div>
                 </div>
               </div>
@@ -350,7 +349,7 @@
 
 
 
-  <script>
+  <script th:inline="javascript">
     let menuCounter = 1; // 메뉴 번호를 관리
 
     document.getElementById('add-button').addEventListener('click', function () {
@@ -369,13 +368,13 @@
             <label class="menu-label">메뉴 ${menuCounter}:</label>
         </div>
         <div class="col-3">
-            <input class="form-control" >
+            <input class="form-control"  >
         </div>
         <div class="col-3">
             <input type="number" class="form-control" >
         </div>
         <div class="col-3">
-            <input type="file" multiple class="form-control" >
+            <input type="file" class="form-control" >
         </div>
     `;
 

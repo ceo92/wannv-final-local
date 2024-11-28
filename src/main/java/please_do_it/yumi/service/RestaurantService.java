@@ -183,9 +183,9 @@ public class RestaurantService {
         LocalTime closeTime = businessDay.getCloseTime();
         LocalTime breakStartTime = businessDay.getBreakStartTime();
         LocalTime breakEndTime = businessDay.getBreakEndTime();
-        String isDayOff = businessDay.getIsDayOff();
+        Boolean isDayOff = businessDay.getIsDayOff();
 
-        if (!isDayOff.isBlank()){
+        if (isDayOff.equals(true)){
           restaurant.changeBusinessStatus(BusinessStatus.DAY_OFF);
           return; //휴무일이면 아래로 내려가지 않고 바로 종료되게 , 30분마다 스케줄링해서 휴무일 시 계속해서 리턴됨
         }

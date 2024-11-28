@@ -141,13 +141,7 @@ public class RestaurantController {
 
   @PostMapping("/restaurants/save")
   public String saveRestaurantPost(@ModelAttribute("restaurantSaveDto") RestaurantSaveDto restaurantSaveDto ,  RedirectAttributes redirectAttributes){
-    log.info("openTime = {}" , restaurantSaveDto.getOpenTimes());
-    log.info("closeTime = {}" , restaurantSaveDto.getCloseTimes());
-    log.info("breakStartTime = {}" , restaurantSaveDto.getBreakStartTimes());
-    log.info("breakEndTime = {}" , restaurantSaveDto.getBreakEndTimes());
-    log.info("lastOrder = {}" , restaurantSaveDto.getLastOrderTimes());
-    log.info("isDayOff = {}", restaurantSaveDto.getIsDayOffList());
-
+    log.info("food = {}" , restaurantSaveDto.getFoodSaveDtoList());
 
 
     /*if (bindingResult.hasErrors()){

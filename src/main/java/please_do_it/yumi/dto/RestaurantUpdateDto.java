@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class RestaurantUpdateDto {
@@ -22,8 +23,8 @@ public class RestaurantUpdateDto {
   private Boolean canPark;
   private String reservationTimeGap;
   private Boolean isPenalty;
-  private String image; //식당 사진
-
+  private List<MultipartFile> restaurantImages = new ArrayList<>(); // 식당 사진 폼에서 꺼내기
+  private List<String> restaurantImagesUrl = new ArrayList<>(); //식당 스토리지에 저장 후 URL을 DB에 저장용
   /**
    * BusinessDay DTO
    */
@@ -37,5 +38,5 @@ public class RestaurantUpdateDto {
   /**
    * Food DTO
    */
-  private List<FoodSaveDto> foodSaveDtoList = new ArrayList<>();
+  private List<FoodUpdateDto> foodSaveDtoList = new ArrayList<>();
 }

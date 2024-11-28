@@ -8,6 +8,7 @@ import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.StringJoiner;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -37,30 +38,31 @@ public class RestaurantService {
 
   @Transactional
   public Long save(RestaurantSaveDto restaurantSaveDto) {
-    StringBuilder sb = new StringBuilder();
     List<BusinessDay> businessDays = BusinessDay.createBusinessDays(
             restaurantSaveDto.getOpenTimes(),
             restaurantSaveDto.getCloseTimes(), restaurantSaveDto.getBreakStartTimes(),
             restaurantSaveDto.getBreakEndTimes(), restaurantSaveDto.getLastOrderTimes(),
             restaurantSaveDto.getIsDayOffList());
 
+    //식당은 여러 이미지가 한 String에 들어가야 하므로 ,로 파싱해주는 작업이 필요했음 ㅇㅇ
+
+    String storeRestaurantImagesUrl = "";
     List<String> restaurantImagesUrl = restaurantSaveDto.getRestaurantImagesUrl();
-
     for (String restaurantImageUrl : restaurantImagesUrl) {
-      sb.append(restaurantImageUrl).append(",");
+      storeRestaurantImagesUrl = String.join(",", restaurantImageUrl);
     }
-    restaurantSaveDto.getFoodSaveDtoList().stream().map(foodSaveDto -> foodSaveDto.getFoodImageUrl()).toList()
 
 
+    //음식 사진은 한 음식 당 한 사진만이 할당되니 이미 컨트롤러 부에서 String 값의 Url정보를 dto에 담아서 던졌으므로 그냥 그대로 할당해주면 됨 ㅇㅇ
     List<Food> foods = restaurantSaveDto.getFoodSaveDtoList()
             .stream().map(foodSaveDto -> new Food(foodSaveDto.getName(), foodSaveDto.getFoodImageUrl(), foodSaveDto.getPrice())).toList();
 
-
+    //저장 !
     Restaurant restaurant = Restaurant.createRestaurant(restaurantSaveDto.getBusinessNum(), restaurantSaveDto.getRestaurantName()
             , restaurantSaveDto.getMoodTypes()
             , restaurantSaveDto.getContainFoodTypes(), restaurantSaveDto.getProvideServiceTypes(),
             restaurantSaveDto.getRestaurantTypes(),
-            restaurantSaveDto.getRestaurantImagesUrl(),
+            storeRestaurantImagesUrl,
             restaurantSaveDto.getRoadNameAddress(),
             restaurantSaveDto.getLandLotAddress(),
             restaurantSaveDto.getZipcode(),
@@ -167,13 +169,19 @@ public class RestaurantService {
 
     // 새로 만들어줬음 , 이걸로 통으로 변경
     List<Food> foods = restaurantUpdateDto.getFoodSaveDtoList().stream().map(
-        foodSaveDto -> new Food(foodSaveDto.getName(), foodSaveDto.getFoodImage(),
+        foodSaveDto -> new Food(foodSaveDto.getName(), foodSaveDto.getFoodImageUrl(),
             foodSaveDto.getPrice())).toList();
+
+    String storeRestaurantImagesUrl = "";
+    List<String> restaurantImagesUrl = restaurantUpdateDto.getRestaurantImagesUrl();
+    for (String restaurantImageUrl : restaurantImagesUrl) {
+      storeRestaurantImagesUrl = String.join(",", restaurantImageUrl);
+    }
 
     Restaurant updateRestaurant = findOne(id);
     updateRestaurant.changeRestaurant(restaurantUpdateDto.getBusinessNum() , restaurantUpdateDto.getRestaurantName(),
     restaurantUpdateDto.getMoodTypes(), restaurantUpdateDto.getContainFoodTypes(), restaurantUpdateDto.getProvideServiceTypes(),
-    restaurantUpdateDto.getRestaurantTypes(), restaurantUpdateDto.getImage(), restaurantUpdateDto.getRoadNameAddress(), restaurantUpdateDto.getLandLotAddress(),
+    restaurantUpdateDto.getRestaurantTypes(), storeRestaurantImagesUrl, restaurantUpdateDto.getRoadNameAddress(), restaurantUpdateDto.getLandLotAddress(),
         restaurantUpdateDto.getZipcode(),restaurantUpdateDto.getDetailsAddress(), restaurantUpdateDto.getCanPark(),
     restaurantUpdateDto.getReservationTimeGap(), restaurantUpdateDto.getIsPenalty() ,  businessDays, foods);
 

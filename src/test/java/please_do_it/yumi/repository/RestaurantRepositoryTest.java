@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.locks.Condition;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -110,11 +112,10 @@ class RestaurantRepositoryTest {
 
   @Test
   void sfdsdffdskj(){
-    Map<Integer, List<Review>> reviewsByRating = restaurantController.getReviewsByRating(2L);
-    for (List<Review> value : reviewsByRating.values()) {
-      System.out.println((double)value.size() * 100/restaurantController.findRestaurant(2L).getReviewCount());
+    List<Restaurant> all = restaurantRepository.findAll(new RestaurantSearchCond());
+    for (Restaurant restaurant : all) {
+      System.out.println("restaurant = " + restaurant);
     }
-
   }
 
 

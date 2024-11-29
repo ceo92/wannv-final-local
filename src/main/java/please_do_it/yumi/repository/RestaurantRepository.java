@@ -45,7 +45,9 @@ public class RestaurantRepository {
   }
 
 
-
+  public List<Restaurant> findTest(){
+    return query.selectFrom(restaurant).leftJoin(restaurant.reviews, review).fetch();
+  }
 
   public List<Restaurant> findAll(RestaurantSearchCond restaurantSearchCond){
 
@@ -81,9 +83,9 @@ public class RestaurantRepository {
     }
 
     JPAQuery<Restaurant> dynamicQuery = query.selectFrom(restaurant)
-        .join(restaurant.reviews, review)
+        .leftJoin(restaurant.reviews, review)
         .join(restaurant.foods, food)
-        .join(restaurant.likes , likes)
+        .leftJoin(restaurant.likes , likes)
         .where(whereBuilder,
             eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress))
         .groupBy(restaurant) //restaurant.id로 해도 되고 restaurant로 해도 되는듯 ㅇㅇ 그냥 restaurant로 그루핑이 됨 ㅇㅇ

@@ -83,7 +83,7 @@ public class Restaurant {
   @Enumerated(EnumType.STRING)
   private BusinessStatus businessStatus; //영업 상태 : 영업 중 , 영업 종료 , 브레이크타임
 
-  private boolean canPark; //주차 가능 여부
+  private Boolean canPark; //주차 가능 여부
 
 
   @OneToMany(mappedBy = "restaurant")

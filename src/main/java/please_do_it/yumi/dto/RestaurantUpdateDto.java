@@ -5,10 +5,15 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class RestaurantUpdateDto {
   private String restaurantName;
   private String businessNum;
@@ -19,7 +24,7 @@ public class RestaurantUpdateDto {
   private String roadNameAddress;
   private String landLotAddress;
   private String zipcode;
-  private String detailsAddress;
+  private String detailAddress;
   private Boolean canPark;
   private String reservationTimeGap;
   private Boolean isPenalty;
@@ -39,4 +44,20 @@ public class RestaurantUpdateDto {
    * Food DTO
    */
   private List<FoodUpdateDto> foodSaveDtoList = new ArrayList<>();
+
+  public RestaurantUpdateDto(String name, String businessNum, Set<String> restaurantTypes, Set<String> containFoodTypes, Set<String> provideServiceTypes, Set<String> moodTypes, String roadAddress, String landLotAddress, String zipCode, String detailAddress, Boolean canPark, int reservationTimeGap, Boolean isPenalty) {
+    this.restaurantName = name;
+    this.businessNum = businessNum;
+    this.restaurantTypes = restaurantTypes;
+    this.containFoodTypes = containFoodTypes;
+    this.provideServiceTypes = provideServiceTypes;
+    this.moodTypes = moodTypes;
+    this.roadNameAddress = roadAddress;
+    this.landLotAddress = landLotAddress;
+    this.zipcode = zipCode;
+    this.detailAddress = detailAddress;
+    this.canPark = canPark;
+    //this.reservationTimeGap = reservationTimeGap;
+    this.isPenalty = isPenalty;
+  }
 }

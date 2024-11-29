@@ -20,10 +20,7 @@ import please_do_it.yumi.constant.ReservationTimeGap;
 import please_do_it.yumi.constant.RestaurantType;
 import please_do_it.yumi.domain.Restaurant;
 import please_do_it.yumi.domain.Review;
-import please_do_it.yumi.dto.FileDTO;
-import please_do_it.yumi.dto.FoodSaveDto;
-import please_do_it.yumi.dto.RestaurantSaveDto;
-import please_do_it.yumi.dto.RestaurantSearchCond;
+import please_do_it.yumi.dto.*;
 import please_do_it.yumi.service.FileService;
 import please_do_it.yumi.service.RestaurantService;
 
@@ -120,13 +117,13 @@ public class RestaurantController {
   }
 
 
-  @GetMapping("/restaurants/save")
+  @GetMapping("/admin-restaurants/save")
   public String saveRestaurant(Model model) {
     model.addAttribute("restaurantSaveDto", new RestaurantSaveDto());
     return "restaurant/admin-saveForm";
   }
 
-  @PostMapping("/restaurants/save")
+  @PostMapping("/admin-restaurants/save")
   @ResponseBody
   public String saveRestaurantPost(@ModelAttribute("restaurantSaveDto") RestaurantSaveDto restaurantSaveDto, RedirectAttributes redirectAttributes) {
     log.info("restaurant = {}" , restaurantSaveDto.getRestaurantImages());
@@ -165,6 +162,16 @@ public class RestaurantController {
     redirectAttributes.addAttribute("saveId", saveId);
     return "success";
   }
+
+
+  @GetMapping("/admin-restaurants/{id}/update")
+  public String updateRestaurant(@PathVariable("id") Long id ,  Model model) {
+    Restaurant restaurant = restaurantService.findOne(id);
+    RestaurantUpdateDto restaurantUpdateDto = new RestaurantUpdateDto(restaurant.getName() , restaurant.getBusinessNum() , restaurant.getRestaurantTypes() , restaurant.getContainFoodTypes() , restaurant.getProvideServiceTypes() , restaurant.getMoodTypes() , restaurant.getAddress().getRoadAddress() , restaurant.getAddress().getLandLotAddress() , restaurant.getAddress().getZipCode() , restaurant.getAddress().getDetailAddress() , restaurant.getCanPark() , restaurant.getReservationTimeGap() , restaurant.getIsPenalty());
+    model.addAttribute("restaurant", restaurant);
+    return "restaurant/admin-updateForm";
+  }
+
 
   @GetMapping("admin/restaurants/{id}")
   public String getAdminRestaurant(@PathVariable("id") Long id, Model model) {

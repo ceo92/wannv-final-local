@@ -44,13 +44,17 @@ public class RestaurantService {
             restaurantSaveDto.getBreakEndTimes(), restaurantSaveDto.getLastOrderTimes(),
             restaurantSaveDto.getIsDayOffList());
 
-    //식당은 여러 이미지가 한 String에 들어가야 하므로 ,로 파싱해주는 작업이 필요했음 ㅇㅇ
 
-    String storeRestaurantImagesUrl = "";
-    List<String> restaurantImagesUrl = restaurantSaveDto.getRestaurantImagesUrl();
-    for (String restaurantImageUrl : restaurantImagesUrl) {
-      storeRestaurantImagesUrl = String.join(",", restaurantImageUrl);
-    }
+    /**
+     * 식당 이미지 저장(음식은 그냥 dto에 있던 거 저장하면 됨)
+     */
+    //식당은 여러 이미지가 한 String에 들어가야 하므로 ,로 파싱해주는 작업이 필요했음 ㅇㅇ
+    String storeRestaurantImagesUrl = getStoreRestaurantImagesUrl(restaurantSaveDto.getRestaurantImagesUrl());
+
+    /**
+     * 예약 시간 간격 String => Integer 파싱
+     */
+    int realReservationTimeGap = getRealReservationTimeGap(restaurantSaveDto.getReservationTimeGap());
 
 
     //음식 사진은 한 음식 당 한 사진만이 할당되니 이미 컨트롤러 부에서 String 값의 Url정보를 dto에 담아서 던졌으므로 그냥 그대로 할당해주면 됨 ㅇㅇ
@@ -58,28 +62,41 @@ public class RestaurantService {
             .stream().map(foodSaveDto -> new Food(foodSaveDto.getName(), foodSaveDto.getFoodImageUrl(), foodSaveDto.getPrice())).toList();
 
     //저장 !
-    Restaurant restaurant = Restaurant.createRestaurant(restaurantSaveDto.getBusinessNum(), restaurantSaveDto.getRestaurantName()
-            , restaurantSaveDto.getMoodTypes()
-            , restaurantSaveDto.getContainFoodTypes(), restaurantSaveDto.getProvideServiceTypes(),
-            restaurantSaveDto.getRestaurantTypes(),
-            storeRestaurantImagesUrl,
-            restaurantSaveDto.getRoadNameAddress(),
-            restaurantSaveDto.getLandLotAddress(),
-            restaurantSaveDto.getZipcode(),
-            restaurantSaveDto.getDetailsAddress(),
-            restaurantSaveDto.getCanPark(),
-            restaurantSaveDto.getReservationTimeGap(),
-            restaurantSaveDto.getIsPenalty(), businessDays, foods);
-
-    /*foods.forEach(food ->{
-      food.addRestaurant(restaurant);
-    });
-    businessDays.forEach(businessDay -> {
-      businessDay.addRestaurant(restaurant);
-    });*/
-
+    Restaurant restaurant = Restaurant.createRestaurant(restaurantSaveDto.getBusinessNum(),
+            restaurantSaveDto.getRestaurantName(), restaurantSaveDto.getContact(), restaurantSaveDto.getDescription()
+            , restaurantSaveDto.getMoodTypes(), restaurantSaveDto.getContainFoodTypes(), restaurantSaveDto.getProvideServiceTypes(),
+            restaurantSaveDto.getRestaurantTypes(), storeRestaurantImagesUrl, restaurantSaveDto.getRoadNameAddress(),
+            restaurantSaveDto.getLandLotAddress(), restaurantSaveDto.getZipcode(), restaurantSaveDto.getDetailsAddress(),
+            restaurantSaveDto.getCanPark(), realReservationTimeGap, restaurantSaveDto.getIsPenalty(), businessDays, foods);
+    restaurant.changeBusinessStatus(BusinessStatus.OPEN);
 
     return restaurantRepository.save(restaurant);
+  }
+
+  private static int getRealReservationTimeGap(String restaurantSaveDto) {
+    String reservationTimeGap = restaurantSaveDto;
+    int realReservationTimeGap = 0;
+    switch (reservationTimeGap) {
+      case "HALF":
+        realReservationTimeGap = 30;
+        break;
+      case "ONE":
+        realReservationTimeGap = 60;
+        break;
+      case "TWO":
+        realReservationTimeGap = 120;
+        break;
+    }
+    return realReservationTimeGap;
+  }
+
+  private static String getStoreRestaurantImagesUrl(List<String> restaurantSaveDto) {
+    String storeRestaurantImagesUrl = "";
+    List<String> restaurantImagesUrl = restaurantSaveDto;
+    for (String restaurantImageUrl : restaurantImagesUrl) {
+      storeRestaurantImagesUrl = String.join(",", restaurantImageUrl);
+    }
+    return storeRestaurantImagesUrl;
   }
 
 
@@ -109,16 +126,9 @@ public class RestaurantService {
         ownerRestaurant);
     List<Restaurant> similarRestaurants = restaurantRepository.findSimilarRestaurantsAll(
         restaurantSearchCond);
-    similarRestaurants.forEach(restaurant -> {
-      double avgRating = restaurant.averageRate();
-      int likesCount = restaurant.totalLikesCount();
-      int reviewCount = restaurant.totalReviewCount();
-      restaurant.addStatistics(avgRating, likesCount, reviewCount);
-      String[] splitImages = restaurant.getImage().split(",");
-      restaurant.addRestaurantImages(splitImages);
-    });
-    return similarRestaurants;
+    return setRestaurantDefaultInfo(similarRestaurants);
   }
+
 
 
   private static RestaurantSearchCond getRestaurantSearchCond(Restaurant ownerRestaurant) {
@@ -134,7 +144,12 @@ public class RestaurantService {
 
   public List<Restaurant> findRestaurants(RestaurantSearchCond restaurantSearchCond){
     List<Restaurant> restaurants = restaurantRepository.findAll(restaurantSearchCond);
-    restaurants.forEach(restaurant -> {
+    return setRestaurantDefaultInfo(restaurants);
+  }
+
+
+  private List<Restaurant> setRestaurantDefaultInfo(List<Restaurant> similarRestaurants) {
+    similarRestaurants.forEach(restaurant -> {
       double avgRating = restaurant.averageRate();
       int likesCount = restaurant.totalLikesCount();
       int reviewCount = restaurant.totalReviewCount();
@@ -142,10 +157,9 @@ public class RestaurantService {
       String[] splitImages = restaurant.getImage().split(",");
       restaurant.addRestaurantImages(splitImages);
     });
-
-
-    return restaurants;
+    return similarRestaurants;
   }
+
 
   public BusinessDay findToday(Restaurant restaurant){
     String todayDayOfWeek = restaurant.getBusinessDays().stream()
@@ -172,18 +186,17 @@ public class RestaurantService {
         foodSaveDto -> new Food(foodSaveDto.getName(), foodSaveDto.getFoodImageUrl(),
             foodSaveDto.getPrice())).toList();
 
-    String storeRestaurantImagesUrl = "";
-    List<String> restaurantImagesUrl = restaurantUpdateDto.getRestaurantImagesUrl();
-    for (String restaurantImageUrl : restaurantImagesUrl) {
-      storeRestaurantImagesUrl = String.join(",", restaurantImageUrl);
-    }
+    String storeRestaurantImagesUrl = getStoreRestaurantImagesUrl(restaurantUpdateDto.getRestaurantImagesUrl());
+
+
+    int realReservationTimeGap = getRealReservationTimeGap(restaurantUpdateDto.getReservationTimeGap());
 
     Restaurant updateRestaurant = findOne(id);
     updateRestaurant.changeRestaurant(restaurantUpdateDto.getBusinessNum() , restaurantUpdateDto.getRestaurantName(),
     restaurantUpdateDto.getMoodTypes(), restaurantUpdateDto.getContainFoodTypes(), restaurantUpdateDto.getProvideServiceTypes(),
     restaurantUpdateDto.getRestaurantTypes(), storeRestaurantImagesUrl, restaurantUpdateDto.getRoadNameAddress(), restaurantUpdateDto.getLandLotAddress(),
         restaurantUpdateDto.getZipcode(),restaurantUpdateDto.getDetailsAddress(), restaurantUpdateDto.getCanPark(),
-    restaurantUpdateDto.getReservationTimeGap(), restaurantUpdateDto.getIsPenalty() ,  businessDays, foods);
+    realReservationTimeGap, restaurantUpdateDto.getIsPenalty() ,  businessDays, foods);
 
   }
 

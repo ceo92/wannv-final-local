@@ -262,7 +262,7 @@
             <div class="mb-3 mt-5">
               <h4 class="mb-3 h5">식당 사진(4장 이상)</h4>
               <div class="input-group mb-3">
-                <input type="file" class="form-control" th:field="*{getRestaurantImages}" multiple >
+                <input type="file" class="form-control" th:field="*{restaurantImages}" multiple >
               </div>
             </div>
 
@@ -277,15 +277,15 @@
                   </div>
                   <div class="col-3">
                     <label class="form-label">이름</label>
-                    <input th:field="*{foods[0].name}"  class="form-control" >
+                    <input th:field="*{foodSaveDtoList[0].name}"  class="form-control" >
                   </div>
                   <div class="col-3">
                     <label class="form-label ">가격</label>
-                    <input type="number" th:field="*{foods[0].price}" class="form-control" >
+                    <input type="number" th:field="*{foodSaveDtoList[0].price}" class="form-control" >
                   </div>
                   <div class="col-3">
                     <label class="form-label">음식 사진</label>
-                    <input type="file" th:field="*{foods[0].image}" class="form-control" >
+                    <input type="file" th:field="*{foodSaveDtoList[0].foodImage}" class="form-control" >
                   </div>
                 </div>
               </div>
@@ -318,17 +318,17 @@
       const newMenu = document.createElement("div");
       newMenu.className = "row menu-item";
       newMenu.innerHTML = `
-                  <div class="col-1" style="margin-top:2rem">
+                  <div class="col-1">
                     <label class="menu-label me-1">메뉴 ${menuCounter}</label>
                   </div>
                   <div class="col-3">
-                    <input  name="foods[${newIndex}].name" placeholder="비건 파스타" class="form-control" >
+                    <input  name="foodSaveDtoList[${newIndex}].name" placeholder="비건 파스타" class="form-control" >
                   </div>
                   <div class="col-3">
-                    <input name="foods[${newIndex}].price" type="number" placeholder="10000" class="form-control" >
+                    <input name="foodSaveDtoList[${newIndex}].price" type="number" placeholder="10000" class="form-control" >
                   </div>
                   <div class="col-3">
-                    <input type="file" name="foods[${newIndex}].image" " class="form-control" >
+                    <input type="file" name="foodSaveDtoList[${newIndex}].foodImage" " class="form-control" >
                   </div>
     `;
 

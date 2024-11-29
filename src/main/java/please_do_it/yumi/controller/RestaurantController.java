@@ -10,10 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import please_do_it.yumi.constant.ContainFoodType;
@@ -35,10 +32,10 @@ import please_do_it.yumi.service.RestaurantService;
 @RequiredArgsConstructor
 public class RestaurantController {
 
-  @Value("restaurant.image.dir")
+  @Value("${restaurant.image.dir}")
   private String restaurantDir;
 
-  @Value("food.image.dir")
+  @Value("${food.image.dir}")
   private String foodDir;
 
   private final RestaurantService restaurantService;
@@ -130,6 +127,7 @@ public class RestaurantController {
   }
 
   @PostMapping("/restaurants/save")
+  @ResponseBody
   public String saveRestaurantPost(@ModelAttribute("restaurantSaveDto") RestaurantSaveDto restaurantSaveDto, RedirectAttributes redirectAttributes) {
     log.info("restaurant = {}" , restaurantSaveDto.getRestaurantImages());
     log.info("food = {}", restaurantSaveDto.getFoodSaveDtoList());
@@ -165,7 +163,7 @@ public class RestaurantController {
 
     Long saveId = restaurantService.save(restaurantSaveDto);
     redirectAttributes.addAttribute("saveId", saveId);
-    return "redirect:/admin/restaurants/{saveId}";
+    return "success";
   }
 
   @GetMapping("admin/restaurants/{id}")

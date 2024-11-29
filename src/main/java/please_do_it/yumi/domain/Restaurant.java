@@ -67,13 +67,14 @@ public class Restaurant {
   @Embedded
   private Address address;
   private String image;
+
   private String description; //설명
 
 
   private LocalDate createdAt; //생성일
   private LocalDate updatedAt; //수정일
 
-  private String reservationTimeGap;
+  private int reservationTimeGap;
   private Boolean isPenalty;
 
 
@@ -139,15 +140,17 @@ public class Restaurant {
 
 
 
-  public static Restaurant createRestaurant(String businessNum, String restaurantName,
+  public static Restaurant createRestaurant(String businessNum, String restaurantName, String contact,String description,
       Set<String> moodTypes,
       Set<String> containFoodTypes, Set<String> provideServiceTypes, Set<String> restaurantTypes,
       String image, String roadNameAddress
       , String landLotAddress, String zipcode, String detailAddress, Boolean canPark,
-      String reservationTimeGap
+      int reservationTimeGap
       , Boolean isPenalty, List<BusinessDay> businessDays, List<Food> foods) {
 
     Restaurant restaurant = new Restaurant();
+    restaurant.setContact(contact);
+    restaurant.setDescription(description);
     restaurant.setBusinessNum(businessNum);
     restaurant.setName(restaurantName);
     restaurant.setMoodTypes(moodTypes);
@@ -159,6 +162,8 @@ public class Restaurant {
     restaurant.setCanPark(canPark);
     restaurant.setReservationTimeGap(reservationTimeGap);
     restaurant.setIsPenalty(isPenalty);
+    restaurant.setCreatedAt(LocalDate.now());
+    restaurant.setUpdatedAt(LocalDate.now());
     businessDays.forEach(restaurant::addBusinessDay);
     foods.forEach(restaurant::addFood);
     return restaurant;
@@ -185,7 +190,7 @@ public class Restaurant {
    */
 
   public double averageRate() {
-    return reviews.stream().mapToInt(Review::getRating).average().orElseThrow(()->new IllegalArgumentException("현 식당에 대한 리뷰가 존재하지 않습니다.")); //평균 계산
+    return reviews.stream().mapToInt(Review::getRating).average().orElse(0); //평균 계산 , 리뷰가 없을 경우 그냥 0 반환 ㅇㅇ , 없으니 0이지 !
   }
 
   public void addStatistics(double averageRating , int likesCount , int reviewCount){
@@ -221,7 +226,7 @@ public class Restaurant {
   public void changeRestaurant(String businessNum, String restaurantName, Set<String> moodTypes,
       Set<String> containFoodTypes, Set<String> provideServiceTypes, Set<String> restaurantTypes,
       String image, String roadNameAddress, String landLotAddress, String zipcode,
-      String detailsAddress, Boolean canPark, String reservationTimeGap,
+      String detailsAddress, Boolean canPark, int reservationTimeGap,
       Boolean isPenalty, List<BusinessDay> businessDays, List<Food> foods) {
 
     setBusinessNum(businessNum);

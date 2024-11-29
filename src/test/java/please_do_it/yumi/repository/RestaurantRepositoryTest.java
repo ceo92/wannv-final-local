@@ -110,13 +110,7 @@ class RestaurantRepositoryTest {
 
   }
 
-  @Test
-  void sfdsdffdskj(){
-    List<Restaurant> all = restaurantRepository.findAll(new RestaurantSearchCond());
-    for (Restaurant restaurant : all) {
-      System.out.println("restaurant = " + restaurant);
-    }
-  }
 
 
-}
+
+}졸려ㅠ

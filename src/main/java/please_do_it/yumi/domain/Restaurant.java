@@ -27,6 +27,8 @@ import lombok.ToString;
 import org.springframework.format.annotation.NumberFormat;
 import please_do_it.yumi.constant.BusinessStatus;
 
+import javax.print.attribute.standard.MediaSize;
+
 @Entity
 @Getter
 @Setter(AccessLevel.PRIVATE)
@@ -39,6 +41,8 @@ public class Restaurant {
   private Long id;
 
   private String name;
+
+  @Column(name = "business_num")
   private String businessNum;
 
   private String contact; //연락처
@@ -71,18 +75,24 @@ public class Restaurant {
   private String description; //설명
 
 
+  @Column(name = "created_at")
   private LocalDate createdAt; //생성일
+
+  @Column(name = "updated_at")
   private LocalDate updatedAt; //수정일
 
+  @Column(name = "reservation_time_gap")
   private int reservationTimeGap;
+
+  @Column(name = "is_penalty")
   private Boolean isPenalty;
 
 
-
-
   @Enumerated(EnumType.STRING)
+  @Column(name = "business_status")
   private BusinessStatus businessStatus; //영업 상태 : 영업 중 , 영업 종료 , 브레이크타임
 
+  @Column(name = "can_park")
   private Boolean canPark; //주차 가능 여부
 
 

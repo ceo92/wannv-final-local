@@ -4,8 +4,6 @@ package please_do_it.yumi.dto;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -20,8 +18,8 @@ public class RestaurantAdminSearchCond {
     private String name;
     private String businessNum;
     private String restaurantTypes;
-    private LocalDate createAtStart;
-    private LocalDate createAtEnd;
+    private LocalDate createdAtStart;
+    private LocalDate createdAtEnd;
 
     /**
      * having 동적 조건

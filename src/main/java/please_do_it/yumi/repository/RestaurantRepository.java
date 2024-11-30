@@ -4,7 +4,6 @@ import static please_do_it.yumi.domain.QFood.food;
 import static please_do_it.yumi.domain.QLikes.likes;
 import static please_do_it.yumi.domain.QRestaurant.restaurant;
 import static please_do_it.yumi.domain.QReview.review;
-import static please_do_it.yumi.domain.QUser.user;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -101,19 +100,38 @@ public class RestaurantRepository {
     String name = restaurantAdminSearchCond.getName();
     String restaurantTypes = restaurantAdminSearchCond.getRestaurantTypes();
     String businessNum = restaurantAdminSearchCond.getBusinessNum();
-    LocalDate createAtStart = restaurantAdminSearchCond.getCreateAtStart();
-    LocalDate createAtEnd = restaurantAdminSearchCond.getCreateAtEnd();
+    LocalDate createdAtStart = restaurantAdminSearchCond.getCreatedAtStart();
+    LocalDate createdAtEnd = restaurantAdminSearchCond.getCreatedAtEnd();
 
     //having
     Boolean isLatest = restaurantAdminSearchCond.getIsLatest();
     Boolean isRegister = restaurantAdminSearchCond.getIsRegister();
 
-    query.selectFrom(restaurant)
-            .where(adminLikeName(name))
-            .groupBy(restaurant)
-            .having()
+
+    BooleanBuilder whereBuilder = new BooleanBuilder();
+    BooleanBuilder havingBuilder = new BooleanBuilder();
+
+    JPAQuery<Restaurant> dynamicQuery = query.selectFrom(restaurant)
+            .where(adminLikeName(name), adminLikeBusinessNum(businessNum),
+                    adminRangeCreateAt(createdAtStart, createdAtEnd),
+                    whereBuilder.or(restaurant.restaurantTypes.any().like("%" + restaurantTypes + "%")));
 
 
+    if (Boolean.TRUE.equals(isRegister)){
+      dynamicQuery.orderBy(restaurant.createdAt.desc());
+    }
+    if (Boolean.TRUE.equals(isLatest)){
+      dynamicQuery.orderBy(restaurant.createdAt.asc());
+    }
+    return dynamicQuery.fetch();
+
+
+  }
+
+
+
+  private BooleanExpression adminRangeCreateAt(LocalDate createdAtStart, LocalDate createdAtEnd) {
+      return createdAtStart != null || createdAtEnd != null ? restaurant.createdAt.goe(createdAtStart).and(restaurant.createdAt.loe(createdAtEnd)) : null;
   }
 
 
@@ -125,6 +143,9 @@ public class RestaurantRepository {
   private BooleanExpression adminLikeBusinessNum(String businessNum) {
    return  StringUtils.hasText(businessNum) ? restaurant.name.like("%"+businessNum+"%") : null;
   }
+
+
+
 
 
 

@@ -143,6 +143,68 @@
 
                             </tr>
 
+                            <tr>
+                                <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">영업 시작 시간</td>
+                                <td><span class="me-1" th:each="businessDay : ${restaurant.businessDays}" th:text="${{businessDay.openTime}}">10:30</span></td>
+                                <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">영업 종료 시간</td>
+                                <td><span class="me-1" th:each="businessDay : ${restaurant.businessDays}" th:text="${{businessDay.closeTime}}">19:30</span></td>
+                            </tr>
+
+
+                            <tr>
+                                <table class="table-centered table-borderless mb-0 table-with-checkbox text-nowrap text-center " >
+                                    <thead style="background-color:#D5EED1;">
+                                    <tr >
+                                        <th style="text-align: center "></th>
+                                        <th th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.dayOfWeek}" style="text-align: center ">월요일</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody >
+                                    <tr>
+                                        <th class="" style="background-color:#C7EED5;text-align: center">시작 시간</th>
+                                        <td style="text-align: center" th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.openTime}">
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <th class="" style="background-color:#C7EED5;text-align: center">종료 시간</th>
+                                        <td style="text-align: center" th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.closeTime}">
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <th class="" style="background-color:#C7EED5;text-align: center">브레이크타임 시작 시간</th>
+                                        <td style="text-align: center" th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.breakStartTime}">
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <th class="" style="background-color:#C7EED5;text-align: center">브레이크타임 종료 시간</th>
+                                        <td style="text-align: center" th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.breakEndTime}">
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <th class="" style="background-color:#C7EED5;text-align: center">라스트오더</th>
+                                        <td style="text-align: center" th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.lastOrderTime}">
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <!--휴무일 여부는 false가 잘 할당돼있기에 판별 할 수 있었음-->
+                                        <th class="" style="background-color:#C7EED5;text-align: center;">휴무일 여부</th>
+                                        <td style="text-align: center" th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.isDayOff ? '휴무일' : '영업일'}">
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </tr>
+
 
                             </tbody>
                         </table>

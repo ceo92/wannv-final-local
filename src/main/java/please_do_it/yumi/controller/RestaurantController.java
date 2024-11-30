@@ -18,6 +18,7 @@ import please_do_it.yumi.constant.MoodType;
 import please_do_it.yumi.constant.ProvideServiceType;
 import please_do_it.yumi.constant.ReservationTimeGap;
 import please_do_it.yumi.constant.RestaurantType;
+import please_do_it.yumi.domain.BusinessDay;
 import please_do_it.yumi.domain.Restaurant;
 import please_do_it.yumi.domain.Review;
 import please_do_it.yumi.dto.*;
@@ -201,8 +202,6 @@ public class RestaurantController {
     return reviewsByRating;
   }
 
-
   //UrlResource 자체가 필요 없음 , 어차피 Url직접 웹에서 링크로 조회해서 띄우는 것임 ㅇㅇ 내 서버로 들어와서 DB에 접근해서 띄우는 게 아닌 !
-
 
 }

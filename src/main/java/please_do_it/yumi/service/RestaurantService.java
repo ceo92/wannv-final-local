@@ -16,6 +16,7 @@ import please_do_it.yumi.domain.BusinessDay;
 import please_do_it.yumi.domain.Food;
 import please_do_it.yumi.domain.Restaurant;
 import please_do_it.yumi.domain.Review;
+import please_do_it.yumi.dto.RestaurantAdminSearchCond;
 import please_do_it.yumi.dto.RestaurantSaveDto;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 import please_do_it.yumi.dto.RestaurantUpdateDto;
@@ -111,6 +112,10 @@ public class RestaurantService {
     restaurant.addFoodsPriceAverage(foodsPriceAverage);
     return restaurant;
 
+  }
+
+  public List<Restaurant> findRestaurantsAdmin(RestaurantAdminSearchCond restaurantAdminSearchCond){
+    return restaurantRepository.findAllAdmin(restaurantAdminSearchCond);
   }
 
   public List<Restaurant> findSimilarRestaurants(Long id){

@@ -184,7 +184,7 @@ public class RestaurantController {
 
   @GetMapping("admin-restaurants")
   public String getAdminRestaurants(@ModelAttribute("restaurantAdminSearchCond") RestaurantAdminSearchCond restaurantAdminSearchCond , Model model) {
-    model.addAttribute("restaurants", restaurantService.findRestaurants(new RestaurantSearchCond()));
+    model.addAttribute("restaurants", restaurantService.findRestaurantsAdmin(restaurantAdminSearchCond));
     return "restaurant/admin-restaurants";
   }
 

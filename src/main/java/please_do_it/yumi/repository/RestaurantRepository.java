@@ -109,8 +109,8 @@ public class RestaurantRepository {
 
     JPAQuery<Restaurant> dynamicQuery = query.selectFrom(restaurant)
             .where(adminLikeName(name), adminLikeBusinessNum(businessNum),
-                    adminRangeCreateAt(createdAtStart, createdAtEnd),
-                    whereBuilder.or(restaurant.restaurantTypes.any().like("%" + restaurantTypes + "%")));
+                    adminRangeCreateAt(createdAtStart, createdAtEnd)
+                    ,adminLikeRestaurantTypes(restaurantTypes));
 
     for (String adminSortCondition : adminSortConditions) {
       if (adminSortCondition.equals("NEW")){
@@ -123,6 +123,9 @@ public class RestaurantRepository {
     return dynamicQuery.fetch();
 
 
+  }
+  private BooleanExpression adminLikeRestaurantTypes(String restaurantTypes){
+    return restaurantTypes != null ? restaurant.restaurantTypes.any().like("%" + restaurantTypes + "%") : null;
   }
 
 

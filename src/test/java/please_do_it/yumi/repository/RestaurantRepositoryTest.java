@@ -15,6 +15,7 @@ import please_do_it.yumi.controller.RestaurantController;
 import please_do_it.yumi.domain.Food;
 import please_do_it.yumi.domain.Restaurant;
 import please_do_it.yumi.domain.Review;
+import please_do_it.yumi.dto.RestaurantAdminSearchCond;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 
 @SpringBootTest
@@ -87,30 +88,14 @@ class RestaurantRepositoryTest {
 
 
   @Test
-  void djusd(){
-    Set<String> containFoodTypes = new HashSet<>();
-    containFoodTypes.add("계란 포함");
-    containFoodTypes.add("유제품 포함");
-    containFoodTypes.add("생선 포함");
-
-    Set<String> restaurantTypes = new HashSet<>();
-    restaurantTypes.add("한식");
-    restaurantTypes.add("이탈리아 음식");
-    restaurantTypes.add("터키 음식");
-
-    RestaurantSearchCond restaurantSearchCond = new RestaurantSearchCond();
-    restaurantSearchCond.setRestaurantTypes(restaurantTypes);
-    restaurantSearchCond.setContainFoodTypes(containFoodTypes);
-    restaurantSearchCond.setRoadAddress("서울 강남구 논현로28길 47 1층");
-    List<Restaurant> similarRestaurantsAll = restaurantRepository.findSimilarRestaurantsAll(
-        restaurantSearchCond);
-    for (Restaurant restaurant : similarRestaurantsAll) {
+  void sdjkd(){
+    List<Restaurant> allAdmin = restaurantRepository.findAllAdmin(new RestaurantAdminSearchCond());
+    for (Restaurant restaurant : allAdmin) {
       System.out.println("restaurant = " + restaurant);
     }
-
   }
 
 
 
 
-}졸려ㅠ
+}

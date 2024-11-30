@@ -91,6 +91,15 @@ public class RestaurantController {
   }
 
 
+  @ModelAttribute("adminSortConditions")
+  public Map<String , String> adminSortConditions(){
+    Map<String, String> adminSortConditions = new HashMap<>();
+    adminSortConditions.put("NEW", "최신 순");
+    adminSortConditions.put("REGISTER", "등록 순");
+    return adminSortConditions;
+  }
+
+
   //restaurant
   @GetMapping("restaurants")
   public String getRestaurants(@ModelAttribute("restaurantSearchCond") RestaurantSearchCond restaurantSearchCond,

@@ -36,27 +36,35 @@ th, td {
 
             <!--필터링 Start-->
             <div class="p-6 d-flex">
-                <form class="me-auto"  role="search" id="searchForm" th:object="" method="get" th:action>
+                <form class="me-auto"  role="search" id="searchForm" th:object="${restaurantAdminSearchCond}" method="get" th:action>
                   <div class="d-flex justify-content-start ">
                     <div class="">
-                      <input th:field="*{}" class="form-control" placeholder="이름 입력" type="search" aria-label="Search">
+                      <input th:field="*{name}" class="form-control" placeholder="이름 입력" type="search" aria-label="Search">
                     </div>
 
                     <div class="mx-3 ">
-                      <input id="ff" class="form-control" placeholder="식당 분류 입력" type="search" aria-label="Search">
+                      <input th:field="*{restaurantTypes}" class="form-control" placeholder="식당 분류 입력" type="search" aria-label="Search">
                     </div>
 
                     <div class="mx-3 ">
-                      <input id="ff" class="form-control" placeholder="사업자번호 입력" type="search" aria-label="Search">
+                      <input  th:field="*{businessNum}" class="form-control" placeholder="사업자번호 입력" type="search" aria-label="Search">
+                    </div>
+
+                    <div class="mx-3 ">
+                      <input  th:field="*{createdAtStart}" class="form-control" placeholder="시작 등록 날짜 입력" type="date" aria-label="Search">
+                    </div>
+
+                    <div class="mx-3 ">
+                      <input  th:field="*{createdAtEnd}" class="form-control" placeholder="종료 등록 날짜 입력" type="date" aria-label="Search">
                     </div>
 
 
 
 
-                    <div class="ms-2 ">
-                      <select class="form-select" id="type" onchange="filtering()">
-                        <option selected value="new">최신순</option>
-                        <option value="old">등록순</option>
+                    <div class="">
+                      <select class="form-select" th:field="*{adminSortConditions}"  onchange="filtering()">
+                        <option value="" selected>--정렬 방법을 선택하시오--</option>
+                        <option th:each="adminSortCondition : ${adminSortConditions}" th:value="${adminSortCondition.key}" th:text="${adminSortCondition.value}">최신순</option>
                       </select>
                     </div>
 
@@ -77,6 +85,7 @@ th, td {
                 <thead class="bg-light">
                   <tr>
                     <th>번호</th>
+                    <th>식당 ID</th>
                     <th>이름</th>
                     <th>사업자번호</th>
                     <th>식당 분류</th>
@@ -86,6 +95,7 @@ th, td {
                 <tbody>
                   <tr th:each="restaurant : ${restaurants}">
                     <td style="text-align: center" th:text="${restaurantStat.index+1}">1</td>
+                    <td style="text-align: center" th:text="${restaurant.id}">1</td>
                     <td style="text-align: center" th:text="${restaurant.name}">샐러디 안양점</td>
                     <td style="text-align: center" th:text="${restaurant.businessNum}">349-78-38591</td>
                     <td style="text-align: center"><span  th:each="restaurantType : ${restaurant.restaurantTypes}" class="me-1" th:text="${restaurantType}">다이어트 , 샐러드</span></td>

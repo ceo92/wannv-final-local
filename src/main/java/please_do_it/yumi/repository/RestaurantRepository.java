@@ -104,24 +104,21 @@ public class RestaurantRepository {
     LocalDate createdAtEnd = restaurantAdminSearchCond.getCreatedAtEnd();
 
     //having
-    Boolean isLatest = restaurantAdminSearchCond.getIsLatest();
-    Boolean isRegister = restaurantAdminSearchCond.getIsRegister();
-
-
+    List<String> adminSortConditions = restaurantAdminSearchCond.getAdminSortConditions();
     BooleanBuilder whereBuilder = new BooleanBuilder();
-    BooleanBuilder havingBuilder = new BooleanBuilder();
 
     JPAQuery<Restaurant> dynamicQuery = query.selectFrom(restaurant)
             .where(adminLikeName(name), adminLikeBusinessNum(businessNum),
                     adminRangeCreateAt(createdAtStart, createdAtEnd),
                     whereBuilder.or(restaurant.restaurantTypes.any().like("%" + restaurantTypes + "%")));
 
-
-    if (Boolean.TRUE.equals(isRegister)){
-      dynamicQuery.orderBy(restaurant.createdAt.desc());
-    }
-    if (Boolean.TRUE.equals(isLatest)){
-      dynamicQuery.orderBy(restaurant.createdAt.asc());
+    for (String adminSortCondition : adminSortConditions) {
+      if (adminSortCondition.equals("NEW")){
+        dynamicQuery.orderBy(restaurant.createdAt.desc());
+      }
+      if (adminSortCondition.equals("REGISTER")){
+        dynamicQuery.orderBy(restaurant.createdAt.asc());
+      }
     }
     return dynamicQuery.fetch();
 
@@ -141,7 +138,7 @@ public class RestaurantRepository {
 
 
   private BooleanExpression adminLikeBusinessNum(String businessNum) {
-   return  StringUtils.hasText(businessNum) ? restaurant.name.like("%"+businessNum+"%") : null;
+   return  StringUtils.hasText(businessNum) ? restaurant.businessNum.like("%"+businessNum+"%") : null;
   }
 
 

@@ -4,6 +4,8 @@ package please_do_it.yumi.dto;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -24,7 +26,6 @@ public class RestaurantAdminSearchCond {
     /**
      * having 동적 조건
      */
-    private Boolean isLatest; //최신순
-    private Boolean isRegister; //등록
+    List<String> adminSortConditions = new ArrayList<>(); //최신 순 , 등록 순
 
 }

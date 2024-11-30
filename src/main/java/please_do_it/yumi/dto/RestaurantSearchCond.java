@@ -34,7 +34,7 @@ public class RestaurantSearchCond {
   private Set<String> moodTypes = new HashSet<>();
 
   /**
-   * orderBy 동적 조건 , 애초에 라디오 버튼으로 할라면 이걸 컬렉션으로 묶었어야됨..
+   * orderBy 동적 조건 , 체크박스 동적 조건으로 갈라면 컬렉션으로 묶어야됨 ㅇㅇ
    */
   private List<String> sortConditions = new ArrayList<>();
 

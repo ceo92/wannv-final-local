@@ -11,6 +11,8 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -20,6 +22,7 @@ import org.springframework.util.StringUtils;
 import please_do_it.yumi.constant.BusinessStatus;
 
 import please_do_it.yumi.domain.Restaurant;
+import please_do_it.yumi.dto.RestaurantAdminSearchCond;
 import please_do_it.yumi.dto.RestaurantSearchCond;
 
 @Repository
@@ -46,9 +49,6 @@ public class RestaurantRepository {
   }
 
 
-  public List<Restaurant> findTest(){
-    return query.selectFrom(restaurant).leftJoin(restaurant.reviews, review).fetch();
-  }
 
   public List<Restaurant> findAll(RestaurantSearchCond restaurantSearchCond){
 
@@ -87,7 +87,6 @@ public class RestaurantRepository {
         .leftJoin(restaurant.reviews, review)
         .join(restaurant.foods, food)
         .leftJoin(restaurant.likes , likes)
-        .leftJoin(review.user , user)
         .where(whereBuilder,
             eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress))
         .groupBy(restaurant) //restaurant.id로 해도 되고 restaurant로 해도 되는듯 ㅇㅇ 그냥 restaurant로 그루핑이 됨 ㅇㅇ
@@ -97,7 +96,30 @@ public class RestaurantRepository {
     return dynamicQuery.fetch();
   }
 
+  public List<Restaurant> findAllAdmin(RestaurantAdminSearchCond restaurantAdminSearchCond) {
+    //where
+    String name = restaurantAdminSearchCond.getName();
+    String restaurantTypes = restaurantAdminSearchCond.getRestaurantTypes();
+    String businessNum = restaurantAdminSearchCond.getBusinessNum();
+    LocalDate createAtStart = restaurantAdminSearchCond.getCreateAtStart();
+    LocalDate createAtEnd = restaurantAdminSearchCond.getCreateAtEnd();
 
+    //having
+    Boolean isLatest = restaurantAdminSearchCond.getIsLatest();
+    Boolean isRegister = restaurantAdminSearchCond.getIsRegister();
+
+    query.selectFrom(restaurant)
+            .where()
+            .groupBy(restaurant)
+            .having()
+
+
+  }
+
+
+  private BooleanExpression admin(Integer startPrice, Integer endPrice) {
+    return startPrice != null && endPrice != null ? food.price.avg().goe(startPrice).and(food.price.avg().loe(endPrice)) : null;
+  }
 
 
 

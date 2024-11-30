@@ -36,20 +36,22 @@ th, td {
 
             <!--필터링 Start-->
             <div class="p-6 d-flex">
-                <form class="me-auto" role="search" id="searchForm">
+                <form class="me-auto"  role="search" id="searchForm" th:object="" method="get" th:action>
                   <div class="d-flex justify-content-start ">
                     <div class="">
-                      <input id="name" class="form-control" placeholder="이름 입력" type="search" aria-label="Search">
+                      <input th:field="*{}" class="form-control" placeholder="이름 입력" type="search" aria-label="Search">
                     </div>
 
                     <div class="mx-3 ">
-                      <input id="ff" class="form-control" placeholder="분류 입력" type="search" aria-label="Search">
+                      <input id="ff" class="form-control" placeholder="식당 분류 입력" type="search" aria-label="Search">
                     </div>
 
-                    <div class="mx-2 mt-2 form-check ">
-                      <input type="checkbox" name="isPost" id="isPost" class="form-check-input">
-                      <label for="isPost" th:text="|게시여부|" class="form-check-label">게시여부</label>
+                    <div class="mx-3 ">
+                      <input id="ff" class="form-control" placeholder="사업자번호 입력" type="search" aria-label="Search">
                     </div>
+
+
+
 
                     <div class="ms-2 ">
                       <select class="form-select" id="type" onchange="filtering()">
@@ -59,9 +61,9 @@ th, td {
                     </div>
 
                   </div>
+                  <button form="searchForm" class="btn btn-primary px-5 "  th:text="검색">검색하기</button> <!-- button이 form 외부에 있음 , 그래서 form의 id인 searchForm으로 연결!-->
 
                 </form>
-              <button form="searchForm" class="btn btn-primary px-5 "  th:text="검색">검색하기</button> <!-- button이 form 외부에 있음 , 그래서 form의 id인 searchForm으로 연결!-->
 
 
             </div>
@@ -75,81 +77,23 @@ th, td {
                 <thead class="bg-light">
                   <tr>
                     <th>번호</th>
-                    <th>등록일</th>
-                    <th>사업자번호</th>
-                    <th>사업자이름</th>
-                    <th>분류</th>
                     <th>이름</th>
-                    <th>상태</th>
+                    <th>사업자번호</th>
+                    <th>식당 분류</th>
+                    <th>등록일</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr >
-                    <td style="text-align: center">1</td>
-                    <td style="text-align: center">2024/12/12</td>
-                    <td style="text-align: center">349-78-38591</td>
-                    <td style="text-align: center">이경민</td>
-                    <td style="text-align: center">다이어트 , 샐러드</td>
-                    <td style="text-align: center">샐러디 안양점</td>
-                    <td>
-                      <span class="badge bg-light-primary text-dark-primary fs-6">게시</span>
-                    </td>
+                  <tr th:each="restaurant : ${restaurants}">
+                    <td style="text-align: center" th:text="${restaurantStat.index+1}">1</td>
+                    <td style="text-align: center" th:text="${restaurant.name}">샐러디 안양점</td>
+                    <td style="text-align: center" th:text="${restaurant.businessNum}">349-78-38591</td>
+                    <td style="text-align: center"><span  th:each="restaurantType : ${restaurant.restaurantTypes}" class="me-1" th:text="${restaurantType}">다이어트 , 샐러드</span></td>
+                    <td style="text-align: center" th:text="${restaurant.createdAt}">2024/12/12</td>
+
+
                   </tr>
-                  <tr >
-                    <td style="text-align: center">2</td>
-                    <td style="text-align: center">2024/12/12</td>
-                    <td style="text-align: center">349-78-38591</td>
-                    <td style="text-align: center">이경민</td>
-                    <td style="text-align: center">다이어트 , 샐러드</td>
-                    <td style="text-align: center">샐러디 안양점</td>
-                    <td>
-                      <span class="badge bg-light-primary text-dark-primary fs-6">게시</span>
-                    </td>
-                  </tr>
-                  <tr >
-                    <td style="text-align: center">3</td>
-                    <td style="text-align: center">2024/12/12</td>
-                    <td style="text-align: center">349-78-38591</td>
-                    <td style="text-align: center">이경민</td>
-                    <td style="text-align: center">다이어트 , 샐러드</td>
-                    <td style="text-align: center">샐러디 안양점</td>
-                    <td>
-                      <span class="badge bg-light-primary text-dark-primary fs-6">게시</span>
-                    </td>
-                  </tr>
-                  <tr >
-                    <td style="text-align: center">4</td>
-                    <td style="text-align: center">2024/12/12</td>
-                    <td style="text-align: center">349-78-38591</td>
-                    <td style="text-align: center">이경민</td>
-                    <td style="text-align: center">다이어트 , 샐러드</td>
-                    <td style="text-align: center">샐러디 안양점</td>
-                    <td>
-                      <span class="badge bg-light-primary text-dark-primary fs-6">게시</span>
-                    </td>
-                  </tr>
-                  <tr >
-                    <td style="text-align: center">5</td>
-                    <td style="text-align: center">2024/12/12</td>
-                    <td style="text-align: center">349-78-38591</td>
-                    <td style="text-align: center">이경민</td>
-                    <td style="text-align: center">다이어트 , 샐러드</td>
-                    <td style="text-align: center">샐러디 안양점</td>
-                    <td>
-                      <span class="badge bg-light-primary text-dark-primary fs-6">게시</span>
-                    </td>
-                  </tr>
-                  <tr >
-                    <td style="text-align: center">6</td>
-                    <td style="text-align: center">2024/12/12</td>
-                    <td style="text-align: center">349-78-38591</td>
-                    <td style="text-align: center">이경민</td>
-                    <td style="text-align: center">다이어트 , 샐러드</td>
-                    <td style="text-align: center">샐러디 안양점</td>
-                    <td>
-                      <span class="badge bg-light-primary text-dark-primary fs-6">게시</span>
-                    </td>
-                  </tr>
+
 
                 </tbody>
               </table>
@@ -162,7 +106,6 @@ th, td {
 
             <div class="border-top d-md-flex justify-content-between align-items-center p-6">
 
-              <span>Showing 1 to 8 of 12 entries</span>
               <nav class="mt-2 mt-md-0">
                 <ul class="pagination mb-0 ">
                   <li class="page-item disabled"><a class="page-link " href="#!">Previous</a></li>

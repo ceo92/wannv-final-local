@@ -155,35 +155,35 @@
                                     <tbody >
                                     <tr>
                                         <th class="table-success fw-bold " style="background-color:#C7EED5;text-align: center">시작 시간</th>
-                                        <td style="text-align: center" th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.openTime}">
+                                        <td style="text-align: center" th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.isDayOff ? '휴무일' : businessDay.openTime}">
                                         </td>
                                     </tr>
 
 
                                     <tr>
                                         <th class="table-success fw-bold " style="background-color:#C7EED5;text-align: center">종료 시간</th>
-                                        <td style="text-align: center" th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.closeTime}">
+                                        <td style="text-align: center" th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.isDayOff ? '휴무일' : businessDay.closeTime}">
                                         </td>
                                     </tr>
 
 
                                     <tr>
                                         <th class="table-success fw-bold " style="background-color:#C7EED5;text-align: center">브레이크타임 시작 시간</th>
-                                        <td style="text-align: center" th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.breakStartTime}">
+                                        <td style="text-align: center" th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.isDayOff ? '휴무일' : businessDay.breakStartTime}">
                                         </td>
                                     </tr>
 
 
                                     <tr>
                                         <th class="table-success fw-bold " style="background-color:#C7EED5;text-align: center">브레이크타임 종료 시간</th>
-                                        <td style="text-align: center" th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.breakEndTime}">
+                                        <td style="text-align: center" th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.isDayOff ? '휴무일' : businessDay.breakEndTime}">
                                         </td>
                                     </tr>
 
 
                                     <tr>
                                         <th class="table-success fw-bold " style="background-color:#C7EED5;text-align: center">라스트오더</th>
-                                        <td style="text-align: center" th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.lastOrderTime}">
+                                        <td style="text-align: center" th:each="businessDay : ${restaurant.businessDays}" th:text="${businessDay.isDayOff ? '휴무일' : businessDay.lastOrderTime}">
                                         </td>
                                     </tr>
 

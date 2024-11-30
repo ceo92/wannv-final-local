@@ -182,10 +182,11 @@ public class RestaurantController {
     return "restaurant/admin-restaurant";
   }
 
-  /*@GetMapping("admin/restaurants")
-  public String getAdminRestaurants(){
-    restaurantService.findAdminRestaurants();
-  }*/
+  @GetMapping("admin-restaurants")
+  public String getAdminRestaurants(@ModelAttribute("restaurantAdminSearchCond") RestaurantAdminSearchCond restaurantAdminSearchCond , Model model) {
+    model.addAttribute("restaurants", restaurantService.findRestaurants(new RestaurantSearchCond()));
+    return "restaurant/admin-restaurants";
+  }
 
   private Map<Integer, List<Review>> getReviewsByRating(Long id) {
     List<Review> reviewsByOneRating = restaurantService.findReviewsByRating(id, 1);

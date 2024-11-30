@@ -109,7 +109,7 @@ public class RestaurantRepository {
     Boolean isRegister = restaurantAdminSearchCond.getIsRegister();
 
     query.selectFrom(restaurant)
-            .where()
+            .where(adminLikeName(name))
             .groupBy(restaurant)
             .having()
 
@@ -117,9 +117,18 @@ public class RestaurantRepository {
   }
 
 
-  private BooleanExpression admin(Integer startPrice, Integer endPrice) {
-    return startPrice != null && endPrice != null ? food.price.avg().goe(startPrice).and(food.price.avg().loe(endPrice)) : null;
+  private BooleanExpression adminLikeName(String name) {
+   return  StringUtils.hasText(name) ? restaurant.name.like("%"+name+"%") : null;
   }
+
+
+  private BooleanExpression adminLikeBusinessNum(String businessNum) {
+   return  StringUtils.hasText(businessNum) ? restaurant.name.like("%"+businessNum+"%") : null;
+  }
+
+
+
+
 
 
 

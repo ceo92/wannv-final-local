@@ -24,6 +24,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 import please_do_it.yumi.constant.BusinessStatus;
 
@@ -76,10 +77,13 @@ public class Restaurant {
 
 
   @Column(name = "created_at")
+  @DateTimeFormat(pattern = "yyyy-mm-dd")
   private LocalDate createdAt; //생성일
 
   @Column(name = "updated_at")
+  @DateTimeFormat(pattern = "yyyy-mm-dd")
   private LocalDate updatedAt; //수정일
+
 
   @Column(name = "reservation_time_gap")
   private int reservationTimeGap;

@@ -16,63 +16,73 @@
 
     <!-- row -->
         <div class="row ">
+            <div class="d-flex justify-content-end">
+                <button type="button" th:onclick="|location.href='@{/admin-restaurants}'|" class="btn btn-outline-dark me-2" style="border-radius: 5%;">뒤로</button>
+                <button type="button" th:onclick="|location.href='@{/admin-restaurants/{id}/update(id = ${restaurant.id})}'|" class="btn btn-outline-info" style="border-radius: 5%;">수정</button>
+                <button type="button" th:onclick="|location.href='@{/admin-restaurants/{id}/delete(id = ${restaurant.id})}'|" class="btn btn-outline-danger mx-2" style="border-radius: 5%;">삭제</button>
+            </div>
             <div class="col-xl-12 col-12 mb-5">
                 <!-- card -->
                 <div class="card h-100 card-lg">
                     <div class="card-body p-6">
                         <!-- table -->
+
                         <table class="table mb-6 border fs-5" style="width:80rem">
                             <tbody>
                             <tr>
                                 <td class="table-success fw-bold" style="text-align:center;width: 15%; background-color:#D5EED1">ID</td>
-                                <td>10</td>
+                                <td th:text="${restaurant.id}">10</td>
                                 <td class="table-success fw-bold" style="text-align:center;width: 15%; background-color:#D5EED1">상태</td>
-                                <td>게시</td> 
+                                <td>영업</td>  <!-- 영업 , 폐업 , 중지로 나누자 -->
                             </tr>
 
                             <tr>
                                 <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">사업자 등록번호</td>
-                                <td>123-45-67890</td>
-                                <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">사업자명</td>
-                                <td>우도환</td>
+                                <td th:text="${restaurant.businessNum}">123-45-67890</td>
                             </tr>
 
                             <tr>
                                 <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">등록일</td>
-                                <td>2024/12/12</td>
+                                <td th:text="${restaurant.createdAt}">2024/12/12</td>
                                 <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">수정일</td>
-                                <td>2024/12/12</td>
+                                <td th:text="${restaurant.updatedAt}" >2024/12/12</td>
                             </tr>
 
 
                             <tr>
                                 <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">식당 분류</td>
-                                <td>다이어트 , 샐러드</td>
+                                <td><span class="me-1" th:each="restaurantType : ${restaurant.restaurantTypes}" th:text="${restaurantType}"></span></td>
                                 <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">식당 이름</td>
-                                <td>샐러디 안양점</td>
+                                <td th:text="${restaurant.name}">샐러디 안양점</td>
                             </tr>
 
 
                             <tr>
-                                <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">주소</td>
-                                <td colspan="4">성남대로 9999길 102-2 (현대아파트)</td>
+                                <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">도로명 주소</td>
+                                <td th:text="|${restaurant.address.roadAddress} ${restaurant.address.detailAddress}|">성남대로 9999길 1층</td>
+                                <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">지번 주소</td>
+                                <td th:text="|${restaurant.address.landLotAddress} ${restaurant.address.detailAddress}|" >성남대로 182-2길 1층</td>
                             </tr>
 
 
                             <tr>
                                 <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">주차 가능 여부</td>
-                                <td colspan="4">주차 가능</td>
+                                <td colspan="4" th:if="${restaurant.canPark}" th:text="|주차 가능|">주차 가능</td>
+                                <td colspan="4" th:unless="${restaurant.canPark}" th:text="|주차 불가능|">주차 불가능</td>
                             </tr>
 
 
                             <tr>
                                 <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">예약 시간 간격</td>
-                                <td colspan="4">2시간</td>
+                                <td colspan="4" th:if="${restaurant.reservationTimeGap==120}" th:text="|2시간|">2시간</td>
+                                <td colspan="4" th:if="${restaurant.reservationTimeGap==60}" th:text="|1시간|">1시간</td>
+                                <td colspan="4" th:if="${restaurant.reservationTimeGap==30}" th:text="|30분|">30분</td>
                             </tr>
 
                             <tr>
                                 <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">예약 취소 시 위약금 발생 여부</td>
-                                <td colspan="4">발생</td>
+                                <td colspan="4" class="p-5" th:if="${restaurant.isPenalty}" th:text="|발생|">발생</td>
+                                <td colspan="4" class="p-5" th:unless="${restaurant.isPenalty}" th:text="|발생하지 않음|">발생하지 않음</td>
                             </tr>
 
 
@@ -80,42 +90,23 @@
 
 
                             <tr>
-                                <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">식당 분류 </td>
+                                <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">제공하는 서비스 </td>
                                 <td colspan="4">
-                                    <div class="badge text-bg-light border" >글루텐프리 메뉴</div>
-                                    <div class="badge text-bg-light border">단체 이용 가능</div>
-                                    <div class="badge text-bg-light border">무선 인터넷</div>
-                                    <div class="badge text-bg-light border">포장</div>
-                                    <div class="badge text-bg-light border">배달</div>
+                                    <div class="badge text-bg-light border" th:each="provideServiceType : ${restaurant.provideServiceTypes}" th:text="${provideServiceType}">글루텐프리 메뉴</div>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">포함 음식 </td>
                                 <td colspan="4">
-                                    <div class="badge text-bg-light border">유제품 포함</div>
-                                    <div class="badge text-bg-light border">계란 포함</div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">제공 서비스 </td>
-                                <td colspan="4">
-                                    <div class="badge text-bg-light border">글루텐프리 메뉴</div>
-                                    <div class="badge text-bg-light border">단체 이용 가능</div>
-                                    <div class="badge text-bg-light border">무선 인터넷</div>
-                                    <div class="badge text-bg-light border">포장</div>
-                                    <div class="badge text-bg-light border">배달</div>
+                                    <div class="badge text-bg-light border" th:each="containFoodType : ${restaurant.containFoodTypes}" th:text="${containFoodType}">유제품 포함</div>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1">분위기</td>
                                 <td colspan="4">
-                                    <div class="badge text-bg-light border">활기찬</div>
-                                    <div class="badge text-bg-light border">트렌디한</div>
-                                    <div class="badge text-bg-light border">모던한</div>
-                                    <div class="badge text-bg-light border">데이트하기 좋은</div>
+                                    <div class="badge text-bg-light border" th:each="moodType : ${restaurant.moodTypes}" th:text="${moodType}">활기찬</div>
                                 </td>
                             </tr>
 
@@ -123,8 +114,7 @@
                             <tr>
                                 <td class="table-success fw-bold" style="text-align:center;background-color:#D5EED1;height: 10rem;line-height: 10rem;">매장 사진</td>
                                 <td colspan="4">
-                                    <img src="/assets/images/restaurant/salardy_dache.jpeg" style="width:10rem;height:10rem">
-                                    <img src="/assets/images/restaurant/umm/umm3.jpeg" style="width:10rem;height:10rem">
+                                    <img class="me-1" src="/assets/images/restaurant/salardy_dache.jpeg" th:each="image : ${restaurant.restaurantImages}" th:src="@{${image}}" style="width:10rem;height:10rem">
                                 </td>
                             </tr>
 
@@ -133,182 +123,30 @@
                                 <td class="table-success fw-bold " style="text-align:center;background-color:#D5EED1;justify-content:center;align-items:center;">메뉴</td>
                                 <td colspan="4">
                                     <!-- 이미지 -->
-                                    <div class="row align-items-center mt-5" >
+                                    <div class="row align-items-center mt-5" th:each="food : ${restaurant.foods}" >
                                         <div class="col-3 col-lg-1">
-                                            <img src="/assets/images/restaurant/food/food1.jpeg" th:src="@{/assets/images/restaurant/food/food1.jpeg}" alt="Ecommerce" class="img-fluid">
+                                            <img src="/assets/images/restaurant/food/food1.jpeg" th:src="@{${food.image}}" style="width:8rem;height:5rem" alt="Ecommerce" class="img-fluid">
                                         </div>
 
                                         <div class="col-4 col-lg-5">  <!-- col로 조절하면 됨-->
                                             <!-- title -->
-                                            <a href="../restaurant/restaurant.html" class="text-inherit">
-                                                <h5 class="mb-0" style="white-space: nowrap;">마파두부를 올린 크림 리조또</h5>
+                                            <a class="text-inherit">
+                                                <h5 class="mb-0" style="white-space: nowrap;" th:text="${food.name}">마파두부를 올린 크림 리조또</h5>
                                             </a>
                                             <div class="mt-1">
                                                 <!-- price -->
-                                                <span class="fw-bold ">23,000원</span>
+                                                <span th:text="${{food.price}}">23,000원</span>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- 이미지 -->
-                                    <div class="row align-items-center mt-5" >
-                                        <div class="col-3 col-lg-1">
-                                            <img src="/assets/images/restaurant/food/food2.jpeg" th:src="@{/assets/images/restaurant/food/food2.jpeg}" alt="Ecommerce" class="img-fluid">
-                                        </div>
-
-                                        <div class="col-4 col-lg-5">  <!-- col로 조절하면 됨-->
-                                            <!-- title -->
-                                            <a href="../restaurant/restaurant.html" class="text-inherit">
-                                                <h5 class="mb-0" style="white-space: nowrap;">마파두부를 올린 크림 리조또</h5>
-                                            </a>
-                                            <div class="mt-1">
-                                                <!-- price -->
-                                                <span class="fw-bold ">23,000원</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- 이미지 -->
-                                    <div class="row align-items-center mt-5" >
-                                        <div class="col-3 col-lg-1">
-                                            <img src="/assets/images/restaurant/food/food3.jpeg" th:src="@{/assets/images/restaurant/food/food3.jpeg}" alt="Ecommerce" class="img-fluid">
-                                        </div>
-
-                                        <div class="col-4 col-lg-5">  <!-- col로 조절하면 됨-->
-                                            <!-- title -->
-                                            <a href="../restaurant/restaurant.html" class="text-inherit">
-                                                <h5 class="mb-0" style="white-space: nowrap;">마파두부를 올린 크림 리조또</h5>
-                                            </a>
-                                            <div class="mt-1">
-                                                <!-- price -->
-                                                <span class="fw-bold ">23,000원</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- 이미지 -->
-                                    <div class="row align-items-center mt-5" >
-                                        <div class="col-3 col-lg-1">
-                                            <img src="/assets/images/restaurant/food/food4.jpeg" th:src="@{/assets/images/restaurant/food/food4.jpeg}" alt="Ecommerce" class="img-fluid">
-                                        </div>
-
-                                        <div class="col-4 col-lg-5">  <!-- col로 조절하면 됨-->
-                                            <!-- title -->
-                                            <a href="../restaurant/restaurant.html" class="text-inherit">
-                                                <h5 class="mb-0" style="white-space: nowrap;">마파두부를 올린 크림 리조또</h5>
-                                            </a>
-                                            <div class="mt-1">
-                                                <!-- price -->
-                                                <span class="fw-bold ">23,000원</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- 이미지 -->
-                                    <div class="row align-items-center mt-5" >
-                                        <div class="col-3 col-lg-1">
-                                            <img src="/assets/images/restaurant/food/food5.jpeg" th:src="@{/assets/images/restaurant/food/food5.jpeg}" alt="Ecommerce" class="img-fluid">
-                                        </div>
-
-                                        <div class="col-4 col-lg-5">  <!-- col로 조절하면 됨-->
-                                            <!-- title -->
-                                            <a href="../restaurant/restaurant.html" class="text-inherit">
-                                                <h5 class="mb-0" style="white-space: nowrap;">마파두부를 올린 크림 리조또</h5>
-                                            </a>
-                                            <div class="mt-1">
-                                                <!-- price -->
-                                                <span class="fw-bold ">23,000원</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- 이미지 -->
-                                    <div class="row align-items-center mt-5" >
-                                        <div class="col-3 col-lg-1">
-                                            <img src="/assets/images/restaurant/food/food6.jpeg" th:src="@{/assets/images/restaurant/food/food6.jpeg}" alt="Ecommerce" class="img-fluid">
-                                        </div>
-
-                                        <div class="col-4 col-lg-5">  <!-- col로 조절하면 됨-->
-                                            <!-- title -->
-                                            <a href="../restaurant/restaurant.html" class="text-inherit">
-                                                <h5 class="mb-0" style="white-space: nowrap;">마파두부를 올린 크림 리조또</h5>
-                                            </a>
-                                            <div class="mt-1">
-                                                <!-- price -->
-                                                <span class="fw-bold ">23,000원</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- 이미지 -->
-                                    <div class="row align-items-center mt-5" >
-                                        <div class="col-3 col-lg-1">
-                                            <img src="/assets/images/restaurant/food/food7.jpeg" th:src="@{/assets/images/restaurant/food/food7.jpeg}" alt="Ecommerce" class="img-fluid">
-                                        </div>
-
-                                        <div class="col-4 col-lg-5">  <!-- col로 조절하면 됨-->
-                                            <!-- title -->
-                                            <a href="../restaurant/restaurant.html" class="text-inherit">
-                                                <h5 class="mb-0" style="white-space: nowrap;">마파두부를 올린 크림 리조또</h5>
-                                            </a>
-                                            <div class="mt-1">
-                                                <!-- price -->
-                                                <span class="fw-bold ">23,000원</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- 이미지 -->
-                                    <div class="row align-items-center mt-5" >
-                                        <div class="col-3 col-lg-1">
-                                            <img src="/assets/images/restaurant/food/food8.jpeg" th:src="@{/assets/images/restaurant/food/food8.jpeg}" alt="Ecommerce" class="img-fluid">
-                                        </div>
-
-                                        <div class="col-4 col-lg-5">  <!-- col로 조절하면 됨-->
-                                            <!-- title -->
-                                            <a href="../restaurant/restaurant.html" class="text-inherit">
-                                                <h5 class="mb-0" style="white-space: nowrap;">마파두부를 올린 크림 리조또</h5>
-                                            </a>
-                                            <div class="mt-1">
-                                                <!-- price -->
-                                                <span class="fw-bold ">23,000원</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- 이미지 -->
-                                    <div class="row align-items-center mt-5" >
-                                        <div class="col-3 col-lg-1">
-                                            <img src="/assets/images/restaurant/food/food9.jpeg" th:src="@{/assets/images/restaurant/food/food9.jpeg}" alt="Ecommerce" class="img-fluid">
-                                        </div>
-
-                                        <div class="col-4 col-lg-5">  <!-- col로 조절하면 됨-->
-                                            <!-- title -->
-                                            <a href="../restaurant/restaurant.html" class="text-inherit">
-                                                <h5 class="mb-0" style="white-space: nowrap;">마파두부를 올린 크림 리조또</h5>
-                                            </a>
-                                            <div class="mt-1">
-                                                <!-- price -->
-                                                <span class="fw-bold ">23,000원</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
                                 </td>
-
 
                             </tr>
 
 
                             </tbody>
                         </table>
-                        <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-outline-dark me-2" style="border-radius: 5%;">뒤로</button>
-                            <button type="button" class="btn btn-outline-info" style="border-radius: 5%;">수정</button>
-                            <button type="button" class="btn btn-outline-danger mx-2" style="border-radius: 5%;">삭제</button>
-                        </div>
+
                     </div>
                 </div>
             </div>

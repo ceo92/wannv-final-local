@@ -173,7 +173,9 @@ public class RestaurantController {
   }
 
 
-  @GetMapping("admin/restaurants/{id}")
+
+
+  @GetMapping("admin-restaurants/{id}")
   public String getAdminRestaurant(@PathVariable("id") Long id, Model model) {
     model.addAttribute("restaurant", restaurantService.findOne(id));
     return "restaurant/admin-restaurant";

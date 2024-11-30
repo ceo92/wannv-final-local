@@ -4,6 +4,7 @@ import static please_do_it.yumi.domain.QFood.food;
 import static please_do_it.yumi.domain.QLikes.likes;
 import static please_do_it.yumi.domain.QRestaurant.restaurant;
 import static please_do_it.yumi.domain.QReview.review;
+import static please_do_it.yumi.domain.QUser.user;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -86,6 +87,7 @@ public class RestaurantRepository {
         .leftJoin(restaurant.reviews, review)
         .join(restaurant.foods, food)
         .leftJoin(restaurant.likes , likes)
+        .leftJoin(review.user , user)
         .where(whereBuilder,
             eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress))
         .groupBy(restaurant) //restaurant.id로 해도 되고 restaurant로 해도 되는듯 ㅇㅇ 그냥 restaurant로 그루핑이 됨 ㅇㅇ

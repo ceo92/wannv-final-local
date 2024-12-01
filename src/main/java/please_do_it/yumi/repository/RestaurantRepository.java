@@ -97,6 +97,7 @@ public class RestaurantRepository {
 
   public List<Restaurant> findAllAdmin(RestaurantAdminSearchCond restaurantAdminSearchCond) {
     //where
+    Long id = restaurantAdminSearchCond.getId();
     String name = restaurantAdminSearchCond.getName();
     String restaurantTypes = restaurantAdminSearchCond.getRestaurantTypes();
     String businessNum = restaurantAdminSearchCond.getBusinessNum();
@@ -105,12 +106,11 @@ public class RestaurantRepository {
 
     //having
     List<String> adminSortConditions = restaurantAdminSearchCond.getAdminSortConditions();
-    BooleanBuilder whereBuilder = new BooleanBuilder();
 
     JPAQuery<Restaurant> dynamicQuery = query.selectFrom(restaurant)
             .where(adminLikeName(name), adminLikeBusinessNum(businessNum),
                     adminRangeCreateAt(createdAtStart, createdAtEnd)
-                    ,adminLikeRestaurantTypes(restaurantTypes));
+                    ,adminLikeRestaurantTypes(restaurantTypes) , adminLikeId(id));
 
     for (String adminSortCondition : adminSortConditions) {
       if (adminSortCondition.equals("NEW")){
@@ -123,6 +123,11 @@ public class RestaurantRepository {
     return dynamicQuery.fetch();
 
 
+  }
+
+
+  private BooleanExpression adminLikeId(Long id){
+    return id != null ? restaurant.id.eq(id) : null;
   }
   private BooleanExpression adminLikeRestaurantTypes(String restaurantTypes){
     return restaurantTypes != null ? restaurant.restaurantTypes.any().like("%" + restaurantTypes + "%") : null;

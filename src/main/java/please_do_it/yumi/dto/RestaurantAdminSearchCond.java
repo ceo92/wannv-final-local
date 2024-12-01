@@ -17,6 +17,7 @@ public class RestaurantAdminSearchCond {
     /**
      * where 동적 조건
      */
+    private Long id;
     private String name;
     private String businessNum;
     private String restaurantTypes;

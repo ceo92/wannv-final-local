@@ -38,38 +38,46 @@ th, td {
             <div class="p-6 d-flex">
                 <form class="me-auto"  role="search" id="searchForm" th:object="${restaurantAdminSearchCond}" method="get" th:action>
                   <div class="d-flex justify-content-start ">
+
+                    <div class="">
+                      <input th:field="*{id}" class="form-control" placeholder="식당ID 입력" type="search" aria-label="Search">
+                    </div>
+
                     <div class="">
                       <input th:field="*{name}" class="form-control" placeholder="이름 입력" type="search" aria-label="Search">
                     </div>
 
-                    <div class="mx-3 ">
+                    <div class="">
                       <input th:field="*{restaurantTypes}" class="form-control" placeholder="식당 분류 입력" type="search" aria-label="Search">
                     </div>
 
-                    <div class="mx-3 ">
+                    <div class="">
                       <input  th:field="*{businessNum}" class="form-control" placeholder="사업자번호 입력" type="search" aria-label="Search">
                     </div>
-
-                    <div class="mx-3 ">
-                      <input  th:field="*{createdAtStart}" class="form-control" placeholder="시작 등록 날짜 입력" type="date" aria-label="Search">
-                    </div>
-
-                    <div class="mx-3 ">
-                      <input  th:field="*{createdAtEnd}" class="form-control" placeholder="종료 등록 날짜 입력" type="date" aria-label="Search">
-                    </div>
-
-
 
 
                     <div class="">
                       <select class="form-select" th:field="*{adminSortConditions}"  onchange="filtering()">
-                        <option value="" selected>--정렬 방법을 선택하시오--</option>
+                        <option value="" selected>--정렬--</option>
                         <option th:each="adminSortCondition : ${adminSortConditions}" th:value="${adminSortCondition.key}" th:text="${adminSortCondition.value}">최신순</option>
                       </select>
                     </div>
 
                   </div>
-                  <button form="searchForm" class="btn btn-primary px-5 "  th:text="검색">검색하기</button> <!-- button이 form 외부에 있음 , 그래서 form의 id인 searchForm으로 연결!-->
+                  <div class="d-flex justify-content-start mt-3">
+
+                    <div class="d-flex ">
+                      <label style="width:7rem" class="pt-4" th:text="|등록 날짜 : |"></label>
+                      <input  th:field="*{createdAtStart}" class="form-control" type="date" aria-label="Search">
+                    </div>
+
+                    <div class="d-flex justify-content-start ">
+                      <label  class="mx-3 form-label mt-5" th:text="| ~  |"></label>
+                      <input  th:field="*{createdAtEnd}" class="form-control" placeholder="종료 등록 날짜 입력" type="date" aria-label="Search">
+                    </div>
+                  </div>
+
+                  <button form="searchForm" class="btn btn-primary"  th:text="검색">검색하기</button> <!-- button이 form 외부에 있음 , 그래서 form의 id인 searchForm으로 연결!-->
 
                 </form>
 

@@ -665,24 +665,31 @@
         // 마커 범위 추가
         bounds.extend(coords);
 
-        // 마커 위에 표시될 커스텀 이름 (InfoWindow)
-        var infowindow = new kakao.maps.InfoWindow({
-          content: `<div style="
-    padding:10px;
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-  ">
-    ${restaurantName}
-  </div>` // 커스텀 이름 표시
+        var content = `
+                  <div class ="label">
+                  <span class="left"></span>
+                  <span class="center" style="
+      padding:5px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      text-align: center;
+      border: 2px solid black;
+    ">${restaurantName}</span>
+                  <span class="right"></span></div>`;
+
+
+// 커스텀 오버레이를 생성합니다
+        var customOverlay = new kakao.maps.CustomOverlay({
+          position: coords,
+          content: content
         });
 
-        // InfoWindow를 항상 열어둠
-        infowindow.open(map, marker);
+// 커스텀 오버레이를 지도에 표시합니다
+        customOverlay.setMap(map);
 
 
         // 마커 클릭 시 상세 페이지로 이동

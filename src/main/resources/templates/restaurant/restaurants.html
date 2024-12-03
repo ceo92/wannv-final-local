@@ -557,7 +557,7 @@
     var mapContainer = document.getElementById('map'); // 지도를 표시할 div
     var mapOption = {
       center: new kakao.maps.LatLng(37.5665, 126.9780), // 지도의 중심좌표 (서울 기준)
-      level: 4 // 지도의 확대 레벨
+      level: 10 // 지도의 확대 레벨
     };
     var map = new kakao.maps.Map(mapContainer, mapOption);
 
@@ -592,20 +592,23 @@
 
           // 마커 위에 표시될 커스텀 이름 (InfoWindow)
           var infowindow = new kakao.maps.InfoWindow({
-            content: `<div style="padding:5px;">${restaurantName}</div>` // 커스텀 이름 표시
+            content: `<div style="
+      padding:10px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      text-align: center;
+    ">
+      ${restaurantName}
+    </div>` // 커스텀 이름 표시
           });
 
           // InfoWindow를 항상 열어둠
           infowindow.open(map, marker);
 
-          // 마커에 hover 이벤트 추가 (마우스 올리면 이름 표시)
-          kakao.maps.event.addListener(marker, 'mouseover', function() {
-            infowindow.open(map, marker);
-          });
-
-          kakao.maps.event.addListener(marker, 'mouseout', function() {
-            infowindow.close();
-          });
 
           // 마커 클릭 시 상세 페이지로 이동
           kakao.maps.event.addListener(marker, 'click', function() {
@@ -619,12 +622,6 @@
         }
       });
     });
-
-
-
-
-
-
   </script>
 </main>
 

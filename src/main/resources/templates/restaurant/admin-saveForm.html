@@ -149,7 +149,7 @@
                 <input type="text" class="form-control" th:field="*{zipcode}" onclick="sample4_execDaumPostcode()" placeholder="우편번호 입력">
               </div>
               <div class="col-4">
-                <input type="text" class="form-control" th:field="*{detailsAddress}" onclick="sample4_execDaumPostcode()" placeholder="상세 주소 입력">
+                <input type="text" class="form-control" th:field="*{detailAddress}" onclick="sample4_execDaumPostcode()" placeholder="상세 주소 입력">
               </div>
 
               <div class="col-12">
@@ -365,14 +365,14 @@
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('zipcode').value = data.zonecode;
-                document.getElementById("roadAddress").value = roadAddr;
+                document.getElementById("roadNameAddress").value = roadAddr;
                 document.getElementById("landLotAddress").value = data.landLotAddress;
 
                 // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
                 if(roadAddr !== ''){
-                    document.getElementById("detailsAddress").value = extraRoadAddr;
+                    document.getElementById("detailAddress").value = extraRoadAddr;
                 } else {
-                    document.getElementById("detailsAddress").value = '';
+                    document.getElementById("detailAddress").value = '';
                 }
             }
         }).open();

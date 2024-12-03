@@ -19,7 +19,6 @@ import please_do_it.yumi.domain.Review;
 import please_do_it.yumi.dto.RestaurantAdminSearchCond;
 import please_do_it.yumi.dto.RestaurantSaveDto;
 import please_do_it.yumi.dto.RestaurantSearchCond;
-import please_do_it.yumi.dto.RestaurantUpdateDto;
 import please_do_it.yumi.repository.RestaurantRepository;
 
 @Transactional(readOnly = true)
@@ -60,12 +59,17 @@ public class RestaurantService {
             restaurantSaveDto.getRestaurantName(), restaurantSaveDto.getContact(), restaurantSaveDto.getDescription()
             , restaurantSaveDto.getMoodTypes(), restaurantSaveDto.getContainFoodTypes(), restaurantSaveDto.getProvideServiceTypes(),
             restaurantSaveDto.getRestaurantTypes(), storeRestaurantImagesUrl, restaurantSaveDto.getRoadNameAddress(),
-            restaurantSaveDto.getLandLotAddress(), restaurantSaveDto.getZipcode(), restaurantSaveDto.getDetailsAddress(),
+            restaurantSaveDto.getLandLotAddress(), restaurantSaveDto.getZipcode(), restaurantSaveDto.getDetailAddress(),
             restaurantSaveDto.getCanPark(), realReservationTimeGap, restaurantSaveDto.getIsPenalty(), businessDays, foods);
     restaurant.changeBusinessStatus(BusinessStatus.OPEN);
 
     return restaurantRepository.save(restaurant);
   }
+
+
+ /* public List<Restaurant> searchRestaurants(String search){
+    return restaurantRepository.findAllBySearchBar(search);
+  }*/
 
   private static int getRealReservationTimeGap(String restaurantSaveDto) {
     String reservationTimeGap = restaurantSaveDto;
@@ -140,8 +144,8 @@ public class RestaurantService {
     return restaurantSearchCond;
   }
 
-  public List<Restaurant> findRestaurants(RestaurantSearchCond restaurantSearchCond){
-    List<Restaurant> restaurants = restaurantRepository.findAll(restaurantSearchCond);
+  public List<Restaurant> findRestaurants(RestaurantSearchCond restaurantSearchCond , String search){
+    List<Restaurant> restaurants = restaurantRepository.findAll(restaurantSearchCond , search);
     return setRestaurantDefaultInfo(restaurants);
   }
 
@@ -170,17 +174,22 @@ public class RestaurantService {
   }
 
 
-  @Transactional
-  public void updateRestaurant(Long id , RestaurantUpdateDto restaurantUpdateDto) {
+  //변경 감지 !
+  /*@Transactional
+  public void updateRestaurant(RestaurantUpdateDto restaurantUpdateDto) {
+    Long id = restaurantUpdateDto.getId();
+    Restaurant updateRestaurant = findOne(id);
+
+    updateRestaurant.changeRestaurant(restaurantUpdateDto.getBusinessNum() , restaurantUpdateDto.getRestaurantName() , restaurantUpdateDto.getMoodTypes() , restaurantUpdateDto.getContainFoodTypes() , restaurantUpdateDto.getProvideServiceTypes() , restaurantUpdateDto.getRestaurantTypes() , restaurantUpdateDto);
     //새로 만들어줬음 , 이걸로 통으로 변경
     List<BusinessDay> businessDays = BusinessDay.createBusinessDays(
-        restaurantUpdateDto.getOpenTimes(),
+        restaurantUpdateDto.getBusinessDayUpdateDTOList(),
         restaurantUpdateDto.getCloseTimes(), restaurantUpdateDto.getBreakStartTimes(),
         restaurantUpdateDto.getBreakEndTimes(), restaurantUpdateDto.getLastOrderTimes(),
         restaurantUpdateDto.getIsDayOffList());
 
     // 새로 만들어줬음 , 이걸로 통으로 변경
-    List<Food> foods = restaurantUpdateDto.getFoodSaveDtoList().stream().map(
+    List<Food> foods = restaurantUpdateDto.getFoodUpdateDtoList().stream().map(
         foodSaveDto -> new Food(foodSaveDto.getName(), foodSaveDto.getFoodImageUrl(),
             foodSaveDto.getPrice())).toList();
 
@@ -196,14 +205,14 @@ public class RestaurantService {
         restaurantUpdateDto.getZipcode(),restaurantUpdateDto.getDetailAddress(), restaurantUpdateDto.getCanPark(),
     realReservationTimeGap, restaurantUpdateDto.getIsPenalty() ,  businessDays, foods);
 
-  }
+  }*/
 
   // 프로세스 : 현재 요일과는 아무 상관없음 , 그냥 전체에 대한 로직임
   @Transactional
   @Scheduled(cron = "0 */30 * * * *")
   public void updateBusinessStatus(){
     LocalDateTime now = LocalDateTime.now();
-    List<Restaurant> restaurants = restaurantRepository.findAll(new RestaurantSearchCond());
+    List<Restaurant> restaurants = restaurantRepository.findAll(new RestaurantSearchCond() , null);
     //다 계산해주는 거니까 여기서 그냥 모든 상태를 이 메서드 안에서 동시에 업데이트 해주는 것!
 
     //아니네 휴무일 계산은 마지막에 해줘야하네

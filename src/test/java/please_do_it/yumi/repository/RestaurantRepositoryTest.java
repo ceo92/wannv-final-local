@@ -29,6 +29,7 @@ class RestaurantRepositoryTest {
   RestaurantController restaurantController;
 
 
+/*
 
 
   @Test
@@ -60,11 +61,13 @@ class RestaurantRepositoryTest {
     moodTypes.add("활기찬");
 
 
+*/
 /*
     restaurantSearchCond.setStartPrice(20000);
     restaurantSearchCond.setEndPrice(30000);
     restaurantSearchCond.setRoadAddress("서울%");
-*/
+*//*
+
 
     List<String> sortConditions = restaurantSearchCond.getSortConditions();
     sortConditions.add("NEW");
@@ -74,7 +77,8 @@ class RestaurantRepositoryTest {
     List<Restaurant> all = restaurantRepository.findAll(restaurantSearchCond);
     for (Restaurant restaurant1 : all) {
       System.out.println("restaurant = " + restaurant1);
-      /*List<Review> reviews = restaurant1.getReviews();
+      */
+/*List<Review> reviews = restaurant1.getReviews();
       List<Food> foods = restaurant1.getFoods();
       for (Review review1 : reviews) {
         System.out.println("review = " + review1);
@@ -82,17 +86,21 @@ class RestaurantRepositoryTest {
       System.out.println("음식들의 평균 값 : "+foods.stream().mapToInt(a->a.getPrice()).average().getAsDouble());
       for (Food food : foods) {
         System.out.println("food = " + food);
-      }*/
+      }*//*
+
     }
   }
+*/
 
 
   @Test
-  void sdjkd(){
-    List<Restaurant> allAdmin = restaurantRepository.findAllAdmin(new RestaurantAdminSearchCond());
-    for (Restaurant restaurant : allAdmin) {
+  void sfjfsdjk(){
+    RestaurantSearchCond restaurantSearchCond = new RestaurantSearchCond();
+    List<Restaurant> all = restaurantRepository.findAll(restaurantSearchCond, "음");
+    for (Restaurant restaurant : all) {
       System.out.println("restaurant = " + restaurant);
     }
+
   }
 
 

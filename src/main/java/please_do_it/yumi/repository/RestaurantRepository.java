@@ -49,7 +49,7 @@ public class RestaurantRepository {
 
 
 
-  public List<Restaurant> findAll(RestaurantSearchCond restaurantSearchCond){
+  public List<Restaurant> findAll(RestaurantSearchCond restaurantSearchCond , String search){
 
     Boolean canPark = restaurantSearchCond.getCanPark();
     Boolean isOpen = restaurantSearchCond.getIsOpen();
@@ -81,19 +81,37 @@ public class RestaurantRepository {
     for (Integer rate : rates) {
       havingBuilder.or(review.rating.avg().goe(rate).and(review.rating.avg().lt(rate + 1)));
     }
+    System.out.println("search = " + search);
+
 
     JPAQuery<Restaurant> dynamicQuery = query.selectFrom(restaurant)
         .leftJoin(restaurant.reviews, review)
         .join(restaurant.foods, food)
         .leftJoin(restaurant.likes , likes)
-        .where(whereBuilder,
-            eqCanPark(canPark), eqIsOpen(isOpen), likeRoadAddress(roadAddress))
+        .where(whereBuilder, eqCanPark(canPark), eqIsOpen(isOpen),
+                likeRoadAddress(roadAddress), mergeRestaurantRegionNameSearch(search))
         .groupBy(restaurant) //restaurant.id로 해도 되고 restaurant로 해도 되는듯 ㅇㅇ 그냥 restaurant로 그루핑이 됨 ㅇㅇ
         .having(havingBuilder, loeGoePrice(startPrice, endPrice));
     addOrderBy(sortConditions, dynamicQuery);
 
+
     return dynamicQuery.fetch();
   }
+
+  private BooleanExpression restaurantNameSearch(String search){
+    return StringUtils.hasText(search) ? restaurant.name.like("%"+search+"%") : null;
+  }
+
+  private BooleanExpression regionNameSearch(String search){
+    return StringUtils.hasText(search) ? restaurant.address.roadAddress.like("%"+search+"%") : null;
+  }
+
+  private BooleanExpression mergeRestaurantRegionNameSearch(String search) {
+    BooleanExpression restaurantNameCondition = restaurantNameSearch(search);
+    BooleanExpression regionNameCondition = regionNameSearch(search);
+    return restaurantNameCondition!= null && regionNameCondition!=null ?  restaurantNameCondition.or(regionNameCondition) : null;
+  }
+
 
   public List<Restaurant> findAllAdmin(RestaurantAdminSearchCond restaurantAdminSearchCond) {
     //where
@@ -148,9 +166,6 @@ public class RestaurantRepository {
   private BooleanExpression adminLikeBusinessNum(String businessNum) {
    return  StringUtils.hasText(businessNum) ? restaurant.businessNum.like("%"+businessNum+"%") : null;
   }
-
-
-
 
 
 
@@ -298,6 +313,8 @@ public class RestaurantRepository {
   }
 
 
+
+  //어느 지역을 검색하든 지역과 유사한 모든 식당들 다 가져옴 심지어 필터링도 걸 수 있음 !! ㄱㅇㄷ
   private BooleanExpression likeRoadAddress(String roadAddress){
     return StringUtils.hasText(roadAddress) ? restaurant.address.roadAddress.like(roadAddress) : null;
   }
@@ -309,8 +326,6 @@ public class RestaurantRepository {
   private BooleanExpression eqCanPark(Boolean canPark) {
     return Boolean.TRUE.equals(canPark) ? restaurant.canPark.eq(true) : null;
   }
-
-
 
 
 

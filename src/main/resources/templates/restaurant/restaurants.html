@@ -65,9 +65,9 @@
                   <div class="mb-8">
                     <h5 class="mb-3">정렬 조건</h5>
 
-                    <th:block class="form-check mb-2" th:each="sortCondition : ${sortConditions}">
-                      <input th:field="*{sortConditions}" class="btn-check" type="checkbox"  th:value="${sortCondition.key}">
-                      <label class="btn btn-outline-primary btn-sm" th:for="${#ids.prev('sortConditions')}" th:text="${sortCondition.value}"></label>
+                    <th:block class="mb-2" th:each="sortCondition : ${sortConditions}">
+                      <input th:field="*{sortConditions}" class="btn-check p-2" type="radio"  th:value="${sortCondition.key}">
+                      <label class="btn btn-outline-primary p-2" th:for="${#ids.prev('sortConditions')}" th:text="${sortCondition.value}"></label>
                     </th:block>
 
                   </div>
@@ -320,7 +320,7 @@
   </section>
   <!-- modal -->
   <!-- Modal -->
-  <div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
+  <!--<div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body p-8">
@@ -334,7 +334,7 @@
           </div>
           <div class="row">
             <div class="col-lg-6">
-              <!-- img slide -->
+              &lt;!&ndash; img slide &ndash;&gt;
               <div class="product productModal" id="productModal">
                 <div
                     class="zoom"
@@ -343,7 +343,7 @@
                   background-image: url(/assets/images/products/product-single-img-1.jpg);
                 "
                 >
-                  <!-- img -->
+                  &lt;!&ndash; img &ndash;&gt;
                   <img
                       src="/assets/images/products/product-single-img-1.jpg"
                       alt=""
@@ -357,7 +357,7 @@
                     background-image: url(../assets/images/products/product-single-img-2.jpg);
                   "
                   >
-                    <!-- img -->
+                    &lt;!&ndash; img &ndash;&gt;
                     <img
                         src="/assets/images/products/product-single-img-2.jpg"
                         alt=""
@@ -372,7 +372,7 @@
                     background-image: url(../assets/images/products/product-single-img-3.jpg);
                   "
                   >
-                    <!-- img -->
+                    &lt;!&ndash; img &ndash;&gt;
                     <img
                         src="/assets/images/products/product-single-img-3.jpg"
                         alt=""
@@ -387,7 +387,7 @@
                     background-image: url(../assets/images/products/product-single-img-4.jpg);
                   "
                   >
-                    <!-- img -->
+                    &lt;!&ndash; img &ndash;&gt;
                     <img
                         src="/assets/images/products/product-single-img-4.jpg"
                         alt=""
@@ -395,12 +395,12 @@
                   </div>
                 </div>
               </div>
-              <!-- product tools -->
+              &lt;!&ndash; product tools &ndash;&gt;
               <div class="product-tools">
                 <div class="thumbnails row g-3" id="productModalThumbnails">
                   <div class="col-3 tns-nav-active">
                     <div class="thumbnails-img">
-                      <!-- img -->
+                      &lt;!&ndash; img &ndash;&gt;
                       <img
                           src="/assets/images/products/product-single-img-1.jpg"
                           alt=""
@@ -409,7 +409,7 @@
                   </div>
                   <div class="col-3">
                     <div class="thumbnails-img" >
-                      <!-- img -->
+                      &lt;!&ndash; img &ndash;&gt;
                       <img
                           src="/assets/images/products/product-single-img-2.jpg"
                           alt=""
@@ -418,7 +418,7 @@
                   </div>
                   <div class="col-3">
                     <div class="thumbnails-img">
-                      <!-- img -->
+                      &lt;!&ndash; img &ndash;&gt;
                       <img
                           src="/assets/images/products/product-single-img-3.jpg"
                           alt=""
@@ -427,7 +427,7 @@
                   </div>
                   <div class="col-3">
                     <div class="thumbnails-img">
-                      <!-- img -->
+                      &lt;!&ndash; img &ndash;&gt;
                       <img
                           src="/assets/images/products/product-single-img-4.jpg"
                           alt=""
@@ -470,8 +470,8 @@
                   </button>
                 </div>
                 <div>
-                  <!-- input -->
-                  <!-- input -->
+                  &lt;!&ndash; input &ndash;&gt;
+                  &lt;!&ndash; input &ndash;&gt;
                   <div class="input-group input-spinner  ">
                     <input type="button" value="-" class="button-minus  btn  btn-sm " data-field="quantity">
                     <input type="number" step="1" max="10" value="1" name="quantity" class="quantity-field form-control-sm form-input   ">
@@ -483,15 +483,15 @@
                 >
 
                   <div class="col-lg-4 col-md-5 col-6 d-grid">
-                    <!-- button -->
-                    <!-- btn -->
+                    &lt;!&ndash; button &ndash;&gt;
+                    &lt;!&ndash; btn &ndash;&gt;
                     <button type="button" class="btn btn-primary">
                       <i class="feather-icon icon-shopping-bag me-2"></i>Add to
                       cart
                     </button>
                   </div>
                   <div class="col-md-4 col-5">
-                    <!-- btn -->
+                    &lt;!&ndash; btn &ndash;&gt;
                     <a
                         class="btn btn-light"
                         href="#"
@@ -545,7 +545,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
 
 
 </main>

@@ -81,6 +81,8 @@
             <h1 class="mb-1" th:text="${restaurant.name}">음 이터리 </h1>
             <div class="mb-4">
               <!-- rating --> <small class="text-warning"><i class="bi bi-star-fill"></i></small><a href="#" class="ms-1" th:text="|${restaurant.averageRating}(${restaurant.reviewCount})|">4.5(30)</a>
+                              <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${restaurant.likesCount}|">123</span>
+
             </div>
             <span th:text="${restaurant.description}">최고의 비건 맛집 음 이터리입니다.</span>
 
@@ -119,7 +121,13 @@
               <div class="col-xxl-4 col-lg-4 col-md-5 col-5 d-grid d-flex justify-content-start" style="width:100%">
                 <!-- button -->
                 <!-- btn --> <button type="button" class="btn btn-primary col-11 clear-button"  data-bs-toggle="modal" href="#exampleModalToggle"><i class="feather-icon icon-shopping-bag me-2"></i>예약하기</button>
-                <a class="btn btn-light col-1" href="../pages/shop-wishlist.html" data-bs-toggle="tooltip" data-bs-html="true" aria-label="Wishlist"><i class="feather-icon icon-heart"></i></a>
+
+                    <a class="btn btn-light col-1" href="../pages/shop-wishlist.html" th:href="@{/restaurants/{id}(id = ${restaurant.id})}" data-bs-toggle="tooltip" data-bs-html="true" aria-label="Wishlist">
+                      <i class="feather-icon icon-heart"></i>
+                    </a>
+
+
+
               </div>
 
 
@@ -216,7 +224,7 @@
                     <!-- 이미지 -->
                     <div class="row align-items-center" >
                       <div class="col-3 col-lg-1">
-                        <img src="/assets/images/restaurant/food/food1.jpeg" th:src="@{${food.image}}" alt="Ecommerce" class="img-fluid">
+                        <img src="/assets/images/restaurant/food/food4.jpeg" th:src="@{${food.image}}" alt="Ecommerce" class="img-fluid">
                       </div>
 
                       <div class="col-4 col-md-6 col-lg-5">  <!-- col로 조절하면 됨-->

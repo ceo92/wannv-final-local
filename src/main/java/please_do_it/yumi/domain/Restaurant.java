@@ -75,6 +75,10 @@ public class Restaurant {
 
   private String description; //설명
 
+  @OneToMany(mappedBy = "restaurant")
+  private List<Seat> seats = new ArrayList<>();
+
+
 
   @Column(name = "created_at")
   @DateTimeFormat(pattern = "yyyy-mm-dd")
@@ -90,6 +94,8 @@ public class Restaurant {
 
   @Column(name = "is_penalty")
   private Boolean isPenalty;
+
+//  private Point point;
 
 
   @Enumerated(EnumType.STRING)

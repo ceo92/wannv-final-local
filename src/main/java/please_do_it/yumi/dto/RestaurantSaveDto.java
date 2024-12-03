@@ -23,7 +23,7 @@ public class RestaurantSaveDto {
   private String roadNameAddress;
   private String landLotAddress;
   private String zipcode;
-  private String detailsAddress;
+  private String detailAddress;
   private Boolean canPark;
   private String reservationTimeGap;
   private Boolean isPenalty;

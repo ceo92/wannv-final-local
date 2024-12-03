@@ -1,5 +1,6 @@
 package please_do_it.yumi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -49,7 +50,7 @@ public class Restaurant {
   private String contact; //연락처
 
   @Transient
-  @NumberFormat(pattern = "#,###.##")
+  @NumberFormat(pattern = "#,###.#")
   private Double averageRating;
 
   @Transient
@@ -107,19 +108,24 @@ public class Restaurant {
 
 
   @OneToMany(mappedBy = "restaurant")
+  @JsonIgnore
   private List<Review> reviews = new ArrayList<>(); //해당 식당에서 작성한 사용자들의 리뷰를 담을  것임
 
 
   //오직 Restaurant 부모에게만 Food는 의존되므로 cascade , orphanRemoval 걸었음 , cascade , orphanRemoval 특징 : 리포지토리 없어도 됨 즉 em.perist(BusinessDay)하지 않아도 연쇄적으로 알아서 저장됨 , 생명주기가 전부 rESTAURANT에 의존되었기 때문!
   @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
   private List<BusinessDay> businessDays = new ArrayList<>();
 
 
   //오직 Restaurant 부모에게만 Food는 의존되므로 cascade , orphanRemoval 걸었음 ,
   @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
   private List<Food> foods = new ArrayList<>();
 
+
   @OneToMany(mappedBy = "restaurant")
+  @JsonIgnore
   private List<Likes> likes = new ArrayList<>();
 
 

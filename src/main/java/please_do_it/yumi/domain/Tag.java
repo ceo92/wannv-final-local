@@ -1,6 +1,7 @@
 package please_do_it.yumi.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class Tag {
 
 
   @OneToMany(mappedBy = "tag")
+  @JsonIgnore
   private List<ReviewTag> reviewTags = new ArrayList<>();
 
   private String category;

@@ -1,5 +1,6 @@
 package please_do_it.yumi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +27,7 @@ public class ReviewTag {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "tag_id")
+  @JsonIgnore
   private Tag tag;
 
 

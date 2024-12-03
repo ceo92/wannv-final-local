@@ -81,7 +81,6 @@ public class RestaurantRepository {
     for (Integer rate : rates) {
       havingBuilder.or(review.rating.avg().goe(rate).and(review.rating.avg().lt(rate + 1)));
     }
-    System.out.println("search = " + search);
 
 
     JPAQuery<Restaurant> dynamicQuery = query.selectFrom(restaurant)

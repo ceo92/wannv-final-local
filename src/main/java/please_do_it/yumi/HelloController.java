@@ -22,8 +22,9 @@ public class HelloController {
 
 
   @RequestMapping
-  public String hello(Model model) {
+  public String hello(@RequestParam(value = "address" , required = false) String currentRoadAddress ,  Model model) {
     //현재 위치 기준 , 전국 인기(높은 좋아요 and 높은 리뷰 수 and 높은 별점 ) , 가격대별 ,
+    List<Restaurant> currentLocationPopularRestaurants = getPopularRestaurantsByCurrentLocation(currentRoadAddress);
     List<Restaurant> popularRestaurants = getPopularRestaurants();
     List<Restaurant> manyReviewsRestaurants = getManyReviewsRestaurants();
     List<Restaurant> highRatingRestaurants = getHighRatingRestaurants();
@@ -34,7 +35,7 @@ public class HelloController {
     List<Restaurant> restaurantsByPriceRange4 = getRestaurantsByPriceRange(70000 , 100000);
 
     //메인에 보여지는 것들만 여기 정의하면 됨 ㅇㅇ
-
+    model.addAttribute("currentLocationPopularRestaurants", currentLocationPopularRestaurants);
     model.addAttribute("popularRestaurants", popularRestaurants);
     model.addAttribute("manyReviewsRestaurants", manyReviewsRestaurants);
     model.addAttribute("highRatingRestaurants", highRatingRestaurants);
@@ -52,7 +53,7 @@ public class HelloController {
    * 현재 위치 기준 인기 식당 , 일단 보류 ㅇㅇ
    */
   private List<Restaurant> getPopularRestaurantsByCurrentLocation(String currentLocationRoadAddress) {
-
+    System.out.println("currentLocationRoadAddress = " + currentLocationRoadAddress);
     RestaurantSearchCond currentLocationRestaurantCond = new RestaurantSearchCond();
     currentLocationRestaurantCond.setRoadAddress(currentLocationRoadAddress);
     currentLocationRestaurantCond.setSortConditions(Arrays.asList("LIKE" , "RATE" , "REVIEW"));

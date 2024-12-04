@@ -2,6 +2,10 @@
 <html th:replace="~{fragment/layout.html :: layout(~{::main})}" xmlns:th="http://www.thymeleaf.org">
 
 <main>
+  <form th:action method="get" id="locationForm">
+    <!-- 도로명 주소 값을 저장할 hidden input -->
+    <input type="hidden" name="address" id="addressInput">
+  </form>
   <main>
     <section class="mt-8">
       <div class="container">
@@ -50,20 +54,28 @@
       <div class="container">
         <div class="row">
           <div class="col-12 mb-6">
-            <h3 class="mb-0">근처 식당</h3>
+            <h3 class="mb-0">가까운 곳에 위치한 식당</h3>
           </div>
         </div>
-        <!-- 기본 슬라이더 여기서-->
 
         <div class="category-slider ">
 
-          <!-- <div class="item"> 에 th:each 적용하면 됨!-->
-          <div class="item" >
-            <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
+          <div class="item mt-5"  th:each="currentLocationPopularRestaurant : ${currentLocationPopularRestaurants}">
+            <a href="/" th:href="@{/restaurants/{id}(id = ${currentLocationPopularRestaurant.id})}" class="text-decoration-none text-inherit">
               <div class="card card-product mb-lg-4">
-                <div class="card-body text-center py-8">
-                  <img src="assets/images/category/category-dairy-bread-eggs.jpg" class="mb-3 img-fluid">
-                  <div class="text-truncate">Dairy, Bread & Eggs</div>
+                <div class="card-body py-8">
+                  <img src="assets/images" th:src="@{${currentLocationPopularRestaurant.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
+                  <div class="d-flex justify-content-start">
+                    <div class="text-truncate me-2 fs-5" th:text="${currentLocationPopularRestaurant.name}">Pet Care</div>
+                    <small class="me-1 text-muted mt-1" th:each="restaurantType : ${currentLocationPopularRestaurant.restaurantTypes}" th:text="${restaurantType}"></small>
+                  </div>
+                  <!-- address -->
+                  <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
+                    <i class="bi bi-geo-alt"></i><small class="ms-1" th:text="|${currentLocationPopularRestaurant.address.roadAddress}|">&nbsp;&nbsp;서울 강남구 역삼로 134 1층</small>
+                  </div>
+                  <small class="text-warning"><i class="bi bi-star-fill"></i></small>
+                  <small class="ms-1" th:text="|${#numbers.formatDecimal(currentLocationPopularRestaurant.averageRating , 0 , 1)}(${currentLocationPopularRestaurant.reviewCount})|">4.5(30)</small>
+                  <small class="text-danger"><i class="bi bi-heart-fill"></i></small> <span class="text-muted small" th:text="|${currentLocationPopularRestaurant.likesCount}|">123</span>
                 </div>
               </div>
             </a>
@@ -73,25 +85,30 @@
       </div>
     </section>
 
+
     <!-- 세번째 카테고리 슬라이드-->
     <section class="mb-lg-10 mt-lg-14 my-8">
       <div class="container">
         <div class="row">
           <div class="col-12 mb-6">
-            <h3 class="mb-0">전국 인기 식당</h3>
+            <h3 class="mb-0">전국적으로 인기 많은 식당</h3>
           </div>
         </div>
 
         <div class="category-slider ">
 
           <div class="item mt-5"  th:each="popularRestaurant : ${popularRestaurants}">
-            <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
+            <a href="/" th:href="@{/restaurants/{id}(id = ${popularRestaurant.id})}" class="text-decoration-none text-inherit">
               <div class="card card-product mb-lg-4">
                 <div class="card-body py-8">
                   <img src="assets/images" th:src="@{${popularRestaurant.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
                   <div class="d-flex justify-content-start">
                     <div class="text-truncate me-2 fs-5" th:text="${popularRestaurant.name}">Pet Care</div>
                     <small class="me-1 text-muted mt-1" th:each="restaurantType : ${popularRestaurant.restaurantTypes}" th:text="${restaurantType}"></small>
+                  </div>
+                  <!-- address -->
+                  <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
+                    <i class="bi bi-geo-alt"></i><small class="ms-1" th:text="|${popularRestaurant.address.roadAddress}|">&nbsp;&nbsp;서울 강남구 역삼로 134 1층</small>
                   </div>
                   <small class="text-warning"><i class="bi bi-star-fill"></i></small>
                   <small class="ms-1" th:text="|${#numbers.formatDecimal(popularRestaurant.averageRating , 0 , 1)}(${popularRestaurant.reviewCount})|">4.5(30)</small>
@@ -118,13 +135,17 @@
         <div class="category-slider ">
 
           <div class="item mt-5"  th:each="popularRestaurant : ${popularRestaurants}">
-            <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
+            <a href="/" th:href="@{/restaurants/{id}(id = ${popularRestaurant.id})}" class="text-decoration-none text-inherit">
               <div class="card card-product mb-lg-4">
                 <div class="card-body py-8">
                   <img src="assets/images" th:src="@{${popularRestaurant.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
                   <div class="d-flex justify-content-start">
                     <div class="text-truncate me-2 fs-5" th:text="${popularRestaurant.name}">Pet Care</div>
                     <small class="me-1 text-muted mt-1" th:each="restaurantType : ${popularRestaurant.restaurantTypes}" th:text="${restaurantType}"></small>
+                  </div>
+                  <!-- address -->
+                  <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
+                    <i class="bi bi-geo-alt"></i><small class="ms-1" th:text="|${popularRestaurant.address.roadAddress}|">&nbsp;&nbsp;서울 강남구 역삼로 134 1층</small>
                   </div>
                   <small class="text-warning"><i class="bi bi-star-fill"></i></small>
                   <small class="ms-1" th:text="|${#numbers.formatDecimal(popularRestaurant.averageRating , 0 , 1)}(${popularRestaurant.reviewCount})|">4.5(30)</small>
@@ -150,13 +171,17 @@
         <div class="category-slider ">
 
           <div class="item mt-5"  th:each="manyLikesRestaurant : ${manyLikesRestaurants}">
-            <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
+            <a href="/" th:href="@{/restaurants/{id}(id = ${manyLikesRestaurant.id})}" class="text-decoration-none text-inherit">
               <div class="card card-product mb-lg-4">
                 <div class="card-body py-8">
                   <img src="assets/images" th:src="@{${manyLikesRestaurant.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
                   <div class="d-flex justify-content-start">
                     <div class="text-truncate me-2 fs-5" th:text="${manyLikesRestaurant.name}">Pet Care</div>
                     <small class="me-1 text-muted mt-1" th:each="restaurantType : ${manyLikesRestaurant.restaurantTypes}" th:text="${restaurantType}"></small>
+                  </div>
+                  <!-- address -->
+                  <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
+                    <i class="bi bi-geo-alt"></i><small class="ms-1" th:text="|${manyLikesRestaurant.address.roadAddress}|">&nbsp;&nbsp;서울 강남구 역삼로 134 1층</small>
                   </div>
                   <small class="text-warning"><i class="bi bi-star-fill"></i></small>
                   <small class="ms-1" th:text="|${#numbers.formatDecimal(manyLikesRestaurant.averageRating , 0 , 1)}(${manyLikesRestaurant.reviewCount})|">4.5(30)</small>
@@ -182,13 +207,17 @@
         <div class="category-slider ">
 
           <div class="item mt-5"  th:each="highRatingRestaurant : ${highRatingRestaurants}">
-            <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
+            <a href="/" th:href="@{/restaurants/{id}(id = ${highRatingRestaurant.id})}" class="text-decoration-none text-inherit">
               <div class="card card-product mb-lg-4">
                 <div class="card-body py-8">
                   <img src="assets/images" th:src="@{${highRatingRestaurant.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
                   <div class="d-flex justify-content-start">
                     <div class="text-truncate me-2 fs-5" th:text="${highRatingRestaurant.name}">Pet Care</div>
                     <small class="me-1 text-muted mt-1" th:each="restaurantType : ${highRatingRestaurant.restaurantTypes}" th:text="${restaurantType}"></small>
+                  </div>
+                  <!-- address -->
+                  <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
+                    <i class="bi bi-geo-alt"></i><small class="ms-1" th:text="|${highRatingRestaurant.address.roadAddress}|">&nbsp;&nbsp;서울 강남구 역삼로 134 1층</small>
                   </div>
                   <small class="text-warning"><i class="bi bi-star-fill"></i></small>
                   <small class="ms-1" th:text="|${#numbers.formatDecimal(highRatingRestaurant.averageRating , 0 , 1)}(${highRatingRestaurant.reviewCount})|">4.5(30)</small>
@@ -214,13 +243,17 @@
         <div class="category-slider ">
 
           <div class="item mt-5"  th:each="manyReviewsRestaurant : ${manyReviewsRestaurants}">
-            <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
+            <a href="/" th:href="@{/restaurants/{id}(id = ${manyReviewsRestaurant.id})}" class="text-decoration-none text-inherit">
               <div class="card card-product mb-lg-4">
                 <div class="card-body py-8">
                   <img src="assets/images" th:src="@{${manyReviewsRestaurant.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
                   <div class="d-flex justify-content-start">
                     <div class="text-truncate me-2 fs-5" th:text="${manyReviewsRestaurant.name}">Pet Care</div>
                     <small class="me-1 text-muted mt-1" th:each="restaurantType : ${manyReviewsRestaurant.restaurantTypes}" th:text="${restaurantType}"></small>
+                  </div>
+                  <!-- address -->
+                  <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
+                    <i class="bi bi-geo-alt"></i><small class="ms-1" th:text="|${manyReviewsRestaurant.address.roadAddress}|">&nbsp;&nbsp;서울 강남구 역삼로 134 1층</small>
                   </div>
                   <small class="text-warning"><i class="bi bi-star-fill"></i></small>
                   <small class="ms-1" th:text="|${#numbers.formatDecimal(manyReviewsRestaurant.averageRating , 0 , 1)}(${manyReviewsRestaurant.reviewCount})|">4.5(30)</small>
@@ -247,13 +280,17 @@
         <div class="category-slider ">
 
           <div class="item mt-5"  th:each="restaurantByPriceRange : ${restaurantsByPriceRange1}">
-            <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
+            <a href="/" th:href="@{/restaurants/{id}(id = ${restaurantByPriceRange.id})}" class="text-decoration-none text-inherit">
               <div class="card card-product mb-lg-4">
                 <div class="card-body py-8">
                   <img src="assets/images" th:src="@{${restaurantByPriceRange.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
                   <div class="d-flex justify-content-start">
                     <div class="text-truncate me-2 fs-5" th:text="${restaurantByPriceRange.name}">Pet Care</div>
                     <small class="me-1 text-muted mt-1" th:each="restaurantType : ${restaurantByPriceRange.restaurantTypes}" th:text="${restaurantType}"></small>
+                  </div>
+                  <!-- address -->
+                  <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
+                    <i class="bi bi-geo-alt"></i><small class="ms-1" th:text="|${restaurantByPriceRange.address.roadAddress}|">&nbsp;&nbsp;서울 강남구 역삼로 134 1층</small>
                   </div>
                   <small class="text-warning"><i class="bi bi-star-fill"></i></small>
                   <small class="ms-1" th:text="|${#numbers.formatDecimal(restaurantByPriceRange.averageRating , 0 , 1)}(${restaurantByPriceRange.reviewCount})|">4.5(30)</small>
@@ -279,13 +316,17 @@
         <div class="category-slider ">
 
           <div class="item mt-5"  th:each="restaurantByPriceRange : ${restaurantsByPriceRange2}">
-            <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
+            <a href="/" th:href="@{/restaurants/{id}(id = ${restaurantByPriceRange.id})}" class="text-decoration-none text-inherit">
               <div class="card card-product mb-lg-4">
                 <div class="card-body py-8">
                   <img src="assets/images" th:src="@{${restaurantByPriceRange.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
                   <div class="d-flex justify-content-start">
                     <div class="text-truncate me-2 fs-5" th:text="${restaurantByPriceRange.name}">Pet Care</div>
                     <small class="me-1 text-muted mt-1" th:each="restaurantType : ${restaurantByPriceRange.restaurantTypes}" th:text="${restaurantType}"></small>
+                  </div>
+                  <!-- address -->
+                  <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
+                    <i class="bi bi-geo-alt"></i><small class="ms-1" th:text="|${restaurantByPriceRange.address.roadAddress}|">&nbsp;&nbsp;서울 강남구 역삼로 134 1층</small>
                   </div>
                   <small class="text-warning"><i class="bi bi-star-fill"></i></small>
                   <small class="ms-1" th:text="|${#numbers.formatDecimal(restaurantByPriceRange.averageRating , 0 , 1)}(${restaurantByPriceRange.reviewCount})|">4.5(30)</small>
@@ -311,13 +352,17 @@
         <div class="category-slider ">
 
           <div class="item mt-5"  th:each="restaurantByPriceRange : ${restaurantsByPriceRange3}">
-            <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
+            <a href="/" th:href="@{/restaurants/{id}(id = ${restaurantByPriceRange.id})}" class="text-decoration-none text-inherit">
               <div class="card card-product mb-lg-4">
                 <div class="card-body py-8">
                   <img src="assets/images" th:src="@{${restaurantByPriceRange.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
                   <div class="d-flex justify-content-start">
                     <div class="text-truncate me-2 fs-5" th:text="${restaurantByPriceRange.name}">Pet Care</div>
                     <small class="me-1 text-muted mt-1" th:each="restaurantType : ${restaurantByPriceRange.restaurantTypes}" th:text="${restaurantType}"></small>
+                  </div>
+                  <!-- address -->
+                  <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
+                    <i class="bi bi-geo-alt"></i><small class="ms-1" th:text="|${restaurantByPriceRange.address.roadAddress}|">&nbsp;&nbsp;서울 강남구 역삼로 134 1층</small>
                   </div>
                   <small class="text-warning"><i class="bi bi-star-fill"></i></small>
                   <small class="ms-1" th:text="|${#numbers.formatDecimal(restaurantByPriceRange.averageRating , 0 , 1)}(${restaurantByPriceRange.reviewCount})|">4.5(30)</small>
@@ -344,13 +389,17 @@
         <div class="category-slider ">
 
           <div class="item mt-5"  th:each="restaurantByPriceRange : ${restaurantsByPriceRange4}">
-            <a href="../pages/shop-grid.html" class="text-decoration-none text-inherit">
+            <a href="/" th:href="@{/restaurants/{id}(id = ${restaurantByPriceRange.id})}" class="text-decoration-none text-inherit">
               <div class="card card-product mb-lg-4">
                 <div class="card-body py-8">
                   <img src="assets/images" th:src="@{${restaurantByPriceRange.restaurantImages[0]}}" style="width:15rem;height:10rem" class="mb-3">
                   <div class="d-flex justify-content-start">
                     <div class="text-truncate me-2 fs-5" th:text="${restaurantByPriceRange.name}">Pet Care</div>
                     <small class="me-1 text-muted mt-1" th:each="restaurantType : ${restaurantByPriceRange.restaurantTypes}" th:text="${restaurantType}"></small>
+                  </div>
+                  <!-- address -->
+                  <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
+                    <i class="bi bi-geo-alt"></i><small class="ms-1" th:text="|${restaurantByPriceRange.address.roadAddress}|">&nbsp;&nbsp;서울 강남구 역삼로 134 1층</small>
                   </div>
                   <small class="text-warning"><i class="bi bi-star-fill"></i></small>
                   <small class="ms-1" th:text="|${#numbers.formatDecimal(restaurantByPriceRange.averageRating , 0 , 1)}(${restaurantByPriceRange.reviewCount})|">4.5(30)</small>
@@ -753,6 +802,51 @@
     </div>
   </div>
 </div>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1820ddf0f285025d0105d85dfd07591c&libraries=services,clusterer,drawing"></script>
+  <script th:inline="javascript">
+    const geocoder = new kakao.maps.services.Geocoder();
+
+    // 세션 스토리지를 이용해 중복 요청 방지
+    const isLocationSent = sessionStorage.getItem('locationSent');
+
+    if (!isLocationSent) {
+      navigator.geolocation.getCurrentPosition(
+              function (position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                // Kakao Maps API로 도로명 주소 변환
+                geocoder.coord2Address(longitude, latitude, function (result, status) {
+                  if (status === kakao.maps.services.Status.OK) {
+                    const roadAddress = result[0].road_address
+                            ? result[0].road_address.address_name
+                            : '주소를 가져올 수 없습니다.';
+
+                    console.log('Road Address:', roadAddress);
+
+                    // 현재 위치 도로명 주소를 GET 요청 파라미터로 서버에 보냄 (페이지 갱신 없음)
+                    const xhr = new XMLHttpRequest();
+                    xhr.open("GET", `?address=${encodeURIComponent(roadAddress)}`, true);
+                    xhr.onload = function () {
+                      if (xhr.status === 200) {
+                        console.log("현재 위치 기반 식당 정보가 성공적으로 로드되었습니다.");
+                      }
+                    };
+                    xhr.send();
+
+                    // 세션 스토리지에 상태 저장
+                    sessionStorage.setItem('locationSent', 'true');
+                  } else {
+                    alert('도로명 주소를 가져오지 못했습니다.');
+                  }
+                });
+              },
+              function (error) {
+                alert('현재 위치를 가져오는 데 실패했습니다. ' + error.message);
+              }
+      );
+    }
+  </script>
 
 </main>
 

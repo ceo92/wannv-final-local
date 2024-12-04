@@ -251,6 +251,10 @@
                             </h2>
                             <span class="text-muted ms-1" th:each="restaurantType : ${restaurant.restaurantTypes}" th:text="${restaurantType}">양식</span><!--어차피 여기서는 QueryDSL 관심 없음 이미 다 할당해와서 리스트에 박아놨기 때문 ㅇㅇ-->
                         </div>
+                        <!-- address -->
+                        <div class="text-dark"> <!--가로로 컴포넌트들을 배치-->
+                          <i class="bi bi-geo-alt"></i><span class="ms-1" th:text="|${restaurant.address.roadAddress} ${restaurant.address.detailAddress}|">&nbsp;&nbsp;서울 강남구 역삼로 134 1층</span>
+                        </div>
                         <div>
                           <!-- 영업 중 , 브레이크타임 , 영업 종료 여부만 , 영업 시간은 상세에서 ㅇㅇ-->
                           <span class="text-dark" th:text="${restaurant.businessStatus.description}">영업 중</span>

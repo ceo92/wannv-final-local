@@ -2,16 +2,16 @@ package please_do_it.yumi;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import please_do_it.yumi.domain.Restaurant;
 import please_do_it.yumi.dto.RestaurantSearchCond;
-import please_do_it.yumi.dto.SearchBarDTO;
 import please_do_it.yumi.service.RestaurantService;
 
 @Controller
@@ -22,9 +22,11 @@ public class HelloController {
 
 
   @RequestMapping
-  public String hello(@RequestParam(value = "address" , required = false) String currentRoadAddress ,  Model model) {
+  public String hello(@RequestParam(value = "address", required = false) String address, Model model , HttpServletRequest request) {
     //현재 위치 기준 , 전국 인기(높은 좋아요 and 높은 리뷰 수 and 높은 별점 ) , 가격대별 ,
-    List<Restaurant> currentLocationPopularRestaurants = getPopularRestaurantsByCurrentLocation(currentRoadAddress);
+
+
+    List<Restaurant> currentLocationPopularRestaurants = getPopularRestaurantsByCurrentLocation(address);
     List<Restaurant> popularRestaurants = getPopularRestaurants();
     List<Restaurant> manyReviewsRestaurants = getManyReviewsRestaurants();
     List<Restaurant> highRatingRestaurants = getHighRatingRestaurants();

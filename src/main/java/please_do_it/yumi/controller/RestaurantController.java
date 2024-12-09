@@ -148,8 +148,7 @@ public class RestaurantController {
 
   @PostMapping("/admin-restaurants/save")
   public String saveRestaurantPost(@ModelAttribute("restaurantSaveDto") RestaurantSaveDto restaurantSaveDto, RedirectAttributes redirectAttributes) {
-    log.info("restaurant = {}" , restaurantSaveDto.getRestaurantImages());
-    log.info("food = {}", restaurantSaveDto.getFoodSaveDtoList());
+
 
 
     List<MultipartFile> restaurantImages = restaurantSaveDto.getRestaurantImages();
@@ -177,8 +176,7 @@ public class RestaurantController {
       });
     };
 
-    log.info("restaurantSaveDto = {}" , restaurantSaveDto);
-    log.info("foodSaveDtoList = {}" , restaurantSaveDto.getFoodSaveDtoList());
+
 
     Long saveId = restaurantService.save(restaurantSaveDto);
     redirectAttributes.addAttribute("saveId", saveId);
@@ -186,13 +184,13 @@ public class RestaurantController {
   }
 
 
-  /*@GetMapping("/admin-restaurants/{id}/update")
+  @GetMapping("/admin-restaurants/{id}/update")
   public String updateRestaurant(@PathVariable("id") Long id ,  Model model) {
     Restaurant restaurant = restaurantService.findOne(id);
 
-    *//**
-     * Set Restaurant DTO
-     *//*
+
+     // Set Restaurant DTO
+
     RestaurantUpdateDto restaurantUpdateDto = RestaurantUpdateDto.builder().id(id).contact(restaurant.getContact()).description(restaurant.getDescription())
             .restaurantName(restaurant.getName()).restaurantTypes(restaurant.getRestaurantTypes())
             .restaurantImagesUrl(Arrays.asList(restaurant.getRestaurantImages())).businessNum(restaurant.getBusinessNum())
@@ -201,58 +199,74 @@ public class RestaurantController {
             .roadNameAddress(restaurant.getAddress().getRoadAddress()).canPark(restaurant.getCanPark()).isPenalty(restaurant.getIsPenalty())
             .reservationTimeGap(convertReservationTimeGapToString(restaurant.getReservationTimeGap())).build();
 
-    *//**
-     * Set BusinessDay DTO
-     *//*
+
+     // Set BusinessDay DTO
+
     List<BusinessDay> businessDays = restaurant.getBusinessDays();
     List<LocalTime> openTimes = businessDays.stream().map(BusinessDay::getOpenTime).toList();
     List<LocalTime> closeTimes = businessDays.stream().map(BusinessDay::getCloseTime).toList();
     List<LocalTime> breakStartTimes = businessDays.stream().map(BusinessDay::getBreakStartTime).toList();
     List<LocalTime> breakEndTimes = businessDays.stream().map(BusinessDay::getBreakEndTime).toList();
     List<LocalTime> lastOrders = businessDays.stream().map(BusinessDay::getLastOrderTime).toList();
-    List<Boolean> isDayOffList = businessDays.stream().map(BusinessDay::getIsDayOff).toList();
-    List<String> convertToStringIsDayOffList = new ArrayList<>();
-    dayOfWeeks().stream().map();
-    isDayOffList.stream().map(isDayOff -> {
-      if (isDayOff){
-        return
-      }
-    })
+    List<String> stringDayOffList = new ArrayList<>();
+    businessDays.stream().map(BusinessDay::getIsDayOff).forEach(isDayOff -> {
+      String[] dayOfWeeks = {"월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"};
+      for (String dayOfWeek : dayOfWeeks) {
+        if (isDayOff){
+          stringDayOffList.add(dayOfWeek);
+        }
+        }
+      restaurantUpdateDto.setDayOfWeeks(Arrays.stream(dayOfWeeks).toList());
+      });
 
     restaurantUpdateDto.setOpenTimes(openTimes);
     restaurantUpdateDto.setCloseTimes(closeTimes);
     restaurantUpdateDto.setBreakStartTimes(breakStartTimes);
     restaurantUpdateDto.setBreakEndTimes(breakEndTimes);
     restaurantUpdateDto.setLastOrders(lastOrders);
-    restaurantUpdateDto.setIsDayOffList(convertToStringIsDayOffList);
+    restaurantUpdateDto.setIsDayOffList(stringDayOffList);
 
 
+     // Set Food DTO
 
-    *//**
-     * Set Food DTO
-     *//*
     List<Food> foods = restaurant.getFoods();
     restaurantUpdateDto.setFoodUpdateDtoList(foods.stream().map(food -> new FoodUpdateDto(food.getName(), food.getPrice(), food.getImage())).toList());
 
     model.addAttribute("restaurantUpdateDto", restaurantUpdateDto);
     return "restaurant/admin-updateForm";
-  }*/
+  }
 
   @PostMapping("/admin-restaurants/{id}/update")
-  @ResponseBody
-  public String updateRestaurant(@ModelAttribute("restaurantUpdateDto") RestaurantUpdateDto restaurantUpdateDto){
-    List<LocalTime> closeTimes = restaurantUpdateDto.getCloseTimes();
-    List<LocalTime> openTimes = restaurantUpdateDto.getOpenTimes();
-    for (LocalTime closeTime : closeTimes) {
-      System.out.println("closeTime = " + closeTime);
-    }
-    for (LocalTime openTime : openTimes) {
-      System.out.println("openTime = " + openTime);
-    }
-    List<String> isDayOffList = restaurantUpdateDto.getIsDayOffList();
-    System.out.println("isDayOffList = " + isDayOffList);
+  public String updateRestaurant(@ModelAttribute("restaurantUpdateDto") RestaurantUpdateDto restaurantUpdateDto , RedirectAttributes redirectAttributes) {
 
-    return "OK";
+    List<MultipartFile> restaurantImages = restaurantUpdateDto.getRestaurantImages();
+    List<MultipartFile> foodImages = new ArrayList<>();
+    List<FoodUpdateDto> foodUpdateDtoList = restaurantUpdateDto.getFoodUpdateDtoList();
+    for (FoodUpdateDto foodUpdateDto : foodUpdateDtoList) {
+      foodImages.add(foodUpdateDto.getFoodImage());
+    }
+
+    /**
+     * 식당 스토리지 저장 + DB에 스토리지 Url 저장
+     */
+    List<FileDTO> restaurantImagesFileDto = fileService.uploadFiles(restaurantImages, restaurantDir);
+    List<String> restaurantImagesUrl = restaurantImagesFileDto.stream().map(FileDTO::getUploadFileUrl).toList();
+    restaurantUpdateDto.setRestaurantImagesUrl(restaurantImagesUrl);
+
+    /**
+     * 음식 스토리지 저장 + DB에 스토리지 Url 저장
+     */
+    List<FileDTO> foodImagesFileDto = fileService.uploadFiles(foodImages, foodDir);
+    List<String> foodImagesUrl = foodImagesFileDto.stream().map(FileDTO::getUploadFileUrl).toList();
+    for (String foodImageUrl : foodImagesUrl) {
+      foodUpdateDtoList.forEach(foodUpdateDto -> {
+        foodUpdateDto.setFoodImageUrl(foodImageUrl);
+      });
+    };
+
+    restaurantService.updateRestaurant(restaurantUpdateDto);
+    redirectAttributes.addAttribute("updateId" , restaurantUpdateDto.getId());
+    return "redirect:/admin-restaurants/{updateId}";
 
   }
 

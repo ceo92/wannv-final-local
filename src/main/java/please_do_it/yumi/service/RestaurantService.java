@@ -3,6 +3,7 @@ package please_do_it.yumi.service;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -16,9 +17,7 @@ import please_do_it.yumi.domain.BusinessDay;
 import please_do_it.yumi.domain.Food;
 import please_do_it.yumi.domain.Restaurant;
 import please_do_it.yumi.domain.Review;
-import please_do_it.yumi.dto.RestaurantAdminSearchCond;
-import please_do_it.yumi.dto.RestaurantSaveDto;
-import please_do_it.yumi.dto.RestaurantSearchCond;
+import please_do_it.yumi.dto.*;
 import please_do_it.yumi.repository.RestaurantRepository;
 
 @Transactional(readOnly = true)
@@ -88,9 +87,9 @@ public class RestaurantService {
     return realReservationTimeGap;
   }
 
-  private static String getStoreRestaurantImagesUrl(List<String> restaurantSaveDto) {
+  private static String getStoreRestaurantImagesUrl(List<String> changeRestaurantsImagesUrl) {
     String storeRestaurantImagesUrl = "";
-    List<String> restaurantImagesUrl = restaurantSaveDto;
+    List<String> restaurantImagesUrl = changeRestaurantsImagesUrl;
     for (String restaurantImageUrl : restaurantImagesUrl) {
       storeRestaurantImagesUrl = String.join(",", restaurantImageUrl);
     }
@@ -175,37 +174,43 @@ public class RestaurantService {
 
 
   //변경 감지 !
-  /*@Transactional
+  @Transactional
   public void updateRestaurant(RestaurantUpdateDto restaurantUpdateDto) {
     Long id = restaurantUpdateDto.getId();
     Restaurant updateRestaurant = findOne(id);
 
-    updateRestaurant.changeRestaurant(restaurantUpdateDto.getBusinessNum() , restaurantUpdateDto.getRestaurantName() , restaurantUpdateDto.getMoodTypes() , restaurantUpdateDto.getContainFoodTypes() , restaurantUpdateDto.getProvideServiceTypes() , restaurantUpdateDto.getRestaurantTypes() , restaurantUpdateDto);
-    //새로 만들어줬음 , 이걸로 통으로 변경
-    List<BusinessDay> businessDays = BusinessDay.createBusinessDays(
-        restaurantUpdateDto.getBusinessDayUpdateDTOList(),
-        restaurantUpdateDto.getCloseTimes(), restaurantUpdateDto.getBreakStartTimes(),
-        restaurantUpdateDto.getBreakEndTimes(), restaurantUpdateDto.getLastOrderTimes(),
-        restaurantUpdateDto.getIsDayOffList());
-
-    // 새로 만들어줬음 , 이걸로 통으로 변경
-    List<Food> foods = restaurantUpdateDto.getFoodUpdateDtoList().stream().map(
-        foodSaveDto -> new Food(foodSaveDto.getName(), foodSaveDto.getFoodImageUrl(),
-            foodSaveDto.getPrice())).toList();
-
-    String storeRestaurantImagesUrl = getStoreRestaurantImagesUrl(restaurantUpdateDto.getRestaurantImagesUrl());
+    /**
+     * 식당 이미지
+     */
+    List<String> restaurantImagesUrl = restaurantUpdateDto.getRestaurantImagesUrl();
+    String storeRestaurantImagesUrl = getStoreRestaurantImagesUrl(restaurantImagesUrl);
 
 
+    /**
+     * String => 숫자
+     */
     int realReservationTimeGap = getRealReservationTimeGap(restaurantUpdateDto.getReservationTimeGap());
 
-    Restaurant updateRestaurant = findOne(id);
-    updateRestaurant.changeRestaurant(restaurantUpdateDto.getBusinessNum() , restaurantUpdateDto.getRestaurantName(),
-    restaurantUpdateDto.getMoodTypes(), restaurantUpdateDto.getContainFoodTypes(), restaurantUpdateDto.getProvideServiceTypes(),
-    restaurantUpdateDto.getRestaurantTypes(), storeRestaurantImagesUrl, restaurantUpdateDto.getRoadNameAddress(), restaurantUpdateDto.getLandLotAddress(),
-        restaurantUpdateDto.getZipcode(),restaurantUpdateDto.getDetailAddress(), restaurantUpdateDto.getCanPark(),
-    realReservationTimeGap, restaurantUpdateDto.getIsPenalty() ,  businessDays, foods);
 
-  }*/
+    List<BusinessDay> businessDays = BusinessDay.createBusinessDays(
+            restaurantUpdateDto.getOpenTimes(),
+            restaurantUpdateDto.getCloseTimes(), restaurantUpdateDto.getBreakStartTimes(),
+            restaurantUpdateDto.getBreakEndTimes(), restaurantUpdateDto.getLastOrders(),
+            restaurantUpdateDto.getIsDayOffList());
+
+    List<Food> foods = restaurantUpdateDto.getFoodUpdateDtoList()
+            .stream().map(foodUpdateDto -> new Food(foodUpdateDto.getName(), foodUpdateDto.getFoodImageUrl(), foodUpdateDto.getPrice())).toList();
+
+
+    updateRestaurant.changeRestaurant(restaurantUpdateDto.getDescription() , restaurantUpdateDto.getContact(),
+            restaurantUpdateDto.getBusinessNum() , restaurantUpdateDto.getRestaurantName() ,
+            restaurantUpdateDto.getMoodTypes() , restaurantUpdateDto.getContainFoodTypes() ,
+            restaurantUpdateDto.getProvideServiceTypes() , restaurantUpdateDto.getRestaurantTypes() ,
+            storeRestaurantImagesUrl , restaurantUpdateDto.getRoadNameAddress() , restaurantUpdateDto.getLandLotAddress() ,
+            restaurantUpdateDto.getZipcode() , restaurantUpdateDto.getDetailAddress() , restaurantUpdateDto.getCanPark() , realReservationTimeGap , restaurantUpdateDto.getIsPenalty(),
+            businessDays , foods);
+
+  }
 
   // 프로세스 : 현재 요일과는 아무 상관없음 , 그냥 전체에 대한 로직임
   @Transactional

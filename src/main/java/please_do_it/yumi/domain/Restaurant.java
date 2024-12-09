@@ -140,20 +140,15 @@ public class Restaurant {
   @Column(name = "contain_food_type")
   private Set<String> containFoodTypes = new HashSet<>();
 
-
-  //여러 제공하는 서비스 종류들(단체석 이용 가능 , 무선 와이파이 존재 , 콜키지 가능 , ...) ProvideServiceType
   @ElementCollection
   @CollectionTable(name = "provide_service_type", joinColumns = @JoinColumn(name = "restaurant_id"))
   @Column(name = "provide_service_type")
   private Set<String> provideServiceTypes = new HashSet<>();// enum
 
-
-  //주로 파는 품목 카테고리(추후 단일 객체 고려)RestaurantType
   @ElementCollection
   @CollectionTable(name = "restaurant_type", joinColumns = @JoinColumn(name = "restaurant_id"))
   @Column(name = "restaurant_type")
   private Set<String> restaurantTypes = new HashSet<>();
-
 
   @ElementCollection
   @CollectionTable(name = "mood_type", joinColumns = @JoinColumn(name = "restaurant_id"))
@@ -166,14 +161,7 @@ public class Restaurant {
 
 
 
-  public static Restaurant createRestaurant(String businessNum, String restaurantName, String contact,String description,
-      Set<String> moodTypes,
-      Set<String> containFoodTypes, Set<String> provideServiceTypes, Set<String> restaurantTypes,
-      String image, String roadNameAddress
-      , String landLotAddress, String zipcode, String detailAddress, Boolean canPark,
-      int reservationTimeGap
-      , Boolean isPenalty, List<BusinessDay> businessDays, List<Food> foods) {
-
+  public static Restaurant createRestaurant(String businessNum, String restaurantName, String contact,String description, Set<String> moodTypes, Set<String> containFoodTypes, Set<String> provideServiceTypes, Set<String> restaurantTypes, String image, String roadNameAddress, String landLotAddress, String zipcode, String detailAddress, Boolean canPark, int reservationTimeGap, Boolean isPenalty, List<BusinessDay> businessDays, List<Food> foods) {
     Restaurant restaurant = new Restaurant();
     restaurant.setContact(contact);
     restaurant.setDescription(description);
@@ -193,7 +181,6 @@ public class Restaurant {
     businessDays.forEach(restaurant::addBusinessDay);
     foods.forEach(restaurant::addFood);
     return restaurant;
-
   }
 
   /**
@@ -249,7 +236,7 @@ public class Restaurant {
   }
 
   //수정 메서드
-  public void changeRestaurant(String businessNum, String restaurantName, Set<String> moodTypes,
+  public void changeRestaurant(String description , String contact, String businessNum, String restaurantName, Set<String> moodTypes,
       Set<String> containFoodTypes, Set<String> provideServiceTypes, Set<String> restaurantTypes,
       String image, String roadNameAddress, String landLotAddress, String zipcode,
       String detailsAddress, Boolean canPark, int reservationTimeGap,

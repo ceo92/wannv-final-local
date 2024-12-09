@@ -88,7 +88,7 @@ public class RestaurantRepository {
         .join(restaurant.foods, food)
         .leftJoin(restaurant.likes , likes)
         .where(whereBuilder, eqCanPark(canPark), eqIsOpen(isOpen),
-                likeRoadAddress(roadAddress), mergeRestaurantRegionNameSearch(search))
+                likeSimilarRoadAddress(roadAddress), mergeRestaurantRegionNameSearch(search))
         .groupBy(restaurant) //restaurant.id로 해도 되고 restaurant로 해도 되는듯 ㅇㅇ 그냥 restaurant로 그루핑이 됨 ㅇㅇ
         .having(havingBuilder, loeGoePrice(startPrice, endPrice));
     addOrderBy(sortConditions, dynamicQuery);
@@ -187,6 +187,7 @@ public class RestaurantRepository {
 
 
   }
+
 
   private BooleanExpression likeSimilarRoadAddress(String roadAddress) {
     if (roadAddress == null ){
@@ -315,7 +316,7 @@ public class RestaurantRepository {
 
   //어느 지역을 검색하든 지역과 유사한 모든 식당들 다 가져옴 심지어 필터링도 걸 수 있음 !! ㄱㅇㄷ
   private BooleanExpression likeRoadAddress(String roadAddress){
-    return StringUtils.hasText(roadAddress) ? restaurant.address.roadAddress.like(roadAddress) : null;
+    return StringUtils.hasText(roadAddress) ? restaurant.address.roadAddress.like("%"+roadAddress+"%") : null;
   }
 
   private BooleanExpression eqIsOpen(Boolean isOpen) {

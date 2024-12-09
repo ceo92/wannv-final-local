@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.locks.Condition;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,6 +29,25 @@ class RestaurantRepositoryTest {
   @Autowired
   RestaurantController restaurantController;
 
+
+
+  @Test
+  void 식당전체조회_지역설정_테스트(){
+    //given
+    RestaurantSearchCond restaurantSearchCond = new RestaurantSearchCond();
+    restaurantSearchCond.setRoadAddress("서울 강남구 역삼로");
+
+    //when
+    List<Restaurant> results = restaurantRepository.findAll(restaurantSearchCond, null);
+
+    //then
+    Assertions.assertThat(results.size()).isEqualTo(9);
+  }
+
+  @Test
+  void sdjdsjk(){
+
+  }
 
 /*
 

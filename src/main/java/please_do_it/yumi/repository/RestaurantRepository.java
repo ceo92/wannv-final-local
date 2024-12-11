@@ -1,28 +1,28 @@
 package please_do_it.yumi.repository;
 
-import static please_do_it.yumi.domain.QFood.food;
-import static please_do_it.yumi.domain.QLikes.likes;
-import static please_do_it.yumi.domain.QRestaurant.restaurant;
-import static please_do_it.yumi.domain.QReview.review;
-
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
+import please_do_it.yumi.constant.BusinessStatus;
+import please_do_it.yumi.domain.Restaurant;
+import please_do_it.yumi.dto.RestaurantAdminSearchCond;
+import please_do_it.yumi.dto.RestaurantSearchCond;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
-import please_do_it.yumi.constant.BusinessStatus;
 
-import please_do_it.yumi.domain.Restaurant;
-import please_do_it.yumi.dto.RestaurantAdminSearchCond;
-import please_do_it.yumi.dto.RestaurantSearchCond;
+import static please_do_it.yumi.domain.QFood.food;
+import static please_do_it.yumi.domain.QLikes.likes;
+import static please_do_it.yumi.domain.QRestaurant.restaurant;
+import static please_do_it.yumi.domain.QReview.review;
+
 
 @Repository
 public class RestaurantRepository {
@@ -65,21 +65,22 @@ public class RestaurantRepository {
 
     BooleanBuilder whereBuilder = new BooleanBuilder();
     for (String restaurantType : restaurantTypes) {
-      whereBuilder.or(restaurant.restaurantTypes.any().eq(restaurantType));
+      whereBuilder.and(restaurant.restaurantTypes.any().eq(restaurantType));
     }
+
     for (String moodType : moodTypes) {
-      whereBuilder.or(restaurant.moodTypes.any().eq(moodType));
+      whereBuilder.and(restaurant.moodTypes.any().eq(moodType));
     }
     for (String containFoodType : containFoodTypes) {
-      whereBuilder.or(restaurant.containFoodTypes.any().eq(containFoodType));
+      whereBuilder.and(restaurant.containFoodTypes.any().eq(containFoodType));
     }
     for (String provideServiceType : provideServiceTypes) {
-      whereBuilder.or(restaurant.provideServiceTypes.any().eq(provideServiceType));
+      whereBuilder.and(restaurant.provideServiceTypes.any().eq(provideServiceType));
     }
 
     BooleanBuilder havingBuilder = new BooleanBuilder();
     for (Integer rate : rates) {
-      havingBuilder.or(review.rating.avg().goe(rate).and(review.rating.avg().lt(rate + 1)));
+      havingBuilder.and(review.rating.avg().goe(rate).and(review.rating.avg().lt(rate + 1)));
     }
 
 
@@ -89,7 +90,7 @@ public class RestaurantRepository {
         .leftJoin(restaurant.likes , likes)
         .where(whereBuilder, eqCanPark(canPark), eqIsOpen(isOpen),
                 likeSimilarRoadAddress(roadAddress), mergeRestaurantRegionNameSearch(search))
-        .groupBy(restaurant) //restaurant.id로 해도 되고 restaurant로 해도 되는듯 ㅇㅇ 그냥 restaurant로 그루핑이 됨 ㅇㅇ
+        .groupBy(restaurant)
         .having(havingBuilder, loeGoePrice(startPrice, endPrice));
     addOrderBy(sortConditions, dynamicQuery);
 
@@ -111,6 +112,9 @@ public class RestaurantRepository {
     return restaurantNameCondition!= null && regionNameCondition!=null ?  restaurantNameCondition.or(regionNameCondition) : null;
   }
 
+  private BooleanExpression likeRoadAddress(String roadAddress){
+    return StringUtils.hasText(roadAddress) ? restaurant.address.roadAddress.like("%"+roadAddress+"%") : null;
+  }
 
   public List<Restaurant> findAllAdmin(RestaurantAdminSearchCond restaurantAdminSearchCond) {
     //where
@@ -168,10 +172,6 @@ public class RestaurantRepository {
 
 
 
-
-
-
-
   public List<Restaurant> findSimilarRestaurantsAll(RestaurantSearchCond restaurantSearchCond) {
     Set<String> containFoodTypes = restaurantSearchCond.getContainFoodTypes();
     Set<String> restaurantTypes = restaurantSearchCond.getRestaurantTypes();
@@ -188,14 +188,26 @@ public class RestaurantRepository {
 
   }
 
-
   private BooleanExpression likeSimilarRoadAddress(String roadAddress) {
     if (roadAddress == null ){
       return null;
     }
-    String[] split = roadAddress.split(" ");
-    String similarAddress = split[0]+" "+split[1]+"%";
-    return restaurant.address.roadAddress.like(similarAddress);
+    roadAddress = roadAddress.replace("경기도", "경기")
+            .replace("서울특별시", "서울")
+            .replace("부산광역시", "부산")
+            .replace("대구광역시", "대구")
+            .replace("인천광역시", "인천")
+            .replace("광주광역시", "광주")
+            .replace("대전광역시", "대전")
+            .replace("울산광역시", "울산")
+            .replace("세종특별자치시", "세종")
+            .replace("제주특별자치도", "제주");
+
+    String result =  roadAddress.trim();
+    String[] s = result.split(" ");
+    String similarAddress = s[0]+" " +s[1];
+    System.out.println("similarAddress = " + similarAddress);
+    return restaurant.address.roadAddress.like(similarAddress+"%");
   }
 
 
@@ -217,7 +229,6 @@ public class RestaurantRepository {
           dynamicQuery.orderBy(review.count().desc().nullsLast()); //리뷰 많은 순
           break;
       }
-      System.out.println("11111");
     }
 //      sortConditions.clear();
   }
@@ -314,10 +325,7 @@ public class RestaurantRepository {
 
 
 
-  //어느 지역을 검색하든 지역과 유사한 모든 식당들 다 가져옴 심지어 필터링도 걸 수 있음 !! ㄱㅇㄷ
-  private BooleanExpression likeRoadAddress(String roadAddress){
-    return StringUtils.hasText(roadAddress) ? restaurant.address.roadAddress.like("%"+roadAddress+"%") : null;
-  }
+
 
   private BooleanExpression eqIsOpen(Boolean isOpen) {
     return Boolean.TRUE.equals(isOpen) ? restaurant.businessStatus.eq(BusinessStatus.OPEN) : null; //영업 중인지 판별 , 누군가 체크박스에 영업 중 여부를 체크했을 경우 영업 중만 뜨게끔 조건 추가하는 것!

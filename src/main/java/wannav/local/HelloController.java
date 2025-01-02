@@ -13,6 +13,11 @@ import wannav.local.domain.Restaurant;
 import wannav.local.dto.RestaurantSearchCond;
 import wannav.local.service.RestaurantService;
 
+
+/**
+ * 인기 식당 기준 : 좋아요 많고 + 리뷰 수 많고 + 평균 별점 높은 것 가장 상위에서부터 ㅇㅇ
+ */
+
 @Controller
 @RequiredArgsConstructor
 public class HelloController {

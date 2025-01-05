@@ -8,7 +8,7 @@ public enum MoodType {
   , QUIET("조용한"), BEFORE_MARRY("상견례하기 좋은") ,VIEW("뷰맛집") , GROUP("단체회식하기 좋은")
   , ANNIVERSARY("기념일");
 
-  private String description;
+  private final String description;
 
   //생성자이자 설정자 역할
   MoodType(String description){

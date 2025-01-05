@@ -10,7 +10,7 @@ public enum RestaurantType {
 
 
   //설명 , 키는 영어 값은 한글
-  private String description;
+  private final String description;
 
   //생성자이자 설정자 역할
   RestaurantType(String description){

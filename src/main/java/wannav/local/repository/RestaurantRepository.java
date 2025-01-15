@@ -236,7 +236,7 @@ public class RestaurantRepository {
   //모달 보안성 우수 => 제3자가 접근하기 어려움, 단순 팝업창 느낌이므로 , 이런 2가지 방법을 고려했을 때 ~~가 더 괜찮아서 이거를 선정하였다. 이렇게 면접이든 포폴이든 정의하자!
 
 
-  private BooleanExpression eqContainFoodTypes(Set<String> containFoodTypes) {
+  /*private BooleanExpression eqContainFoodTypes(Set<String> containFoodTypes) {
     if (containFoodTypes == null || containFoodTypes.isEmpty()) {
       return null; // 조건이 없으면 null 반환
     }
@@ -299,7 +299,7 @@ public class RestaurantRepository {
     }
 
     return booleanExpression;
-  }
+  }*/
 
 
   //goeRate : 별표 1,2,3,4,5 체크박스 중 여러 개를 누를 수 있어서 List를 받아올 수 있는 것이고,  이때 별점은 평균별점임 그래서 avg로 계산했음

@@ -1,6 +1,8 @@
 package wannav.local.repository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -36,10 +38,6 @@ class RestaurantRepositoryTest {
     Assertions.assertThat(results.size()).isEqualTo(9);
   }
 
-  @Test
-  void sdjdsjk(){
-
-  }
 
 /*
 

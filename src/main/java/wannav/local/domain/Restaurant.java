@@ -20,19 +20,17 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 import wannav.local.constant.BusinessStatus;
 
+import static lombok.AccessLevel.PROTECTED;
+
 @Entity
 @Getter
 @Setter(AccessLevel.PRIVATE)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(exclude = {"foods", "businessDays", "reviews", "likes"})
 public class Restaurant {
 
@@ -78,7 +76,6 @@ public class Restaurant {
   private List<Seat> seats = new ArrayList<>();
 
 
-
   @Column(name = "created_at")
   @DateTimeFormat(pattern = "yyyy-mm-dd")
   private LocalDate createdAt; //생성일
@@ -94,7 +91,6 @@ public class Restaurant {
   @Column(name = "is_penalty")
   private Boolean isPenalty;
 
-//  private Point point;
 
 
   @Enumerated(EnumType.STRING)
@@ -153,11 +149,20 @@ public class Restaurant {
   @Column(name = "mood_type")
   private Set<String> moodTypes = new HashSet<>();
 
+  public Restaurant() {
+
+  }
+
+
   /**
    * 복잡한 연관관계 => 생성 메서드 , 다른 개발자들이 해당 틀대로 생성하게끔 유도하기 !
    */
-
-
+  public static Restaurant createRestaurant(List<Food> foods , List<BusinessDay> businessDays){
+    Restaurant restaurant = new Restaurant();
+    businessDays.forEach(restaurant::addBusinessDay);
+    foods.forEach(restaurant::addFood);
+    return restaurant;
+  }
 
   public static Restaurant createRestaurant(String businessNum, String restaurantName, String contact,String description, Set<String> moodTypes, Set<String> containFoodTypes, Set<String> provideServiceTypes, Set<String> restaurantTypes, String image, String roadNameAddress, String landLotAddress, String zipcode, String detailAddress, Boolean canPark, int reservationTimeGap, Boolean isPenalty, List<BusinessDay> businessDays, List<Food> foods) {
     Restaurant restaurant = new Restaurant();
@@ -195,7 +200,6 @@ public class Restaurant {
     food.setRestaurant(this); //B에게 연관관계 설정
   }
 
-
   /**
    * 도메인 모델 패턴 : 비즈니스 로직 정의(서비스가 아닌 도메인에 정의하기) DDD로 하면 단위 테스트에서 객체 생성만으로 테스트도 가능한 유라함도 가져갈 수 있음
    */
@@ -204,7 +208,7 @@ public class Restaurant {
     return reviews.stream().mapToInt(Review::getRating).average().orElse(0); //평균 계산 , 리뷰가 없을 경우 그냥 0 반환 ㅇㅇ , 없으니 0이지 !
   }
 
-  public void addStatistics(double averageRating , int likesCount , int reviewCount){
+  public void addStatistics(double averageRating, int likesCount, int reviewCount) {
     this.averageRating = averageRating;
     this.likesCount = likesCount;
     this.reviewCount = reviewCount;
@@ -214,18 +218,17 @@ public class Restaurant {
     return reviews.size();
   }
 
-  public int totalLikesCount(){
+  public int totalLikesCount() {
     return likes.size();
   }
 
-  public void addRestaurantImages(String[] restaurantImages){
+  public void addRestaurantImages(String[] restaurantImages) {
     this.restaurantImages = restaurantImages;
   }
 
-  public void addFoodsPriceAverage(Double averageFoodsPrice){
+  public void addFoodsPriceAverage(Double averageFoodsPrice) {
     this.averageFoodsPrice = averageFoodsPrice;
   }
-
 
 
   //상태 설정 메서드로 가자
@@ -234,11 +237,11 @@ public class Restaurant {
   }
 
   //수정 메서드
-  public void changeRestaurant(String description , String contact, String businessNum, String restaurantName, Set<String> moodTypes,
-      Set<String> containFoodTypes, Set<String> provideServiceTypes, Set<String> restaurantTypes,
-      String image, String roadNameAddress, String landLotAddress, String zipcode,
-      String detailsAddress, Boolean canPark, int reservationTimeGap,
-      Boolean isPenalty, List<BusinessDay> businessDays, List<Food> foods) {
+  public void changeRestaurant(String description, String contact, String businessNum, String restaurantName, Set<String> moodTypes,
+                               Set<String> containFoodTypes, Set<String> provideServiceTypes, Set<String> restaurantTypes,
+                               String image, String roadNameAddress, String landLotAddress, String zipcode,
+                               String detailsAddress, Boolean canPark, int reservationTimeGap,
+                               Boolean isPenalty, List<BusinessDay> businessDays, List<Food> foods) {
 
     setBusinessNum(businessNum);
     setName(restaurantName);

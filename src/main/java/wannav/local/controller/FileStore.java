@@ -92,14 +92,13 @@ public class FileStore {
    */
   private static String extractExtension(String originalFilename) {
     String[] split = originalFilename.split("\\.");
-    String fileExtension = split[split.length-1];
 
 
     /*int pos = originalFilename.lastIndexOf(".");
     String substring = originalFilename.substring(pos + 1);*/
 
 
-    return fileExtension;
+    return split[split.length-1];
   }
 
 }
